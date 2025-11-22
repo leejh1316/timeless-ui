@@ -1,0 +1,24 @@
+{
+  "name": "timeless-ui-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Timeless UI Monorepo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r --filter \"./apps/**\" dev",
+    "dev:docs": "pnpm --filter docs dev",
+    "dev:k-dual": "pnpm --filter k-dual dev",
+    "build": "pnpm -r --filter \"./packages/**\" build",
+    "build:apps": "pnpm -r --filter \"./apps/**\" build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.4.5"
+  }
+}
