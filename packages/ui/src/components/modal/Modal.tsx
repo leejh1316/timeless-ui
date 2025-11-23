@@ -4,8 +4,8 @@ import { createContext, forwardRef, useContext } from "react";
 import { Primitive } from "../primitive/Primitive";
 import type { PrimitivePropsWithRef } from "../primitive/Primitive";
 import { useComposedRefs } from "../../hooks/useComposeRefs";
+import clsx from "clsx";
 
-// --- Context 및 기본 Modal 컴포넌트 (변경 없음) ---
 type ModalContextValue = ReturnType<typeof useModal> & { lockScroll?: boolean };
 const ModalContext = createContext<ModalContextValue | null>(null);
 
@@ -17,81 +17,91 @@ export const useModalContext = () => {
   return context;
 };
 
+// =============== Modal.Root ================
 export interface ModalProps extends UseModalProps {
   lockScroll?: boolean;
   children?: React.ReactNode;
 }
-export const Modal = ({ children, lockScroll = true, ...props }: ModalProps) => {
+const ModalRoot = ({ children, lockScroll = true, ...props }: ModalProps) => {
   const modalData = useModal(props);
   return <ModalContext.Provider value={{ ...modalData, lockScroll }}>{children}</ModalContext.Provider>;
 };
+ModalRoot.displayName  = "Modal.Root";
 
+// =============== Modal.Trigger ================
 interface ModalTriggerProps extends PrimitivePropsWithRef<"button"> {}
-
-export const ModalTrigger = forwardRef<React.ElementRef<typeof Primitive.button>, ModalTriggerProps>(
-  ({ asChild, children, ...props }, forwardedRef) => {
+const ModalTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ModalTriggerProps>(
+  ({ ...props }, forwardedRef) => {
     const { refs, getReferenceProps } = useModalContext();
-    const composedRef = useComposedRefs(refs.setReference, forwardedRef);
-
-    return (
-      <Primitive.button asChild={asChild} {...getReferenceProps(props)} ref={composedRef}>
-        {children}
-      </Primitive.button>
-    );
+    const composedRefs = useComposedRefs(refs.setReference, forwardedRef);
+    return <Primitive.button ref={composedRefs} {...getReferenceProps(props)} />;
   },
 );
-ModalTrigger.displayName = "ModalTrigger";
+ModalTrigger.displayName = "Modal.Trigger";
 
-interface ModalOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}
-export const ModalOverlay = ({ children, className, ...props }: ModalOverlayProps) => {
+// =============== Modal.Overlay ================
+interface ModalOverlayProps extends React.HTMLAttributes<HTMLDivElement> {
+  initialFocus?: any;
+}
+const ModalOverlay = ({
+  children,
+  className = "bg-gray-900/70 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
+  initialFocus,
+  ...props
+}: ModalOverlayProps) => {
   const { context, lockScroll, isMounted, transitionStatus } = useModalContext();
   return (
     isMounted && (
       <FloatingPortal>
         <FloatingOverlay data-status={transitionStatus} lockScroll={lockScroll} className={className} {...props} />
-        <FloatingFocusManager context={context}>
+        <FloatingFocusManager context={context} initialFocus={initialFocus} order={["floating", "content"]}>
           <>{children}</>
         </FloatingFocusManager>
       </FloatingPortal>
     )
   );
 };
+ModalOverlay.displayName = "Modal.Overlay";
 
-interface ModalContentProps extends PrimitivePropsWithRef<"div"> {}
-
-export const ModalContent = forwardRef<React.ElementRef<typeof Primitive.div>, ModalContentProps>(
-  ({ asChild, children, className = "_base-modal-content", ...props }, forwardedRef) => {
+// =============== Modal.Content ================
+interface ModalContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
+  ({ children, className, ...props }, forwardedRef) => {
     const { refs, getFloatingProps, transitionStyle } = useModalContext();
+    const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
     return (
-      <Primitive.div asChild={asChild} ref={forwardedRef} className={className} {...props}>
-        <div ref={refs.setFloating} style={transitionStyle} {...getFloatingProps()}>
+      <div className={clsx("fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2", className)} {...props}>
+        <div ref={composedRefs} style={transitionStyle} {...getFloatingProps()}>
           {children}
         </div>
-      </Primitive.div>
+      </div>
     );
   },
 );
 ModalContent.displayName = "ModalContent";
 
-// --- ModalClose (Primitive 적용) ---
+// =============== Modal.Close ================
 interface ModalCloseProps extends PrimitivePropsWithRef<"button"> {}
-
-export const ModalClose = forwardRef<React.ElementRef<typeof Primitive.button>, ModalCloseProps>(
-  ({ asChild, children, className = "_base-modal-close", ...props }, forwardedRef) => {
-    const { setIsOpen } = useModalContext();
-
-    return (
-      <Primitive.button
-        asChild={asChild}
-        ref={forwardedRef}
-        className={className}
-        // 사용자가 onClick을 전달해도 내부의 닫기 기능과 병합되어 실행됩니다.
-        onClick={() => setIsOpen(false)}
-        {...props}
-      >
-        {children}
-      </Primitive.button>
-    );
-  },
-);
+const ModalClose = ({ className, onClick, ...props }: ModalCloseProps) => {
+  const { setIsOpen } = useModalContext();
+  return (
+    <Primitive.button
+      onClick={(e) => {
+        onClick?.(e);
+        setIsOpen(false);
+      }}
+      className={clsx(className)}
+      {...props}
+    />
+  );
+};
 ModalClose.displayName = "ModalClose";
+
+const Modal = {
+  Root: ModalRoot,
+  Trigger: ModalTrigger,
+  Overlay: ModalOverlay,
+  Content: ModalContent,
+  Close: ModalClose,
+};
+export { Modal };

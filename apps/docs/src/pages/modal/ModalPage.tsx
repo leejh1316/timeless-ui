@@ -1,7 +1,7 @@
 import { ComponentPreview } from "@src/components/base/Preview";
 import { PropsTable } from "@src/components/base/PropsTable";
 import { ComponentPageLayout } from "@src/components/layout/ContentLayout";
-import { Modal, ModalClose, ModalContent, ModalOverlay, ModalTrigger } from "@timeless-ui/ui";
+import { Modal } from "@timeless-ui/ui";
 
 export default function ModalPage() {
   const propsData = [
@@ -73,36 +73,33 @@ export function Component() {
         description="가장 기본적인 형태의 모달입니다. 오버레이, 콘텐츠 영역, 그리고 닫기 버튼으로 구성됩니다."
         code={exampleCode}
       >
-        <Modal>
-          <ModalTrigger asChild>
+        <Modal.Root>
+          <Modal.Trigger asChild>
             <button className="inline-flex h-10 items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700">
               모달 열기
             </button>
-          </ModalTrigger>
-          <ModalOverlay className="data-[status=open]:animate-fade-in data-[status=closed]:animate-fade-out fixed inset-0 bg-black/60">
-            <ModalContent
-              asChild
-              className="data-[status=open]:animate-scale-in data-[status=closed]:animate-scale-out fixed left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6 shadow-2xl dark:bg-gray-800"
-            >
-              <div>
+          </Modal.Trigger>
+          <Modal.Overlay className="data-[status=open]:animate-fade-in data-[status=closed]:animate-fade-out fixed inset-0 bg-black/60">
+            <Modal.Content>
+              <div className=" rounded-xl bg-white p-6 shadow-2xl">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">결제 확인</h2>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                   총 $49.99를 결제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
                 </p>
                 <div className="mt-6 flex justify-end gap-3">
-                  <ModalClose asChild>
+                  <Modal.Close asChild>
                     <button className="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                       취소
                     </button>
-                  </ModalClose>
+                  </Modal.Close>
                   <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
                     결제하기
                   </button>
                 </div>
               </div>
-            </ModalContent>
-          </ModalOverlay>
-        </Modal>
+            </Modal.Content>
+          </Modal.Overlay>
+        </Modal.Root>
       </ComponentPreview>
 
       <PropsTable data={propsData} />
