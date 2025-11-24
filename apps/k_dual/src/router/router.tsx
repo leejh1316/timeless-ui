@@ -26,11 +26,18 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <DashboardPage />,
+        element: <Dashboard />,
         handle: {
           category: "home",
         },
       },
+      // {
+      //   index: true,
+      //   element: <DashboardPage />,
+      //   handle: {
+      //     category: "home",
+      //   },
+      // },
       {
         path: "learning-log",
         element: <LearningLog />,

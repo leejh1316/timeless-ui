@@ -23,7 +23,7 @@ export default function Dashboard() {
       <div className="mx-auto block min-h-screen w-full max-w-[460px] bg-gray-50 pb-20 md:hidden">
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-6">
-          <div className="text-lg font-bold tracking-tighter text-gray-900">WorkLog.</div>
+          <div className="text-lg font-bold tracking-tighter text-gray-900">K-dual</div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors">
             <User size={18} />
           </div>
@@ -141,7 +141,7 @@ export default function Dashboard() {
       <div className="mx-auto hidden max-w-[1140px] px-10 pb-16 md:block">
         {/* Header */}
         <header className="mb-10 flex h-20 items-center justify-between pt-5">
-          <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">WorkLog.</div>
+          <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">K-dual.</div>
 
           <nav className="flex gap-10 rounded-[50px] bg-white px-8 py-3 shadow-sm">
             <a

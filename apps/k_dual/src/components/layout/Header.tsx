@@ -42,7 +42,7 @@ const Header = () => {
   return (
     <header>
       <div className="mb-10 flex h-20 items-center justify-between pt-5">
-        <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">WorkLog.</div>
+        <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">K-dual.</div>
         <Navigation.Root>
           <Navigation.List className="relative flex gap-10 rounded-[50px] bg-white px-8 py-3 shadow-sm">
             {menus.map(({ category, label, href, Icon }) => (
