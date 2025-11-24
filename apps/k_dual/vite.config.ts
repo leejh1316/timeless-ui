@@ -39,6 +39,22 @@ export default defineConfig(({ mode }) => {
     server: {
       host: true,
       port: 3050,
+      proxy: {
+        "/kdual": {
+          target: "https://kpu.kdual.net/",
+          changeOrigin: true,
+          rewriteWsOrigin: true,
+          rewrite: (path) => path.replace(/^\/kdual/, ""),
+          cookieDomainRewrite: "localhost",
+          configure: (proxy, _options) => {
+            proxy.on("proxyReq", (proxyReq, _req, _res) => {
+              proxyReq.setHeader("Origin", "https://kpu.kdual.net");
+              proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
+              ㄱ;
+            });
+          },
+        },
+      },
     },
   };
 });
