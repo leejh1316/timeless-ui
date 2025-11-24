@@ -1,107 +1,127 @@
-import { FloatingFocusManager, FloatingOverlay, FloatingPortal } from "@floating-ui/react";
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, FloatingPortalProps } from "@floating-ui/react";
 import { useModal, UseModalProps } from "../../hooks/useModal";
-import { createContext, forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { Primitive } from "../primitive/Primitive";
 import type { PrimitivePropsWithRef } from "../primitive/Primitive";
 import { useComposedRefs } from "../../hooks/useComposeRefs";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import clsx from "clsx";
 
-type ModalContextValue = ReturnType<typeof useModal> & { lockScroll?: boolean };
-const ModalContext = createContext<ModalContextValue | null>(null);
+const MODAL_NAME = "Modal";
+const [createModalContext, createModalScope] = createContextScope(MODAL_NAME);
 
-export const useModalContext = () => {
-  const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error("Modal components must be used within a Modal");
-  }
-  return context;
-};
+type ModalContextValue = ReturnType<typeof useModal> & { lockScroll?: boolean };
+const [ModalProvider, useModalContext] = createModalContext<ModalContextValue>(MODAL_NAME);
+
+type ScopedProps<P> = P & { __scopeModal?: Scope };
 
 // =============== Modal.Root ================
 export interface ModalProps extends UseModalProps {
   lockScroll?: boolean;
   children?: React.ReactNode;
 }
-const ModalRoot = ({ children, lockScroll = true, ...props }: ModalProps) => {
-  const modalData = useModal(props);
-  return <ModalContext.Provider value={{ ...modalData, lockScroll }}>{children}</ModalContext.Provider>;
+const ModalRoot = (props: ScopedProps<ModalProps>) => {
+  const { children, __scopeModal, lockScroll = true, ...restProps } = props;
+  const modalData = useModal(restProps);
+  return (
+    <ModalProvider scope={__scopeModal} {...modalData} lockScroll={lockScroll}>
+      {children}
+    </ModalProvider>
+  );
 };
-ModalRoot.displayName  = "Modal.Root";
+ModalRoot.displayName = "Modal.Root";
 
 // =============== Modal.Trigger ================
 interface ModalTriggerProps extends PrimitivePropsWithRef<"button"> {}
-const ModalTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ModalTriggerProps>(
-  ({ ...props }, forwardedRef) => {
-    const { refs, getReferenceProps } = useModalContext();
+const ModalTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ScopedProps<ModalTriggerProps>>(
+  (props, forwardedRef) => {
+    const { __scopeModal, ...triggerProps } = props;
+    const { refs, getReferenceProps } = useModalContext(MODAL_NAME, __scopeModal);
     const composedRefs = useComposedRefs(refs.setReference, forwardedRef);
-    return <Primitive.button ref={composedRefs} {...getReferenceProps(props)} />;
+    return <Primitive.button ref={composedRefs} {...getReferenceProps(triggerProps)} />;
   },
 );
 ModalTrigger.displayName = "Modal.Trigger";
 
-// =============== Modal.Overlay ================
-interface ModalOverlayProps extends React.HTMLAttributes<HTMLDivElement> {
-  initialFocus?: any;
-}
-const ModalOverlay = ({
-  children,
-  className = "bg-gray-900/70 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
-  initialFocus,
-  ...props
-}: ModalOverlayProps) => {
-  const { context, lockScroll, isMounted, transitionStatus } = useModalContext();
-  return (
-    isMounted && (
-      <FloatingPortal>
-        <FloatingOverlay data-status={transitionStatus} lockScroll={lockScroll} className={className} {...props} />
-        <FloatingFocusManager context={context} initialFocus={initialFocus} order={["floating", "content"]}>
-          <>{children}</>
-        </FloatingFocusManager>
-      </FloatingPortal>
-    )
-  );
+// =============== Modal.Portal ================
+interface ModalPortalProps extends FloatingPortalProps {}
+const ModalPortal = (props: ScopedProps<ModalPortalProps>) => {
+  const { __scopeModal, children, ...portalProps } = props;
+  const { isMounted } = useModalContext(MODAL_NAME, __scopeModal);
+  return isMounted && <FloatingPortal {...portalProps}>{children}</FloatingPortal>;
 };
+ModalPortal.displayName = "Modal.Portal";
+
+// =============== Modal.Overlay ================
+interface ModalOverlayProps extends PrimitivePropsWithRef<"div"> {}
+const ModalOverlay = forwardRef<HTMLDivElement, ScopedProps<ModalOverlayProps>>((props, forwardedRef) => {
+  const {
+    __scopeModal,
+    className = "bg-gray-900/70 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
+    ...overlayProps
+  } = props;
+  const { lockScroll, transitionStatus } = useModalContext(MODAL_NAME, __scopeModal);
+  return (
+    <FloatingOverlay
+      data-status={transitionStatus}
+      lockScroll={lockScroll}
+      className={className}
+      ref={forwardedRef}
+      {...overlayProps}
+    />
+  );
+});
 ModalOverlay.displayName = "Modal.Overlay";
 
 // =============== Modal.Content ================
-interface ModalContentProps extends React.HTMLAttributes<HTMLDivElement> {}
-export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
-  ({ children, className, ...props }, forwardedRef) => {
-    const { refs, getFloatingProps, transitionStyle } = useModalContext();
-    const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
-    return (
-      <div className={clsx("fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2", className)} {...props}>
+interface ModalContentProps extends PrimitivePropsWithRef<"div"> {
+  initialFocus?: any;
+}
+export const ModalContent = forwardRef<HTMLDivElement, ScopedProps<ModalContentProps>>((props, forwardedRef) => {
+  const { __scopeModal, className, children, initialFocus, ...contentProps } = props;
+  const { refs, getFloatingProps, transitionStyle, context } = useModalContext(MODAL_NAME, __scopeModal);
+  const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
+  return (
+    <FloatingFocusManager context={context} initialFocus={initialFocus}>
+      <div
+        className={clsx("fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2", className)}
+        {...contentProps}
+      >
         <div ref={composedRefs} style={transitionStyle} {...getFloatingProps()}>
           {children}
         </div>
       </div>
-    );
-  },
-);
-ModalContent.displayName = "ModalContent";
+    </FloatingFocusManager>
+  );
+});
+ModalContent.displayName = "Modal.Content";
 
 // =============== Modal.Close ================
 interface ModalCloseProps extends PrimitivePropsWithRef<"button"> {}
-const ModalClose = ({ className, onClick, ...props }: ModalCloseProps) => {
-  const { setIsOpen } = useModalContext();
+const ModalClose = forwardRef<HTMLButtonElement, ScopedProps<ModalCloseProps>>((props, forwardedRef) => {
+  const { __scopeModal, className, onClick, ...closeProps } = props;
+  const { setIsOpen } = useModalContext(MODAL_NAME, __scopeModal);
   return (
     <Primitive.button
+      ref={forwardedRef}
       onClick={(e) => {
         onClick?.(e);
         setIsOpen(false);
       }}
       className={clsx(className)}
-      {...props}
+      {...closeProps}
     />
   );
-};
-ModalClose.displayName = "ModalClose";
+});
+ModalClose.displayName = "Modal.Close";
 
 const Modal = {
   Root: ModalRoot,
   Trigger: ModalTrigger,
+  Portal: ModalPortal,
   Overlay: ModalOverlay,
   Content: ModalContent,
   Close: ModalClose,
 };
 export { Modal };
+export type { ModalTriggerProps, ModalPortalProps, ModalOverlayProps, ModalContentProps, ModalCloseProps };

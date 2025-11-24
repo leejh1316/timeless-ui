@@ -79,26 +79,28 @@ export function Component() {
               모달 열기
             </button>
           </Modal.Trigger>
-          <Modal.Overlay className="data-[status=open]:animate-fade-in data-[status=closed]:animate-fade-out fixed inset-0 bg-black/60">
-            <Modal.Content>
-              <div className=" rounded-xl bg-white p-6 shadow-2xl">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">결제 확인</h2>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                  총 $49.99를 결제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
-                </p>
-                <div className="mt-6 flex justify-end gap-3">
-                  <Modal.Close asChild>
-                    <button className="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
-                      취소
+          <Modal.Portal>
+            <Modal.Overlay className="data-[status=open]:animate-fade-in data-[status=closed]:animate-fade-out fixed inset-0 bg-black/60">
+              <Modal.Content>
+                <div className="rounded-xl bg-white p-6 shadow-2xl">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">결제 확인</h2>
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                    총 $49.99를 결제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+                  </p>
+                  <div className="mt-6 flex justify-end gap-3">
+                    <Modal.Close asChild>
+                      <button className="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+                        취소
+                      </button>
+                    </Modal.Close>
+                    <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                      결제하기
                     </button>
-                  </Modal.Close>
-                  <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-                    결제하기
-                  </button>
+                  </div>
                 </div>
-              </div>
-            </Modal.Content>
-          </Modal.Overlay>
+              </Modal.Content>
+            </Modal.Overlay>
+          </Modal.Portal>
         </Modal.Root>
       </ComponentPreview>
 
