@@ -1,8 +1,10 @@
 import { Outlet } from "react-router";
+import Header from "./components/layout/Header";
 
 function App() {
   return (
-    <div className="bg-white dark:bg-gray-950">
+    <div className="min-h-dvh bg-gray-50">
+      <Header />
       <Outlet />
     </div>
   );

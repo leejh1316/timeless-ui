@@ -1,6 +1,7 @@
 import App from "@src/App";
 import Dashboard from "@src/pages/Dashboard";
-import LearningLog from "@src/pages/LearningLog";
+import DashboardPage from "@src/pages/dashboard/DashboardPage";
+import LearningLog from "@src/pages/learning-log/LearningLog";
 
 import { createBrowserRouter, RouteObject } from "react-router";
 
@@ -16,9 +17,7 @@ export interface RouteConfig {
   };
 }
 
-export const PAGE_ROUTES: {
-} = {
-} as const;
+export const PAGE_ROUTES: {} = {} as const;
 
 export const routes: RouteObject[] = [
   {
@@ -27,11 +26,17 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <DashboardPage />,
+        handle: {
+          category: "home",
+        },
       },
       {
         path: "learning-log",
         element: <LearningLog />,
+        handle: {
+          category: "learning-log",
+        },
       },
     ],
   },

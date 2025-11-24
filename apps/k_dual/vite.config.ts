@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
 
     server: {
       host: true,
-      port: 3030,
+      port: 3050,
     },
   };
 });
