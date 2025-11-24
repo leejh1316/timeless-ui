@@ -22,5 +22,5 @@ export * from "./dropdown/Dropdown";
 export * from "./alert-dialog/AlertDialog";
 export * from "./tooltip/Tooltip";
 export * from "./form/form";
-export * from "./slider/slider";
+export * from "./slider/Slider";
 export * from "./primitive/Primitive"

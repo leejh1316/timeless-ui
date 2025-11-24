@@ -1,187 +1,202 @@
 import { ComponentPreview } from "@src/components/base/Preview";
 import { PropsTable } from "@src/components/base/PropsTable";
 import { ComponentPageLayout } from "@src/components/layout/ContentLayout";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/ui";
 
 const FRAMEWORKS = [
-  { key: "react", label: "React" },
-  { key: "vue", label: "Vue" },
-  { key: "svelte", label: "Svelte", disabled: true },
-  { key: "angular", label: "Angular" },
-  { key: "solid", label: "Solid" },
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
+  { value: "svelte", label: "Svelte", disabled: true },
+  { value: "angular", label: "Angular" },
+  { value: "solid", label: "Solid" },
 ];
 
 export default function SelectPage() {
   const propsData = [
     {
-      prop: "items",
-      type: "Array<{key, label, disabled?}>",
-      defaultValue: "[]",
-      description: "선택 목록에 표시될 아이템 배열입니다.",
-    },
-    {
-      prop: "defaultValues",
-      type: "string[]",
-      defaultValue: "[]",
-      description: "비제어 컴포넌트의 기본 선택값입니다.",
-    },
-    {
-      prop: "values",
-      type: "string[]",
+      prop: "value",
+      type: "string | string[]",
       defaultValue: "-",
-      description: "제어 컴포넌트의 선택값입니다. 이 값을 사용하면 상태를 직접 관리해야 합니다.",
+      description: "Select의 제어된 값입니다.",
     },
     {
-      prop: "onChangeValues",
-      type: "(values: string[]) => void",
+      prop: "defaultValue",
+      type: "string | string[]",
       defaultValue: "-",
-      description: "선택값이 변경될 때 호출되는 콜백 함수입니다.",
+      description: "비제어 상태일 때 Select의 기본 값입니다.",
+    },
+    {
+      prop: "onValueChange",
+      type: "(value: string | string[]) => void",
+      defaultValue: "-",
+      description: "값이 변경될 때 호출되는 이벤트 핸들러입니다.",
+    },
+    {
+      prop: "open",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Select의 열림 상태를 제어합니다.",
+    },
+    {
+      prop: "defaultOpen",
+      type: "boolean",
+      defaultValue: "false",
+      description: "비제어 상태일 때 Select의 기본 열림 상태입니다.",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(open: boolean) => void",
+      defaultValue: "-",
+      description: "열림 상태가 변경될 때 호출되는 이벤트 핸들러입니다.",
+    },
+    {
+      prop: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "true일 경우, 사용자가 Select와 상호작용할 수 없습니다.",
     },
     {
       prop: "multiple",
       type: "boolean",
       defaultValue: "false",
-      description: "true로 설정하면 여러 항목을 선택할 수 있습니다.",
-    },
-    {
-      prop: "closeOnSelect",
-      type: "boolean",
-      defaultValue: "true",
-      description: "항목 선택 시 선택 목록을 닫을지 여부를 결정합니다.",
+      description: "true일 경우, 여러 항목을 선택할 수 있습니다.",
     },
     {
       prop: "placement",
-      type: "string",
-      defaultValue: "'bottom'",
-      description: "선택 목록이 표시될 위치입니다. (e.g., 'top', 'bottom-start')",
+      type: "Placement",
+      defaultValue: "'bottom-start'",
+      description: "Trigger를 기준으로 Content가 표시될 위치입니다.",
     },
   ];
 
   const example1Code = `
-import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/Select";
+import { Select } from "@timeless-ui/ui";
 
 const FRAMEWORKS = [
-  { key: "react", label: "React" },
-  { key: "vue", label: "Vue" },
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
   // ...
 ];
 
 export function Component() {
   return (
-    <Select items={FRAMEWORKS} defaultValues={["react"]}>
-      <SelectTrigger placeholder="프레임워크 선택..." className="w-60 ...">
-        {(selectedItems) => (
-          <span>
-            {selectedItems.length > 0
-              ? FRAMEWORKS.find(f => f.key === selectedItems[0])?.label
-              : "프레임워크 선택..."}
-          </span>
-        )}
-      </SelectTrigger>
-      <SelectContent className="w-60 ...">
-        {FRAMEWORKS.map((item) => (
-          <SelectItem key={item.key} item={item} className="...">
-            {item.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <Select.Root defaultValue="react">
+      <Select.Trigger className="flex h-10 w-[200px] items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus:ring-zinc-300">
+        <Select.Value placeholder="프레임워크 선택" />
+        <Select.Icon />
+      </Select.Trigger>
+      <Select.Portal>
+        <Select.Content className="relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+          <Select.Group>
+            <Select.Label className="py-1.5 pl-8 pr-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+              프레임워크
+            </Select.Label>
+            {FRAMEWORKS.map((framework) => (
+              <Select.Item
+                key={framework.value}
+                value={framework.value}
+                disabled={framework.disabled}
+                className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50"
+              >
+                {framework.label}
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Content>
+      </Select.Portal>
+    </Select.Root>
   );
 }
   `;
 
   const example2Code = `
-import { Select, ... } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/ui";
 
 export function Component() {
   return (
-    <Select items={FRAMEWORKS} multiple defaultValues={['react', 'vue']}>
-      <SelectTrigger placeholder="프레임워크 선택..." className="w-60 ...">
-        {(selectedItems) => (
-          <span>
-            {selectedItems.length > 0
-              ? \`\${selectedItems.length}개 선택됨\`
-              : "프레임워크 선택..."}
-          </span>
-        )}
-      </SelectTrigger>
-      <SelectContent className="w-60 ...">
-        {FRAMEWORKS.map((item) => (
-          <SelectItem key={item.key} item={item} className="...">
-            {item.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <Select.Root multiple defaultValue={["react", "vue"]}>
+      <Select.Trigger className="flex h-10 w-[200px] items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus:ring-zinc-300">
+        <Select.Value placeholder="프레임워크 선택" />
+        <Select.Icon />
+      </Select.Trigger>
+      <Select.Portal>
+        <Select.Content className="relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+          {FRAMEWORKS.map((framework) => (
+            <Select.Item
+              key={framework.value}
+              value={framework.value}
+              disabled={framework.disabled}
+              className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[state=checked]:font-semibold data-[state=checked]:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50 dark:data-[state=checked]:text-zinc-50"
+            >
+              {framework.label}
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Portal>
+    </Select.Root>
   );
 }
   `;
 
   return (
-    <ComponentPageLayout
-      title="Select"
-      description="드롭다운 목록에서 하나 또는 여러 개의 값을 선택할 수 있는 사용자 정의 가능한 선택 컴포넌트입니다."
-    >
+    <ComponentPageLayout title="Select" description="사용자가 목록에서 옵션을 선택할 수 있도록 하는 컴포넌트입니다.">
       <ComponentPreview
         title="단일 선택 (Single Select)"
-        description="가장 기본적인 형태로, 목록에서 하나의 항목만 선택할 수 있습니다."
+        description="기본적으로 하나의 항목만 선택할 수 있습니다."
         code={example1Code}
       >
-        <Select items={FRAMEWORKS} defaultValues={["react"]}>
-          <SelectTrigger
-            placeholder="프레임워크 선택..."
-            className="flex h-10 w-60 items-center justify-between rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:focus:ring-blue-400"
-          >
-            {(selectedItems) => (
-              <span className="truncate">
-                {selectedItems.length > 0
-                  ? FRAMEWORKS.find((f) => f.key === selectedItems[0])?.label
-                  : "프레임워크 선택..."}
-              </span>
-            )}
-          </SelectTrigger>
-          <SelectContent className="z-50 w-60 overflow-hidden rounded-md border bg-white text-gray-800 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
-            {FRAMEWORKS.map((item) => (
-              <SelectItem
-                key={item.key}
-                item={item}
-                className="relative flex cursor-default select-none items-center rounded-sm py-2 pl-3 pr-2 text-sm outline-none data-[disabled=true]:pointer-events-none data-[focus=true]:bg-gray-100 data-[selected=true]:font-bold data-[selected=true]:text-blue-400 data-[disabled=true]:opacity-50 dark:data-[focus=true]:bg-gray-700"
-              >
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Select.Root defaultValue="react">
+          <Select.Trigger className="flex h-10 w-[200px] items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus:ring-zinc-300">
+            <Select.Value placeholder="프레임워크 선택" />
+            <Select.Icon />
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+              <Select.Group>
+                <Select.Label className="py-1.5 pl-8 pr-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+                  프레임워크
+                </Select.Label>
+                {FRAMEWORKS.map((framework) => (
+                  <Select.Item
+                    key={framework.value}
+                    value={framework.value}
+                    disabled={framework.disabled}
+                    className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50"
+                  >
+                    {framework.label}
+                  </Select.Item>
+                ))}
+              </Select.Group>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </ComponentPreview>
 
       <ComponentPreview
         title="다중 선택 (Multiple Select)"
-        description="`multiple` 속성을 사용하여 여러 항목을 동시에 선택할 수 있습니다."
+        description="여러 항목을 동시에 선택할 수 있습니다."
         code={example2Code}
       >
-        <Select items={FRAMEWORKS} multiple defaultValues={["react", "vue"]}>
-          <SelectTrigger
-            placeholder="프레임워크 선택..."
-            className="flex h-10 w-60 items-center justify-between rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:focus:ring-blue-400"
-          >
-            {(selectedItems) => (
-              <button className="truncate">
-                {selectedItems.length > 0 ? `${selectedItems.length}개 선택됨` : "프레임워크 선택..."}
-              </button>
-            )}
-          </SelectTrigger>
-          <SelectContent className="z-50 w-60 overflow-hidden rounded-md border bg-white text-gray-800 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
-            {FRAMEWORKS.map((item) => (
-              <SelectItem
-                key={item.key}
-                item={item}
-                className="relative flex cursor-default select-none items-center rounded-sm py-2 pl-3 pr-2 text-sm outline-none data-[disabled=true]:pointer-events-none data-[focus=true]:bg-gray-100 data-[selected=true]:font-bold data-[selected=true]:text-blue-400 data-[disabled=true]:opacity-50 dark:data-[focus=true]:bg-gray-700"
-              >
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Select.Root multiple defaultValue={["react", "vue"]}>
+          <Select.Trigger className="flex h-10 w-[200px] items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950 dark:placeholder:text-zinc-400 dark:focus:ring-zinc-300">
+            <Select.Value placeholder="프레임워크 선택" />
+            <Select.Icon />
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+              {FRAMEWORKS.map((framework) => (
+                <Select.Item
+                  key={framework.value}
+                  value={framework.value}
+                  disabled={framework.disabled}
+                  className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[state=checked]:font-semibold data-[state=checked]:text-zinc-900 data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50 dark:data-[state=checked]:text-zinc-50"
+                >
+                  {framework.label}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </ComponentPreview>
 
       <PropsTable data={propsData} />

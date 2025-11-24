@@ -96,3 +96,47 @@
   height: 100%;
   top: 0;
 }
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes toast-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@utility animate-toast-in {
+  animation: toast-enter 150ms ease-out;
+}
+
+@utility animate-toast-out {
+  animation: toast-exit 100ms ease-in forwards;
+}
+
+@keyframes swipe-out {
+  from {
+    transform: translate(var(--toast-swipe-move-x), var(--toast-swipe-move-y));
+  }
+  to {
+    transform: translate(var(--toast-swipe-end-x), var(--toast-swipe-end-y));
+    opacity: 0;
+  }
+}
+
+@utility animate-swipe-out {
+  animation: swipe-out 100ms ease-out forwards;
+}
