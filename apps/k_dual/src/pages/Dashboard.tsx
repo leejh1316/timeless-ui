@@ -18,14 +18,12 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-900 antialiased">
+    <div className="min-h-screen bg-gray-50 text-gray-900 antialiased">
       {/* Mobile Layout */}
       <div className="mx-auto block min-h-screen w-full max-w-[460px] bg-gray-50 pb-20 md:hidden">
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-6">
-          <div className="text-lg font-bold tracking-tighter text-gray-900">
-            WorkLog.
-          </div>
+          <div className="text-lg font-bold tracking-tighter text-gray-900">WorkLog.</div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors">
             <User size={18} />
           </div>
@@ -36,14 +34,12 @@ export default function Dashboard() {
           <h1 className="mb-2 text-[26px] font-light text-gray-500">
             안녕하세요, <span className="font-bold text-gray-900">이재혁</span>님
           </h1>
-          <p className="text-[15px] font-normal text-gray-500">
-            오늘도 힘찬 하루 되세요.
-          </p>
+          <p className="text-[15px] font-normal text-gray-500">오늘도 힘찬 하루 되세요.</p>
         </section>
 
         {/* Action Section */}
         <section className="px-6 pb-8">
-          <div className="relative flex flex-col gap-5 overflow-hidden rounded-3xl bg-white p-7 shadow-sm transition-shadow hover:shadow-md before:absolute before:left-0 before:top-0 before:h-1 before:w-full before:bg-linear-to-r before:from-teal-600 before:to-transparent">
+          <div className="before:bg-linear-to-r relative flex flex-col gap-5 overflow-hidden rounded-3xl bg-white p-7 shadow-sm transition-shadow before:absolute before:left-0 before:top-0 before:h-1 before:w-full before:from-teal-600 before:to-transparent hover:shadow-md">
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="mb-1.5 text-lg font-bold">12주차 학습일지</h3>
@@ -66,37 +62,25 @@ export default function Dashboard() {
 
         {/* Status Section */}
         <section className="px-6 pb-8">
-          <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Overview
-          </div>
+          <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">Overview</div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2.5 rounded-2xl bg-white p-5 shadow-sm">
               <div className="flex justify-between">
-                <span className="text-[28px] font-extrabold leading-none text-gray-900">
-                  75%
-                </span>
+                <span className="text-[28px] font-extrabold leading-none text-gray-900">75%</span>
                 <div className="h-6 w-6 rounded-full border-[3px] border-gray-200 border-t-teal-600"></div>
               </div>
-              <span className="text-[13px] font-medium text-gray-500">
-                전체 진행률
-              </span>
+              <span className="text-[13px] font-medium text-gray-500">전체 진행률</span>
             </div>
             <div className="flex flex-col gap-2.5 rounded-2xl bg-white p-5 shadow-sm">
-              <span className="text-[28px] font-extrabold leading-none text-gray-900">
-                12 / 16
-              </span>
-              <span className="text-[13px] font-medium text-gray-500">
-                작성 완료 (주)
-              </span>
+              <span className="text-[28px] font-extrabold leading-none text-gray-900">12 / 16</span>
+              <span className="text-[13px] font-medium text-gray-500">작성 완료 (주)</span>
             </div>
           </div>
         </section>
 
         {/* List Section */}
         <section className="px-6">
-          <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Recent Activity
-          </div>
+          <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">Recent Activity</div>
           <div>
             {[
               {
@@ -114,17 +98,12 @@ export default function Dashboard() {
                 statusText: "승인 완료",
               },
             ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center border-b border-gray-100 py-[18px] last:border-b-0"
-              >
+              <div key={index} className="flex items-center border-b border-gray-100 py-[18px] last:border-b-0">
                 <div className="mr-4 flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-gray-100 text-sm font-semibold text-gray-500">
                   {item.week}
                 </div>
                 <div className="flex-1">
-                  <div className="mb-1 text-[15px] font-semibold">
-                    {item.title}
-                  </div>
+                  <div className="mb-1 text-[15px] font-semibold">{item.title}</div>
                   <div className="text-[13px] text-gray-500">
                     {item.date} • {item.statusText}
                   </div>
@@ -162,9 +141,7 @@ export default function Dashboard() {
       <div className="mx-auto hidden max-w-[1140px] px-10 pb-16 md:block">
         {/* Header */}
         <header className="mb-10 flex h-20 items-center justify-between pt-5">
-          <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">
-            WorkLog.
-          </div>
+          <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">WorkLog.</div>
 
           <nav className="flex gap-10 rounded-[50px] bg-white px-8 py-3 shadow-sm">
             <a
@@ -209,9 +186,7 @@ export default function Dashboard() {
           <h1 className="mb-2 text-[32px] font-light text-gray-500">
             안녕하세요, <span className="font-bold text-gray-900">이재혁</span>님
           </h1>
-          <p className="text-base text-gray-500">
-            오늘도 힘찬 하루 되세요. 12주차 과정이 진행 중입니다.
-          </p>
+          <p className="text-base text-gray-500">오늘도 힘찬 하루 되세요. 12주차 과정이 진행 중입니다.</p>
         </section>
 
         {/* Dashboard Grid */}
@@ -219,15 +194,13 @@ export default function Dashboard() {
           {/* Main Column */}
           <div className="flex flex-col gap-8">
             {/* Main Card */}
-            <div className="relative flex items-center justify-between overflow-hidden rounded-3xl bg-white p-10 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-linear-to-b before:from-teal-600 before:to-transparent">
+            <div className="before:bg-linear-to-b relative flex items-center justify-between overflow-hidden rounded-3xl bg-white p-10 shadow-sm transition-transform before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:from-teal-600 before:to-transparent hover:-translate-y-0.5 hover:shadow-md">
               <div>
                 <h3 className="mb-2 text-[22px] font-bold">12주차 학습일지</h3>
                 <p className="flex items-center gap-2 text-[15px] font-semibold text-teal-600">
                   <Clock size={16} /> 마감까지 2일 남았습니다
                 </p>
-                <div className="mt-4 text-sm text-gray-500">
-                  이번 주차 주제: PBL OJT 진행 및 신뢰성 검증
-                </div>
+                <div className="mt-4 text-sm text-gray-500">이번 주차 주제: PBL OJT 진행 및 신뢰성 검증</div>
               </div>
               <div className="flex items-center gap-5">
                 <div className="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-teal-50 text-2xl text-teal-600">
@@ -289,15 +262,11 @@ export default function Dashboard() {
                     </div>
                     <div
                       className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-semibold ${
-                        item.status === "pending"
-                          ? "bg-amber-50 text-amber-700"
-                          : "bg-teal-50 text-teal-700"
+                        item.status === "pending" ? "bg-amber-50 text-amber-700" : "bg-teal-50 text-teal-700"
                       }`}
                     >
                       <div
-                        className={`h-2 w-2 rounded-full ${
-                          item.status === "pending" ? "bg-amber-500" : "bg-teal-600"
-                        }`}
+                        className={`h-2 w-2 rounded-full ${item.status === "pending" ? "bg-amber-500" : "bg-teal-600"}`}
                       ></div>
                       {item.statusText}
                     </div>
@@ -330,24 +299,15 @@ export default function Dashboard() {
 
             {/* Calendar Widget */}
             <div className="flex-1 rounded-3xl bg-white p-8 shadow-sm">
-              <div className="mb-4 text-base font-bold tracking-wide text-gray-500">
-                NOVEMBER 2025
-              </div>
+              <div className="mb-4 text-base font-bold tracking-wide text-gray-500">NOVEMBER 2025</div>
               {/* Using Custom UI Calendar */}
               <div className="w-full">
-                <Calendar.Root
-                  date={date}
-                  onMonthChange={setDate}
-                >
+                <Calendar.Root date={date} onMonthChange={setDate}>
                   <Calendar.Header className="mb-2">
                     {(weekdays) => (
                       <div className="grid grid-cols-7 gap-2 text-center">
                         {weekdays.map((day) => (
-                          <Calendar.Day
-                            key={day.day}
-                            day={day}
-                            className="mb-1 text-xs font-semibold text-gray-500"
-                          >
+                          <Calendar.Day key={day.day} day={day} className="mb-1 text-xs font-semibold text-gray-500">
                             {day.day}
                           </Calendar.Day>
                         ))}
