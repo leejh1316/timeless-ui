@@ -17,7 +17,7 @@ export const useSelectScope = createSelectScope();
 interface SelectContextValue {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  selectedValue: string | string[] | undefined;
+  selectedValue: string | string[] | null;
   onValueChange: (value: string) => void;
   activeIndex: number | null;
   setActiveIndex: (index: number | null) => void;
@@ -37,9 +37,9 @@ const [SelectProvider, useSelectContext] = createSelectContext<SelectContextValu
 
 interface SelectRootProps {
   children: React.ReactNode;
-  value?: string | string[];
-  defaultValue?: string | string[];
-  onValueChange?: (value: string | string[]) => void;
+  value?: string | string[] | null;
+  defaultValue?: string | string[] | null;
+  onValueChange?: (value: string | string[] | null) => void;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -66,10 +66,10 @@ const SelectRoot = ({
     onChange: onOpenChange,
   });
 
-  const [selectedValue, setSelectedValue] = useControllableState<string | string[] | undefined>({
+  const [selectedValue, setSelectedValue] = useControllableState<string | string[] | null>({
     value: valueProp,
-    defaultValue: defaultValue !== undefined ? defaultValue : multiple ? [] : undefined,
-    onChange: onValueChange as (value: string | string[] | undefined) => void,
+    defaultValue: defaultValue !== undefined ? defaultValue : multiple ? [] : null,
+    onChange: onValueChange as (value: string | string[] | null) => void,
   });
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -114,13 +114,16 @@ const SelectRoot = ({
   const handleValueChange = useCallback(
     (newValue: string) => {
       if (multiple) {
-        setSelectedValue((prev: string | string[] | undefined) => {
+        setSelectedValue((prev: string | string[] | null) => {
           const current = Array.isArray(prev) ? prev : [];
           return current.includes(newValue) ? current.filter((v) => v !== newValue) : [...current, newValue];
         });
       } else {
-        setSelectedValue(newValue);
         setIsOpen(false);
+        setSelectedValue((prev) => {
+          if (prev === newValue) return null;
+          return newValue;
+        });
       }
     },
     [multiple, setSelectedValue, setIsOpen],
@@ -146,6 +149,38 @@ const SelectRoot = ({
     [isOpen, setIsOpen, selectedValue, handleValueChange, activeIndex, floating, registerItem, multiple, disabled],
   );
 
+  useMemo(() => {
+    const collect = (nodes: React.ReactNode) => {
+      React.Children.forEach(nodes, (node) => {
+        if (!React.isValidElement(node)) return;
+
+        const type = node.type as any;
+        if (type.displayName === "Select.Item") {
+          const props = node.props as any;
+          if (props.value) {
+            let text = props.textValue;
+            if (!text) {
+              let extracted = "";
+              React.Children.forEach(props.children, (child) => {
+                if (typeof child === "string" || typeof child === "number") {
+                  extracted += child;
+                }
+              });
+              text = extracted;
+            }
+            itemMap.current.set(props.value, text || props.value);
+          }
+        }
+        //@ts-ignore
+        if (node.props.children) {
+          //@ts-ignore
+          collect(node.props.children);
+        }
+      });
+    };
+    collect(children);
+  }, [children]);
+
   return (
     <SelectProvider scope={__scopeSelect} {...contextValue}>
       {children}
@@ -157,8 +192,8 @@ SelectRoot.displayName = "Select.Root";
 // ============ Select.Trigger ============
 
 const TRIGGER_NAME = "Select.Trigger";
-
-const SelectTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>(
+interface SelectTriggerProps extends PrimitivePropsWithRef<typeof Button> {}
+const SelectTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<SelectTriggerProps>>(
   ({ children, className, __scopeSelect, ...props }, ref) => {
     const { floating, isOpen, disabled } = useSelectContext(TRIGGER_NAME, __scopeSelect);
     const composedRef = useComposedRefs(floating.refs.setReference, ref);
@@ -239,7 +274,7 @@ interface SelectViewProps extends PrimitivePropsWithRef<"div"> {}
 const SelectView = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<SelectViewProps>>((props, forwardedRef) => {
   const { __scopeSelect, children, style, ...elementProps } = props;
   const { floating, listRef, labelsRef } = useSelectContext(VIEW_NAME, __scopeSelect);
-  const { context: floatingContext, refs, floatingStyles, isOpen, getFloatingProps, placement } = floating;
+  const { context: floatingContext, refs, isMounted, floatingStyles, isOpen, getFloatingProps, placement } = floating;
   const composedRef = useComposedRefs(refs.setFloating, forwardedRef);
 
   useLayoutEffect(() => {
@@ -250,14 +285,14 @@ const SelectView = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedPr
     }
   });
 
-  if (!isOpen) return null;
+  if (!isMounted) return null;
 
   return (
     <FloatingFocusManager context={floatingContext} modal={false}>
       <Primitive.div
         ref={composedRef}
         style={{ ...floatingStyles, ...style }}
-        data-state={isOpen ? "open" : "closed"}
+        data-state={isMounted ? "open" : "closed"}
         data-side={placement.split("-")[0]}
         data-align={placement.split("-")[1]}
         {...getFloatingProps(elementProps)}
@@ -371,6 +406,7 @@ const SelectItem = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedPr
         aria-selected={isSelected}
         aria-disabled={disabled}
         data-select-item
+        data-selected={isSelected}
         data-state={isSelected ? "checked" : "unchecked"}
         data-disabled={disabled}
         tabIndex={isActive ? 0 : -1}

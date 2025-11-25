@@ -50,7 +50,6 @@ export default defineConfig(({ mode }) => {
             proxy.on("proxyReq", (proxyReq, _req, _res) => {
               proxyReq.setHeader("Origin", "https://kpu.kdual.net");
               proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
-              ㄱ;
             });
           },
         },
