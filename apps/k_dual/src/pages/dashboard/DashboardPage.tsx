@@ -1,5 +1,9 @@
 const DashboardPage = () => {
-  return <div></div>;
+  return (
+    <>
+      <title>Dashboard - K-dual</title>
+    </>
+  );
 };
 
 export default DashboardPage;

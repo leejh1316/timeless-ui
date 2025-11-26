@@ -67,11 +67,11 @@ function App() {
     }
   };
   return (
-    <div className="min-h-dvh bg-gray-50">
-      {/* <Header /> */}
+    <div className="min-h-dvh w-full bg-gray-50">
+      <Header />
       <Outlet />
-      <Button onClick={handleGetMainPage}>메인페이지 겟</Button>
-      <LoginOnPocess />
+      {/* <Button onClick={handleGetMainPage}>메인페이지 겟</Button>
+      <LoginOnPocess /> */}
     </div>
   );
 }

@@ -3,10 +3,14 @@ import { Avatar } from "../base/Avatar";
 import { Button } from "@timeless-ui/ui";
 import { MenuItem, Navigation } from "../base/Navigation";
 import { useLocation, useMatches, useNavigate } from "react-router";
+import clsx from "clsx";
+import { ComponentPropsWithRef, useMemo } from "react";
 
 const menus: (MenuItem & {
   category: string;
-  Icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
+  Icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >;
 })[] = [
   {
     category: "home",
@@ -33,33 +37,58 @@ const menus: (MenuItem & {
     Icon: MessageCircle,
   },
 ];
-const Header = () => {
+const Header = (props: ComponentPropsWithRef<"header">) => {
   const navigate = useNavigate();
   const matches = useMatches();
 
-  //@ts-ignore
-  const currentMenuIndex = menus.findIndex((menu) => matches.some((match) => match.handle?.category === menu.category));
+  // route 객체에 category(대분류) 추가 필수
+  const [currentMenuIndex, matchMenu] = useMemo(() => {
+    const matchedMenuIndex = menus.findIndex((menu) =>
+      //@ts-ignore
+      matches.some((match) => match.handle?.category === menu.category),
+    );
+    return [matchedMenuIndex, menus[matchedMenuIndex]];
+  }, [matches]);
   return (
-    <header>
-      <div className="mb-10 flex h-20 items-center justify-between pt-5">
-        <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">K-dual.</div>
-        <Navigation.Root>
-          <Navigation.List className="relative flex gap-10 rounded-[50px] bg-white px-8 py-3 shadow-sm">
-            {menus.map(({ category, label, href, Icon }) => (
-              <Navigation.Item key={category}>
-                <Navigation.Trigger onClick={() => navigate(href)}>
-                  <span className="flex items-center gap-2 text-[15px] font-semibold text-teal-600 no-underline transition-colors">
-                    <Icon size={16} /> {label}
-                  </span>
-                </Navigation.Trigger>
-              </Navigation.Item>
-            ))}
-            <Navigation.Indicator activeIndex={currentMenuIndex} className="inline-block h-3 w-3 bg-teal-400" />
-          </Navigation.List>
-        </Navigation.Root>
-        <Button>
-          <Avatar name="홍길동" role="학습근로자" />
-        </Button>
+    <header className="px-4" {...props}>
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="-mb-10 flex h-20 items-center justify-between pt-5">
+          <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">
+            K-dual.
+          </div>
+          <Navigation.Root>
+            <Navigation.List className="w-sm relative flex rounded-[50px] bg-white px-1 shadow-sm">
+              <Navigation.Indicator
+                activeIndex={currentMenuIndex}
+                className="top-1/2 h-5/6 -translate-y-1/2 rounded-full bg-teal-500/10 px-3"
+              />
+              {menus.map(({ category, label, href, Icon }) => (
+                <Navigation.Item key={category} className="z-10 min-w-0 shrink-0 grow text-center">
+                  <Navigation.Trigger
+                    onClick={() => navigate(href)}
+                    className={"cursor-pointer py-3"}
+                  >
+                    <div>
+                      <span
+                        className={clsx(
+                          "flex items-center gap-2 text-base no-underline transition-colors",
+                          matchMenu?.category === category
+                            ? "font-semibold text-teal-600"
+                            : "text-gray-700 hover:text-teal-700",
+                        )}
+                      >
+                        <Icon size={16} /> {label}
+                      </span>
+                    </div>
+                  </Navigation.Trigger>
+                </Navigation.Item>
+              ))}
+            </Navigation.List>
+          </Navigation.Root>
+          <Button>
+            <Avatar name="홍길동" role="학습근로자" />
+          </Button>
+        </div>
       </div>
     </header>
   );

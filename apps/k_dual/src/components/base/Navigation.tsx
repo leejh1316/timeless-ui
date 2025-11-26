@@ -99,7 +99,7 @@ const NavigatorIndicator = forwardRef<
     const parentRect = currentTrigger.parentElement?.getBoundingClientRect();
     if (!parentRect) return;
     indicator.style.width = `${triggerRect.width}px`;
-    indicator.style.transform = `translateX(${triggerRect.left - parentRect.left}px)`;
+    indicator.style.left = `${triggerRect.left - parentRect.left}px`;
   };
   useEffect(() => {
     onActiveIndexChange(activeIndex);
@@ -110,7 +110,7 @@ const NavigatorIndicator = forwardRef<
     <Primitive.span
       hidden={activeIndex === -1}
       data-slot="navigation-indicator"
-      className={clsx(className, "absolute inline-block transition-all")}
+      className={clsx(className, "absolute inline-block transition-all duration-200")}
       ref={composedRefs}
       {...props}
     />

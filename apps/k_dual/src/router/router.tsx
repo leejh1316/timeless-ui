@@ -26,7 +26,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <DashboardPage />,
         handle: {
           category: "home",
         },
