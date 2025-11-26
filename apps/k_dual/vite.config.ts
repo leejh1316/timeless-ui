@@ -14,6 +14,7 @@ try {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   const OUT_DIR = "./dist";
+  const apiBaseUrl = env.VITE_API_BASE_URL || "/kdual";
   return {
     plugins: [react(), tailwindcss()],
     resolve: {
@@ -35,13 +36,16 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: OUT_DIR,
     },
-
+    define: {
+      __COMMIT_HASH__: JSON.stringify(commitHash),
+      __API_BASE_URL__: JSON.stringify(apiBaseUrl),
+    },
     server: {
       host: true,
       port: 3050,
       proxy: {
         "/kdual": {
-          target: "https://kpu.kdual.net/",
+          target: "https://kpu.kdual.net",
           changeOrigin: true,
           rewriteWsOrigin: true,
           rewrite: (path) => path.replace(/^\/kdual/, ""),
