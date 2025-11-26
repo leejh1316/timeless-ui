@@ -1,7 +1,7 @@
 import { ComponentPreview } from "@src/components/base/Preview";
 import { PropsTable } from "@src/components/base/PropsTable";
 import { ComponentPageLayout } from "@src/components/layout/ContentLayout";
-import { Popover, PopoverContent, PopoverTrigger } from "@timeless-ui/ui";
+import { Popover } from "@timeless-ui/ui";
 
 export default function PopoverPage() {
   const propsData = [
@@ -82,19 +82,25 @@ export function Component() {
         description="가장 일반적인 Popover 형태입니다. Trigger를 클릭하면 Content가 나타나고, 외부를 클릭하면 사라집니다."
         code={example1Code}
       >
-        <Popover placement="bottom-start">
-          <PopoverTrigger>
+        <Popover.Root placement="bottom-start">
+          <Popover.Trigger>
             <button className="rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
               Popover 열기
             </button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className="z-10 w-64 rounded-lg border bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-              <h3 className="mb-2 font-bold">Popover Title</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">이것은 클릭 시 나타나는 Popover입니다.</p>
-            </div>
-          </PopoverContent>
-        </Popover>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.View>
+              <Popover.Content>
+                <div className="z-10 w-64 rounded-lg border bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                  <h3 className="mb-2 font-bold">Popover Title</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    이것은 클릭 시 나타나는 Popover입니다.
+                  </p>
+                </div>
+              </Popover.Content>
+            </Popover.View>
+          </Popover.Portal>
+        </Popover.Root>
       </ComponentPreview>
 
       <ComponentPreview
@@ -102,18 +108,22 @@ export function Component() {
         description="triggerMode를 'hover'로 설정하여 마우스를 올렸을 때 나타나는 툴팁을 쉽게 구현할 수 있습니다."
         code={example2Code}
       >
-        <Popover triggerMode="hover" placement="top">
-          <PopoverTrigger>
+        <Popover.Root triggerMode="hover" placement="top">
+          <Popover.Trigger>
             <button className="rounded-md border border-dashed border-gray-400 px-4 py-2 text-sm font-medium">
               여기에 마우스를 올리세요
             </button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className="z-10 rounded-md bg-gray-900 px-3 py-1.5 text-sm text-white shadow-lg">
-              이것은 Hover 시 나타나는 툴팁입니다.
-            </div>
-          </PopoverContent>
-        </Popover>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.View>
+              <Popover.Content>
+                <div className="z-10 rounded-md bg-gray-900 px-3 py-1.5 text-sm text-white shadow-lg">
+                  이것은 Hover 시 나타나는 툴팁입니다.
+                </div>
+              </Popover.Content>
+            </Popover.View>
+          </Popover.Portal>
+        </Popover.Root>
       </ComponentPreview>
 
       <PropsTable data={propsData} />

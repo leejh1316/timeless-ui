@@ -1,7 +1,7 @@
 import { ComponentPreview } from "@src/components/base/Preview";
 import { PropsTable } from "@src/components/base/PropsTable";
 import { ComponentPageLayout } from "@src/components/layout/ContentLayout";
-import { Button, DatePicker, Popover, PopoverContent, PopoverTrigger } from "@timeless-ui/ui";
+import { Button, DatePicker, Popover } from "@timeless-ui/ui";
 import { addDays, format, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
@@ -272,7 +272,10 @@ export function Component() {
 `;
 
   return (
-    <ComponentPageLayout title="DatePicker" description="날짜를 선택하는 데이트 피커 컴포넌트입니다.">
+    <ComponentPageLayout
+      title="DatePicker"
+      description="날짜를 선택하는 데이트 피커 컴포넌트입니다."
+    >
       <ComponentPreview code={exampleCode} title="Example" description="">
         <div className="w-full max-w-sm rounded-lg border p-4">
           <DatePicker.Root>
@@ -332,63 +335,71 @@ export function Component() {
         description="Popover와 함께 사용하여 DatePicker를 구현할 수 있습니다."
       >
         <div className="w-full max-w-sm rounded-lg border p-4">
-          <Popover placement="bottom-start">
-            <PopoverTrigger>
+          <Popover.Root placement="bottom-start">
+            <Popover.Trigger>
               <Button>
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {date ? format(date, "PPP") : <span>Pick a date</span>}
               </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <div className="rounded-2xl bg-white p-2 shadow-2xl">
-                <DatePicker.Root value={date} onValueChange={setDate}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <DatePicker.Year />
-                      <DatePicker.Month />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <DatePicker.Prev>
-                        <ChevronLeft />
-                      </DatePicker.Prev>
-                      <DatePicker.Next>
-                        <ChevronRight />
-                      </DatePicker.Next>
-                    </div>
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.View>
+                <Popover.Content className="w-auto p-0">
+                  <div className="rounded-2xl bg-white p-2 shadow-2xl">
+                    <DatePicker.Root value={date} onValueChange={setDate}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <DatePicker.Year />
+                          <DatePicker.Month />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <DatePicker.Prev>
+                            <ChevronLeft />
+                          </DatePicker.Prev>
+                          <DatePicker.Next>
+                            <ChevronRight />
+                          </DatePicker.Next>
+                        </div>
+                      </div>
+                      <DatePicker.Calendar>
+                        <DatePicker.Header>
+                          {(weekdays) => (
+                            <div className="grid grid-cols-7">
+                              {weekdays.map((day) => (
+                                <DatePicker.Day
+                                  key={day.dayIndex}
+                                  day={day}
+                                  className="flex h-8 w-8 items-center justify-center"
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </DatePicker.Header>
+                        <DatePicker.Content>
+                          {(calendarData) => (
+                            <div className="grid grid-cols-7 grid-rows-6">
+                              {calendarData.map((data) => (
+                                <DatePicker.DateTrigger
+                                  key={data.dateObject.toISOString()}
+                                  data={data}
+                                  className="group"
+                                >
+                                  <DatePicker.Date
+                                    data={data}
+                                    className="flex h-8 w-8 items-center justify-center rounded-full data-[today=true]:bg-red-200 data-[current-month=false]:text-gray-300 group-data-[selected=true]:bg-blue-200"
+                                  />
+                                </DatePicker.DateTrigger>
+                              ))}
+                            </div>
+                          )}
+                        </DatePicker.Content>
+                      </DatePicker.Calendar>
+                    </DatePicker.Root>
                   </div>
-                  <DatePicker.Calendar>
-                    <DatePicker.Header>
-                      {(weekdays) => (
-                        <div className="grid grid-cols-7">
-                          {weekdays.map((day) => (
-                            <DatePicker.Day
-                              key={day.dayIndex}
-                              day={day}
-                              className="flex h-8 w-8 items-center justify-center"
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </DatePicker.Header>
-                    <DatePicker.Content>
-                      {(calendarData) => (
-                        <div className="grid grid-cols-7 grid-rows-6">
-                          {calendarData.map((data) => (
-                            <DatePicker.DateTrigger key={data.dateObject.toISOString()} data={data} className="group">
-                              <DatePicker.Date
-                                data={data}
-                                className="flex h-8 w-8 items-center justify-center rounded-full data-[today=true]:bg-red-200 data-[current-month=false]:text-gray-300 group-data-[selected=true]:bg-blue-200"
-                              />
-                            </DatePicker.DateTrigger>
-                          ))}
-                        </div>
-                      )}
-                    </DatePicker.Content>
-                  </DatePicker.Calendar>
-                </DatePicker.Root>
-              </div>
-            </PopoverContent>
-          </Popover>
+                </Popover.Content>
+              </Popover.View>
+            </Popover.Portal>
+          </Popover.Root>
         </div>
       </ComponentPreview>
       <h2 className="mt-8 text-2xl font-bold">Props</h2>
