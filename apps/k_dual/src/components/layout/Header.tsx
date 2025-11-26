@@ -5,6 +5,7 @@ import { MenuItem, Navigation } from "../base/Navigation";
 import { useLocation, useMatches, useNavigate } from "react-router";
 import clsx from "clsx";
 import { ComponentPropsWithRef, useMemo } from "react";
+import User from "../personal/User";
 
 const menus: (MenuItem & {
   category: string;
@@ -54,10 +55,10 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
       <div className="mx-auto w-full max-w-6xl">
         <div className="-mb-10 flex h-20 items-center justify-between pt-5">
           <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">
-            K-dual.
+            K-Dual
           </div>
           <Navigation.Root>
-            <Navigation.List className="w-sm relative flex rounded-[50px] bg-white px-1 shadow-sm">
+            <Navigation.List className="relative flex w-sm rounded-[50px] bg-white px-1 shadow-sm">
               <Navigation.Indicator
                 activeIndex={currentMenuIndex}
                 className="top-1/2 h-5/6 -translate-y-1/2 rounded-full bg-teal-500/10 px-3"
@@ -85,9 +86,7 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
               ))}
             </Navigation.List>
           </Navigation.Root>
-          <Button>
-            <Avatar name="홍길동" role="학습근로자" />
-          </Button>
+          <User name="홍길동" role="학습근로자" />
         </div>
       </div>
     </header>

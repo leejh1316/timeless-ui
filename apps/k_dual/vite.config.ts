@@ -14,7 +14,7 @@ try {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   const OUT_DIR = "./dist";
-  const apiBaseUrl = env.VITE_API_BASE_URL || "/kdual";
+  const apiBaseUrl = "/kdual";
   return {
     plugins: [react(), tailwindcss()],
     resolve: {

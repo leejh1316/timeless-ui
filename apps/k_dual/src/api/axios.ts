@@ -38,11 +38,15 @@ const errorResponseLog = (error: AxiosError): void => {
 };
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: __API_BASE_URL__,
   timeout: 10000,
   headers: {
     Accept:
       "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  },
+  maxRedirects: 0,
+  validateStatus(status) {
+    return status >= 200 && status < 400;
   },
 });
 
@@ -79,6 +83,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 
 const onErrorResponse = (error: AxiosError | Error) => {
   if (axios.isAxiosError(error)) {
+    console.log(error);
     errorResponseLog(error);
     if (error.status === 401) {
     }
@@ -89,4 +94,4 @@ const onErrorResponse = (error: AxiosError | Error) => {
 instance.interceptors.request.use(onRequest, onRequestError);
 instance.interceptors.response.use(onResponse, onErrorResponse);
 
-export { instance as axios };
+export { instance as api };

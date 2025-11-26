@@ -633,7 +633,7 @@ const Message = FormMessage;
 const ValidityState = FormValidityState;
 const Submit = FormSubmit;
 
-const FormNamespace = Object.assign(Form, {
+const FormNamespace = {
   Root,
   Field,
   Label,
@@ -641,8 +641,7 @@ const FormNamespace = Object.assign(Form, {
   Message,
   ValidityState,
   Submit,
-});
-
+}
 export {
   createFormScope,
   //
