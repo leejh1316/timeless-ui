@@ -113,12 +113,13 @@ export function Component() {
         code={example1Code}
       >
         <div className="h-70 w-64">
-          <Image
+          <Image.Root
             src="https://picsum.photos/400?random=2"
             alt="A beautiful landscape"
-            fit="cover"
             className="h-full w-full rounded-lg object-cover data-[status=loading]:bg-gray-500"
-          />
+          >
+            <Image.View fit="cover" className="h-full" />
+          </Image.Root>
         </div>
       </ComponentPreview>
 
@@ -128,13 +129,14 @@ export function Component() {
         code={example2Code}
       >
         <div className="h-70 w-64">
-          <Image
+          <Image.Root
             src="https://picsum.photo33s/400?random=5"
             fallbackSrc="https://placehold.co/600x400/f87171/ffffff?text=Fallback"
             alt="Fallback example"
-            fit="contain"
             className="h-full w-full rounded-lg bg-gray-100 dark:bg-gray-800"
-          />
+          >
+            <Image.View fit="contain" className="h-full" />
+          </Image.Root>
         </div>
       </ComponentPreview>
       <ComponentPreview
@@ -143,19 +145,22 @@ export function Component() {
         code={example3Code}
       >
         <div className="h-72 w-full overflow-y-scroll rounded-lg border bg-gray-100 p-8 dark:border-gray-700 dark:bg-gray-800">
-          <p className="text-center text-gray-500 dark:text-gray-400">아래로 스크롤하여 이미지를 로드하세요 👇</p>
+          <p className="text-center text-gray-500 dark:text-gray-400">
+            아래로 스크롤하여 이미지를 로드하세요 👇
+          </p>
           <div className="h-96"></div>
           {/* InView와 Image를 결합한 실제 구현 예제 */}
           <InView once={true}>
             {({ isVisible }) => (
               <div className="h-48 w-full max-w-[400px] rounded-lg bg-gray-200 dark:bg-gray-700">
-                <Image
+                <Image.Root
                   src="https://picsum.photos/400?random=1"
                   alt="Lazy loaded office"
-                  fit="cover"
                   startLoading={isVisible}
                   className="h-full w-full rounded-lg object-cover"
-                />
+                >
+                  <Image.View fit="cover" className="h-full w-full" />
+                </Image.Root>
               </div>
             )}
           </InView>

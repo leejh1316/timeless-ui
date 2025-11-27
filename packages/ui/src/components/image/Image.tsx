@@ -1,5 +1,10 @@
-import { useMergeRefs } from "../../hooks/useMergeRefs";
-import { forwardRef, useEffect, useReducer, useRef } from "react";
+import { forwardRef, useEffect, useReducer } from "react";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
+import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
+
+/* -------------------------------------------------------------------------------------------------
+ * Image Types & Reducer
+ * -----------------------------------------------------------------------------------------------*/
 
 type ImageStatus = "idle" | "loading" | "loaded" | "fallback-loading" | "fallback-loaded" | "error";
 
@@ -40,64 +45,139 @@ const imageReducer = (state: State, action: Action): State => {
   }
 };
 
-interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  fallbackSrc?: string;
-  startLoading?: boolean;
-  fit?: "fill" | "contain" | "cover" | "none" | "scale-down";
-  onStatusChange?: (status: ImageStatus) => void;
-}
-
 const initialState: State = {
   status: "idle",
   renderSrc: undefined,
 };
 
-export const Image = forwardRef<HTMLImageElement, ImageProps>(
-  (
-    { src, alt, fallbackSrc, fit = "cover", onLoad, onError, onStatusChange, startLoading = true, style, ...props },
-    ref,
-  ) => {
-    const [state, dispatch] = useReducer(imageReducer, initialState);
-    const { status, renderSrc, renderAlt } = state;
+/* -------------------------------------------------------------------------------------------------
+ * Image Context
+ * -----------------------------------------------------------------------------------------------*/
 
-    const imgRef = useRef<HTMLImageElement | null>(null);
-    const mergedRef = useMergeRefs<HTMLImageElement | null>(imgRef, ref);
+const IMAGE_NAME = "Image";
+type ScopedProps<P> = P & { __scopeImage?: Scope };
+const [createImageContext, createImageScope] = createContextScope(IMAGE_NAME);
 
-    useEffect(() => {
-      dispatch({ type: "RESET" });
-    }, [src]);
+type ImageContextValue = {
+  status: ImageStatus;
+  renderSrc?: string;
+  renderAlt?: string;
+  onLoad: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  onError: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+};
 
-    useEffect(() => {
-      if (startLoading && status === "idle") {
-        dispatch({ type: "START_LOAD", payload: { src } });
-      }
-    }, [startLoading, status, src]);
+const [ImageProvider, useImageContext] = createImageContext<ImageContextValue>(IMAGE_NAME);
 
-    useEffect(() => {
-      onStatusChange?.(status);
-    }, [status, onStatusChange]);
+/* -------------------------------------------------------------------------------------------------
+ * Image.Root
+ * -----------------------------------------------------------------------------------------------*/
 
-    return (
-      <div className="_base-image" data-status={status}>
-        <img
-          {...props}
-          alt={renderAlt}
-          style={{ objectFit: fit, ...style }}
-          src={renderSrc}
-          ref={mergedRef}
-          data-status={status}
-          onLoad={(event) => {
-            dispatch({ type: "LOAD_SUCCESS", payload: { alt } });
-            onLoad?.(event);
-          }}
-          onError={(event) => {
-            dispatch({ type: "LOAD_ERROR", payload: { fallbackSrc, alt } });
-            onError?.(event);
-          }}
-        />
-      </div>
-    );
-  },
-);
+interface ImageRootProps extends PrimitivePropsWithRef<"div"> {
+  src?: string;
+  alt?: string;
+  fallbackSrc?: string;
+  startLoading?: boolean;
+  onStatusChange?: (status: ImageStatus) => void;
+}
 
-Image.displayName = "Image";
+const ImageRoot = forwardRef<HTMLDivElement, ScopedProps<ImageRootProps>>((props, ref) => {
+  const {
+    __scopeImage,
+    src,
+    alt,
+    fallbackSrc,
+    startLoading = true,
+    onStatusChange,
+    children,
+    className,
+    ...rest
+  } = props;
+
+  const [state, dispatch] = useReducer(imageReducer, initialState);
+  const { status, renderSrc, renderAlt } = state;
+
+  useEffect(() => {
+    dispatch({ type: "RESET" });
+  }, [src]);
+
+  useEffect(() => {
+    if (startLoading && status === "idle") {
+      dispatch({ type: "START_LOAD", payload: { src } });
+    }
+  }, [startLoading, status, src]);
+
+  useEffect(() => {
+    onStatusChange?.(status);
+  }, [status, onStatusChange]);
+
+  const handleLoad = () => {
+    dispatch({ type: "LOAD_SUCCESS", payload: { alt } });
+  };
+
+  const handleError = () => {
+    dispatch({ type: "LOAD_ERROR", payload: { fallbackSrc, alt } });
+  };
+
+  return (
+    <ImageProvider
+      scope={__scopeImage}
+      status={status}
+      renderSrc={renderSrc}
+      renderAlt={renderAlt}
+      onLoad={handleLoad}
+      onError={handleError}
+    >
+      <Primitive.div ref={ref} className={`_base-image ${className || ""}`} data-status={status} {...rest}>
+        {children}
+      </Primitive.div>
+    </ImageProvider>
+  );
+});
+
+ImageRoot.displayName = "Image.Root";
+
+/* -------------------------------------------------------------------------------------------------
+ * Image.View
+ * -----------------------------------------------------------------------------------------------*/
+
+interface ImageViewProps extends PrimitivePropsWithRef<"img"> {
+  fit?: "fill" | "contain" | "cover" | "none" | "scale-down";
+}
+
+const ImageView = forwardRef<HTMLImageElement, ScopedProps<ImageViewProps>>((props, ref) => {
+  const { __scopeImage, fit = "cover", style, onLoad, onError, ...rest } = props;
+  const context = useImageContext("ImageView", __scopeImage);
+
+  return (
+    <Primitive.img
+      ref={ref}
+      src={context.renderSrc}
+      alt={context.renderAlt}
+      data-status={context.status}
+      style={{ objectFit: fit, ...style }}
+      onLoad={(e) => {
+        context.onLoad(e);
+        onLoad?.(e);
+      }}
+      onError={(e) => {
+        context.onError(e);
+        onError?.(e);
+      }}
+      {...rest}
+    />
+  );
+});
+
+ImageView.displayName = "Image.View";
+
+/* -------------------------------------------------------------------------------------------------
+ * Export
+ * -----------------------------------------------------------------------------------------------*/
+
+export const Image = {
+  Root: ImageRoot,
+  View: ImageView,
+};
+
+export { createImageScope, ImageRoot, ImageView };
+export type { ImageRootProps, ImageViewProps };
