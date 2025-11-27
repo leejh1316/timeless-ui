@@ -11,5 +11,5 @@
   "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "./src/style.css"
+  "tailwindStylesheet": "./src/style/style.css"
 }

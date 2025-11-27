@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+@import "./animate.css";
 @theme {
   --font-pretendard: "Pretendard Variable";
 }
