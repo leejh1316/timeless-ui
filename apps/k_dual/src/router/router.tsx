@@ -31,13 +31,13 @@ export const routes: RouteObject[] = [
           category: "home",
         },
       },
-      // {
-      //   index: true,
-      //   element: <DashboardPage />,
-      //   handle: {
-      //     category: "home",
-      //   },
-      // },
+      {
+        path: "style/dashboard",
+        element: <Dashboard />,
+        handle: {
+          category: "home",
+        },
+      },
       {
         path: "learning-log",
         element: <LearningLog />,

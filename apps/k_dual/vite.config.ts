@@ -55,7 +55,19 @@ export default defineConfig(({ mode }) => {
               proxyReq.setHeader("Origin", "https://kpu.kdual.net");
               proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
             });
+            proxy.on("proxyRes", (proxyRes, _req, _res) => {
+              const location = proxyRes.headers["location"];
+              if (location) {
+                const targetDomain = "http://kpu.kdual.net";
+                if (location.startsWith(targetDomain)) {
+                  proxyRes.headers["location"] = location.replace(targetDomain, "/kdaul");
+                }
+              }
+            });
           },
+        },
+        "http://kpu.kdual.net": {
+          target: "https://kpu.kdual.net",
         },
       },
     },

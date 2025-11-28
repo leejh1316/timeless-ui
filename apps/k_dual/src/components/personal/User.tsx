@@ -1,4 +1,4 @@
-import { Button, Form, Popover, Toast } from "@timeless-ui/ui";
+import { Form, Popover, Toast } from "@timeless-ui/ui";
 import { Avatar } from "../base/Avatar";
 import clsx from "clsx";
 import { useAuthStore } from "@src/store/useAuthStore";
@@ -6,6 +6,7 @@ import { Input } from "../base/Input";
 import { LockIcon } from "lucide-react";
 import { useLoginMutation } from "@src/api/login";
 import { useState } from "react";
+import { Button } from "../base/Button";
 
 interface UserProps {
   name?: string;
@@ -16,12 +17,7 @@ const User = ({ name, role }: UserProps) => {
   return (
     <div>
       {isLogined ? (
-        <Button
-          className={clsx(
-            "cursor-pointer rounded-xl px-2 py-1 transition-all hover:bg-zinc-200/30",
-            "data-[pressed=true]:scale-95",
-          )}
-        >
+        <Button className={clsx("rounded-xl px-2 py-1 transition-all hover:bg-zinc-200/30")}>
           <Avatar name={name} role={role} />
         </Button>
       ) : (
@@ -32,7 +28,7 @@ const User = ({ name, role }: UserProps) => {
 };
 
 const Login = () => {
-  const { mutateAsync, isPending, error } = useLoginMutation();
+  const { mutateAsync, isPending, isError, error } = useLoginMutation();
 
   const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,13 +47,10 @@ const Login = () => {
   return (
     <>
       <Popover.Root placement="bottom-end" open={isOpen} onOpenChange={setIsOpen}>
-        <Popover.Trigger
-          className={clsx(
-            "cursor-pointer rounded-xl px-2 py-1 transition-all hover:bg-zinc-200/30",
-            "data-[pressed=true]:scale-95",
-          )}
-        >
-          <Avatar name={"로그인"} />
+        <Popover.Trigger asChild>
+          <Button className={clsx("rounded-xl px-2 py-1 hover:bg-zinc-200/30")}>
+            <Avatar name={"로그인"} />
+          </Button>
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.View>
@@ -87,12 +80,13 @@ const Login = () => {
                       <Input.Area type="password" required />
                     </Form.Control>
                   </Form.Field>
+                  {isError && <div>{error.message}</div>}
                   <Form.Submit asChild>
                     <Button
-                      disabled={isPending}
+                      loading={isPending}
                       className={clsx(
-                        "mt-6 w-full rounded-xl bg-teal-500 px-7 py-3 text-sm text-white transition-all hover:bg-teal-600 data-[pressed=true]:scale-[98%]",
-                        "data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50",
+                        "mt-6 w-full rounded-xl border border-teal-500 bg-teal-500 px-7 py-3 text-sm text-white hover:bg-teal-600",
+                        "data-[loading=true]:bg-transparent",
                       )}
                     >
                       로그인
