@@ -52,6 +52,10 @@ export default defineConfig(({ mode }) => {
           cookieDomainRewrite: "localhost",
           configure: (proxy, _options) => {
             proxy.on("proxyReq", (proxyReq, _req, _res) => {
+              proxyReq.setHeader(
+                "Accept",
+                "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+              );
               proxyReq.setHeader("Origin", "https://kpu.kdual.net");
               proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
             });
@@ -65,9 +69,6 @@ export default defineConfig(({ mode }) => {
               }
             });
           },
-        },
-        "http://kpu.kdual.net": {
-          target: "https://kpu.kdual.net",
         },
       },
     },
