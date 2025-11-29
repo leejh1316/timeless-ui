@@ -10,7 +10,7 @@ interface LoginPayload {
   UserType: string;
 }
 
-export const login = (payload: string) =>
+const login = (payload: string) =>
   fetch("/kdual/Account/LogOnProcess", {
     method: "POST",
     headers: {
@@ -19,7 +19,7 @@ export const login = (payload: string) =>
     body: payload,
     // redirect: "manual",
   });
-export const logout = () => api.get("/Account/LogOff");
+const logout = () => api.get("/Account/LogOff");
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();

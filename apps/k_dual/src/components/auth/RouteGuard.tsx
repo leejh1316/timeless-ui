@@ -1,28 +1,21 @@
-import { useLayoutEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useAuthStore } from "@src/store/useAuthStore";
+import { Navigate, useLocation } from "react-router";
 
 interface RouteGuardProps {
   children: React.ReactNode;
   allowedUrls?: string[];
 }
-const RouteGuard = ({ children, allowedUrls = ["/login"] }: RouteGuardProps) => {
-  const navigate = useNavigate();
+const RouteGuard = ({ children, allowedUrls = [] }: RouteGuardProps) => {
   const location = useLocation();
-  const redirectToLogin = () => {
-    navigate(
-      {
-        pathname: "/login",
-        search: `?redirect=${window.location.pathname}`,
-      },
-      { replace: true },
-    );
-  };
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const isAllowed = allowedUrls.includes(location.pathname);
 
-  useLayoutEffect(() => {
-    const isAllowed = allowedUrls.includes(location.pathname);
-    if (!isAllowed) {
-      redirectToLogin();
-    }
-  }, [allowedUrls, location.pathname]);
+  if (!isLogin && !isAllowed) {
+    const redirectUrl = location.pathname + location.search;
+    return <Navigate to={`/login?redirect=${encodeURIComponent(redirectUrl)}`} replace />;
+  }
+
   return <>{children}</>;
 };
+
+export default RouteGuard;

@@ -2,6 +2,7 @@ import { makeQueryApi } from "@src/hooks/useApiHook";
 import { QUERY_KEY } from "./_queryKey";
 import { api } from "./axios";
 
+// 해당 통신에서 로그인 문자열이 있을땐 login 안된 상태로 간주
 export const home = async () => {
   try {
     const response = await api.get<string>("");

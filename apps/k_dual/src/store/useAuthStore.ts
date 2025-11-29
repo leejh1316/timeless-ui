@@ -1,18 +1,24 @@
 import { create } from "zustand";
 interface AuthState {
-  isLogined?: boolean;
-  name?: string;
-  profileImageUrl?: string;
-  role?: string;
+  isLogin: boolean;
+  name: string | null;
+  profileImageUrl: string | null;
+  role: string | null;
+}
+interface AuthActions {
+  setIsLogin: (isLogin: boolean) => void;
+  setName: (name: string | null) => void;
+  setProfileImageUrl: (url: string | null) => void;
+  setRole: (role: string | null) => void;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
-  isLogined: false,
-  name: undefined,
-  profileImageUrl: undefined,
-  role: undefined,
-  setIsLogined: (isLogined: boolean) => set({ isLogined }),
-  setName: (name: string) => set({ name }),
-  setProfileImageUrl: (url: string) => set({ profileImageUrl: url }),
-  setRole: (role: string) => set({ role }),
+export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
+  isLogin: false,
+  name: null,
+  profileImageUrl: null,
+  role: null,
+  setIsLogin: (isLogin: boolean) => set({ isLogin }),
+  setName: (name: string | null) => set({ name }),
+  setProfileImageUrl: (url: string | null) => set({ profileImageUrl: url }),
+  setRole: (role: string | null) => set({ role }),
 }));

@@ -1,4 +1,5 @@
 import App from "@src/App";
+import RouteGuard from "@src/components/auth/RouteGuard";
 import AppProcess from "@src/pages/AppProcess";
 import Dashboard from "@src/pages/Dashboard";
 import DashboardPage from "@src/pages/dashboard/DashboardPage";
@@ -27,7 +28,11 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <AppProcess />,
+        element: (
+          <RouteGuard>
+            <AppProcess />
+          </RouteGuard>
+        ),
         children: [
           {
             index: true,

@@ -1,6 +1,6 @@
 import { Page } from "@src/components/layout/Page";
-import LoginForm from "./components/form/LoginForm";
 import { useQueryString } from "@timeless-ui/ui";
+import LoginForm from "./components/form/LoginForm";
 
 const LoginPage = () => {
   const {} = useQueryString();
