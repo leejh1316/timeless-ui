@@ -1,9 +1,8 @@
-import { Outlet } from "react-router";
-import Header from "./components/layout/Header";
-import { useFetchHome } from "./api/home";
-import { Skeleton } from "./components/base/Skeleton";
 import { useEffect } from "react";
-import { scrape } from "./utils/scraper";
+import { Outlet } from "react-router";
+import { useFetchHome } from "./api/home";
+import Header from "./components/layout/Header";
+import { scrape, type ScrapeSchema } from "./utils/scraper";
 
 function App() {
   const { data } = useFetchHome();
@@ -23,7 +22,7 @@ function App() {
   </div>
 `;
     const doc = parser.parseFromString(data, "text/html");
-    const schoolSchema = {
+    const schoolSchema: ScrapeSchema = {
       // [공지사항 추출]
       notices: {
         // 제목줄(.k_mn_bbs_tit)이 아닌 <ul> 안의 <li>만 선택
