@@ -1,5 +1,17 @@
 import { ScrapeSchema } from "@src/utils/scraper";
 
+// 내 정보 스크래핑 스키마 정의
+interface MyInfoSchema {
+  profileImg: string;
+  role: string;
+  name: string;
+  organization: string;
+  department: string;
+  jobInformation: string;
+  studentId: string;
+  email: string;
+  phone: string;
+}
 export const MY_INFO_SCHEMA: ScrapeSchema = {
   profileImg: {
     selector:
@@ -28,6 +40,14 @@ export const MY_INFO_SCHEMA: ScrapeSchema = {
   },
 };
 
+// 내 강의 목록 스크래핑 스키마 정의
+interface MyCourseListSchema {
+  semesterList: Array<{
+    value: string;
+    label: string;
+    isDefaultSelected: boolean;
+  }>;
+}
 export const MY_COURSE_LIST_SCHEMA: ScrapeSchema = {
   semesterList: {
     // 1. 반복되는 option 태그 선택
@@ -64,3 +84,5 @@ export const MY_COURSE_LIST_SCHEMA: ScrapeSchema = {
     },
   },
 };
+
+export type { MyInfoSchema, MyCourseListSchema };

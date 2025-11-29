@@ -11,6 +11,7 @@ export const home = async (): Promise<HomeSchema> => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(response.data, "text/html");
     const data = scrape(doc, HOME_SCHEMA) as unknown as HomeSchema;
+    console.log("home data:", data);
     return data;
   } catch (error) {
     throw new Error("Kdaul 홈페이지 정보를 불러오는데 실패했습니다.");
