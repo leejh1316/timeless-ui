@@ -1,7 +1,9 @@
 import App from "@src/App";
+import AppProcess from "@src/pages/AppProcess";
 import Dashboard from "@src/pages/Dashboard";
 import DashboardPage from "@src/pages/dashboard/DashboardPage";
 import LearningLog from "@src/pages/learning-log/LearningLog";
+import LoginPage from "@src/pages/login/LoginPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
 
@@ -21,28 +23,40 @@ export const PAGE_ROUTES: {} = {} as const;
 
 export const routes: RouteObject[] = [
   {
-    path: "/",
     element: <App />,
     children: [
       {
-        index: true,
-        element: <DashboardPage />,
-        handle: {
-          category: "home",
-        },
+        path: "/",
+        element: <AppProcess />,
+        children: [
+          {
+            index: true,
+            element: <DashboardPage />,
+            handle: {
+              category: "home",
+            },
+          },
+          {
+            path: "style/dashboard",
+            element: <Dashboard />,
+            handle: {
+              category: "home",
+            },
+          },
+          {
+            path: "learning-log",
+            element: <LearningLog />,
+            handle: {
+              category: "learning-log",
+            },
+          },
+        ],
       },
       {
-        path: "style/dashboard",
-        element: <Dashboard />,
+        path: "/login",
+        element: <LoginPage />,
         handle: {
-          category: "home",
-        },
-      },
-      {
-        path: "learning-log",
-        element: <LearningLog />,
-        handle: {
-          category: "learning-log",
+          category: "login",
         },
       },
     ],
