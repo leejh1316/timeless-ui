@@ -103,8 +103,12 @@ export function scrape<T extends ScrapeSchema>(
 
     // 1. String Selector
     if (typeof def === "string") {
-      const el = root.querySelector(def);
-      result[key] = el?.textContent?.trim() || "";
+      if (def === ":scope") {
+        result[key] = root.textContent?.trim() || "";
+      } else {
+        const el = root.querySelector(def);
+        result[key] = el?.textContent?.trim() || "";
+      }
     }
     // 2. List Selector
     else if (isListSelector(def)) {
@@ -113,18 +117,18 @@ export function scrape<T extends ScrapeSchema>(
     }
     // 3. Transform Selector
     else if (isTransformSelector(def)) {
-      const el = root.querySelector(def.selector);
+      const el = def.selector === ":scope" ? (root as Element) : root.querySelector(def.selector);
       result[key] = def.transform(el);
     }
     // 4. Attribute Selector
     else if (isAttributeSelector(def)) {
-      const el = root.querySelector(def.selector);
+      const el = def.selector === ":scope" ? (root as Element) : root.querySelector(def.selector);
       const val = el?.getAttribute(def.attr) || "";
       result[key] = def.trim !== false ? val.trim() : val;
     }
     // 5. Text Selector (Explicit)
     else if (isTextSelector(def)) {
-      const el = root.querySelector(def.selector);
+      const el = def.selector === ":scope" ? (root as Element) : root.querySelector(def.selector);
       const val = el?.textContent || "";
       result[key] = def.trim !== false ? val.trim() : val;
     }

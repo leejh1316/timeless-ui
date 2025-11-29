@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeMutationApi } from "@src/hooks/useApiHook";
-import { QUERY_KEY } from "./_queryKey";
-import { api } from "./axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { api } from "../axios";
+import { QUERY_KEY } from "../_queryKey";
 
 interface LoginPayload {
   login_type: string;
@@ -40,6 +40,7 @@ export const useLoginMutation = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.HOME] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
     },
   });
 };

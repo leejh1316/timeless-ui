@@ -1,23 +1,22 @@
-import { Form, Popover, Toast } from "@timeless-ui/ui";
-import { Avatar } from "../base/Avatar";
+import { Popover } from "@timeless-ui/ui";
 import clsx from "clsx";
-import { useAuthStore } from "@src/store/useAuthStore";
-import { Input } from "../base/Input";
-import { LockIcon } from "lucide-react";
-import { useLoginMutation } from "@src/api/login";
-import { ComponentPropsWithRef, useState } from "react";
+import { useState } from "react";
+import { Avatar } from "../base/Avatar";
 import { Button } from "../base/Button";
+import { useShallow } from "zustand/shallow";
+import { useFetchMyInfo } from "@src/api/endpoints/my";
 
-interface UserProps {
-  name?: string;
-  role?: string;
-}
-const User = ({ name, role }: UserProps) => {
-  const isLogined = useAuthStore((state) => state.isLogined);
+const User = () => {
+  const { data, isLoading } = useFetchMyInfo();
   return (
     <div>
       <Button className={clsx("rounded-xl px-2 py-1 transition-all hover:bg-zinc-200/30")}>
-        <Avatar name={name || "ABC"} role={role} />
+        <Avatar
+          name={data?.name || ""}
+          role={data?.role}
+          profileImageUrl={data?.profileImg ? `/kdual/${data.profileImg}` : undefined}
+          loading={isLoading}
+        />
       </Button>
     </div>
   );
@@ -35,15 +34,7 @@ const Login = () => {
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.View>
-            <Popover.Content className="rounded-2xl bg-white shadow-md">
-              <div className="w-sm p-4">
-                <LoginForm
-                  onLoginSuccess={() => {
-                    setIsOpen(false);
-                  }}
-                />
-              </div>
-            </Popover.Content>
+            <Popover.Content className="rounded-2xl bg-white shadow-md"></Popover.Content>
           </Popover.View>
         </Popover.Portal>
       </Popover.Root>

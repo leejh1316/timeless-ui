@@ -28,11 +28,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: (
-          <RouteGuard>
-            <AppProcess />
-          </RouteGuard>
-        ),
+        element: <AppProcess />,
         children: [
           {
             index: true,

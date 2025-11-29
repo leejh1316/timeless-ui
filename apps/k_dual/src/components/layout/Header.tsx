@@ -58,7 +58,7 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
             K-Dual
           </div>
           <Navigation.Root>
-            <Navigation.List className="relative flex w-sm rounded-[50px] bg-white px-1 shadow-sm">
+            <Navigation.List className="w-sm relative flex rounded-[50px] bg-white px-1 shadow-sm">
               <Navigation.Indicator
                 activeIndex={currentMenuIndex}
                 className="top-1/2 h-5/6 -translate-y-1/2 rounded-full bg-teal-500/10 px-3"
@@ -86,7 +86,7 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
               ))}
             </Navigation.List>
           </Navigation.Root>
-          <User name="홍길동" role="학습근로자" />
+          <User />
         </div>
       </div>
     </header>
