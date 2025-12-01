@@ -26,12 +26,6 @@ const menus: (MenuItem & {
     Icon: FileText,
   },
   {
-    category: "schedule",
-    label: "일정",
-    href: "#",
-    Icon: CalendarIcon,
-  },
-  {
     category: "community",
     label: "커뮤니티",
     href: "#",
@@ -53,7 +47,7 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
   return (
     <header className="px-4" {...props}>
       <div className="mx-auto w-full max-w-6xl">
-        <div className="-mb-10 flex h-20 items-center justify-between pt-5">
+        <div className="flex h-20 items-center justify-between pt-5">
           <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">
             K-Dual
           </div>
@@ -64,15 +58,15 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
                 className="top-1/2 h-5/6 -translate-y-1/2 rounded-full bg-teal-500/10 px-3"
               />
               {menus.map(({ category, label, href, Icon }) => (
-                <Navigation.Item key={category} className="z-10 min-w-0 shrink-0 grow text-center">
+                <Navigation.Item key={category} className="z-10 w-full min-w-0">
                   <Navigation.Trigger
                     onClick={() => navigate(href)}
-                    className={"cursor-pointer py-3"}
+                    className={"w-full cursor-pointer py-3"}
                   >
                     <div>
                       <span
                         className={clsx(
-                          "flex items-center gap-2 text-base no-underline transition-colors",
+                          "flex items-center justify-center gap-2 text-base no-underline transition-colors",
                           matchMenu?.category === category
                             ? "font-semibold text-teal-600"
                             : "text-gray-700 hover:text-teal-700",

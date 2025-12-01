@@ -19,7 +19,7 @@ PageSection.displayName = "Page.Section";
 const PageContent = forwardRef<React.ComponentRef<"div">, ComponentPropsWithRef<"div">>(
   (props, forwardedRef) => {
     const { className, ...rest } = props;
-    return <div ref={forwardedRef} className={clsx(className, "mx-auto max-w-7xl")} {...rest} />;
+    return <div ref={forwardedRef} className={clsx(className, "mx-auto max-w-6xl")} {...rest} />;
   },
 );
 PageContent.displayName = "Page.Content";
