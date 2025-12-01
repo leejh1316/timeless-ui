@@ -6,6 +6,8 @@ import { Avatar } from "../base/Avatar";
 import { Button } from "../base/Button";
 import { Image } from "../base/Image";
 import { Skeleton } from "../base/Skeleton";
+import { logout, useLogoutMutation } from "@src/api/endpoints/login";
+import { useNavigate } from "react-router";
 
 const User = () => {
   const { data, isLoading } = useFetchMyInfo();
@@ -37,6 +39,12 @@ interface UserDetailProps {
   loading?: boolean;
 }
 const UserDetail = ({ userDetail, loading }: UserDetailProps) => {
+  const navigate = useNavigate();
+  const { mutateAsync: logout, isPending } = useLogoutMutation();
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  };
   return (
     <Popover.Content className="rounded-2xl bg-white shadow-md">
       {loading ? (
@@ -87,7 +95,11 @@ const UserDetail = ({ userDetail, loading }: UserDetailProps) => {
             </dl>
 
             <div className="mt-5 flex gap-2">
-              <Button className="flex-1 rounded-lg bg-zinc-100 px-2 py-3 text-sm hover:bg-zinc-200">
+              <Button
+                onClick={handleLogout}
+                loading={isPending}
+                className="flex-1 rounded-lg bg-zinc-100 px-2 py-3 text-sm hover:bg-zinc-200"
+              >
                 로그아웃
               </Button>
             </div>

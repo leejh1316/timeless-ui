@@ -1,16 +1,16 @@
 import { useLoginMutation } from "@src/api/endpoints/login";
-import { useFetchHome } from "@src/api/home";
 import { Button } from "@src/components/base/Button";
 import { Input } from "@src/components/base/Input";
-import { Form } from "@timeless-ui/ui";
+import { Checkbox, Form } from "@timeless-ui/ui";
 import clsx from "clsx";
-import { ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef, useState } from "react";
 
 interface LoginFormProps extends ComponentPropsWithRef<"div"> {
   onLoginSuccess?: () => void;
 }
 const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
   const { mutateAsync, isPending, isError, error } = useLoginMutation();
+  const [isRememberId, setIsRememberId] = useState<boolean>(!!localStorage.getItem("rememberId"));
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -22,6 +22,11 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
       password: password as string,
       UserType: "USRT001",
     });
+    if (isRememberId) {
+      localStorage.setItem("rememberId", userid as string);
+    } else {
+      localStorage.removeItem("rememberId");
+    }
     onLoginSuccess?.();
   };
   return (
@@ -36,7 +41,10 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <Input.Area required />
+            <Input.Area
+              required
+              defaultValue={isRememberId ? localStorage.getItem("rememberId") || "" : ""}
+            />
           </Form.Control>
         </Form.Field>
         <Form.Field name="password">
@@ -50,6 +58,21 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
             <Input.Area type="password" required />
           </Form.Control>
         </Form.Field>
+        <Checkbox.Root
+          checked={isRememberId}
+          onCheckedChange={(state) => setIsRememberId(state === true)}
+        >
+          <Checkbox.Trigger type="button" className="group" asChild>
+            <Button>
+              <div className="mt-3 flex items-center space-x-1.5 rounded-lg px-1.5 py-1.5 transition-all hover:bg-zinc-100">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-gray-500 transition-all group-data-[state=checked]:border-teal-500 group-data-[state=checked]:bg-teal-500">
+                  <Checkbox.Icon className="text-white" />
+                </span>
+                <span className="text-sm text-gray-700">아이디 저장</span>
+              </div>
+            </Button>
+          </Checkbox.Trigger>
+        </Checkbox.Root>
         {isError && <div className="pt-3 text-sm text-red-600">{error.message}</div>}
         <Form.Submit asChild>
           <Button

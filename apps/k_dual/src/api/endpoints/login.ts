@@ -19,8 +19,6 @@ const login = (payload: string) =>
     body: payload,
     // redirect: "manual",
   });
-const logout = () => api.get("/Account/LogOff");
-
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,6 +39,20 @@ export const useLoginMutation = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.HOME] });
       await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
+    },
+  });
+};
+
+const logout = () => api.get("/Account/LogOff");
+export const useLogoutMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      try {
+        await logout();
+      } catch (error) {
+        throw error;
+      }
     },
   });
 };
