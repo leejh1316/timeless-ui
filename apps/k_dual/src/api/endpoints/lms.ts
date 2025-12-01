@@ -1,7 +1,12 @@
 import { makeQueryApi } from "@src/hooks/useApiHook";
 import { scrape } from "@src/utils/scraper";
 import { api } from "../axios";
-import { LMS_MAIN_SCHEMA, LmsMain } from "../schema/lms";
+import {
+  LMS_LEARNING_DETAIL_SCHEMA,
+  LMS_MAIN_SCHEMA,
+  LmsLearningDetail,
+  LmsMain,
+} from "../schema/lms";
 import { QUERY_KEY } from "../_queryKey";
 
 interface MainPayload {
@@ -23,3 +28,29 @@ const main = async (payload: MainPayload): Promise<LmsMain> => {
 export const useFetchLmsMain = makeQueryApi((payload: MainPayload) => main(payload), {
   queryKey: (payload) => [QUERY_KEY.LMS_MAIN, payload.id],
 });
+
+interface LearningDetailPayload {
+  lmsId: number;
+  week: number;
+}
+const learningDetail = async (payload: LearningDetailPayload): Promise<LmsLearningDetail> => {
+  try {
+    const response = await api.get<string>(
+      `LMS/LectureRoom/CourseProgressStudentEstView/${payload.lmsId}?Week=${payload.week}`,
+    );
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(response.data, "text/html");
+    const data = scrape(doc, LMS_LEARNING_DETAIL_SCHEMA) as unknown as LmsLearningDetail;
+    console.log("LMS Learning Detail Data Fetched:", data);
+    return data;
+  } catch (error) {
+    throw new Error("LMS 상세 정보를 불러오는데 실패했습니다.");
+  }
+};
+
+export const useFetchLmsLearningDetail = makeQueryApi(
+  (payload: LearningDetailPayload) => learningDetail(payload),
+  {
+    queryKey: (payload) => [QUERY_KEY.LMS_LEARNING_DETAIL, payload.lmsId, payload.week],
+  },
+);
