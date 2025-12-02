@@ -25,8 +25,11 @@ const main = async (payload: MainPayload): Promise<LmsMain> => {
   }
 };
 
-export const useFetchLmsMain = makeQueryApi((payload: MainPayload) => main(payload), {
+export const useFetchLmsMain = makeQueryApi((payload: MainPayload, enable) => main(payload), {
   queryKey: (payload) => [QUERY_KEY.LMS_MAIN, payload.id],
+  config: (_, enable) => ({
+    enabled: enable,
+  }),
 });
 
 interface LearningDetailPayload {
@@ -49,8 +52,11 @@ const learningDetail = async (payload: LearningDetailPayload): Promise<LmsLearni
 };
 
 export const useFetchLmsLearningDetail = makeQueryApi(
-  (payload: LearningDetailPayload) => learningDetail(payload),
+  (payload: LearningDetailPayload, enable?: boolean) => learningDetail(payload),
   {
     queryKey: (payload) => [QUERY_KEY.LMS_LEARNING_DETAIL, payload.lmsId, payload.week],
+    config: (_, enable) => ({
+      enabled: enable,
+    }),
   },
 );

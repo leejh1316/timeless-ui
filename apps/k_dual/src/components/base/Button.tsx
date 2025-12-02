@@ -16,7 +16,7 @@ const Button = forwardRef<React.ComponentRef<typeof BaseButton>, ButtonProps>(
         loading={loading}
         className={clsx(
           className,
-          "data-[pressed=true]:transform-[scale(0.98)] cursor-pointer transition-all",
+          "data-[pressed=true]:transform-[scale(0.97)] cursor-pointer transition-all duration-200",
           "data-[disabled=true]:cursor-auto",
         )}
       >

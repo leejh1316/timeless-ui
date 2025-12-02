@@ -41,12 +41,23 @@ export const MY_INFO_SCHEMA: ScrapeSchema = {
 };
 
 // 내 강의 목록 스크래핑 스키마 정의
+type Semester = {
+  value: string;
+  label: string;
+  isDefaultSelected: boolean;
+};
+type Course = {
+  yearSemester: string;
+  courseName: string;
+  lmsId: string;
+  department: string;
+  credits: string;
+  professor: string;
+  companyTeacher: string;
+};
 interface MyCourseListSchema {
-  semesterList: Array<{
-    value: string;
-    label: string;
-    isDefaultSelected: boolean;
-  }>;
+  semesterList: Array<Semester>;
+  courseList: Array<Course>;
 }
 export const MY_COURSE_LIST_SCHEMA: ScrapeSchema = {
   semesterList: {
@@ -85,4 +96,4 @@ export const MY_COURSE_LIST_SCHEMA: ScrapeSchema = {
   },
 };
 
-export type { MyInfoSchema, MyCourseListSchema };
+export type { MyInfoSchema, MyCourseListSchema, Semester, Course };

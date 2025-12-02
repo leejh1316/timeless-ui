@@ -95,7 +95,9 @@ export default function Dashboard() {
 
           {/* Status Section */}
           <section className="px-6 pb-8">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">Overview</div>
+            <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+              Overview
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2.5 rounded-2xl bg-white p-5 shadow-sm">
                 <div className="flex justify-between">
@@ -105,7 +107,9 @@ export default function Dashboard() {
                 <span className="text-[13px] font-medium text-gray-500">전체 진행률</span>
               </div>
               <div className="flex flex-col gap-2.5 rounded-2xl bg-white p-5 shadow-sm">
-                <span className="text-[28px] font-extrabold leading-none text-gray-900">12 / 16</span>
+                <span className="text-[28px] font-extrabold leading-none text-gray-900">
+                  12 / 16
+                </span>
                 <span className="text-[13px] font-medium text-gray-500">작성 완료 (주)</span>
               </div>
             </div>
@@ -113,10 +117,15 @@ export default function Dashboard() {
 
           {/* List Section */}
           <section className="px-6">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">Recent Activity</div>
+            <div className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+              Recent Activity
+            </div>
             <div>
               {ACTIVITY_DATA.slice(0, 2).map((item, index) => (
-                <div key={index} className="flex items-center border-b border-gray-100 py-[18px] last:border-b-0">
+                <div
+                  key={index}
+                  className="flex items-center border-b border-gray-100 py-[18px] last:border-b-0"
+                >
                   <div className="mr-4 flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-gray-100 text-sm font-semibold text-gray-500">
                     {item.week}
                   </div>
@@ -159,7 +168,9 @@ export default function Dashboard() {
         <div className="mx-auto hidden max-w-[1140px] px-10 pb-16 md:block">
           {/* Header */}
           <header className="mb-10 flex h-20 items-center justify-between pt-5">
-            <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">K-dual.</div>
+            <div className="cursor-pointer text-2xl font-extrabold tracking-tighter text-gray-900">
+              K-dual.
+            </div>
 
             <nav className="flex gap-10 rounded-[50px] bg-white px-8 py-3 shadow-sm">
               <Link
@@ -204,7 +215,9 @@ export default function Dashboard() {
             <h1 className="mb-2 text-[32px] font-light text-gray-500">
               안녕하세요, <span className="font-bold text-gray-900">이재혁</span>님
             </h1>
-            <p className="text-base text-gray-500">오늘도 힘찬 하루 되세요. 12주차 과정이 진행 중입니다.</p>
+            <p className="text-base text-gray-500">
+              오늘도 힘찬 하루 되세요. 12주차 과정이 진행 중입니다.
+            </p>
           </section>
 
           {/* Dashboard Grid */}
@@ -228,7 +241,9 @@ export default function Dashboard() {
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </Tooltip.Root>
-                  <div className="mt-4 text-sm text-gray-500">이번 주차 주제: PBL OJT 진행 및 신뢰성 검증</div>
+                  <div className="mt-4 text-sm text-gray-500">
+                    이번 주차 주제: PBL OJT 진행 및 신뢰성 검증
+                  </div>
                 </div>
                 <div className="flex items-center gap-5">
                   <div className="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-teal-50 text-2xl text-teal-600">
@@ -297,7 +312,9 @@ export default function Dashboard() {
                             </div>
                             <div
                               className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-semibold ${
-                                item.status === "pending" ? "bg-amber-50 text-amber-700" : "bg-teal-50 text-teal-700"
+                                item.status === "pending"
+                                  ? "bg-amber-50 text-amber-700"
+                                  : "bg-teal-50 text-teal-700"
                               }`}
                             >
                               <div
@@ -315,7 +332,9 @@ export default function Dashboard() {
                             (tabValue === "pending" && item.status === "pending") ||
                             (tabValue === "completed" && item.status === "success"),
                         ).length === 0 && (
-                          <div className="py-10 text-center text-gray-400">해당하는 활동 내역이 없습니다.</div>
+                          <div className="py-10 text-center text-gray-400">
+                            해당하는 활동 내역이 없습니다.
+                          </div>
                         )}
                       </Tabs.Content>
                     ))}
@@ -347,7 +366,9 @@ export default function Dashboard() {
 
               {/* Calendar Widget */}
               <div className="flex-1 rounded-3xl bg-white p-8 shadow-sm">
-                <div className="mb-4 text-base font-bold tracking-wide text-gray-500">NOVEMBER 2025</div>
+                <div className="mb-4 text-base font-bold tracking-wide text-gray-500">
+                  NOVEMBER 2025
+                </div>
                 {/* Using Custom UI Calendar */}
                 <div className="w-full">
                   <Calendar.Root date={date} onMonthChange={setDate}>
@@ -355,7 +376,11 @@ export default function Dashboard() {
                       {(weekdays) => (
                         <div className="grid grid-cols-7 gap-2 text-center">
                           {weekdays.map((day) => (
-                            <Calendar.Day key={day.day} day={day} className="mb-1 text-xs font-semibold text-gray-500">
+                            <Calendar.Day
+                              key={day.day}
+                              day={day}
+                              className="mb-1 text-xs font-semibold text-gray-500"
+                            >
                               {day.day}
                             </Calendar.Day>
                           ))}
