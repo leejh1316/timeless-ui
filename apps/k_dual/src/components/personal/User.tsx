@@ -6,7 +6,7 @@ import { Avatar } from "../base/Avatar";
 import { Button } from "../base/Button";
 import { Image } from "../base/Image";
 import { Skeleton } from "../base/Skeleton";
-import { logout, useLogoutMutation } from "@src/api/endpoints/login";
+import { useLogoutMutation } from "@src/api/endpoints/login";
 import { useNavigate } from "react-router";
 
 const User = () => {

@@ -2,12 +2,7 @@ import { Primitive, PrimitivePropsWithRef } from "@timeless-ui/ui";
 import clsx from "clsx";
 import { ComponentRef, forwardRef } from "react";
 
-const InputRoot = (props: PrimitivePropsWithRef<"div">) => {
-  const { className, ...otherProps } = props;
-  return <Primitive.div className={clsx("relative", className)} {...otherProps} />;
-};
-
-const InputArea = forwardRef<ComponentRef<typeof Primitive.input>, PrimitivePropsWithRef<"input">>(
+const Input = forwardRef<ComponentRef<typeof Primitive.input>, PrimitivePropsWithRef<"input">>(
   (props, forwardedRef) => {
     const { className, ...otherProps } = props;
     return (
@@ -28,7 +23,4 @@ const InputArea = forwardRef<ComponentRef<typeof Primitive.input>, PrimitiveProp
   },
 );
 
-export const Input = {
-  Root: InputRoot,
-  Area: InputArea,
-};
+export { Input };

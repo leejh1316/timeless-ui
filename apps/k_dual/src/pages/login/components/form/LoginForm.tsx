@@ -41,7 +41,7 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <Input.Area
+            <Input
               required
               defaultValue={isRememberId ? localStorage.getItem("rememberId") || "" : ""}
             />
@@ -54,8 +54,9 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
               비밀번호를 입력해주세요.
             </Form.Message>
           </div>
+
           <Form.Control asChild>
-            <Input.Area type="password" required />
+            <Input type="password" required />
           </Form.Control>
         </Form.Field>
         <Checkbox.Root
