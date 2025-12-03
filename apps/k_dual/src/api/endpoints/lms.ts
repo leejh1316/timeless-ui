@@ -17,7 +17,7 @@ const main = async (payload: MainPayload): Promise<LmsMain> => {
     const response = await api.get<string>(`LMS/LectureRoom/Main/${payload.id}`);
     const parser = new DOMParser();
     const doc = parser.parseFromString(response.data, "text/html");
-    const data = scrape(doc, LMS_MAIN_SCHEMA) as LmsMain;
+    const data = scrape(doc, LMS_MAIN_SCHEMA) as unknown as LmsMain;
     console.log("LMS Main Data Fetched:", data);
     return data;
   } catch (error) {
@@ -25,12 +25,15 @@ const main = async (payload: MainPayload): Promise<LmsMain> => {
   }
 };
 
-export const useFetchLmsMain = makeQueryApi((payload: MainPayload, enable) => main(payload), {
-  queryKey: (payload) => [QUERY_KEY.LMS_MAIN, payload.id],
-  config: (_, enable) => ({
-    enabled: enable,
-  }),
-});
+export const useFetchLmsMain = makeQueryApi(
+  (payload: MainPayload, enable: boolean = true) => main(payload),
+  {
+    queryKey: (payload) => [QUERY_KEY.LMS_MAIN, payload.id],
+    config: (_, enable) => ({
+      enabled: enable,
+    }),
+  },
+);
 
 interface LearningDetailPayload {
   lmsId: number;

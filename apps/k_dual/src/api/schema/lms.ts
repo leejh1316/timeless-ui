@@ -1,29 +1,34 @@
 import { ScrapeSchema } from "@src/utils/scraper";
 
+// LMS 메인 페이지
+type CourseInfo = {
+  name: string;
+  semester: string;
+  credits: string;
+  studentCount: string;
+};
+type ProgressInfo = {
+  currentWeek: string;
+  totalHours: string;
+  completedHours: string;
+};
+type Notice = {
+  title: string;
+  date: string;
+  link: string;
+};
+type WeeklySchedule = {
+  week: string;
+  period: string;
+  title: string;
+  status: string; // 진행완료, 미진행 등
+  isEvaluation: boolean; // 중간고사 / 기말고사 여부
+};
 interface LmsMain {
-  courseInfo?: {
-    name: string;
-    semester: string;
-    credits: string;
-    studentCount: string;
-  };
-  progressInfo?: {
-    currentWeek: string;
-    totalHours: string;
-    completedHours: string;
-  };
-  noticeList?: {
-    title: string;
-    date: string;
-    link: string;
-  }[];
-  weeklySchedule?: {
-    week: string;
-    period: string;
-    title: string;
-    status: string; // 진행완료, 미진행 등
-    isEvaluation: boolean; // 수행평가 여부 (bul_test, bul_result 클래스 확인)
-  }[];
+  courseInfo: CourseInfo;
+  progressInfo: ProgressInfo;
+  noticeList: Notice[];
+  weeklySchedule: WeeklySchedule[];
 }
 const LMS_MAIN_SCHEMA: ScrapeSchema = {
   courseInfo: {
@@ -70,36 +75,43 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
 };
 
 export { LMS_MAIN_SCHEMA };
-export type { LmsMain };
+export type { LmsMain, WeeklySchedule, Notice, CourseInfo, ProgressInfo };
 
+// LMS 학습활동서 상세 페이지
+type Inning = {
+  value: string;
+  label: string;
+  isSelected: boolean;
+};
+type TrainingInfo = {
+  title: string;
+  inningList: Inning[];
+};
+type PeriodInfo = {
+  period: string;
+  trainingHours: string;
+};
+type NcsInfo = {
+  unit: string;
+  element: string;
+};
+type ActivityForm = {
+  date: string;
+  content: string;
+  impression: string;
+  feedback: string;
+};
+type Feedbacks = {
+  companyTeacher: string;
+  professor: string;
+};
 interface LmsLearningDetail {
-  trainingInfo: {
-    title: string;
-    inningList: Array<{
-      value: string;
-      label: string;
-      isSelected: boolean;
-    }>;
-  };
-  periodInfo: {
-    period: string;
-    trainingHours: string;
-  };
-  ncsInfo: {
-    unit: string;
-    element: string;
-  };
+  trainingInfo: TrainingInfo;
+  periodInfo: PeriodInfo;
+  ncsInfo: NcsInfo;
   status: string;
-  activityForm: {
-    date: string;
-    content: string;
-    impression: string;
-    feedback: string;
-  };
-  feedbacks: {
-    companyTeacher: string;
-    professor: string;
-  };
+  activityForm: ActivityForm;
+  feedbacks: Feedbacks;
 }
 const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
   // 1. 교육훈련내용 및 차수 정보
@@ -187,4 +199,12 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
 };
 
 export { LMS_LEARNING_DETAIL_SCHEMA };
-export type { LmsLearningDetail };
+export type {
+  LmsLearningDetail,
+  Inning,
+  TrainingInfo,
+  PeriodInfo,
+  NcsInfo,
+  ActivityForm,
+  Feedbacks,
+};

@@ -12,10 +12,11 @@ const DashboardPage = () => {
   const { data: myInfoData, isLoading } = useFetchMyInfo();
   const { data: homeData } = useFetchHome();
   const { data: courseData, isSuccess } = useFetchMyCourseList();
-  const { data: learningDetailData } = useFetchLmsMain(
+  const { data: learningMainData } = useFetchLmsMain(
     { id: courseData?.courseList[0]?.lmsId! },
     courseData?.courseList[0]?.lmsId !== undefined,
   );
+
   return (
     <>
       <title>Dashboard - K-dual</title>
@@ -27,7 +28,15 @@ const DashboardPage = () => {
         </Page.Section>
         <Page.Section>
           <Page.Content className="grid grid-cols-[60%_40%]">
-            <CurrentWeekReport />
+            {learningMainData && (
+              <CurrentWeekReport
+                schedule={
+                  learningMainData!.weeklySchedule[
+                    Number(learningMainData!.progressInfo.currentWeek) - 1
+                  ]
+                }
+              />
+            )}
           </Page.Content>
         </Page.Section>
       </Page.Root>
