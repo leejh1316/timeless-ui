@@ -1,6 +1,7 @@
 import { WeeklySchedule } from "@src/api/schema/lms";
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
+import { Label } from "@src/components/base/Label";
 import clsx from "clsx";
 import { Clock, PenTool } from "lucide-react";
 
@@ -13,6 +14,11 @@ const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
       <div className="flex items-center justify-between">
         <div>
           <div>
+            {schedule.isEvaluation && (
+              <Label color="secondary" className="mb-0.5">
+                수행평가
+              </Label>
+            )}
             <h3 className="mb-2 text-2xl font-bold">{schedule.week}주차 학습일지</h3>
             <p className="flex items-center gap-1.5 break-keep text-sm font-semibold text-teal-600">
               {schedule.title}
