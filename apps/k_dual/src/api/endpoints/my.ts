@@ -6,16 +6,16 @@ import {
   MY_INFO_SCHEMA,
   MyCourseListSchema,
   MyInfoSchema,
-} from "../schema/my";
+} from "../schema/my/my-info";
 import { QUERY_KEY } from "../_queryKey";
+import { parseHtml } from "@src/utils/parseHtml";
+import { devLog } from "@src/utils/common";
 
 const myInfo = async (): Promise<MyInfoSchema> => {
   try {
     const response = await api.get<string>("Mypage/MyInfo", { params: { nosig: "Y" } });
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(response.data, "text/html");
-    const data = scrape(doc, MY_INFO_SCHEMA) as unknown as MyInfoSchema;
-    console.log("myInfo data:", data);
+    const data = parseHtml<MyInfoSchema>(response.data, MY_INFO_SCHEMA);
+    devLog("myInfo data:", data);
     return data;
   } catch (error) {
     throw new Error("내 정보를 불러오는데 실패했습니다.");
@@ -39,15 +39,14 @@ const myCourseList = async (payload?: MyCourseListPayload): Promise<MyCourseList
         })
       : await api.get<string>("Mypage/MyCoursesLectureList");
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(response.data, "text/html");
-    const data = scrape(doc, MY_COURSE_LIST_SCHEMA) as unknown as MyCourseListSchema;
-    console.log("myCourseList data:", data);
+    const data = parseHtml<MyCourseListSchema>(response.data, MY_COURSE_LIST_SCHEMA);
+    devLog("myCourseList data:", data);
     return data;
   } catch (error) {
     throw new Error("내 강의 목록을 불러오는데 실패했습니다.");
   }
 };
+
 export const useFetchMyCourseList = makeQueryApi(
   (payload?: MyCourseListPayload) => myCourseList(payload),
   {

@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import GreetingSection from "./components/section/GreetingSection";
 import CurrentWeekReport from "./components/section/CurrentWeekReport";
+import UserOverview from "./components/section/UserOverview";
 
 const DashboardPage = () => {
   const { data: myInfoData, isLoading } = useFetchMyInfo();
@@ -37,6 +38,7 @@ const DashboardPage = () => {
                 }
               />
             )}
+            <UserOverview />
           </Page.Content>
         </Page.Section>
       </Page.Root>
