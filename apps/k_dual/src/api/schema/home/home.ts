@@ -31,6 +31,19 @@ export const HOME_SCHEMA: ScrapeSchema = {
       regDate: ".mn_bbs_date",
     },
   },
+  academicSchedule: {
+    selector: "#k_wrap_main > div.k_main_container > div.k_mn_bbs1 > ul.k_mn_bbs_sche",
+    transform: (el) => {
+      if (!el) return [];
+      const items = el.querySelectorAll("li");
+      if (items.length === 1 && items[0].textContent?.trim() === "등록된 학사일정이 없습니다.") {
+        return [];
+      }
+      return Array.from(items).map((li) => ({
+        content: li.textContent?.trim() || "",
+      }));
+    },
+  },
 };
 
 export type { HomeSchema };

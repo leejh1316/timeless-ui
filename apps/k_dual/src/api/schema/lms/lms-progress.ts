@@ -1,5 +1,6 @@
 import { ScrapeSchema } from "../../../utils/scraper";
 // LMS 학습현황 페이지
+type ProgressStatusCode = "NOT_STARTED" | "PARTIAL" | "COMPLETED";
 type WeekProgress = {
   week: string;
   type: "normal" | "test" | "check";
@@ -9,7 +10,7 @@ type StudentInfo = {
   email: string;
 };
 type ProgressStatus = {
-  status: string;
+  status: ProgressStatusCode;
   week: number;
   courseId: number;
 };
@@ -61,6 +62,19 @@ const LMS_PROGRESS_SCHEMA: ScrapeSchema = {
         selector: ":scope",
         as: "text",
         trim: true,
+        transform: (el) => {
+          const text = el?.textContent?.trim() || "";
+          switch (text) {
+            case "Ⅹ":
+              return "NOT_STARTED";
+            case "△":
+              return "PARTIAL";
+            case "○":
+              return "COMPLETED";
+            default:
+              return "NOT_STARTED";
+          }
+        },
       },
       week: {
         selector: ":scope",

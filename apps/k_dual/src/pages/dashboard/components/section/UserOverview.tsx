@@ -1,24 +1,70 @@
+import { useFetchLmsProgress } from "@src/api/endpoints/lms";
+import { LmsProgress } from "@src/api/schema/lms/lms-progress";
 import { Card } from "@src/components/base/Card";
 import CircularProgress from "@src/components/base/CircularProgress";
+import { useEffect, useState } from "react";
 
 // 유저 학습활동 진행률
-interface UserOverviewProps {}
-const UserOverview = () => {
+interface UserOverviewProps {
+  lmsId: number;
+}
+const UserOverview = ({ lmsId }: UserOverviewProps) => {
+  const { data, isLoading } = useFetchLmsProgress({ lmsId }, lmsId !== -1);
+  const [percent, setPercent] = useState(0);
+  const [completedCount, setCompletedCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+
+  useEffect(() => {
+    if (!data) return;
+    const total = data.weeks.length;
+    const completed = data.progress.filter((progress) => progress.status === "COMPLETED").length;
+    const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+    setPercent(percent);
+    setCompletedCount(completed);
+    setTotalCount(total);
+  }, [data]);
   return (
-    <Card>
-      <UserOverViewProgress />
+    <Card className="h-fit w-full p-8">
+      <div className="flex flex-col">
+        <h2 className="mb-5 text-base font-bold tracking-wide text-gray-500">OVERVIEW</h2>
+        <UserOverViewProgress percent={percent} />
+        <div className="my-5 h-px bg-gray-200"></div>
+        <UserOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
+      </div>
     </Card>
   );
 };
 
-const UserOverViewProgress = () => {
+interface UserOverViewProgressProps {
+  percent: number;
+}
+const UserOverViewProgress = ({ percent }: UserOverViewProgressProps) => {
   return (
-    <div className="flex justify-between">
-      <CircularProgress percent={70} />
+    <div className="mb-6 flex items-center justify-between">
+      <div>
+        <div className="text-[32px] font-extrabold text-gray-900">{percent}%</div>
+        <div className="mt-1 text-sm text-gray-500">전체 진행률</div>
+      </div>
+      <CircularProgress percent={percent} size={40} strokeWidth={4} />
     </div>
   );
 };
 
-const UserOverviewAbsolute = () => {};
+interface UserOverviewAbsoluteProps {
+  totalCount: number;
+  completedCount: number;
+}
+const UserOverviewAbsolute = ({ completedCount, totalCount }: UserOverviewAbsoluteProps) => {
+  return (
+    <div className="flex items-center justify-between">
+      <div>
+        <div className="text-[32px] font-extrabold text-gray-900">
+          {completedCount} / {totalCount}
+        </div>
+        <div className="mt-1 text-sm text-gray-500">작성 완료 (주)</div>
+      </div>
+    </div>
+  );
+};
 
 export default UserOverview;

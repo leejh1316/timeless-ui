@@ -1,15 +1,11 @@
 import { makeQueryApi } from "@src/hooks/useApiHook";
 import { scrape } from "@src/utils/scraper";
 import { api } from "../axios";
-import {
-  MY_COURSE_LIST_SCHEMA,
-  MY_INFO_SCHEMA,
-  MyCourseListSchema,
-  MyInfoSchema,
-} from "../schema/my/my-info";
+import { MY_INFO_SCHEMA, MyInfoSchema } from "../schema/my/my-info";
 import { QUERY_KEY } from "../_queryKey";
 import { parseHtml } from "@src/utils/parseHtml";
 import { devLog } from "@src/utils/common";
+import { MY_COURSE_LIST_SCHEMA, MyCourseListSchema } from "../schema/my/my-course";
 
 const myInfo = async (): Promise<MyInfoSchema> => {
   try {

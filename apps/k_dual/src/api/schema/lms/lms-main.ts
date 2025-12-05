@@ -7,9 +7,9 @@ type CourseInfo = {
   studentCount: string;
 };
 type ProgressInfo = {
-  currentWeek: string;
-  totalHours: string;
-  completedHours: string;
+  currentWeek: number;
+  totalHours: number;
+  completedHours: number;
 };
 type Notice = {
   title: string;
@@ -37,9 +37,18 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
     studentCount: ".myclass_room li:nth-child(3)",
   },
   progressInfo: {
-    currentWeek: ".class_info .layer_th",
-    totalHours: ".class_info1 .layer_total span:nth-child(1)",
-    completedHours: ".class_info1 .layer_status:nth-child(3) span",
+    currentWeek: {
+      selector: ".class_info .layer_th",
+      transform: (el) => Number(el?.textContent),
+    },
+    totalHours: {
+      selector: ".class_info1 .layer_total span:nth-child(1)",
+      transform: (el) => Number(el?.textContent),
+    },
+    completedHours: {
+      selector: ".class_info1 .layer_status:nth-child(3) span",
+      transform: (el) => Number(el?.textContent),
+    },
   },
   noticeList: {
     listItem: ".bbs_list li",

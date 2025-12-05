@@ -13,7 +13,7 @@ const Card = forwardRef<React.ComponentRef<typeof Primitive.div>, CardProps>(
         ref={forwardedRef}
         className={clsx(
           className,
-          "relative inline-block rounded-xl bg-white shadow-sm transition-all",
+          "relative inline-block rounded-3xl bg-white shadow-sm transition-all",
           "hover:shadow-md",
           {
             "before:absolute before:left-0 before:top-0 before:h-full before:w-1.5 before:bg-teal-600":

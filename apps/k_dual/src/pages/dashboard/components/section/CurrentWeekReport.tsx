@@ -1,4 +1,4 @@
-import { WeeklySchedule } from "@src/api/schema/lms";
+import { WeeklySchedule } from "@src/api/schema/lms/lms-main";
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
 import { Label } from "@src/components/base/Label";
@@ -10,7 +10,7 @@ interface CurrentWeekReportProps {
 }
 const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
   return (
-    <Card className={clsx("rounded-3xl! overflow-hidden p-10")} pointed>
+    <Card className={clsx("h-fit w-full overflow-hidden p-10")} pointed>
       <div className="flex items-center justify-between">
         <div>
           <div>

@@ -10,9 +10,9 @@ import CurrentWeekReport from "./components/section/CurrentWeekReport";
 import UserOverview from "./components/section/UserOverview";
 
 const DashboardPage = () => {
-  const { data: myInfoData, isLoading } = useFetchMyInfo();
+  const { data: myInfoData } = useFetchMyInfo();
   const { data: homeData } = useFetchHome();
-  const { data: courseData, isSuccess } = useFetchMyCourseList();
+  const { data: courseData } = useFetchMyCourseList();
   const { data: learningMainData } = useFetchLmsMain(
     { id: courseData?.courseList[0]?.lmsId! },
     courseData?.courseList[0]?.lmsId !== undefined,
@@ -24,21 +24,26 @@ const DashboardPage = () => {
       <Page.Root className="mt-8">
         <Page.Section className="mb-8">
           <Page.Content>
-            <GreetingSection userName="이재혁" currentWeek={14} />
+            <GreetingSection
+              userName="이재혁"
+              currentWeek={learningMainData?.progressInfo?.currentWeek ?? 0}
+            />
           </Page.Content>
         </Page.Section>
         <Page.Section>
-          <Page.Content className="grid grid-cols-[60%_40%]">
-            {learningMainData && (
-              <CurrentWeekReport
-                schedule={
-                  learningMainData!.weeklySchedule[
-                    Number(learningMainData!.progressInfo.currentWeek) - 1
-                  ]
-                }
-              />
-            )}
-            <UserOverview />
+          <Page.Content className="grid grid-cols-[7fr_3fr] gap-6">
+            <div>
+              {learningMainData && (
+                <CurrentWeekReport
+                  schedule={
+                    learningMainData!.weeklySchedule[learningMainData!.progressInfo.currentWeek - 1]
+                  }
+                />
+              )}
+            </div>
+            <div>
+              <UserOverview lmsId={courseData?.courseList[0]?.lmsId ?? -1} />
+            </div>
           </Page.Content>
         </Page.Section>
       </Page.Root>
