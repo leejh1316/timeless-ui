@@ -1,14 +1,20 @@
 import { ScrapeSchema } from "@src/utils/scraper";
 
+type Notice = {
+  link: string;
+  title: string;
+  regDate: string;
+};
+type AcademicSchedule = {
+  content: string;
+};
+
 interface HomeSchema {
   universityName: string;
   userName: string;
   isLogin: boolean;
-  noticeList: {
-    link: string;
-    title: string;
-    regDate: string;
-  }[];
+  noticeList: Notice[];
+  academicSchedule: AcademicSchedule[];
 }
 
 export const HOME_SCHEMA: ScrapeSchema = {
@@ -47,3 +53,4 @@ export const HOME_SCHEMA: ScrapeSchema = {
 };
 
 export type { HomeSchema };
+export type { Notice, AcademicSchedule };

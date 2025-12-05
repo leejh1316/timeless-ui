@@ -44,9 +44,12 @@ const myCourseList = async (payload?: MyCourseListPayload): Promise<MyCourseList
 };
 
 export const useFetchMyCourseList = makeQueryApi(
-  (payload?: MyCourseListPayload) => myCourseList(payload),
+  (payload?: MyCourseListPayload, enable: boolean = true) => myCourseList(payload),
   {
     queryKey: (payload) =>
       payload ? [QUERY_KEY.MY_COURSE_LIST, payload.sTermNo] : [QUERY_KEY.MY_COURSE_LIST],
+    config: (payload, enable) => ({
+      enabled: enable,
+    }),
   },
 );

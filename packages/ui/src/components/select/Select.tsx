@@ -306,6 +306,7 @@ SelectView.displayName = VIEW_NAME;
 
 // ============ Select.Content ============
 const CONTENT_NAME = "Select.Content";
+interface SelectContentProps extends PrimitivePropsWithRef<"div"> {}
 const SelectContent = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<PrimitivePropsWithRef<"div">>>(
   ({ style, __scopeSelect, ...props }, forwardedRef) => {
     const { floating } = useSelectContext(CONTENT_NAME, __scopeSelect);
@@ -460,3 +461,4 @@ const Select = {
 };
 export { Select, useSelectContext };
 export type { SelectItemProps };
+export type {SelectTriggerProps, SelectValueProps, SelectViewProps, SelectContentProps, SelectIconProps,SelectPortalProps };
