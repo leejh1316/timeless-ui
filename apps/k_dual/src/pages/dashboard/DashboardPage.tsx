@@ -29,7 +29,7 @@ const DashboardPage = () => {
           </Page.Content>
         </Page.Section>
         <Page.Section>
-          <Page.Content className="grid grid-cols-[7fr_3fr] gap-6">
+          <Page.Content className="grid gap-6 md:grid-cols-[6fr_4fr] lg:grid-cols-[7fr_3fr]">
             <div className="flex flex-col gap-6">
               {learningMainData && (
                 <>
@@ -41,12 +41,14 @@ const DashboardPage = () => {
                     }
                   />
                   <MyCourse defaultCourseData={courseData} />
+                  <NoticeWidget noticeList={homeData?.noticeList ?? []} viewAllLink="/notices" />
                 </>
               )}
             </div>
             <div className="flex flex-col gap-6">
-              <UserOverview lmsId={courseData?.courseList[0]?.lmsId ?? -1} />
-              <NoticeWidget noticeList={homeData?.noticeList ?? []} viewAllLink="/notices" />
+              <div className="sticky top-6 h-fit">
+                <UserOverview lmsId={courseData?.courseList[0]?.lmsId ?? -1} />
+              </div>
             </div>
           </Page.Content>
         </Page.Section>

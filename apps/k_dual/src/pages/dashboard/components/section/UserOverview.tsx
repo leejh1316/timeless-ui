@@ -68,3 +68,4 @@ const UserOverviewAbsolute = ({ completedCount, totalCount }: UserOverviewAbsolu
 };
 
 export default UserOverview;
+export { UserOverViewProgress, UserOverviewAbsolute };

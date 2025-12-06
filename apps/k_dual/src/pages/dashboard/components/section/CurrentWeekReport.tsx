@@ -26,7 +26,7 @@ const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
           </div>
           <div className="mt-4 text-sm text-gray-500">{schedule.period.replace(/\-/g, ".")}</div>
         </div>
-        <div className="flex gap-x-3">
+        <div className="flex shrink-0 gap-x-3">
           <Button
             className={clsx(
               "rounded-xl border-none bg-teal-600 px-4 py-3.5 text-[15px] font-semibold text-white hover:bg-teal-700",
