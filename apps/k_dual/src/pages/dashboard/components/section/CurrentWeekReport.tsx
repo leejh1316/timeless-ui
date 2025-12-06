@@ -3,7 +3,7 @@ import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
 import { Label } from "@src/components/base/Label";
 import clsx from "clsx";
-import { Clock, PenTool } from "lucide-react";
+import { PenTool } from "lucide-react";
 
 interface CurrentWeekReportProps {
   schedule: WeeklySchedule;

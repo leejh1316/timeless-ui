@@ -16,7 +16,7 @@ function App() {
   }, [isSuccess, data, setIsLogin]);
 
   return (
-    <div className="min-h-dvh w-full bg-gray-50">
+    <div className="min-h-dvh w-full bg-gray-50 pb-12">
       {isLoading && (
         <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <Spinner color="primary" size="lg" />

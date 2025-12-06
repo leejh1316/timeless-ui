@@ -1,17 +1,17 @@
 import { useFetchMyCourseList } from "@src/api/endpoints/my";
-import { CourseInfo } from "@src/api/schema/lms/lms-main";
 import { Course, MyCourseListSchema } from "@src/api/schema/my/my-course";
 import { Card } from "@src/components/base/Card";
 import { Select } from "@src/components/base/Select";
 
-import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 interface MyCourseProps {
   defaultCourseData?: MyCourseListSchema;
 }
 const MyCourse = ({ defaultCourseData }: MyCourseProps) => {
-  const [selectedSemester, setSelectedSemester] = useState<string | null>(null);
+  const [selectedSemester, setSelectedSemester] = useState<string | null>(
+    defaultCourseData?.semesterList[0]?.value ?? null,
+  );
   const { data, isLoading } = useFetchMyCourseList(
     selectedSemester ? { sTermNo: selectedSemester, sordertype: "ASC" } : undefined,
   );

@@ -38,7 +38,7 @@ export const routes: RouteObject[] = [
             },
           },
           {
-            path: "style/dashboard",
+            path: "style/home",
             element: <Dashboard />,
             handle: {
               category: "home",

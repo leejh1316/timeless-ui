@@ -26,12 +26,26 @@ interface SelectContextValue {
   floating: ReturnType<typeof usePopover>;
   getItemProps: (userProps?: React.HTMLProps<HTMLElement>) => Record<string, any>;
   registerItem: (value: string, text: string) => void;
-  itemMap: React.MutableRefObject<Map<string, string>>;
+  itemMap: Map<string, string>;
   multiple: boolean;
   disabled: boolean;
 }
 
 const [SelectProvider, useSelectContext] = createSelectContext<SelectContextValue>(SELECT_NAME);
+
+const extractText = (node: React.ReactNode): string => {
+  let text = "";
+  React.Children.forEach(node, (child) => {
+    if (typeof child === "string" || typeof child === "number") {
+      text += String(child);
+    } else if (React.isValidElement(child)) {
+      if (child.props.children) {
+        text += extractText(child.props.children);
+      }
+    }
+  });
+  return text;
+};
 
 // ============ Select.Root ============
 
@@ -75,8 +89,14 @@ const SelectRoot = ({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const listRef = useRef<Array<HTMLElement | null>>([]);
   const labelsRef = useRef<Array<string | null>>([]);
-  const itemMap = useRef<Map<string, string>>(new Map());
   const arrowRef = useRef(null);
+
+  const [registeredItemsVersion, setRegisteredItemsVersion] = useState(0);
+  const registeredItemMap = useRef<Map<string, string>>(new Map());
+
+  const itemMap = useMemo(() => {
+    return new Map(registeredItemMap.current);
+  }, [registeredItemsVersion]);
 
   const floating = usePopover({
     open: isOpen,
@@ -108,7 +128,8 @@ const SelectRoot = ({
   });
 
   const registerItem = useCallback((value: string, text: string) => {
-    itemMap.current.set(value, text);
+    registeredItemMap.current.set(value, text);
+    setRegisteredItemsVersion((v) => v + 1);
   }, []);
 
   const handleValueChange = useCallback(
@@ -148,38 +169,6 @@ const SelectRoot = ({
     }),
     [isOpen, setIsOpen, selectedValue, handleValueChange, activeIndex, floating, registerItem, multiple, disabled],
   );
-
-  useMemo(() => {
-    const collect = (nodes: React.ReactNode) => {
-      React.Children.forEach(nodes, (node) => {
-        if (!React.isValidElement(node)) return;
-
-        const type = node.type as any;
-        if (type.displayName === "Select.Item") {
-          const props = node.props as any;
-          if (props.value) {
-            let text = props.textValue;
-            if (!text) {
-              let extracted = "";
-              React.Children.forEach(props.children, (child) => {
-                if (typeof child === "string" || typeof child === "number") {
-                  extracted += child;
-                }
-              });
-              text = extracted;
-            }
-            itemMap.current.set(props.value, text || props.value);
-          }
-        }
-        //@ts-ignore
-        if (node.props.children) {
-          //@ts-ignore
-          collect(node.props.children);
-        }
-      });
-    };
-    collect(children);
-  }, [children]);
 
   return (
     <SelectProvider scope={__scopeSelect} {...contextValue}>
@@ -229,10 +218,10 @@ const SelectValue = forwardRef<React.ComponentRef<typeof Primitive.span>, Scoped
   let text = placeholder;
   if (selectedValue) {
     if (multiple && Array.isArray(selectedValue)) {
-      const items = selectedValue.map((v) => itemMap.current.get(v) || v);
+      const items = selectedValue.map((v) => itemMap.get(v) || v);
       if (items.length > 0) text = items.join(", ");
     } else if (!Array.isArray(selectedValue)) {
-      text = itemMap.current.get(selectedValue) || selectedValue;
+      text = itemMap.get(selectedValue) || selectedValue;
     }
   }
 
@@ -285,7 +274,7 @@ const SelectView = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedPr
     }
   });
 
-  if (!isMounted) return null;
+  if (!isMounted) return <>{children}</>;
 
   return (
     <FloatingFocusManager context={floatingContext} modal={false}>
@@ -314,7 +303,7 @@ const SelectContent = forwardRef<React.ComponentRef<typeof Primitive.div>, Scope
     return (
       <Primitive.div
         ref={forwardedRef}
-        style={{ ...transitionStyle, ...style }}
+        style={{ ...transitionStyle, ...style, ...(!isMounted ? { display: "none" } : {}) }}
         data-status={transitionStatus}
         data-state={isMounted ? "open" : "closed"}
         data-side={placement.split("-")[0]}
@@ -378,13 +367,7 @@ const SelectItem = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedPr
 
     const textValue = useMemo(() => {
       if (textValueProp) return textValueProp;
-      let text = "";
-      React.Children.forEach(children, (child) => {
-        if (typeof child === "string" || typeof child === "number") {
-          text += child;
-        }
-      });
-      return text || value;
+      return extractText(children) || value;
     }, [children, value, textValueProp]);
 
     useLayoutEffect(() => {
