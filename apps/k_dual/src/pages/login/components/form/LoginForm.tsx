@@ -31,7 +31,7 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
   };
   return (
     <div {...props}>
-      <h3 className="mb-5 text-lg font-bold">로그인</h3>
+      <h3 className="mb-5 text-lg font-bold">K-Dual 로그인</h3>
       <Form.Root onSubmit={handleSubmit}>
         <Form.Field name="userid" className="mb-4">
           <div className="mb-1 flex items-baseline justify-between">
