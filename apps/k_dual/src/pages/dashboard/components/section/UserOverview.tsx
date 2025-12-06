@@ -2,6 +2,7 @@ import { useFetchLmsProgress } from "@src/api/endpoints/lms";
 import { LmsProgress } from "@src/api/schema/lms/lms-progress";
 import { Card } from "@src/components/base/Card";
 import CircularProgress from "@src/components/base/CircularProgress";
+import { Skeleton } from "@src/components/base/Skeleton";
 import { useEffect, useState } from "react";
 
 // 유저 학습활동 진행률
@@ -27,9 +28,30 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
     <Card className="h-fit w-full p-8">
       <div className="flex flex-col">
         <h2 className="mb-5 text-base font-bold tracking-wide text-gray-500">OVERVIEW</h2>
-        <UserOverViewProgress percent={percent} />
-        <div className="my-5 h-px bg-gray-200"></div>
-        <UserOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
+        {isLoading ? (
+          <>
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <Skeleton className="mb-2 h-8 w-24 rounded-md bg-gray-100" />
+                <Skeleton className="h-4 w-20 rounded-md bg-gray-100" />
+              </div>
+              <Skeleton className="h-10 w-10 rounded-full bg-gray-100" />
+            </div>
+            <div className="my-5 h-px bg-gray-200"></div>
+            <div className="flex items-center justify-between">
+              <div>
+                <Skeleton className="mb-2 h-8 w-24 rounded-md bg-gray-100" />
+                <Skeleton className="h-4 w-20 rounded-md bg-gray-100" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <UserOverViewProgress percent={percent} />
+            <div className="my-5 h-px bg-gray-200"></div>
+            <UserOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
+          </>
+        )}
       </div>
     </Card>
   );
