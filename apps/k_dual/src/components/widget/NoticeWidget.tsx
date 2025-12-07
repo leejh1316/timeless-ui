@@ -9,22 +9,22 @@ interface NoticeWidgetProps {
 }
 const NoticeWidget = ({ noticeList, viewAllLink }: NoticeWidgetProps) => {
   return (
-    <Card className="w-full px-8 py-6">
-      <div className="mb-5 flex items-center justify-between">
-        <span className="text-lg font-bold text-gray-900">공지사항</span>
+    <Card.Root className="w-full px-8 py-6">
+      <Card.Header className="flex items-center justify-between">
+        <Card.Title className="text-lg font-bold text-gray-900">공지사항</Card.Title>
         <Link
           to={viewAllLink}
           className="flex cursor-pointer items-center text-sm font-medium text-gray-500 transition-colors hover:text-teal-600"
         >
           전체보기 <ArrowRight size={12} className="ml-1" />
         </Link>
-      </div>
+      </Card.Header>
       <div className="flex flex-col divide-y divide-gray-200">
         {noticeList.map((notice) => (
           <NoticeItem key={notice.link} notice={notice} />
         ))}
       </div>
-    </Card>
+    </Card.Root>
   );
 };
 

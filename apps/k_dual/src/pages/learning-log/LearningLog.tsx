@@ -38,7 +38,7 @@ const LearningLog = () => {
           <Page.Content className="grid grid-cols-[7fr_3fr]">
             <div className="min-w-0"></div>
             <div className="flex min-w-0 flex-col gap-y-6">
-              <CourseInfo />
+              <CourseInfo lmsData={data} />
             </div>
           </Page.Content>
         </Page.Section>

@@ -2,7 +2,8 @@ import { ScrapeSchema } from "@src/utils/scraper";
 import { Semester } from "../my/my-course";
 // LMS 메인 페이지
 type CourseInfo = {
-  name: string;
+  departmentName: string;
+  professorName: string;
   semester: string;
   credits: string;
   studentCount: string;
@@ -51,7 +52,22 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
     },
   },
   courseInfo: {
-    name: ".myclass_name",
+    departmentName: {
+      selector: ".myclass_name",
+      transform: (el) => {
+        const text = el?.textContent || "";
+        const match = text.match(/^(.*)\((.*)\)$/);
+        return match ? match[1] : text;
+      },
+    },
+    professorName: {
+      selector: ".myclass_name",
+      transform: (el) => {
+        const text = el?.textContent || "";
+        const match = text.match(/^(.*)\((.*)\)$/);
+        return match ? match[2].replace("교수님", "") : text;
+      },
+    },
     semester: ".myclass_room li:nth-child(1)",
     credits: ".myclass_room li:nth-child(2)",
     studentCount: ".myclass_room li:nth-child(3)",

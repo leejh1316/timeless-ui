@@ -5,7 +5,7 @@ import { forwardRef } from "react";
 interface CardProps extends PrimitivePropsWithRef<"div"> {
   pointed?: boolean;
 }
-const Card = forwardRef<React.ComponentRef<typeof Primitive.div>, CardProps>(
+const CardRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, CardProps>(
   (props, forwardedRef) => {
     const { className, pointed, ...otherProps } = props;
     return (
@@ -25,7 +25,36 @@ const Card = forwardRef<React.ComponentRef<typeof Primitive.div>, CardProps>(
     );
   },
 );
-Card.displayName = "Card";
+CardRoot.displayName = "Card.Root";
+
+const CardHeader = forwardRef<
+  React.ComponentRef<typeof Primitive.div>,
+  PrimitivePropsWithRef<"div">
+>((props, forwardedRef) => {
+  const { className, ...otherProps } = props;
+  return <Primitive.div ref={forwardedRef} className={clsx(className, "mb-4")} {...otherProps} />;
+});
+CardHeader.displayName = "Card.Header";
+
+const CardTitle = forwardRef<React.ComponentRef<typeof Primitive.h2>, PrimitivePropsWithRef<"h2">>(
+  (props, forwardedRef) => {
+    const { className, ...otherProps } = props;
+    return (
+      <Primitive.h2
+        ref={forwardedRef}
+        className={clsx(className, "text-lg font-bold text-gray-900")}
+        {...otherProps}
+      />
+    );
+  },
+);
+CardTitle.displayName = "Card.Title";
+
+const Card = {
+  Root: CardRoot,
+  Header: CardHeader,
+  Title: CardTitle,
+};
 
 export { Card };
 export type { CardProps };

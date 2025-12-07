@@ -20,7 +20,7 @@ const DashboardSkeleton = () => {
           {/* Left Column */}
           <div className="flex flex-col gap-6">
             {/* CurrentWeekReport Skeleton */}
-            <Card className="h-fit w-full p-10">
+            <Card.Root className="h-fit w-full p-10">
               <div className="flex items-center justify-between">
                 <div className="space-y-3">
                   <Skeleton className="h-6 w-16 rounded-md bg-gray-100" />
@@ -30,10 +30,10 @@ const DashboardSkeleton = () => {
                 </div>
                 <Skeleton className="h-12 w-36 rounded-xl bg-gray-100" />
               </div>
-            </Card>
+            </Card.Root>
 
             {/* MyCourse Skeleton */}
-            <Card className="w-full py-6">
+            <Card.Root className="w-full py-6">
               <div className="mb-4 flex items-center justify-between px-8">
                 <Skeleton className="h-7 w-24 rounded-md bg-gray-100" />
                 <Skeleton className="h-10 w-32 rounded-md bg-gray-100" />
@@ -50,10 +50,10 @@ const DashboardSkeleton = () => {
                   </div>
                 ))}
               </div>
-            </Card>
+            </Card.Root>
 
             {/* NoticeWidget Skeleton */}
-            <Card className="w-full p-6">
+            <Card.Root className="w-full p-6">
               <div className="mb-6 flex items-center justify-between">
                 <Skeleton className="h-7 w-20 rounded-md bg-gray-100" />
                 <Skeleton className="h-5 w-16 rounded-md bg-gray-100" />
@@ -66,14 +66,14 @@ const DashboardSkeleton = () => {
                   </div>
                 ))}
               </div>
-            </Card>
+            </Card.Root>
           </div>
 
           {/* Right Column */}
           <div className="flex flex-col gap-6">
             {/* UserOverview Skeleton */}
             <div className="sticky top-6 h-fit">
-              <Card className="h-fit w-full p-8">
+              <Card.Root className="h-fit w-full p-8">
                 <Skeleton className="mb-5 h-4 w-20 rounded-md bg-gray-100" />
                 <div className="mb-6 flex items-center justify-between">
                   <div>
@@ -87,7 +87,7 @@ const DashboardSkeleton = () => {
                   <Skeleton className="mb-2 h-10 w-24 rounded-md bg-gray-100" />
                   <Skeleton className="h-4 w-24 rounded-md bg-gray-100" />
                 </div>
-              </Card>
+              </Card.Root>
             </div>
           </div>
         </Page.Content>

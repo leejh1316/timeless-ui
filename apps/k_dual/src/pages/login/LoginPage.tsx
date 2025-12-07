@@ -15,9 +15,9 @@ const LoginPage = () => {
 
   return (
     <div className="absolute flex h-dvh w-full items-center justify-center">
-      <Card className="w-full max-w-sm p-8">
+      <Card.Root className="w-full max-w-sm p-8">
         <LoginForm onLoginSuccess={onLoginSuccess} />
-      </Card>
+      </Card.Root>
     </div>
   );
 };

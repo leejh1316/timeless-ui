@@ -25,9 +25,11 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
     setTotalCount(total);
   }, [data]);
   return (
-    <Card className="h-fit w-full p-8">
+    <Card.Root className="h-fit w-full p-8">
       <div className="flex flex-col">
-        <h2 className="mb-5 text-base font-bold tracking-wide text-gray-500">OVERVIEW</h2>
+        <Card.Header>
+          <Card.Title className="text-base! tracking-wide text-gray-500">학습진행률</Card.Title>
+        </Card.Header>
         {isLoading ? (
           <>
             <div className="mb-6 flex items-center justify-between">
@@ -48,12 +50,12 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
         ) : (
           <>
             <UserOverViewProgress percent={percent} />
-            <div className="my-5 h-px bg-gray-200"></div>
+            <div className="mb-5 h-px bg-gray-200"></div>
             <UserOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
           </>
         )}
       </div>
-    </Card>
+    </Card.Root>
   );
 };
 

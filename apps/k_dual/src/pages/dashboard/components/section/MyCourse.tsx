@@ -21,10 +21,10 @@ const MyCourse = ({ defaultCourseData }: MyCourseProps) => {
 
   const courseList: Course[] = data?.courseList ?? defaultCourseData?.courseList ?? [];
   return (
-    <Card className="w-full py-6">
-      <div className="flex items-center justify-between px-8">
+    <Card.Root className="w-full py-6">
+      <Card.Header className="flex items-center justify-between px-8">
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-gray-900">수강 내역</span>
+          <Card.Title className="text-lg font-bold text-gray-900">수강 내역</Card.Title>
         </div>
         <Select.Root
           value={selectedSemester}
@@ -52,8 +52,8 @@ const MyCourse = ({ defaultCourseData }: MyCourseProps) => {
             </Select.View>
           </Select.Portal>
         </Select.Root>
-      </div>
-      <div className="mt-4 flex flex-col px-4">
+      </Card.Header>
+      <div className="flex flex-col px-4">
         {isLoading ? (
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="flex items-center p-3">
@@ -71,7 +71,7 @@ const MyCourse = ({ defaultCourseData }: MyCourseProps) => {
           <div className="py-10 text-center text-sm text-gray-500">수강 내역이 없습니다.</div>
         )}
       </div>
-    </Card>
+    </Card.Root>
   );
 };
 

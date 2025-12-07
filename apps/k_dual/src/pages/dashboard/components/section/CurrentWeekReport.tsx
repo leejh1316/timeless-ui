@@ -10,7 +10,7 @@ interface CurrentWeekReportProps {
 }
 const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
   return (
-    <Card className={clsx("h-fit w-full overflow-hidden p-10")} pointed>
+    <Card.Root className={clsx("h-fit w-full overflow-hidden p-10")} pointed>
       <div className="flex items-center justify-between">
         <div>
           <div>
@@ -38,7 +38,7 @@ const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
           </Button>
         </div>
       </div>
-    </Card>
+    </Card.Root>
   );
 };
 

@@ -20,7 +20,7 @@ const CourseChange = () => {
           <MyCourseWidget
             title="수강선택"
             defaultCourseData={courseData}
-            className="h-[340px]"
+            className="min-h-[340px]"
             onNavigate={(courseId) => {
               setModalOpen(false);
             }}
