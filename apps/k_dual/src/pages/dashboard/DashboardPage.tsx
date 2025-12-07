@@ -7,7 +7,7 @@ import NoticeWidget from "@src/components/widget/NoticeWidget";
 import DashboardSkeleton from "./components/loading/DashboardSkeleton";
 import CurrentWeekReport from "./components/section/CurrentWeekReport";
 import GreetingSection from "./components/section/GreetingSection";
-import UserOverview from "./components/section/UserOverview";
+import CourseOverviewWidget from "../../components/widget/CourseOverviewWidget";
 
 const DashboardPage = () => {
   const {
@@ -54,12 +54,12 @@ const DashboardPage = () => {
                     learningMainData!.weeklySchedule[learningMainData!.progressInfo.currentWeek - 1]
                   }
                 />
-                <MyCourseWidget defaultCourseData={courseData} />
+                <MyCourseWidget className="min-h-[330px]" defaultCourseData={courseData} />
                 <NoticeWidget noticeList={homeData?.noticeList ?? []} viewAllLink="/notices" />
               </div>
               <div className="flex flex-col gap-6">
                 <div className="sticky top-6 h-fit">
-                  <UserOverview lmsId={courseData?.courseList[0]?.lmsId ?? -1} />
+                  <CourseOverviewWidget lmsId={courseData?.courseList[0]?.lmsId ?? -1} />
                 </div>
               </div>
             </Page.Content>

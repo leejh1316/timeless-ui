@@ -64,7 +64,7 @@ export const useFetchLmsLearningDetail = makeQueryApi(
 
 // ====================  LMS 학습현황 조회 ====================
 export interface LmsProgressPayload {
-  lmsId: number;
+  lmsId: number | string;
 }
 const getLmsProgress = async (payload: LmsProgressPayload) => {
   try {

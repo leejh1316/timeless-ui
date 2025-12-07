@@ -3,13 +3,14 @@ import { LmsProgress } from "@src/api/schema/lms/lms-progress";
 import { Card } from "@src/components/base/Card";
 import CircularProgress from "@src/components/base/CircularProgress";
 import { Skeleton } from "@src/components/base/Skeleton";
+import { ProgressStatusEnum } from "@src/const/ProgressStatus";
 import { useEffect, useState } from "react";
 
 // 유저 학습활동 진행률
-interface UserOverviewProps {
-  lmsId: number;
+interface CourseOverviewProps {
+  lmsId: number | string;
 }
-const UserOverview = ({ lmsId }: UserOverviewProps) => {
+const CourseOverviewWidget = ({ lmsId }: CourseOverviewProps) => {
   const { data, isLoading } = useFetchLmsProgress({ lmsId }, lmsId !== -1);
   const [percent, setPercent] = useState(0);
   const [completedCount, setCompletedCount] = useState(0);
@@ -18,7 +19,9 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
   useEffect(() => {
     if (!data) return;
     const total = data.weeks.length;
-    const completed = data.progress.filter((progress) => progress.status === "COMPLETED").length;
+    const completed = data.progress.filter(
+      (progress) => progress.status === ProgressStatusEnum.COMPLETED,
+    ).length;
     const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
     setPercent(percent);
     setCompletedCount(completed);
@@ -49,9 +52,9 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
           </>
         ) : (
           <>
-            <UserOverViewProgress percent={percent} />
+            <CourseOverviewProgress percent={percent} />
             <div className="mb-5 h-px bg-gray-200"></div>
-            <UserOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
+            <CourseOverviewAbsolute completedCount={completedCount} totalCount={totalCount} />
           </>
         )}
       </div>
@@ -59,10 +62,10 @@ const UserOverview = ({ lmsId }: UserOverviewProps) => {
   );
 };
 
-interface UserOverViewProgressProps {
+interface CourseOverviewProgressProps {
   percent: number;
 }
-const UserOverViewProgress = ({ percent }: UserOverViewProgressProps) => {
+const CourseOverviewProgress = ({ percent }: CourseOverviewProgressProps) => {
   return (
     <div className="mb-6 flex items-center justify-between">
       <div>
@@ -74,11 +77,11 @@ const UserOverViewProgress = ({ percent }: UserOverViewProgressProps) => {
   );
 };
 
-interface UserOverviewAbsoluteProps {
+interface CourseOverviewAbsoluteProps {
   totalCount: number;
   completedCount: number;
 }
-const UserOverviewAbsolute = ({ completedCount, totalCount }: UserOverviewAbsoluteProps) => {
+const CourseOverviewAbsolute = ({ completedCount, totalCount }: CourseOverviewAbsoluteProps) => {
   return (
     <div className="flex items-center justify-between">
       <div>
@@ -91,5 +94,5 @@ const UserOverviewAbsolute = ({ completedCount, totalCount }: UserOverviewAbsolu
   );
 };
 
-export default UserOverview;
-export { UserOverViewProgress, UserOverviewAbsolute };
+export default CourseOverviewWidget;
+export { CourseOverviewProgress, CourseOverviewAbsolute };

@@ -2,6 +2,7 @@ import { useFetchMyCourseList } from "@src/api/endpoints/my";
 import { Button } from "@src/components/base/Button";
 import MyCourseWidget from "@src/components/widget/MyCourseWidget";
 import { Modal } from "@timeless-ui/ui";
+import { SendToBack } from "lucide-react";
 import { useState } from "react";
 
 const CourseChange = () => {
@@ -10,8 +11,11 @@ const CourseChange = () => {
   return (
     <Modal.Root open={modalOpen} onOpenChange={setModalOpen}>
       <Modal.Trigger asChild>
-        <Button color="primary" className="rounded-xl p-3 text-sm font-bold transition-all">
-          일지변경
+        <Button color="primary" className="rounded-xl! p-3 px-6 text-sm font-bold transition-all">
+          <div className="flex items-center justify-center">
+            <SendToBack size={18} className="mr-2" />
+            과목변경
+          </div>
         </Button>
       </Modal.Trigger>
       <Modal.Portal>

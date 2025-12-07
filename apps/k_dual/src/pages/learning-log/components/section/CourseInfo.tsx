@@ -10,7 +10,7 @@ interface CourseInfoProps {
 const CourseInfo = ({ lmsData }: CourseInfoProps) => {
   const { courseInfo, progressInfo, weeklySchedule, semesterList } = lmsData ?? {};
   const completedWeekCount =
-    weeklySchedule?.filter((week) => week.status === "진행완료").length ?? 0;
+    weeklySchedule?.filter((week) => week.status === "completed").length ?? 0;
   const totalWeekCount = weeklySchedule?.length ?? 0;
   const progressPercentage = totalWeekCount
     ? Math.round((completedWeekCount / totalWeekCount) * 100)

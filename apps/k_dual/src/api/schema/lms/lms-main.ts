@@ -15,14 +15,15 @@ type ProgressInfo = {
 };
 type Notice = {
   title: string;
-  date: string;
+  regDate: string;
   link: string;
 };
+type Status = "completed" | "in-progress" | "not-started";
 type WeeklySchedule = {
   week: string;
   period: string;
   title: string;
-  status: string; // 진행완료, 미진행 등
+  status: Status; // 진행완료, 미진행 등
   isEvaluation: boolean; // 중간고사 / 기말고사 여부
 };
 interface LmsMain {
@@ -90,7 +91,7 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
     listItem: ".bbs_list li",
     data: {
       title: ".bbs_subj",
-      date: ".bbs_date",
+      regDate: ".bbs_date",
       link: {
         selector: "a",
         attr: "href",
@@ -108,7 +109,12 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
       title: "td:nth-child(3) strong",
       status: {
         selector: "td:nth-child(7) img",
-        attr: "alt",
+        transform: (el) => {
+          const altText = el?.getAttribute("alt") || "";
+          if (altText.includes("완료")) return "completed";
+          if (altText.includes("진행중")) return "in-progress";
+          return "not-started";
+        },
       },
       isEvaluation: {
         selector: "td:nth-child(1) div",
@@ -119,4 +125,4 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
 };
 
 export { LMS_MAIN_SCHEMA };
-export type { LmsMain, WeeklySchedule, Notice, CourseInfo, ProgressInfo };
+export type { LmsMain, WeeklySchedule, Notice, CourseInfo, ProgressInfo, Status };

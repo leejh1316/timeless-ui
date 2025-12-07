@@ -1,5 +1,4 @@
 import { useFetchMyInfo } from "@src/api/endpoints/my";
-import { MyInfoSchema } from "@src/api/schema/my";
 import { Popover } from "@timeless-ui/ui";
 import clsx from "clsx";
 import { Avatar } from "../base/Avatar";
@@ -8,6 +7,7 @@ import { Image } from "../base/Image";
 import { Skeleton } from "../base/Skeleton";
 import { useLogoutMutation } from "@src/api/endpoints/login";
 import { useNavigate } from "react-router";
+import { MyInfoSchema } from "@src/api/schema/my/my-info";
 
 const User = () => {
   const { data, isLoading } = useFetchMyInfo();

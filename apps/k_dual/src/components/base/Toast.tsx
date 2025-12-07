@@ -40,7 +40,7 @@ const ToastDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <BaseToast.Description
     ref={ref}
-    className={clsx("text-xs text-gray-500", className)}
+    className={clsx("text-xs text-gray-600", className)}
     {...props}
   />
 ));
@@ -52,7 +52,7 @@ const ToastClose = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <BaseToast.Close
     ref={ref}
-    className={clsx("text-gray-400 hover:text-gray-600", className)}
+    className={clsx("text-gray-500 hover:text-gray-600", className)}
     {...props}
   >
     {children || <X size={16} />}

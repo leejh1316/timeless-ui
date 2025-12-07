@@ -5,12 +5,13 @@ import { Link } from "react-router";
 import { useState } from "react";
 import { Toast } from "../base/Toast";
 import { useToastStore } from "@src/store/useToastStore";
+import { Button } from "@timeless-ui/ui";
 
 interface NoticeWidgetProps {
   noticeList: Notice[];
   viewAllLink: string;
 }
-const NoticeWidget = ({ noticeList, viewAllLink }: NoticeWidgetProps) => {
+const NoticeWidget = ({ noticeList = [], viewAllLink }: NoticeWidgetProps) => {
   const [toastOpen, setToastOpen] = useState(false);
   const addToast = useToastStore((state) => state.addToast);
   return (
@@ -36,7 +37,7 @@ const NoticeWidget = ({ noticeList, viewAllLink }: NoticeWidgetProps) => {
           전체보기 <ArrowRight size={12} className="ml-1" />
         </span>
       </Card.Header>
-      <div className="flex flex-col divide-y divide-gray-200">
+      <div className="flex flex-col divide-y divide-gray-100">
         {noticeList.map((notice) => (
           <NoticeItem key={notice.link} notice={notice} />
         ))}
@@ -46,13 +47,25 @@ const NoticeWidget = ({ noticeList, viewAllLink }: NoticeWidgetProps) => {
 };
 
 const NoticeItem = ({ notice }: { notice: Notice }) => {
+  const addToast = useToastStore((state) => state.addToast);
   return (
-    <div className="hover:text-primary-600 flex cursor-pointer items-start gap-3 border-gray-200 py-3 text-gray-900 transition-colors">
-      <div>
-        <div className="text-sm leading-snug transition-colors">{notice.title}</div>
-        <span className="mt-1 block text-xs text-gray-400">{notice.regDate}</span>
+    <Button
+      asChild
+      onClick={() => {
+        addToast({
+          title: "개발 중인 기능입니다.",
+          status: "info",
+          description: "공지사항 기능은 현재 개발 중에 있습니다.",
+        });
+      }}
+    >
+      <div className="hover:text-primary-800 flex cursor-pointer items-start gap-3 py-3 text-gray-900 transition-all">
+        <div>
+          <div className="text-sm leading-snug transition-colors">{notice.title}</div>
+          <span className="mt-1 block text-xs text-gray-400">{notice.regDate}</span>
+        </div>
       </div>
-    </div>
+    </Button>
   );
 };
 
