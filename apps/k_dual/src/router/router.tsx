@@ -4,6 +4,7 @@ import AppProcess from "@src/pages/AppProcess";
 import Dashboard from "@src/pages/Dashboard";
 import DashboardPage from "@src/pages/dashboard/DashboardPage";
 import LearningLog from "@src/pages/learning-log/LearningLog";
+import StyleLearningLog from "@src/pages/LearningLog";
 import LoginPage from "@src/pages/login/LoginPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
@@ -47,6 +48,21 @@ export const routes: RouteObject[] = [
           {
             path: "learning-log",
             element: <LearningLog />,
+            handle: {
+              category: "learning-log",
+            },
+          },
+          {
+            path: "learning-log/:id",
+            element: <LearningLog />,
+            handle: {
+              category: "learning-log",
+            },
+          },
+
+          {
+            path: "style/learning-log",
+            element: <StyleLearningLog />,
             handle: {
               category: "learning-log",
             },

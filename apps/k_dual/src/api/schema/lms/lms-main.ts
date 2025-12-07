@@ -1,4 +1,5 @@
 import { ScrapeSchema } from "@src/utils/scraper";
+import { Semester } from "../my/my-course";
 // LMS 메인 페이지
 type CourseInfo = {
   name: string;
@@ -24,12 +25,31 @@ type WeeklySchedule = {
   isEvaluation: boolean; // 중간고사 / 기말고사 여부
 };
 interface LmsMain {
+  courseName: string;
+  semesterList: Semester[];
   courseInfo: CourseInfo;
   progressInfo: ProgressInfo;
   noticeList: Notice[];
   weeklySchedule: WeeklySchedule[];
 }
 const LMS_MAIN_SCHEMA: ScrapeSchema = {
+  courseName:
+    "#k_wrap_class > div.k_container.class > div.k_right_class > div.k_cnt_top > div.k_cnt_tit > h2",
+  semesterList: {
+    listItem: "#SelectTermLT option",
+
+    data: {
+      value: {
+        selector: ":scope",
+        attr: "value",
+      },
+      label: ":scope",
+      isDefaultSelected: {
+        selector: ":scope",
+        transform: (el) => el?.hasAttribute("selected") || false,
+      },
+    },
+  },
   courseInfo: {
     name: ".myclass_name",
     semester: ".myclass_room li:nth-child(1)",

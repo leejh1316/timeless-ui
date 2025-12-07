@@ -11,7 +11,7 @@ import { devLog } from "@src/utils/common";
 
 // ====================  LMS 메인 페이지 조회 ====================
 export interface MainPayload {
-  id: number;
+  id: number | string;
 }
 const main = async (payload: MainPayload): Promise<LmsMain> => {
   try {

@@ -2,12 +2,12 @@ import { useFetchHome } from "@src/api/endpoints/home";
 import { useFetchLmsMain } from "@src/api/endpoints/lms";
 import { useFetchMyCourseList, useFetchMyInfo } from "@src/api/endpoints/my";
 import { Page } from "@src/components/layout/Page";
+import MyCourseWidget from "@src/components/widget/MyCourseWidget";
 import NoticeWidget from "@src/components/widget/NoticeWidget";
+import DashboardSkeleton from "./components/loading/DashboardSkeleton";
 import CurrentWeekReport from "./components/section/CurrentWeekReport";
 import GreetingSection from "./components/section/GreetingSection";
 import UserOverview from "./components/section/UserOverview";
-import MyCourse from "./components/section/MyCourse";
-import DashboardSkeleton from "./components/loading/DashboardSkeleton";
 
 const DashboardPage = () => {
   const {
@@ -54,7 +54,7 @@ const DashboardPage = () => {
                     learningMainData!.weeklySchedule[learningMainData!.progressInfo.currentWeek - 1]
                   }
                 />
-                <MyCourse defaultCourseData={courseData} />
+                <MyCourseWidget defaultCourseData={courseData} />
                 <NoticeWidget noticeList={homeData?.noticeList ?? []} viewAllLink="/notices" />
               </div>
               <div className="flex flex-col gap-6">

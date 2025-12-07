@@ -21,7 +21,6 @@ interface MyCourseListSchema {
 }
 const MY_COURSE_LIST_SCHEMA: ScrapeSchema = {
   semesterList: {
-    // 1. 반복되는 option 태그 선택
     listItem: "#sTermNo option",
 
     data: {

@@ -28,3 +28,4 @@ const Card = forwardRef<React.ComponentRef<typeof Primitive.div>, CardProps>(
 Card.displayName = "Card";
 
 export { Card };
+export type { CardProps };
