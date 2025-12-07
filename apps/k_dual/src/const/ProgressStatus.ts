@@ -1,4 +1,3 @@
-import { ProgressStatus } from "@src/api/schema/lms/lms-progress";
 enum ProgressStatusEnum {
   PARTIAL = "PARTIAL",
   EMPTY = "EMPTY",

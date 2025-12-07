@@ -5,14 +5,23 @@ import { Spinner } from "./Spinner";
 
 interface ButtonProps extends React.ComponentProps<typeof BaseButton> {
   loading?: boolean;
-  color?: "primary" | "secondary" | "none";
+  color?: "primary" | "secondary" | "danger" | "none";
+  spinnerColor?: "primary" | "secondary" | "success" | "warning" | "danger" | "default" | "none";
 }
 const Button = forwardRef<React.ComponentRef<typeof BaseButton>, ButtonProps>(
   (props, forwardedRef) => {
-    const { loading, className, children, color = "none", ...rest } = props;
+    const {
+      loading,
+      className,
+      children,
+      color = "none",
+      spinnerColor = "primary",
+      ...rest
+    } = props;
     const colorClasses = {
       primary: "bg-primary-600 text-white hover:bg-primary-700",
       secondary: "bg-secondary-600 text-white hover:bg-secondary-700",
+      danger: "bg-danger-600 text-white hover:bg-danger-700",
       none: "",
     };
 
@@ -30,7 +39,7 @@ const Button = forwardRef<React.ComponentRef<typeof BaseButton>, ButtonProps>(
       >
         {loading ? (
           <div className="flex h-full w-full items-center justify-center">
-            <Spinner size="sm" color="primary" />
+            <Spinner size="sm" color={spinnerColor} />
           </div>
         ) : (
           children

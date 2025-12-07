@@ -1,4 +1,5 @@
 import { ScrapeSchema } from "@src/utils/scraper";
+type ApprovalStatus = "APPROVED" | "PENDING";
 // LMS 학습활동서 상세 페이지
 type Inning = {
   value: string;
@@ -17,6 +18,11 @@ type NcsInfo = {
   unit: string;
   element: string;
 };
+type File = {
+  link: string;
+  label: string;
+  fileId: string;
+};
 type ActivityForm = {
   date: string;
   content: string;
@@ -31,9 +37,12 @@ interface LmsLearningDetail {
   trainingInfo: TrainingInfo;
   periodInfo: PeriodInfo;
   ncsInfo: NcsInfo;
-  status: string;
+  status: ApprovalStatus;
+  file: File;
+  fileGroupNo: string;
   activityForm: ActivityForm;
   feedbacks: Feedbacks;
+  studyInningNo: string;
 }
 const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
   // 1. 교육훈련내용 및 차수 정보
@@ -74,7 +83,14 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
   },
 
   // 4. 상태
-  status: ".tbl_sty03:nth-of-type(1) tr:last-child td:nth-child(2)",
+  status: {
+    selector: ".tbl_sty03:nth-of-type(1) tr:last-child td:nth-child(2)",
+    transform: (el) => {
+      const text = el?.textContent?.trim() || "";
+      if (text === "승인") return "APPROVED";
+      return "PENDING";
+    },
+  },
 
   // 5. 수강생 학습활동서
   activityForm: {
@@ -92,7 +108,9 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
     },
     feedback: {
       selector: ".tbl_sty03:nth-of-type(2) tr:nth-child(4) td",
-      transform: (el) => el?.textContent?.trim() || "",
+      transform: (el) => {
+        return el?.innerHTML.replace(/<br\s*\/?>/gi, "\n").trim() || "";
+      },
     },
   },
 
@@ -101,6 +119,7 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
     companyTeacher: {
       selector: "#step3Div textarea",
       as: "text",
+      transform: (el) => el?.textContent?.replace("등록된 내용이 없습니다", ""),
     },
     professor: {
       selector: "#lmsform > table:nth-child(10) > tbody > tr > td > textarea",
@@ -108,7 +127,10 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
       transform: (el) => el?.textContent?.replace("등록된 내용이 없습니다", ""),
     },
   },
-
+  fileGroupNo: {
+    selector: "#lmsform > table:nth-child(5) > tbody > tr:nth-child(5) > td > div > div > input",
+    attr: "value",
+  },
   file: {
     link: {
       selector:
@@ -117,6 +139,18 @@ const LMS_LEARNING_DETAIL_SCHEMA: ScrapeSchema = {
     },
     label:
       "#lmsform > table:nth-child(5) > tbody > tr:nth-child(5) > td > div > div > div > div > a:nth-child(1) > span",
+    fileId: {
+      selector:
+        "#lmsform > table:nth-child(5) > tbody > tr:nth-child(5) > td > div > div > div > div > a:nth-child(1)",
+      transform: (el) => {
+        const href = el?.getAttribute("href") || "";
+        return href.split("/").pop() || "";
+      },
+    },
+  },
+  studyInningNo: {
+    selector: "#studyInningNo",
+    attr: "value",
   },
 };
 
@@ -129,4 +163,6 @@ export type {
   NcsInfo,
   ActivityForm,
   Feedbacks,
+  File,
+  ApprovalStatus,
 };

@@ -1,5 +1,3 @@
-import { Status } from "@src/api/schema/lms/lms-main";
-
 enum StatusEnum {
   IN_PROGRESS = "in-progress",
   NOT_STARTED = "not-started",

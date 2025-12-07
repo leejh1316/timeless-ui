@@ -25,3 +25,4 @@ export * from "./form/form";
 export * from "./slider/Slider";
 export * from "./primitive/Primitive"
 export * from './input/Input';
+export * from './textarea/Textarea';

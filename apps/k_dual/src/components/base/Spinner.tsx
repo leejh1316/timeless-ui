@@ -1,7 +1,14 @@
 import React from "react"; // React.CSSProperties 타입을 위해 import
 
 // --- 타입 및 프롭 정의 (변경 없음) ---
-export type SpinnerColor = "primary" | "secondary" | "success" | "warning" | "danger" | "default";
+export type SpinnerColor =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "warning"
+  | "danger"
+  | "default"
+  | "none";
 interface SpinnerProps {
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   duration?: number;
@@ -16,6 +23,7 @@ const colorVarMap: Record<SpinnerColor, string> = {
   warning: "var(--color-yellow-500)",
   danger: "var(--color-red-500)",
   default: "var(--color-gray-500)",
+  none: "var(--color-gray-500)",
 };
 
 const sizeMap = {

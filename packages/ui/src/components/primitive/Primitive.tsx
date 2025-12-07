@@ -19,6 +19,7 @@ const NODES = [
   "select",
   "span",
   "svg",
+  "textarea",
   "ul",
 ] as const;
 

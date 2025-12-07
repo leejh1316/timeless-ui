@@ -15,6 +15,7 @@ const Button = forwardRef<React.ComponentRef<typeof Primitive.button>, ButtonPro
     onMouseUp,
     onMouseEnter,
     onMouseLeave,
+    type='button',
     ...buttonProps
   } = props;
   const [isPressed, setIsPressed] = useState(false);
@@ -52,6 +53,7 @@ const Button = forwardRef<React.ComponentRef<typeof Primitive.button>, ButtonPro
   return (
     <Primitive.button
       ref={forwardedRef}
+      type={type}
       disabled={isDisabled}
       data-disabled={isDisabled}
       data-hovered={isHovered}

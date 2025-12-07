@@ -8,6 +8,7 @@ import { LMS_LEARNING_DETAIL_SCHEMA, LmsLearningDetail } from "../schema/lms/lms
 import { parseHtml } from "@src/utils/parseHtml";
 import { LMS_PROGRESS_SCHEMA, LmsProgress } from "../schema/lms/lms-progress";
 import { devLog } from "@src/utils/common";
+import { keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // ====================  LMS 메인 페이지 조회 ====================
 export interface MainPayload {
@@ -36,8 +37,8 @@ export const useFetchLmsMain = makeQueryApi(
 
 // ==================== LMS 학습활동서 상세 페이지 조회 ====================
 export interface LearningDetailPayload {
-  lmsId: number;
-  week: number;
+  lmsId: number | string;
+  week: number | string;
 }
 const learningDetail = async (payload: LearningDetailPayload): Promise<LmsLearningDetail> => {
   try {
@@ -58,6 +59,7 @@ export const useFetchLmsLearningDetail = makeQueryApi(
     queryKey: (payload) => [QUERY_KEY.LMS_LEARNING_DETAIL, payload.lmsId, payload.week],
     config: (_, enable) => ({
       enabled: enable,
+      placeholderData: keepPreviousData,
     }),
   },
 );
@@ -87,3 +89,82 @@ export const useFetchLmsProgress = makeQueryApi(
     }),
   },
 );
+
+// lms 저장
+interface LmsSavePayload {
+  "courseInningsInfo.InningNo": number | string;
+  inDate: string; // yyyy-mm-dd
+  trContent: string;
+  impression: string;
+  fileGroupNo: number | string; // 파일 그룹 번호 input의 value 값
+  fileData?: File | null;
+  studyInningNo: number | string;
+  lmsId: number | string;
+  week: number | string;
+}
+///LMS/LectureRoom/CourseProgressStudentEstView/66534?Week=13
+const lmsSave = async (payload: LmsSavePayload) => {
+  try {
+    const formData = new FormData();
+    formData.append("courseInningsInfo.InningNo", payload["courseInningsInfo.InningNo"].toString());
+    formData.append("inDate", payload.inDate);
+    formData.append("trContent", payload.trContent);
+    formData.append("impression", payload.impression);
+    formData.append("fileGroupNo", payload.fileGroupNo.toString());
+    if (payload.fileData) {
+      formData.append("fileGroupNo", payload.fileData);
+    }
+    formData.append("studyInningNo", payload.studyInningNo.toString());
+    await api.post<void>(
+      `LMS/LectureRoom/CourseProgressStudentEstView/${payload.lmsId}?Week=${payload.week}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+  } catch (error) {
+    throw new Error("LMS 학습활동서 저장에 실패했습니다.");
+  }
+};
+export const useLmsSave = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: LmsSavePayload) => lmsSave(payload),
+    onSuccess: (_, payload) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.LMS_LEARNING_DETAIL, payload.lmsId, payload.week],
+      });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_MAIN] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_PROGRESS] });
+    },
+  });
+};
+
+// ====================  LMS 파일 삭제====================
+// Common/FileDeleteNew
+// payload: fno=fileId
+const lmsFileDelete = async (fileId: number | string) => {
+  try {
+    await api.post<void>(`Common/FileDeleteNew`, null, {
+      params: {
+        fno: fileId,
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  } catch (error) {
+    throw new Error("파일 삭제에 실패했습니다.");
+  }
+};
+export const useLmsFileDelete = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (fileId: number | string) => lmsFileDelete(fileId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_LEARNING_DETAIL] });
+    },
+  });
+};

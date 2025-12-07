@@ -3,18 +3,21 @@ import { ProgressStatus } from "@src/api/schema/lms/lms-progress";
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
 import { Label } from "@src/components/base/Label";
+import { Skeleton } from "@src/components/base/Skeleton";
 import { ProgressStatusEnum, ProgressStatusLabel } from "@src/const/ProgressStatus";
 import { StatusEnum, StatusLabel } from "@src/const/Status";
 import { Tabs } from "@timeless-ui/ui";
 import clsx from "clsx";
 import { FileX } from "lucide-react";
 import { useMemo } from "react";
+import { useNavigate, useParams } from "react-router";
 interface CurriculumProps {
   weekSchedules?: WeeklySchedule[];
   progressStatus?: ProgressStatus[];
+  isLoading?: boolean;
 }
 
-const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
+const Curriculum = ({ weekSchedules, progressStatus, isLoading }: CurriculumProps) => {
   const { completedSchedules, inProgressSchedules, notStartedSchedules } = useMemo(() => {
     const inProgressSchedules: WeeklySchedule[] = [];
     const notStartedSchedules: WeeklySchedule[] = [];
@@ -34,6 +37,21 @@ const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
     });
     return { inProgressSchedules, notStartedSchedules, completedSchedules };
   }, [weekSchedules]);
+
+  const renderSkeletons = () => (
+    <div className="space-y-2">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="flex items-center rounded-2xl p-3">
+          <Skeleton className="mr-4 h-12 w-12 shrink-0 rounded-xl" />
+          <div className="min-w-0 flex-1 space-y-2">
+            <Skeleton className="h-5 w-1/2" />
+            <Skeleton className="h-4 w-1/3" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <Card.Root className="py-8">
       <Card.Header className="mb-6 px-8">
@@ -70,7 +88,9 @@ const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
           </Tabs.List>
           <div className="mt-4 px-5">
             <Tabs.Content value="all">
-              {weekSchedules?.length !== 0 ? (
+              {isLoading ? (
+                renderSkeletons()
+              ) : weekSchedules?.length !== 0 ? (
                 weekSchedules?.map((weekSchedule, index) => (
                   <CurriculumItem
                     key={weekSchedule.week}
@@ -83,7 +103,9 @@ const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
               )}
             </Tabs.Content>
             <Tabs.Content value={StatusEnum.IN_PROGRESS}>
-              {inProgressSchedules.length !== 0 ? (
+              {isLoading ? (
+                renderSkeletons()
+              ) : inProgressSchedules.length !== 0 ? (
                 inProgressSchedules.map((weekSchedule, index) => (
                   <CurriculumItem
                     key={weekSchedule.week}
@@ -96,7 +118,9 @@ const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
               )}
             </Tabs.Content>
             <Tabs.Content value={StatusEnum.NOT_STARTED}>
-              {notStartedSchedules.length !== 0 ? (
+              {isLoading ? (
+                renderSkeletons()
+              ) : notStartedSchedules.length !== 0 ? (
                 notStartedSchedules.map((weekSchedule, index) => (
                   <CurriculumItem
                     key={weekSchedule.week}
@@ -109,7 +133,9 @@ const Curriculum = ({ weekSchedules, progressStatus }: CurriculumProps) => {
               )}
             </Tabs.Content>
             <Tabs.Content value={StatusEnum.COMPLETED}>
-              {completedSchedules.length !== 0 ? (
+              {isLoading ? (
+                renderSkeletons()
+              ) : completedSchedules.length !== 0 ? (
                 completedSchedules.map((weekSchedule, index) => (
                   <CurriculumItem
                     key={weekSchedule.week}
@@ -133,13 +159,23 @@ interface CurriculumItemProps {
   progressStatus: ProgressStatus;
 }
 const CurriculumItem = ({ weekSchedule, progressStatus }: CurriculumItemProps) => {
+  const params = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const progressColor = {
     [ProgressStatusEnum.EMPTY]: "bg-danger-50 text-danger-600",
     [ProgressStatusEnum.PARTIAL]: "bg-rose-50 text-rose-600",
     [ProgressStatusEnum.COMPLETED]: "",
   };
   return (
-    <Button asChild color="none">
+    <Button
+      asChild
+      color="none"
+      onClick={() =>
+        navigate(
+          `/learning-log/${params?.id ?? progressStatus.courseId}/detail/${weekSchedule.week}`,
+        )
+      }
+    >
       <div className="group flex cursor-pointer items-center rounded-2xl p-3 transition-all hover:bg-gray-50">
         <div
           className={clsx(

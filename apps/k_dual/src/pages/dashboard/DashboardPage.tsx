@@ -53,6 +53,7 @@ const DashboardPage = () => {
                   schedule={
                     learningMainData!.weeklySchedule[learningMainData!.progressInfo.currentWeek - 1]
                   }
+                  courseId={courseData?.courseList[0]?.lmsId}
                 />
                 <MyCourseWidget className="min-h-[330px]" defaultCourseData={courseData} />
                 <NoticeWidget noticeList={homeData?.noticeList ?? []} viewAllLink="/notices" />

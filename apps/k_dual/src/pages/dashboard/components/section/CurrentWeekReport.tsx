@@ -4,11 +4,14 @@ import { Card } from "@src/components/base/Card";
 import { Label } from "@src/components/base/Label";
 import clsx from "clsx";
 import { PenTool } from "lucide-react";
+import { useNavigate } from "react-router";
 
 interface CurrentWeekReportProps {
   schedule: WeeklySchedule;
+  courseId?: number;
 }
-const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
+const CurrentWeekReport = ({ schedule, courseId }: CurrentWeekReportProps) => {
+  const navigate = useNavigate();
   return (
     <Card.Root className={clsx("h-fit w-full overflow-hidden p-10")} pointed>
       <div className="flex items-center justify-between">
@@ -28,6 +31,7 @@ const CurrentWeekReport = ({ schedule }: CurrentWeekReportProps) => {
         </div>
         <div className="flex shrink-0 gap-x-3">
           <Button
+            onClick={() => navigate(`/learning-log/${courseId}/detail/${schedule.week}`)}
             className={clsx(
               "rounded-xl border-none bg-teal-600 px-4 py-3.5 text-[15px] font-semibold text-white hover:bg-teal-700",
               "flex items-center gap-2",

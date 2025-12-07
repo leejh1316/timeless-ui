@@ -97,7 +97,7 @@ const CourseItem = ({ course, onNavigate }: CourseItemProps) => {
     <Button
       asChild
       onClick={() => {
-        navigate(`/learning-log/${course.lmsId}`);
+        navigate(`/learning-log/${course.lmsId}`, { viewTransition: true });
         onNavigate?.(course.lmsId);
       }}
     >

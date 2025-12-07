@@ -3,6 +3,7 @@ import RouteGuard from "@src/components/auth/RouteGuard";
 import AppProcess from "@src/pages/AppProcess";
 import Dashboard from "@src/pages/Dashboard";
 import DashboardPage from "@src/pages/dashboard/DashboardPage";
+import LearningDetail from "@src/pages/learning-detail/LearningDetail";
 import LearningLog from "@src/pages/learning-log/LearningLog";
 import StyleLearningLog from "@src/pages/LearningLog";
 import LoginPage from "@src/pages/login/LoginPage";
@@ -59,12 +60,20 @@ export const routes: RouteObject[] = [
               category: "learning-log",
             },
           },
-
+          {
+            path: "learning-log/:id/detail/:week",
+            element: <LearningDetail />,
+            handle: {
+              category: "learning-log",
+              subject: "learning-detail",
+            },
+          },
           {
             path: "style/learning-log",
             element: <StyleLearningLog />,
             handle: {
               category: "learning-log",
+              subject: "learning-detail",
             },
           },
         ],
