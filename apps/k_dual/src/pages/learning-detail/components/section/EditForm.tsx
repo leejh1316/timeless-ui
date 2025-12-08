@@ -175,7 +175,7 @@ const EditForm = ({
               </AlertDialog.Trigger>
               <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-black/40" />
-                <AlertDialog.Content className="-translate-1/2 absolute left-1/2 top-1/2">
+                <AlertDialog.Content className="-translate-1/2 fixed left-1/2 top-1/2">
                   <Card.Root className="w-screen max-w-xs p-6 md:max-w-md">
                     <Card.Header>
                       <Card.Title>파일 삭제</Card.Title>
