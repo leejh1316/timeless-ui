@@ -64,7 +64,7 @@ export default defineConfig(({ mode }) => {
               if (location) {
                 const targetDomain = "http://kpu.kdual.net";
                 if (location.startsWith(targetDomain)) {
-                  proxyRes.headers["location"] = location.replace(targetDomain, "/kdaul");
+                  proxyRes.headers["location"] = location.replace(targetDomain, "/kdual");
                 }
               }
             });
