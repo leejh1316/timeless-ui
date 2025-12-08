@@ -1,11 +1,9 @@
 import App from "@src/App";
 import RouteGuard from "@src/components/auth/RouteGuard";
 import AppProcess from "@src/pages/AppProcess";
-import Dashboard from "@src/pages/Dashboard";
 import DashboardPage from "@src/pages/dashboard/DashboardPage";
 import LearningDetail from "@src/pages/learning-detail/LearningDetail";
 import LearningLog from "@src/pages/learning-log/LearningLog";
-import StyleLearningLog from "@src/pages/LearningLog";
 import LoginPage from "@src/pages/login/LoginPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
@@ -40,13 +38,6 @@ export const routes: RouteObject[] = [
             },
           },
           {
-            path: "style/home",
-            element: <Dashboard />,
-            handle: {
-              category: "home",
-            },
-          },
-          {
             path: "learning-log",
             element: <LearningLog />,
             handle: {
@@ -63,14 +54,6 @@ export const routes: RouteObject[] = [
           {
             path: "learning-log/:id/detail/:week",
             element: <LearningDetail />,
-            handle: {
-              category: "learning-log",
-              subject: "learning-detail",
-            },
-          },
-          {
-            path: "style/learning-log",
-            element: <StyleLearningLog />,
             handle: {
               category: "learning-log",
               subject: "learning-detail",
