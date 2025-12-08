@@ -1,3 +1,4 @@
+// apps/client/api/proxy.js
 import httpProxy from "http-proxy";
 
 const proxy = httpProxy.createProxyServer({
@@ -7,34 +8,39 @@ const proxy = httpProxy.createProxyServer({
   preserveHeaderKeyCase: true,
 });
 
-// Proxy Response Event to handle Cookies
-proxy.on("proxyRes", (proxyRes, req, res) => {
-  // Remove Domain from Set-Cookie headers to allow browser to set cookies for the Vercel domain
-  const sc = proxyRes.headers["set-cookie"];
-  if (Array.isArray(sc)) {
-    proxyRes.headers["set-cookie"] = sc.map((cookie) => {
-      return cookie.replace(/Domain=[^;]+;?/gi, "");
+export default async function handler(req, res) {
+  return new Promise((resolve, reject) => {
+    req.url = req.url.replace(/^\/api\/proxy/, "").replace(/^\/kdual/, "");
+
+    // 2. 헤더 설정
+    proxy.on("proxyReq", (proxyReq, req, res) => {
+      proxyReq.setHeader("Origin", "https://kpu.kdual.net");
+      proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
     });
-  }
-});
 
-// Proxy Error Handling
-proxy.on("error", (err, req, res) => {
-  console.error("Proxy Error:", err);
-  res.status(500).json({ error: "Proxy Error", details: err.message });
-});
+    // 3. 쿠키 설정 (도메인 제거)
+    proxy.on("proxyRes", (proxyRes, req, res) => {
+      const sc = proxyRes.headers["set-cookie"];
+      if (Array.isArray(sc)) {
+        proxyRes.headers["set-cookie"] = sc.map((cookie) => {
+          return cookie.replace(/Domain=[^;]+;?/gi, "");
+        });
+      }
+    });
 
-module.exports = (req, res) => {
-  // Reconstruct the path from the query param passed by vercel.json rewrite
-  const path = req.query.path;
+    // 4. 에러 핸들링
+    proxy.on("error", (err, req, res) => {
+      console.error("Proxy Error:", err);
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Proxy Error", details: err.message });
+      }
+      resolve(); // 에러 발생 시에도 Promise 종료
+    });
 
-  // Set the URL for the proxy target (removes /api/proxy prefix logic)
-  req.url = "/" + (Array.isArray(path) ? path.join("/") : path || "");
-
-  // Inject required headers
-  req.headers["origin"] = "https://kpu.kdual.net";
-  req.headers["referer"] = "https://kpu.kdual.net/";
-
-  // Forward the request
-  proxy.web(req, res);
-};
+    // 5. 요청 전달
+    proxy.web(req, res, undefined, (e) => {
+      // proxy.web 자체 콜백에서도 에러 처리 및 종료
+      resolve();
+    });
+  });
+}
