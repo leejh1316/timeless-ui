@@ -2,11 +2,13 @@ import { useFetchLmsLearningDetail } from "@src/api/endpoints/lms";
 import { Button } from "@src/components/base/Button";
 import { Page } from "@src/components/layout/Page";
 import { ArrowLeft } from "lucide-react";
-import { To, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import LearningDetailSkeleton from "./components/loading/LearningDetailSkeleton";
 import CurriculumSelect from "./components/section/CurriculumSelect";
-import Feedback from "./components/section/Feedback";
 import EditForm from "./components/section/EditForm";
+import Feedback from "./components/section/Feedback";
 import TaskFeedback from "./components/section/TaskFeedback";
+import TrainingInfo from "./components/section/TrainingInfo";
 
 const LearningDetail = () => {
   const navigate = useNavigate();
@@ -15,6 +17,9 @@ const LearningDetail = () => {
     lmsId: params.id!,
     week: params.week!,
   });
+
+  if (isFetching) return <LearningDetailSkeleton />;
+
   return (
     <>
       <Page.Root className="mt-10 space-y-6">
@@ -46,11 +51,18 @@ const LearningDetail = () => {
                   file={data.file}
                   fileGroupNo={data.fileGroupNo}
                   studyInningNo={data.studyInningNo}
+                  status={data.status}
                 />
               </div>
               <div className="flex min-w-0 flex-col gap-y-6">
-                <Feedback feedbackData={data.feedbacks} />
+                <TrainingInfo
+                  ncsInfo={data.ncsInfo}
+                  title={data.trainingInfo.title}
+                  status={data.status}
+                  periodInfo={data.periodInfo}
+                />
                 <TaskFeedback taskFeedbackMessage={data.activityForm.feedback} />
+                <Feedback feedbackData={data.feedbacks} />
               </div>
             </Page.Content>
           </Page.Section>

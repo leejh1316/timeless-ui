@@ -54,5 +54,13 @@ export const useLogoutMutation = () => {
         throw error;
       }
     },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.HOME] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_COURSE_LIST] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_MAIN] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_PROGRESS] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_LEARNING_DETAIL] });
+    },
   });
 };

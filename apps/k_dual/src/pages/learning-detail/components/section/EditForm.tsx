@@ -18,10 +18,17 @@ interface EditFormProps {
   file: LmsFile;
   fileGroupNo: string;
   studyInningNo: string;
+  status: string;
 }
 
 // week -> inningId
-const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFormProps) => {
+const EditForm = ({
+  activityFormData,
+  file,
+  fileGroupNo,
+  studyInningNo,
+  status,
+}: EditFormProps) => {
   const addToast = useToastStore((state) => state.addToast);
   const params = useParams<{ id: string; week: string }>();
   const [weekState, setWeekState] = useState(params.week);
@@ -91,7 +98,9 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
         <div className="flex flex-col gap-1">
           <span className="text-sm font-medium text-gray-600">훈련 일자</span>
           <DatePickerInput
+            disabled={status === "APPROVED"}
             value={new Date(formState.date)}
+            defaultDisplayDate={new Date(formState.date)}
             onValueChange={(date) => {
               setFormState((prev) => ({
                 ...prev,
@@ -114,6 +123,7 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
             </div>
           </div>
           <Textarea.Field
+            disabled={status === "APPROVED"}
             maxLength={800}
             className="focus-visible:ring-primary-600 min-h-[450px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent"
             placeholder="활동 내용을 입력해주세요."
@@ -133,6 +143,7 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
             </div>
           </div>
           <Textarea.Field
+            disabled={status === "APPROVED"}
             maxLength={200}
             className="focus-visible:ring-primary-600 min-h-[130px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent"
             placeholder="소감을 작성해주세요."
@@ -163,7 +174,7 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
             </Button>
             <Button
               className="bg-danger-50! hover:bg-danger-100! text-danger-600! flex w-12 min-w-0 shrink-0 items-center justify-center rounded-lg px-3"
-              disabled={isLoading}
+              disabled={isLoading || status === "APPROVED"}
               loading={isDeleting}
               color="danger"
               onClick={async () => {
@@ -196,16 +207,17 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
             </div>
           </Button>
         )}
-
-        <div className="flex justify-end gap-2">
-          <Button
-            type="submit"
-            loading={isSaving}
-            className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white"
-          >
-            저장
-          </Button>
-        </div>
+        {status !== "APPROVED" && (
+          <div className="flex justify-end gap-2">
+            <Button
+              type="submit"
+              loading={isSaving}
+              className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white"
+            >
+              저장
+            </Button>
+          </div>
+        )}
       </form>
     </Card.Root>
   );
