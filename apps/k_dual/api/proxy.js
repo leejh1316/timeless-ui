@@ -1,4 +1,4 @@
-const httpProxy = require("http-proxy");
+import httpProxy from "http-proxy";
 
 const proxy = httpProxy.createProxyServer({
   target: "https://kpu.kdual.net",
