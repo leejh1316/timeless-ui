@@ -38,7 +38,7 @@ const LearningDetail = () => {
           </Page.Content>
         </Page.Section>
         {isSuccess && (
-          <Page.Section key={dataUpdatedAt}>
+          <Page.Section>
             <Page.Content className="grid grid-cols-[7fr_3fr] gap-x-6">
               <div className="flex min-w-0 flex-col gap-y-6">
                 <EditForm

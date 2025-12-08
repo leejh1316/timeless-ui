@@ -1,7 +1,7 @@
 import { ActivityForm, File as LmsFile } from "@src/api/schema/lms/lms-detail";
 import { Card } from "@src/components/base/Card";
 import { Input, Textarea } from "@timeless-ui/ui";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DatePickerInput from "../input/DatePickerInput";
 import { Delete, FileArchive, SquarePen, Trash, Trash2 } from "lucide-react";
 import { Button } from "@src/components/base/Button";
@@ -24,8 +24,9 @@ interface EditFormProps {
 const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFormProps) => {
   const addToast = useToastStore((state) => state.addToast);
   const params = useParams<{ id: string; week: string }>();
+  const [weekState, setWeekState] = useState(params.week);
   const [fileState, setFileState] = useState<File | null>(null);
-  const formState = useRef({
+  const [formState, setFormState] = useState({
     date: activityFormData.date || "",
     content: activityFormData.content || "",
     impression: activityFormData.impression || "",
@@ -42,9 +43,9 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
     try {
       await save({
         "courseInningsInfo.InningNo": params.week!,
-        inDate: formState.current.date,
-        trContent: formState.current.content,
-        impression: formState.current.impression,
+        inDate: formState.date,
+        trContent: formState.content,
+        impression: formState.impression,
         fileGroupNo,
         fileData: fileState,
         studyInningNo: studyInningNo,
@@ -56,6 +57,7 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
         title: "저장 완료",
         description: "학습활동서가 저장되었습니다.",
       });
+      setFileState(null);
     } catch (error) {
       addToast({
         status: "error",
@@ -66,6 +68,17 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
   };
 
   const isLoading = isSaving || isDeleting;
+
+  useEffect(() => {
+    if (weekState !== params.week) {
+      setWeekState(params.week);
+      setFormState({
+        date: activityFormData.date || "",
+        content: activityFormData.content || "",
+        impression: activityFormData.impression || "",
+      });
+    }
+  }, [activityFormData, params]);
   return (
     <Card.Root className="w-full p-6">
       <Card.Header>
@@ -78,17 +91,20 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
         <div className="flex flex-col gap-1">
           <span className="text-sm font-medium text-gray-600">훈련 일자</span>
           <DatePickerInput
-            defaultValue={new Date(formState.current.date)}
+            value={new Date(formState.date)}
             onValueChange={(date) => {
-              formState.current.date = format(date, "yyyy-MM-dd", { locale: ko });
+              setFormState((prev) => ({
+                ...prev,
+                date: format(date, "yyyy-MM-dd", { locale: ko }),
+              }));
             }}
           />
         </div>
 
         <Textarea.Root
-          defaultValue={formState.current.content}
+          value={formState.content}
           onValueChange={(value) => {
-            formState.current.content = value;
+            setFormState((prev) => ({ ...prev, content: value }));
           }}
         >
           <div className="mb-2 flex justify-between">
@@ -105,9 +121,9 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo }: EditFo
         </Textarea.Root>
 
         <Textarea.Root
-          defaultValue={formState.current.impression}
+          value={formState.impression}
           onValueChange={(value) => {
-            formState.current.impression = value;
+            setFormState((prev) => ({ ...prev, impression: value }));
           }}
         >
           <div className="mb-2 flex justify-between">
