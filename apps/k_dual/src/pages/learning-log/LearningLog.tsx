@@ -48,26 +48,28 @@ const LearningLog = () => {
   return (
     <>
       <title>Learning Log - {data?.courseName ?? "K-dual"}</title>
-      <Page.Root className="mt-10 space-y-6">
+      <Page.Root className="mt-6 space-y-4 md:mt-10 md:space-y-6">
         <Page.Section className="">
-          <Page.Content className="grid grid-cols-[7fr_3fr] items-center justify-between gap-x-6">
-            <h2 className="text-2xl font-bold">
+          <Page.Content className="flex flex-col gap-4 md:grid md:grid-cols-[7fr_3fr] md:items-center md:justify-between md:gap-x-6">
+            <h2 className="text-xl font-bold md:text-2xl">
               {isLoading ? <Skeleton className="h-8 w-64 rounded-xl" /> : data?.courseName}
             </h2>
-            <CourseChange />
+            <div className="w-full md:w-auto">
+              <CourseChange />
+            </div>
           </Page.Content>
         </Page.Section>
         <Page.Section>
           {(isLoading || (isProgressLoaded && isCourseLoaded)) && (
-            <Page.Content className="grid grid-cols-[7fr_3fr] gap-x-6">
-              <div className="flex min-w-0 flex-col gap-y-6">
+            <Page.Content className="flex flex-col gap-6 md:grid md:grid-cols-[7fr_3fr] md:gap-x-6">
+              <div className="flex min-w-0 flex-col gap-y-4 md:gap-y-6">
                 <Curriculum
                   weekSchedules={data?.weeklySchedule}
                   progressStatus={progressData?.progress}
                   isLoading={isLoading}
                 />
               </div>
-              <div className="flex max-h-full min-w-0 flex-col gap-y-6">
+              <div className="flex max-h-full min-w-0 flex-col gap-y-4 md:gap-y-6">
                 <CourseInfo lmsData={data} isLoading={isLoading} />
                 {isLoading ? (
                   <>

@@ -6,7 +6,7 @@ interface FeedbackProps {
 }
 const Feedback = ({ feedbackData }: FeedbackProps) => {
   return (
-    <Card.Root className="p-6">
+    <Card.Root className="p-5 md:p-6">
       <Card.Header className="">
         <Card.Title>피드백</Card.Title>
       </Card.Header>

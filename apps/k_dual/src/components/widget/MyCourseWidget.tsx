@@ -32,7 +32,7 @@ const MyCourseWidget = ({
   const courseList: Course[] = data?.courseList ?? defaultCourseData?.courseList ?? [];
   return (
     <Card.Root className={clsx("@container w-full py-6", className)} {...props}>
-      <Card.Header className="flex items-center justify-between px-8">
+      <Card.Header className="flex items-center justify-between px-5 md:px-8">
         <div className="flex items-center justify-between">
           <Card.Title className="text-lg font-bold text-gray-900">{title}</Card.Title>
         </div>

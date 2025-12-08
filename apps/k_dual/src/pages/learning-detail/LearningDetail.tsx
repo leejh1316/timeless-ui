@@ -22,9 +22,9 @@ const LearningDetail = () => {
 
   return (
     <>
-      <Page.Root className="mt-10 space-y-6">
+      <Page.Root className="mt-6 space-y-4 md:mt-10 md:space-y-6">
         <Page.Section>
-          <Page.Content className="grid grid-cols-[7fr_3fr] gap-x-6">
+          <Page.Content className="flex flex-col gap-4 md:grid md:grid-cols-[7fr_3fr] md:items-center md:justify-between md:gap-x-6">
             <div className="flex min-w-0 items-center">
               <Button
                 onClick={() => {
@@ -35,7 +35,7 @@ const LearningDetail = () => {
               >
                 <ArrowLeft size={20} className="" />
               </Button>
-              <h2 className="ml-3 text-2xl font-bold">학습활동서 작성</h2>
+              <h2 className="ml-3 text-xl font-bold md:text-2xl">학습활동서 작성</h2>
             </div>
             <div className="w-full min-w-0">
               {isSuccess && <CurriculumSelect traningData={data.trainingInfo} />}
@@ -44,8 +44,8 @@ const LearningDetail = () => {
         </Page.Section>
         {isSuccess && (
           <Page.Section>
-            <Page.Content className="grid grid-cols-[7fr_3fr] gap-x-6">
-              <div className="flex min-w-0 flex-col gap-y-6">
+            <Page.Content className="flex flex-col gap-6 md:grid md:grid-cols-[7fr_3fr] md:gap-x-6">
+              <div className="flex min-w-0 flex-col gap-y-4 md:gap-y-6">
                 <EditForm
                   activityFormData={data.activityForm}
                   file={data.file}
@@ -54,7 +54,7 @@ const LearningDetail = () => {
                   status={data.status}
                 />
               </div>
-              <div className="flex min-w-0 flex-col gap-y-6">
+              <div className="flex min-w-0 flex-col gap-y-4 md:gap-y-6">
                 <TrainingInfo
                   ncsInfo={data.ncsInfo}
                   title={data.trainingInfo.title}

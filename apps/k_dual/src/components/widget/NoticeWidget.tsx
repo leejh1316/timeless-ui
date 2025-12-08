@@ -15,7 +15,7 @@ const NoticeWidget = ({ noticeList = [], viewAllLink }: NoticeWidgetProps) => {
   const [toastOpen, setToastOpen] = useState(false);
   const addToast = useToastStore((state) => state.addToast);
   return (
-    <Card.Root className="w-full px-8 py-6">
+    <Card.Root className="w-full px-5 py-5 md:px-8 md:py-6">
       <Card.Header className="flex items-center justify-between">
         <Card.Title className="text-lg font-bold text-gray-900">공지사항</Card.Title>
         {/* <Link

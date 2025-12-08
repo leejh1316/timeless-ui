@@ -1,6 +1,6 @@
 import { ActivityForm, File as LmsFile } from "@src/api/schema/lms/lms-detail";
 import { Card } from "@src/components/base/Card";
-import { Input, Textarea } from "@timeless-ui/ui";
+import { AlertDialog, Input, Textarea } from "@timeless-ui/ui";
 import { useEffect, useRef, useState } from "react";
 import DatePickerInput from "../input/DatePickerInput";
 import { Delete, FileArchive, SquarePen, Trash, Trash2 } from "lucide-react";
@@ -31,7 +31,6 @@ const EditForm = ({
 }: EditFormProps) => {
   const addToast = useToastStore((state) => state.addToast);
   const params = useParams<{ id: string; week: string }>();
-  const [weekState, setWeekState] = useState(params.week);
   const [fileState, setFileState] = useState<File | null>(null);
   const [formState, setFormState] = useState({
     date: activityFormData.date || "",
@@ -76,18 +75,8 @@ const EditForm = ({
 
   const isLoading = isSaving || isDeleting;
 
-  useEffect(() => {
-    if (weekState !== params.week) {
-      setWeekState(params.week);
-      setFormState({
-        date: activityFormData.date || "",
-        content: activityFormData.content || "",
-        impression: activityFormData.impression || "",
-      });
-    }
-  }, [activityFormData, params]);
   return (
-    <Card.Root className="w-full p-6">
+    <Card.Root className="w-full p-5 md:p-6">
       <Card.Header>
         <Card.Title className="flex items-center">
           <SquarePen size={18} className="text-primary-600 mr-2" />
@@ -125,7 +114,7 @@ const EditForm = ({
           <Textarea.Field
             disabled={status === "APPROVED"}
             maxLength={800}
-            className="focus-visible:ring-primary-600 min-h-[450px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent"
+            className="focus-visible:ring-primary-600 min-h-[300px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent md:min-h-[450px]"
             placeholder="활동 내용을 입력해주세요."
           />
         </Textarea.Root>
@@ -172,23 +161,63 @@ const EditForm = ({
                 <Label color="primary">다운로드</Label>
               </div>
             </Button>
-            <Button
-              className="bg-danger-50! hover:bg-danger-100! text-danger-600! flex w-12 min-w-0 shrink-0 items-center justify-center rounded-lg px-3"
-              disabled={isLoading || status === "APPROVED"}
-              loading={isDeleting}
-              color="danger"
-              onClick={async () => {
-                //파일 제거
-                await deleteFile(file.fileId);
-                addToast({
-                  status: "success",
-                  title: "파일 삭제",
-                  description: "파일이 삭제되었습니다.",
-                });
-              }}
-            >
-              <Trash2 size={16} />
-            </Button>
+            <AlertDialog.Root>
+              <AlertDialog.Trigger asChild>
+                <Button
+                  className="bg-danger-50! hover:bg-danger-100! text-danger-600! flex w-12 min-w-0 shrink-0 items-center justify-center rounded-lg px-3"
+                  disabled={isLoading || status === "APPROVED"}
+                  loading={isDeleting}
+                  color="danger"
+                  spinnerColor="danger"
+                >
+                  <Trash2 size={16} />
+                </Button>
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className="bg-black/40" />
+                <AlertDialog.Content className="-translate-1/2 absolute left-1/2 top-1/2">
+                  <Card.Root className="w-screen max-w-xs p-6 md:max-w-md">
+                    <Card.Header>
+                      <Card.Title>파일 삭제</Card.Title>
+                    </Card.Header>
+                    <div className="mb-4 text-gray-800">
+                      정말로
+                      <span className="bg-danger-100 text-danger-500 mx-1 rounded-md px-1 py-1 font-medium">
+                        {file.label}
+                      </span>{" "}
+                      파일을 삭제하시겠습니까?
+                      <div className="mt-2 text-sm text-gray-600">
+                        삭제시 현재 작업중인 내용이 사라집니다.
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <AlertDialog.Cancel asChild>
+                        <Button className="rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100">
+                          취소
+                        </Button>
+                      </AlertDialog.Cancel>
+                      <AlertDialog.Action asChild>
+                        <Button
+                          className="bg-danger-100 hover:bg-danger-200 text-danger-600 rounded-lg px-4 py-2 text-sm font-medium"
+                          loading={isDeleting}
+                          spinnerColor="danger"
+                          onClick={async () => {
+                            await deleteFile(file.fileId);
+                            addToast({
+                              status: "success",
+                              title: "파일 삭제",
+                              description: "파일이 삭제되었습니다.",
+                            });
+                          }}
+                        >
+                          삭제
+                        </Button>
+                      </AlertDialog.Action>
+                    </div>
+                  </Card.Root>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
           </div>
         )}
 
@@ -212,7 +241,7 @@ const EditForm = ({
             <Button
               type="submit"
               loading={isSaving}
-              className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white"
+              className="bg-primary-600 hover:bg-primary-700 w-full rounded-lg px-4 py-3 text-sm font-medium text-white md:w-auto md:py-2"
             >
               저장
             </Button>

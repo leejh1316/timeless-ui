@@ -19,7 +19,7 @@ const CourseInfo = ({ lmsData, isLoading }: CourseInfoProps) => {
     : 0;
 
   return (
-    <Card.Root className="relative overflow-hidden p-6" pointed>
+    <Card.Root className="relative overflow-hidden p-5 md:p-6" pointed>
       <Card.Header>
         <Card.Title>과목정보</Card.Title>
       </Card.Header>

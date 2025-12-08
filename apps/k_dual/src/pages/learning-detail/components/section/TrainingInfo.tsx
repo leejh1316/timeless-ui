@@ -11,7 +11,7 @@ interface TrainingInfoProps {
 }
 const TrainingInfo = ({ ncsInfo, title, periodInfo, status }: TrainingInfoProps) => {
   return (
-    <Card.Root className="p-6">
+    <Card.Root className="p-5 md:p-6">
       <Card.Header>
         <Card.Title>훈련 정보</Card.Title>
       </Card.Header>

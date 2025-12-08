@@ -13,8 +13,8 @@ interface CurrentWeekReportProps {
 const CurrentWeekReport = ({ schedule, courseId }: CurrentWeekReportProps) => {
   const navigate = useNavigate();
   return (
-    <Card.Root className={clsx("h-fit w-full overflow-hidden p-10")} pointed>
-      <div className="flex items-center justify-between">
+    <Card.Root className={clsx("h-fit w-full overflow-hidden p-6 md:p-10")} pointed>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <div>
             {schedule.isEvaluation && (
@@ -29,12 +29,12 @@ const CurrentWeekReport = ({ schedule, courseId }: CurrentWeekReportProps) => {
           </div>
           <div className="mt-4 text-sm text-gray-500">{schedule.period.replace(/\-/g, ".")}</div>
         </div>
-        <div className="flex shrink-0 gap-x-3">
+        <div className="flex w-full shrink-0 gap-x-3 md:w-auto">
           <Button
             onClick={() => navigate(`/learning-log/${courseId}/detail/${schedule.week}`)}
             className={clsx(
               "rounded-xl border-none bg-teal-600 px-4 py-3.5 text-[15px] font-semibold text-white hover:bg-teal-700",
-              "flex items-center gap-2",
+              "flex w-full items-center justify-center gap-2 md:w-auto",
             )}
           >
             <PenTool size={18} className="rotate-180 -scale-x-100" />

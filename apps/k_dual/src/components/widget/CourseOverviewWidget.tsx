@@ -28,7 +28,7 @@ const CourseOverviewWidget = ({ lmsId }: CourseOverviewProps) => {
     setTotalCount(total);
   }, [data]);
   return (
-    <Card.Root className="h-fit w-full p-8">
+    <Card.Root className="h-fit w-full p-5 md:p-8">
       <div className="flex flex-col">
         <Card.Header>
           <Card.Title className="text-base! tracking-wide text-gray-500">학습진행률</Card.Title>

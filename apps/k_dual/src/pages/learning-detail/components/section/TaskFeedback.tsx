@@ -6,7 +6,11 @@ interface TaskFeedbackProps {
 const TaskFeedback = ({ taskFeedbackMessage = "" }: TaskFeedbackProps) => {
   const messages = taskFeedbackMessage?.split("\n") || [];
   return (
-    <Card.Root className="overflow-hidden p-6" pointed hidden={taskFeedbackMessage.length === 0}>
+    <Card.Root
+      className="overflow-hidden p-5 md:p-6"
+      pointed
+      hidden={taskFeedbackMessage.length === 0}
+    >
       <Card.Header>
         <Card.Title>과제</Card.Title>
       </Card.Header>

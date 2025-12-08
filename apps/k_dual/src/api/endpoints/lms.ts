@@ -132,12 +132,12 @@ export const useLmsSave = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (payload: LmsSavePayload) => lmsSave(payload),
-    onSuccess: (_, payload) => {
-      queryClient.invalidateQueries({
+    onSuccess: async (_, payload) => {
+      await queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.LMS_LEARNING_DETAIL, payload.lmsId, payload.week],
       });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_MAIN] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_PROGRESS] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_MAIN] });
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LMS_PROGRESS] });
     },
   });
 };

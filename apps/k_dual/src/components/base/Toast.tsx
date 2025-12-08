@@ -9,7 +9,7 @@ const ToastRoot = forwardRef<React.ComponentRef<typeof BaseToast.Root>, ToastRoo
       <BaseToast.Root
         ref={forwardedRef}
         className={clsx(
-          "flex w-[350px] items-start gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-lg transition-transform",
+          "flex w-full items-start gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-lg transition-transform md:w-[350px]",
           "data-[state=closed]:animate-toast-out data-[state=open]:animate-toast-in data-[swipe=end]:animate-swipe-out",
           className,
         )}
@@ -81,7 +81,10 @@ const ToastViewport = forwardRef<
 >(({ className, ...props }, ref) => (
   <BaseToast.Viewport
     ref={ref}
-    className={clsx("fixed bottom-5 right-5 z-[9999] flex flex-col gap-2 outline-none", className)}
+    className={clsx(
+      "fixed bottom-24 left-5 right-5 z-[9999] flex flex-col gap-2 outline-none md:bottom-5 md:left-auto md:right-5 md:w-auto",
+      className,
+    )}
     {...props}
   />
 ));

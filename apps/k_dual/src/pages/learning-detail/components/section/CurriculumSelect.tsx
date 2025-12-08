@@ -23,9 +23,14 @@ const CurriculumSelect = ({ traningData }: CurriculumSelectProps) => {
       </Select.Trigger>
       <Select.Portal>
         <Select.View>
-          <Select.Content>
+          <Select.Content className="max-w-xs md:max-w-[unset]">
             {traningData.inningList.map((inning) => (
-              <Select.Item key={inning.value} textValue={inning.label} value={inning.value}>
+              <Select.Item
+                key={inning.value}
+                textValue={inning.label}
+                value={inning.value}
+                className="text-sm!"
+              >
                 {inning.label}
               </Select.Item>
             ))}

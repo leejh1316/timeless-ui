@@ -51,7 +51,7 @@ const UserDetail = ({ userDetail, loading }: UserDetailProps) => {
         <UserDetailLoading />
       ) : (
         <div>
-          <div className="w-sm p-4">
+          <div className="w-screen max-w-xs p-4 md:max-w-sm">
             <div className="flex items-center gap-3">
               <div className="h-11 w-11 rounded-full">
                 <Image.Root
@@ -113,7 +113,7 @@ const UserDetail = ({ userDetail, loading }: UserDetailProps) => {
 const UserDetailLoading = () => {
   return (
     <div>
-      <div className="w-sm p-4">
+      <div className="w-80 p-4">
         <div className="flex items-center gap-3">
           <Skeleton className="h-11 w-11 rounded-full" />
           <div className="flex flex-col gap-1">

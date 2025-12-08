@@ -53,13 +53,13 @@ const Curriculum = ({ weekSchedules, progressStatus, isLoading }: CurriculumProp
   );
 
   return (
-    <Card.Root className="py-8">
-      <Card.Header className="mb-6 px-8">
+    <Card.Root className="py-6 md:py-8">
+      <Card.Header className="mb-4 px-5 md:mb-6 md:px-8">
         <Card.Title>주차별 학습일정</Card.Title>
       </Card.Header>
       <div className="">
         <Tabs.Root defaultValue="all">
-          <Tabs.List className="relative flex gap-6 border-b border-gray-100 px-8">
+          <Tabs.List className="relative flex gap-4 border-b border-gray-100 px-5 md:gap-6 md:px-8">
             <Tabs.Trigger
               className="data-[active=true]:text-primary-600 cursor-pointer pb-2 text-sm font-semibold text-gray-400 transition-colors hover:text-gray-600"
               value="all"
@@ -86,7 +86,7 @@ const Curriculum = ({ weekSchedules, progressStatus, isLoading }: CurriculumProp
             </Tabs.Trigger>
             <Tabs.Indicator className="bg-primary-500 bottom-0 -ml-1 box-content h-0.5 rounded-full px-1" />
           </Tabs.List>
-          <div className="mt-4 px-5">
+          <div className="mt-4 px-4 md:px-5">
             <Tabs.Content value="all">
               {isLoading ? (
                 renderSkeletons()
@@ -173,30 +173,33 @@ const CurriculumItem = ({ weekSchedule, progressStatus }: CurriculumItemProps) =
       onClick={() =>
         navigate(
           `/learning-log/${params?.id ?? progressStatus.courseId}/detail/${weekSchedule.week}`,
+          { viewTransition: true },
         )
       }
     >
-      <div className="group flex cursor-pointer items-center rounded-2xl p-3 transition-all hover:bg-gray-50">
-        <div
-          className={clsx(
-            "mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-all",
-            {
-              "bg-gray-100 text-gray-500": !weekSchedule.isEvaluation,
-              "bg-secondary-50 text-secondary-600": weekSchedule.isEvaluation,
-            },
-          )}
-        >
-          {weekSchedule.week}주
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="mb-1 truncate text-[15px] font-semibold text-gray-900">
-            {weekSchedule.title}
+      <div className="group flex w-full cursor-pointer flex-col gap-2 rounded-2xl p-3 transition-all hover:bg-gray-50 md:flex-row md:items-center md:gap-0">
+        <div className="flex w-full min-w-0 items-center md:w-auto md:flex-1">
+          <div
+            className={clsx(
+              "mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-all",
+              {
+                "bg-gray-100 text-gray-500": !weekSchedule.isEvaluation,
+                "bg-secondary-50 text-secondary-600": weekSchedule.isEvaluation,
+              },
+            )}
+          >
+            {weekSchedule.week}주
           </div>
-          <div className="flex items-center gap-2 truncate text-[13px] text-gray-500">
-            <span>{weekSchedule.period.replace(/\-/g, ".")}</span>
+          <div className="min-w-0 flex-1">
+            <div className="mb-1 truncate text-sm font-semibold text-gray-900 md:text-[15px]">
+              {weekSchedule.title}
+            </div>
+            <div className="flex items-center gap-2 truncate text-[13px] text-gray-500">
+              <span>{weekSchedule.period.replace(/\-/g, ".")}</span>
+            </div>
           </div>
         </div>
-        <div className="ml-4 flex gap-1">
+        <div className="ml-16 flex flex-wrap gap-1 md:ml-4 md:justify-end">
           {/* 완료 라벨 */}
           {progressStatus.status === ProgressStatusEnum.COMPLETED && (
             <Label
