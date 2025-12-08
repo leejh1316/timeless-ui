@@ -14,14 +14,14 @@ const Feedback = ({ feedbackData }: FeedbackProps) => {
       <div>
         <div>
           <span className="mb-2 inline-block text-sm font-medium text-gray-600">현장교사</span>
-          <p className="text-sm text-gray-800">
+          <p className="text-sm font-medium text-gray-800">
             {feedbackData?.companyTeacher || "등록된 피드백이 없습니다."}
           </p>
         </div>
         <div className="my-3 h-px bg-gray-100" />
         <div>
           <span className="mb-2 inline-block text-sm font-medium text-gray-600">지도교수</span>
-          <p className="text-sm text-gray-800">
+          <p className="text-sm font-medium text-gray-800">
             {feedbackData?.professor || "등록된 피드백이 없습니다."}
           </p>
         </div>
