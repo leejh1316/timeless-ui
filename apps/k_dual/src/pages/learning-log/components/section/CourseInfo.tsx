@@ -28,32 +28,44 @@ const CourseInfo = ({ lmsData, isLoading }: CourseInfoProps) => {
         <div className="col-span-2">
           <dt className="text-xs text-gray-600">년도/학기</dt>
           <dd className="font-medium text-gray-900">
-            {isLoading ? <Skeleton className="h-5 w-24" /> : (courseInfo?.semester ?? "-")}
+            {isLoading ? (
+              <Skeleton className="h-5 w-24 rounded-md" />
+            ) : (
+              (courseInfo?.semester ?? "-")
+            )}
           </dd>
         </div>
         <div>
           <dt className="text-xs text-gray-600">지도교수</dt>
           <dd className="break-all font-medium text-gray-900">
-            {isLoading ? <Skeleton className="h-5 w-16" /> : (courseInfo?.professorName ?? "-")}
+            {isLoading ? (
+              <Skeleton className="h-5 w-16 rounded-md" />
+            ) : (
+              (courseInfo?.professorName ?? "-")
+            )}
           </dd>
         </div>
         <div>
           <dt className="text-xs text-gray-600">학부</dt>
           <dd className="font-medium text-gray-900">
-            {isLoading ? <Skeleton className="h-5 w-20" /> : (courseInfo?.departmentName ?? "-")}
+            {isLoading ? (
+              <Skeleton className="h-5 w-20 rounded-md" />
+            ) : (
+              (courseInfo?.departmentName ?? "-")
+            )}
           </dd>
         </div>
         <div>
           <dt className="text-xs text-gray-600">학점</dt>
           <dd className="font-medium text-gray-900">
-            {isLoading ? <Skeleton className="h-5 w-8" /> : (courseInfo?.credits ?? "-")}
+            {isLoading ? <Skeleton className="h-5 w-8 rounded-md" /> : (courseInfo?.credits ?? "-")}
           </dd>
         </div>
         <div>
           <dt className="text-xs text-gray-600">수강인원</dt>
           <dd className="break-all text-gray-900">
             {isLoading ? (
-              <Skeleton className="h-5 w-12" />
+              <Skeleton className="h-5 w-12 rounded-md" />
             ) : (
               (courseInfo?.studentCount.replace("수강", "") ?? "-")
             )}
@@ -66,7 +78,7 @@ const CourseInfo = ({ lmsData, isLoading }: CourseInfoProps) => {
           <span>진도율</span>
           <span>
             {isLoading ? (
-              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-4 w-16 rounded-md" />
             ) : (
               `${completedWeekCount} / ${totalWeekCount}주차`
             )}
@@ -74,7 +86,7 @@ const CourseInfo = ({ lmsData, isLoading }: CourseInfoProps) => {
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
           {isLoading ? (
-            <Skeleton className="h-full w-full" />
+            <Skeleton className="h-full w-full rounded-full" />
           ) : (
             <div
               className="bg-primary-600 h-full rounded-full"
@@ -85,7 +97,7 @@ const CourseInfo = ({ lmsData, isLoading }: CourseInfoProps) => {
         <div className="mt-1.5 text-right text-xs font-normal text-gray-500">
           {isLoading ? (
             <div className="flex justify-end">
-              <Skeleton className="h-4 w-10" />
+              <Skeleton className="h-4 w-10 rounded-md" />
             </div>
           ) : (
             `${progressInfo?.totalHours}시간`

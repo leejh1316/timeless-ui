@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { ComponentPropsWithRef, useMemo } from "react";
 import User from "../personal/User";
 import { Button } from "../base/Button";
+import { useToastStore } from "@src/store/useToastStore";
 
 const menus: (MenuItem & {
   category: string;
@@ -33,6 +34,7 @@ const menus: (MenuItem & {
   },
 ];
 const Header = (props: ComponentPropsWithRef<"header">) => {
+  const addToast = useToastStore((state) => state.addToast);
   const navigate = useNavigate();
   const matches = useMatches();
 
@@ -62,7 +64,17 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
                   {menus.map(({ category, label, href, Icon }) => (
                     <Navigation.Item key={category} className="z-10 w-full min-w-0">
                       <Navigation.Trigger
-                        onClick={() => navigate(href)}
+                        onClick={() => {
+                          navigate(href);
+
+                          if (category === "community") {
+                            addToast({
+                              title: "개발 중인 기능입니다.",
+                              status: "info",
+                              description: "커뮤니티 기능은 현재 개발중입니다.",
+                            });
+                          }
+                        }}
                         className={"w-full cursor-pointer py-3"}
                       >
                         <div>

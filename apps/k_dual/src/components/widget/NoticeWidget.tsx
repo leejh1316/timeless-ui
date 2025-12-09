@@ -29,7 +29,7 @@ const NoticeWidget = ({ noticeList = [], viewAllLink }: NoticeWidgetProps) => {
             addToast({
               title: "개발 중인 기능입니다.",
               status: "info",
-              description: "공지사항 전체보기 기능은 현재 개발 중에 있습니다.",
+              description: "공지사항 기능은 현재 개발중입니다.",
             })
           }
           className="flex cursor-pointer items-center text-sm font-medium text-gray-500 transition-colors hover:text-teal-600"
@@ -55,7 +55,7 @@ const NoticeItem = ({ notice }: { notice: Notice }) => {
         addToast({
           title: "개발 중인 기능입니다.",
           status: "info",
-          description: "공지사항 기능은 현재 개발 중에 있습니다.",
+          description: "공지사항 기능은 현재 개발중입니다.",
         });
       }}
     >

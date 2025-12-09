@@ -47,6 +47,7 @@ const LearningDetail = () => {
             <Page.Content className="flex flex-col gap-6 md:grid md:grid-cols-[7fr_3fr] md:gap-x-6">
               <div className="flex min-w-0 flex-col gap-y-4 md:gap-y-6">
                 <EditForm
+                  key={`${params.id}-${params.week}`}
                   activityFormData={data.activityForm}
                   file={data.file}
                   fileGroupNo={data.fileGroupNo}
