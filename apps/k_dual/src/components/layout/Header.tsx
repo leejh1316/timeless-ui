@@ -107,7 +107,17 @@ const Header = (props: ComponentPropsWithRef<"header">) => {
           return (
             <Button
               key={category}
-              onClick={() => navigate(href)}
+              onClick={() => {
+                navigate(href);
+
+                if (category === "community") {
+                  addToast({
+                    title: "개발 중인 기능입니다.",
+                    status: "info",
+                    description: "커뮤니티 기능은 현재 개발중입니다.",
+                  });
+                }
+              }}
               className={clsx(
                 "flex flex-1 select-none flex-col items-center justify-center gap-0.5 py-1.5 transition-all",
                 isActive ? "text-primary-600" : "text-gray-400",
