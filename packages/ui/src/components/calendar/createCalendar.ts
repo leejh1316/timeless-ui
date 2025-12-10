@@ -22,6 +22,8 @@ type CalendarDataType = {
   date: number;
   isCurrentMonth: boolean;
   isToday: boolean;
+  isPrevMonthEnd: boolean;
+  isNextMonthStart: boolean;
 };
 export function createCalendar(currentDate: Date, options: { locale?: Locale; formatStr?: string } = {}): CalendarDataType[] {
   const { locale, formatStr = "eee" } = options;
@@ -45,6 +47,8 @@ export function createCalendar(currentDate: Date, options: { locale?: Locale; fo
       isWeekday: !isWeekend(day),
       isCurrentMonth: isSameMonth(day, currentDate),
       isToday: isToday(day),
+      isPrevMonthEnd: isSameMonth(addDays(day, 1), currentDate) && !isSameMonth(day, currentDate),
+      isNextMonthStart: isSameMonth(addDays(day, -1), currentDate) && !isSameMonth(day, currentDate),
     });
     day = addDays(day, 1);
   }

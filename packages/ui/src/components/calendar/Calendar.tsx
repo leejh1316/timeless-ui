@@ -138,6 +138,8 @@ const CalendarDate = memo(
         data-today={data.isToday}
         data-weekend={data.isWeekend}
         data-weekday={data.isWeekday}
+        data-prev-month-end={data.isPrevMonthEnd}
+        data-next-month-start={data.isNextMonthStart}
         ref={forwardedRef}
         {...rest}
       >
