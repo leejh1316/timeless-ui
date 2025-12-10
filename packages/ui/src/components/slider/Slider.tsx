@@ -367,7 +367,7 @@ const SliderHorizontal = React.forwardRef<SliderHorizontalElement, SliderHorizon
           ref={composedRefs}
           style={{
             ...sliderProps.style,
-            ["--radix-slider-thumb-transform" as any]: "translateX(-50%)",
+            ["--slider-thumb-transform" as any]: "translateX(-50%)",
           }}
           onSlideStart={(event) => {
             const value = getValueFromPointer(event.clientX);
@@ -430,7 +430,7 @@ const SliderVertical = React.forwardRef<SliderVerticalElement, SliderVerticalPro
           ref={ref}
           style={{
             ...sliderProps.style,
-            ["--radix-slider-thumb-transform" as any]: "translateY(50%)",
+            ["--slider-thumb-transform" as any]: "translateY(50%)",
           }}
           onSlideStart={(event) => {
             const value = getValueFromPointer(event.clientY);
@@ -660,7 +660,7 @@ const SliderThumbImpl = React.forwardRef<SliderThumbImplElement, SliderThumbImpl
     return (
       <span
         style={{
-          transform: "var(--radix-slider-thumb-transform)",
+          transform: "var(--slider-thumb-transform)",
           position: "absolute",
           [orientation.startEdge]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
         }}

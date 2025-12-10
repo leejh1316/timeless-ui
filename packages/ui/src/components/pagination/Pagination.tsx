@@ -30,8 +30,8 @@ const [PaginationActionProvider, usePaginationActionContext] =
   createPaginationContext<PaginationContextActionType>(PAGINATION_NAME);
 
 // ----------- Pagination.Root ----------
-interface BasePaginationRootProps extends PrimitivePropsWithRef<"div">, UsePaginationProps {}
-export const BasePaginationRoot = forwardRef<React.ComponentRef<"div">, ScopedProps<BasePaginationRootProps>>(
+interface PaginationRootProps extends PrimitivePropsWithRef<"div">, UsePaginationProps {}
+export const PaginationRoot = forwardRef<React.ComponentRef<"div">, ScopedProps<PaginationRootProps>>(
   (props, forwardedRef) => {
     const {
       __scopePagination,
@@ -70,11 +70,11 @@ export const BasePaginationRoot = forwardRef<React.ComponentRef<"div">, ScopedPr
     );
   },
 );
-BasePaginationRoot.displayName = "Pagination.Root";
+PaginationRoot.displayName = "Pagination.Root";
 
 // ----------- Pagination.Prev ----------
 const PAGINATION_PREV_NAME = "PaginationPrev";
-export const BasePaginationPrev = forwardRef<
+const PaginationPrev = forwardRef<
   React.ComponentRef<typeof Button>,
   ScopedProps<PrimitivePropsWithRef<typeof Button>>
 >((props, forwardedRef) => {
@@ -86,11 +86,11 @@ export const BasePaginationPrev = forwardRef<
     <Button aria-label="이전 페이지" ref={forwardedRef} onClick={handlePrevious} disabled={isDisabled} {...props} />
   );
 });
-BasePaginationPrev.displayName = "Pagination.Prev";
+PaginationPrev.displayName = "Pagination.Prev";
 
 // ----------- Pagination.SkipPrev ----------
 const PAGINATION_SKIP_PREV_NAME = "PaginationSkipPrev";
-export const BasePaginationSkipPrev = forwardRef<
+const PaginationSkipPrev = forwardRef<
   React.ComponentRef<typeof Button>,
   ScopedProps<PrimitivePropsWithRef<typeof Button>>
 >((props, forwardedRef) => {
@@ -108,11 +108,11 @@ export const BasePaginationSkipPrev = forwardRef<
     />
   );
 });
-BasePaginationSkipPrev.displayName = "Pagination.SkipPrev";
+PaginationSkipPrev.displayName = "Pagination.SkipPrev";
 
 // ----------- Pagination.Next ----------
 const PAGINATION_NEXT_NAME = "PaginationNext";
-export const BasePaginationNext = forwardRef<
+const PaginationNext = forwardRef<
   React.ComponentRef<typeof Button>,
   ScopedProps<PrimitivePropsWithRef<typeof Button>>
 >((props, forwardedRef) => {
@@ -122,11 +122,11 @@ export const BasePaginationNext = forwardRef<
   const isDisabled = disabled ?? isLastPage;
   return <Button aria-label="다음 페이지" ref={forwardedRef} onClick={handleNext} disabled={isDisabled} {...props} />;
 });
-BasePaginationNext.displayName = "Pagination.Next";
+PaginationNext.displayName = "Pagination.Next";
 
 // ----------- Pagination.SkipNext ----------
 const PAGINATION_SKIP_NEXT_NAME = "PaginationSkipNext";
-export const BasePaginationSkipNext = forwardRef<
+ const PaginationSkipNext = forwardRef<
   React.ComponentRef<typeof Button>,
   ScopedProps<PrimitivePropsWithRef<typeof Button>>
 >((props, forwardedRef) => {
@@ -144,14 +144,14 @@ export const BasePaginationSkipNext = forwardRef<
     />
   );
 });
-BasePaginationSkipNext.displayName = "Pagination.SkipNext";
+PaginationSkipNext.displayName = "Pagination.SkipNext";
 
 // ----------- Pagination.Pages ----------
 const PAGINATION_PAGES_NAME = "PaginationPages";
-interface BasePaginationPagesProps extends Omit<PrimitivePropsWithRef<"ul">, "children" | "asChild"> {
+interface PaginationPagesProps extends Omit<PrimitivePropsWithRef<"ul">, "children" | "asChild"> {
   children: (page: PaginationItem) => React.ReactNode;
 }
-export const BasePaginationPages = forwardRef<React.ComponentRef<"nav">, ScopedProps<BasePaginationPagesProps>>(
+const PaginationPages = forwardRef<React.ComponentRef<"nav">, ScopedProps<PaginationPagesProps>>(
   (props, forwardedRef) => {
     const { __scopePagination, children, ...elementProps } = props;
     const { paginationRange } = usePaginationValueContext(PAGINATION_PAGES_NAME, __scopePagination);
@@ -162,14 +162,14 @@ export const BasePaginationPages = forwardRef<React.ComponentRef<"nav">, ScopedP
     );
   },
 );
-BasePaginationPages.displayName = "Pagination.Pages";
+PaginationPages.displayName = "Pagination.Pages";
 
 // ----------- Pagination.Page ----------
 const PAGINATION_PAGE_NAME = "PaginationPage";
-interface BasePaginationPageProps extends PrimitivePropsWithRef<typeof Button> {
+interface PaginationPageProps extends PrimitivePropsWithRef<typeof Button> {
   page: PaginationItem;
 }
-export const BasePaginationPage = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<BasePaginationPageProps>>(
+export const PaginationPage = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PaginationPageProps>>(
   (props, forwardedRef) => {
     const { __scopePagination, page, onClick, ...elementProps } = props;
     const { page: currentPage } = usePaginationValueContext(PAGINATION_PAGE_NAME, __scopePagination);
@@ -196,13 +196,13 @@ export const BasePaginationPage = forwardRef<React.ComponentRef<typeof Button>, 
 );
 
 const Pagination = {
-  Root: BasePaginationRoot,
-  Prev: BasePaginationPrev,
-  SkipPrev: BasePaginationSkipPrev,
-  Next: BasePaginationNext,
-  SkipNext: BasePaginationSkipNext,
-  Pages: BasePaginationPages,
-  Page: BasePaginationPage,
+  Root: PaginationRoot,
+  Prev: PaginationPrev,
+  SkipPrev: PaginationSkipPrev,
+  Next: PaginationNext,
+  SkipNext: PaginationSkipNext,
+  Pages: PaginationPages,
+  Page: PaginationPage,
 };
 
 export { Pagination };

@@ -1,10 +1,9 @@
-import { createContextScope, Scope } from "@src/hooks/useCreateContext";
-import { Primitive, PrimitivePropsWithRef } from "./Primitive";
 import { useControllableState } from "@src/hooks/useControllableState";
-import { VisuallyHidden } from "./VisuallyHidden";
+import { createContextScope, Scope } from "@src/hooks/useCreateContext";
 import { forwardRef, useCallback } from "react";
-import { BaseButton, Button } from "./Button";
-import { Icon } from "./Icon";
+import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
+import { Button } from "../button/Button";
+import { VisuallyHidden } from "../visually-hidden/VisuallyHidden";
 
 type ScopedProps<P> = P & { __scopeCounter?: Scope };
 type CounterContextValueType = {
@@ -86,7 +85,7 @@ const CounterValue = forwardRef<React.ComponentRef<typeof Primitive.span>, Scope
 CounterValue.displayName = "Counter.Value";
 
 const COUNTER_INCREMENT_NAME = "CounterIncrement";
-interface CounterIncrementProps extends PrimitivePropsWithRef<typeof BaseButton> {}
+interface CounterIncrementProps extends PrimitivePropsWithRef<typeof Button> {}
 const CounterIncrement = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CounterIncrementProps>>((props, forwardedRef) => {
   const { __scopeCounter, disabled: propsDisabled, onClick, ...otherProps } = props;
   const { disabled, value, maxValue, step } = useCounterValueContext(COUNTER_INCREMENT_NAME, __scopeCounter);
@@ -100,12 +99,12 @@ const CounterIncrement = forwardRef<React.ComponentRef<typeof Button>, ScopedPro
 
   const isDisabled = propsDisabled || disabled || (!isNaN(Number(maxValue)) && value >= maxValue!);
 
-  return <BaseButton ref={forwardedRef} onClick={handleIncrement} disabled={isDisabled} {...otherProps} />;
+  return <Button ref={forwardedRef} onClick={handleIncrement} disabled={isDisabled} {...otherProps} />;
 });
 CounterIncrement.displayName = "Counter.Increment";
 
 const COUNTER_DECREMENT_NAME = "CounterDecrement";
-interface CounterDecrementProps extends PrimitivePropsWithRef<typeof BaseButton> {}
+interface CounterDecrementProps extends PrimitivePropsWithRef<typeof Button> {}
 const CounterDecrement = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CounterDecrementProps>>((props, forwardedRef) => {
   const { __scopeCounter, disabled: propsDisabled, onClick, ...otherProps } = props;
   const { disabled, value, minValue, step } = useCounterValueContext(COUNTER_DECREMENT_NAME, __scopeCounter);
@@ -116,41 +115,16 @@ const CounterDecrement = forwardRef<React.ComponentRef<typeof Button>, ScopedPro
     onValueChange?.(nextValue);
   }, [value, step, minValue, onDecrement, onValueChange]);
   const isDisabled = propsDisabled || disabled || (!isNaN(Number(minValue)) && value <= minValue!);
-  return <BaseButton ref={forwardedRef} onClick={handleDecrement} disabled={isDisabled} {...otherProps} />;
+  return <Button ref={forwardedRef} onClick={handleDecrement} disabled={isDisabled} {...otherProps} />;
 });
 CounterDecrement.displayName = "Counter.Decrement";
 
-export const BaseCounter = {
+export const Counter = {
   Root: CounterRoot,
   Value: CounterValue,
   Increment: CounterIncrement,
   Decrement: CounterDecrement,
 };
-export type { CounterRootProps, CounterValueProps, CounterIncrementProps, CounterDecrementProps };
+export type { CounterDecrementProps, CounterIncrementProps, CounterRootProps, CounterValueProps };
 
-// 디자인 적용 부분
-interface CounterProps extends CounterRootProps {
-  label?: string;
-}
-const Counter = forwardRef<React.ComponentRef<"div">, CounterProps>((props, forwardedRef) => {
-  const { label, ...otherProps } = props;
-  return (
-    <div ref={forwardedRef} className="flex h-[46px] items-center gap-2 text-white md:h-[50px] md:gap-3">
-      {label && <span className="text-sm leading-1.6em font-bold whitespace-nowrap md:text-base">{props.label}</span>}
-      <BaseCounter.Root {...otherProps}>
-        <div className="flex items-center gap-1.5">
-          <BaseCounter.Decrement className="transition-all data-[disabled=true]:opacity-30 data-[pressed=true]:scale-95">
-            <Icon name="minus-circle" assetSize={24} />
-          </BaseCounter.Decrement>
-          <BaseCounter.Value className="w-8 text-center font-nanum text-sm leading-1.6em font-extrabold md:w-9 md:text-base" />
-          <BaseCounter.Increment className="transition-all data-[disabled=true]:opacity-30 data-[pressed=true]:scale-95">
-            <Icon name="add-circle" assetSize={24} />
-          </BaseCounter.Increment>
-        </div>
-      </BaseCounter.Root>
-    </div>
-  );
-});
-Counter.displayName = "Counter";
 
-export { Counter };
