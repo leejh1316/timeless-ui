@@ -139,7 +139,10 @@ export function Component() {
   `;
 
   return (
-    <ComponentPageLayout title="Select" description="사용자가 목록에서 옵션을 선택할 수 있도록 하는 컴포넌트입니다.">
+    <ComponentPageLayout
+      title="Select"
+      description="사용자가 목록에서 옵션을 선택할 수 있도록 하는 컴포넌트입니다."
+    >
       <ComponentPreview
         title="단일 선택 (Single Select)"
         description="기본적으로 하나의 항목만 선택할 수 있습니다."
@@ -151,23 +154,25 @@ export function Component() {
             <Select.Icon />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
-              <Select.Group>
-                <Select.Label className="py-1.5 pl-8 pr-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-                  프레임워크
-                </Select.Label>
-                {FRAMEWORKS.map((framework) => (
-                  <Select.Item
-                    key={framework.value}
-                    value={framework.value}
-                    disabled={framework.disabled}
-                    className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50"
-                  >
-                    {framework.label}
-                  </Select.Item>
-                ))}
-              </Select.Group>
-            </Select.Content>
+            <Select.View>
+              <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+                <Select.Group>
+                  <Select.Label className="py-1.5 pl-8 pr-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+                    프레임워크
+                  </Select.Label>
+                  {FRAMEWORKS.map((framework) => (
+                    <Select.Item
+                      key={framework.value}
+                      value={framework.value}
+                      disabled={framework.disabled}
+                      className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50"
+                    >
+                      {framework.label}
+                    </Select.Item>
+                  ))}
+                </Select.Group>
+              </Select.Content>
+            </Select.View>
           </Select.Portal>
         </Select.Root>
       </ComponentPreview>
@@ -183,18 +188,20 @@ export function Component() {
             <Select.Icon />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
-              {FRAMEWORKS.map((framework) => (
-                <Select.Item
-                  key={framework.value}
-                  value={framework.value}
-                  disabled={framework.disabled}
-                  className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[state=checked]:font-semibold data-[state=checked]:text-zinc-900 data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50 dark:data-[state=checked]:text-zinc-50"
-                >
-                  {framework.label}
-                </Select.Item>
-              ))}
-            </Select.Content>
+            <Select.View>
+              <Select.Content className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-md dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50">
+                {FRAMEWORKS.map((framework) => (
+                  <Select.Item
+                    key={framework.value}
+                    value={framework.value}
+                    disabled={framework.disabled}
+                    className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-zinc-100 focus:text-zinc-900 data-[disabled]:pointer-events-none data-[state=checked]:font-semibold data-[state=checked]:text-zinc-900 data-[disabled]:opacity-50 dark:focus:bg-zinc-800 dark:focus:text-zinc-50 dark:data-[state=checked]:text-zinc-50"
+                  >
+                    {framework.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.View>
           </Select.Portal>
         </Select.Root>
       </ComponentPreview>
