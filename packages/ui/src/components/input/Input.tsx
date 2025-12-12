@@ -114,7 +114,7 @@ const InputField = forwardRef<React.ComponentRef<typeof Primitive.input>, Scoped
       })}
       onInvalid={composeEventHandlers(onInvalid, (e: React.InvalidEvent<HTMLInputElement>) => {
         e.preventDefault(); // 브라우저 툴팁 숨기기
-
+        
         const target = e.currentTarget;
 
         const firstErrorKey = _validityMatchers.find((key) => key !== "valid" && target.validity[key]);

@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
-import { createContextScope, Scope } from "src/hooks/useCreateContext";
-import { PaginationItem, usePagination, UsePaginationProps } from "src/hooks";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
+import { PaginationItem, usePagination, UsePaginationProps } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
 

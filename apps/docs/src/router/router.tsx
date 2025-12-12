@@ -14,6 +14,9 @@ import DropdownPage from "@src/pages/dropdown/DropdownPage";
 import PageNotFound from "@src/pages/error/PageNotFound";
 import FormPage from "@src/pages/form/FormPage";
 import ImagePage from "@src/pages/image/ImagePage";
+import InputPage from "@src/pages/input/InputPage";
+import TextareaPage from "@src/pages/textarea/TextareaPage";
+import PaginationPage from "@src/pages/pagination/PaginationPage";
 import InViewPage from "@src/pages/in-view/InViewPage";
 import ModalPage from "@src/pages/modal/ModalPage";
 import PopoverPage from "@src/pages/popover/PopoverPage";
@@ -66,38 +69,101 @@ export const PAGE_ROUTES: {
         name: "AspectRatio",
         handle: { crumb: "AspectRatio" },
       },
-      { path: "/accordion", element: <AccordionPage />, name: "Accordion", handle: { crumb: "Accordion" } },
+      {
+        path: "/accordion",
+        element: <AccordionPage />,
+        name: "Accordion",
+        handle: { crumb: "Accordion" },
+      },
       {
         path: "/alert-dialog",
         element: <AlertDialogPage />,
         name: "AlertDialog",
         handle: { crumb: "AlertDialog" },
       },
-      { path: "/breakpoint", element: <BreakpointPage />, name: "Breakpoint", handle: { crumb: "Breakpoint" } },
+      {
+        path: "/breakpoint",
+        element: <BreakpointPage />,
+        name: "Breakpoint",
+        handle: { crumb: "Breakpoint" },
+      },
       { path: "/button", element: <ButtonPage />, name: "Button", handle: { crumb: "Button" } },
-      { path: "/calendar", element: <CalendarPage />, name: "Calendar", handle: { crumb: "Calendar" } },
-      { path: "/checkbox", element: <CheckboxPage />, name: "Checkbox", handle: { crumb: "Checkbox" } },
+      {
+        path: "/calendar",
+        element: <CalendarPage />,
+        name: "Calendar",
+        handle: { crumb: "Calendar" },
+      },
+      {
+        path: "/checkbox",
+        element: <CheckboxPage />,
+        name: "Checkbox",
+        handle: { crumb: "Checkbox" },
+      },
       {
         path: "/checkbox-group",
         element: <CheckboxGroupPage />,
         name: "CheckboxGroup",
         handle: { crumb: "CheckboxGroup" },
       },
-      { path: "/carousel", element: <CarouselPage />, name: "Carousel", handle: { crumb: "Carousel" } },
-      { path: "/collapsible", element: <CollapsiblePage />, name: "Collapsible", handle: { crumb: "Collapsible" } },
-      { path: "/date-picker", element: <DatePickerPage />, name: "DatePicker", handle: { crumb: "DatePicker" } },
-      { path: "/dropdown", element: <DropdownPage />, name: "Dropdown", handle: { crumb: "Dropdown" } },
+      {
+        path: "/carousel",
+        element: <CarouselPage />,
+        name: "Carousel",
+        handle: { crumb: "Carousel" },
+      },
+      {
+        path: "/collapsible",
+        element: <CollapsiblePage />,
+        name: "Collapsible",
+        handle: { crumb: "Collapsible" },
+      },
+      {
+        path: "/date-picker",
+        element: <DatePickerPage />,
+        name: "DatePicker",
+        handle: { crumb: "DatePicker" },
+      },
+      {
+        path: "/dropdown",
+        element: <DropdownPage />,
+        name: "Dropdown",
+        handle: { crumb: "Dropdown" },
+      },
       { path: "/image", element: <ImagePage />, name: "Image", handle: { crumb: "Image" } },
+      { path: "/input", element: <InputPage />, name: "Input", handle: { crumb: "Input" } },
       { path: "/in-view", element: <InViewPage />, name: "InView", handle: { crumb: "InView" } },
       { path: "/modal", element: <ModalPage />, name: "Modal", handle: { crumb: "Modal" } },
       { path: "/popover", element: <PopoverPage />, name: "Popover", handle: { crumb: "Popover" } },
-      { path: "/presence", element: <PresencePage />, name: "Presence", handle: { crumb: "Presence" } },
+      {
+        path: "/pagination",
+        element: <PaginationPage />,
+        name: "Pagination",
+        handle: { crumb: "Pagination" },
+      },
+      {
+        path: "/presence",
+        element: <PresencePage />,
+        name: "Presence",
+        handle: { crumb: "Presence" },
+      },
       { path: "/select", element: <SelectPage />, name: "Select", handle: { crumb: "Select" } },
       { path: "/toggle", element: <TogglePage />, name: "Toggle", handle: { crumb: "Toggle" } },
       { path: "/tooltip", element: <TooltipPage />, name: "Tooltip", handle: { crumb: "Tooltip" } },
       { path: "/tabs", element: <TabsPage />, name: "Tabs", handle: { crumb: "Tabs" } },
+      {
+        path: "/textarea",
+        element: <TextareaPage />,
+        name: "Textarea",
+        handle: { crumb: "Textarea" },
+      },
       { path: "/toast", element: <ToastPage />, name: "Toast", handle: { crumb: "Toast" } },
-      { path: "/radio-group", element: <RadioGroupPage />, name: "RadioGroup", handle: { crumb: "RadioGroup" } },
+      {
+        path: "/radio-group",
+        element: <RadioGroupPage />,
+        name: "RadioGroup",
+        handle: { crumb: "RadioGroup" },
+      },
       { path: "/slider", element: <SliderPage />, name: "Slider", handle: { crumb: "Slider" } },
       { path: "/form", element: <FormPage />, name: "Form", handle: { crumb: "Form" } },
     ],
