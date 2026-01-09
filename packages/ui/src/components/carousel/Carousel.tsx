@@ -148,7 +148,7 @@ const CarouselItem = memo(({ className, ...props }: PrimitivePropsWithRef<"div">
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"
-      className={clsx("min-w-0 shrink-0 grow-0 basis-full", className)}
+      className={clsx(className, "min-w-0 flex-[0_0_100%]")}
       {...props}
     />
   );
@@ -271,9 +271,14 @@ const CarouselTotalCount = memo(({ carouselApi, ...props }: CarouselModuleProps<
 CarouselTotalCount.displayName = "Carousel.TotalCount";
 
 // ==================== Carousel.IndicatorWrapper ====================
+interface CarouselIndicatorWrapperProps extends Omit<CarouselModuleProps<"div">, "children"> {
+  children?: React.ReactNode | ((totalSnap: number) => React.ReactNode);
+}
 const CarouselIndicatorWrapper = memo(
-  forwardRef<React.ElementRef<"div">, CarouselModuleProps<"div">>(({ carouselApi, ...props }, ref) => {
+  forwardRef<React.ElementRef<"div">, CarouselIndicatorWrapperProps>(({ carouselApi, children, ...props }, ref) => {
     const api = useCarouselApi(carouselApi);
+
+    const totalSnap = useTotalCount(api);
     const { rootRef, handleKeyDown, setActiveIndex } = useArrowNavigation({
       selector: '[data-slot="carousel-indicator"]',
       clickOnNavigate: true,
@@ -299,13 +304,9 @@ const CarouselIndicatorWrapper = memo(
     }, [api]);
 
     return (
-      <Primitive.div
-        ref={composedRef}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        data-slot="carousel-indicator-wrapper"
-        {...props}
-      />
+      <Primitive.div ref={composedRef} tabIndex={0} onKeyDown={handleKeyDown} data-slot="carousel-indicator-wrapper" {...props}>
+        {children instanceof Function ? children(totalSnap) : children}
+      </Primitive.div>
     );
   }),
 );
