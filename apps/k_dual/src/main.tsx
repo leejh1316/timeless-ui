@@ -7,8 +7,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./config/queryClinet";
 import { Toast } from "./components/base/Toast";
 import { GlobalToast } from "./components/base/GlobalToast";
+import { mockInit } from "./config/mock";
 
 const Root = () => {
+  mockInit();
   return (
     <QueryClientProvider client={queryClient}>
       <Toast.Provider swipeDirection="right">
