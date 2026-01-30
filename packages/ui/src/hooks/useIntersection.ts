@@ -28,10 +28,12 @@ export const useIntersection = ({
   const onEnterRef = useRef(onEnter);
   const onLeaveRef = useRef(onLeave);
   const onChangeRef = useRef(onChange);
+  const onceRef = useRef(once);
 
   onEnterRef.current = onEnter;
   onLeaveRef.current = onLeave;
   onChangeRef.current = onChange;
+  onceRef.current = once;
 
   const resetOnce = useCallback(
     (isHardReset?: boolean) => {
@@ -55,7 +57,7 @@ export const useIntersection = ({
       setHasEntered(true);
       setIsVisible(true);
       onEnterRef.current?.(entry, observer);
-      if (once && !isExecutedRef.current) {
+      if (onceRef.current && !isExecutedRef.current) {
         isExecutedRef.current = true;
         observerRef.current?.disconnect();
       }

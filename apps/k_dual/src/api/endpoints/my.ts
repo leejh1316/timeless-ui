@@ -7,8 +7,24 @@ import { parseHtml } from "@src/utils/parseHtml";
 import { devLog } from "@src/utils/common";
 import { MY_COURSE_LIST_SCHEMA, MyCourseListSchema } from "../schema/my/my-course";
 
+import myInfoMock from "../mock/my/my-info.json";
+import myCourseMock from "../mock/my/my-course.json";
+import { getMockMode } from "@src/config/mock";
+
+const mockMyInfo = async (): Promise<MyInfoSchema> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return myInfoMock as MyInfoSchema;
+};
+const mockMyCourseList = async (): Promise<MyCourseListSchema> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return myCourseMock as MyCourseListSchema;
+};
+
 const myInfo = async (): Promise<MyInfoSchema> => {
   try {
+    if (getMockMode()) {
+      return await mockMyInfo();
+    }
     const response = await api.get<string>("Mypage/MyInfo", { params: { nosig: "Y" } });
     const data = parseHtml<MyInfoSchema>(response.data, MY_INFO_SCHEMA);
     devLog("myInfo data:", data);
@@ -27,6 +43,9 @@ interface MyCourseListPayload {
 }
 const myCourseList = async (payload?: MyCourseListPayload): Promise<MyCourseListSchema> => {
   try {
+    if (getMockMode()) {
+      return await mockMyCourseList();
+    }
     const response = payload
       ? await api.post<string>("Mypage/MyCoursesLectureList", payload, {
           headers: {
@@ -43,13 +62,9 @@ const myCourseList = async (payload?: MyCourseListPayload): Promise<MyCourseList
   }
 };
 
-export const useFetchMyCourseList = makeQueryApi(
-  (payload?: MyCourseListPayload, enable: boolean = true) => myCourseList(payload),
-  {
-    queryKey: (payload) =>
-      payload ? [QUERY_KEY.MY_COURSE_LIST, payload.sTermNo] : [QUERY_KEY.MY_COURSE_LIST],
-    config: (payload, enable) => ({
-      enabled: enable,
-    }),
-  },
-);
+export const useFetchMyCourseList = makeQueryApi((payload?: MyCourseListPayload, enable: boolean = true) => myCourseList(payload), {
+  queryKey: (payload) => (payload ? [QUERY_KEY.MY_COURSE_LIST, payload.sTermNo] : [QUERY_KEY.MY_COURSE_LIST]),
+  config: (payload, enable) => ({
+    enabled: enable,
+  }),
+});

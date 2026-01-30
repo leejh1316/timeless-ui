@@ -125,6 +125,6 @@ export const Counter = {
   Increment: CounterIncrement,
   Decrement: CounterDecrement,
 };
-export type { CounterDecrementProps, CounterIncrementProps, CounterRootProps, CounterValueProps };
+export type { CounterRootProps, CounterValueProps, CounterIncrementProps, CounterDecrementProps };
 
 

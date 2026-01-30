@@ -1,0 +1,40 @@
+{
+  "weeks": [
+    { "week": "1", "type": "normal" },
+    { "week": "2", "type": "normal" },
+    { "week": "3", "type": "normal" },
+    { "week": "4", "type": "normal" },
+    { "week": "5", "type": "normal" },
+    { "week": "6", "type": "normal" },
+    { "week": "7", "type": "test" },
+    { "week": "8", "type": "normal" },
+    { "week": "9", "type": "normal" },
+    { "week": "10", "type": "normal" },
+    { "week": "11", "type": "normal" },
+    { "week": "12", "type": "normal" },
+    { "week": "13", "type": "normal" },
+    { "week": "14", "type": "test" },
+    { "week": "15", "type": "check" }
+  ],
+  "student": {
+    "name": "홍길동",
+    "email": "12345@naver.com"
+  },
+  "progress": [
+    { "status": "COMPLETED", "week": 1, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 2, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 3, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 4, "courseId": 68267 },
+    { "status": "IN_PROGRESS", "week": 5, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 6, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 7, "courseId": 68267 },
+    { "status": "COMPLETED", "week": 8, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 9, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 10, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 11, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 12, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 13, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 14, "courseId": 68267 },
+    { "status": "NOT_STARTED", "week": 15, "courseId": 68267 }
+  ]
+}

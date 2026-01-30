@@ -1,6 +1,6 @@
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, FloatingPortalProps } from "@floating-ui/react";
 import { useModal, UseModalProps } from "../../hooks/useModal";
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 import { Primitive } from "../primitive/Primitive";
 import type { PrimitivePropsWithRef } from "../primitive/Primitive";
 import { useComposedRefs } from "../../hooks/useComposeRefs";
@@ -33,14 +33,12 @@ ModalRoot.displayName = "Modal.Root";
 
 // =============== Modal.Trigger ================
 interface ModalTriggerProps extends PrimitivePropsWithRef<"button"> {}
-const ModalTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ScopedProps<ModalTriggerProps>>(
-  (props, forwardedRef) => {
-    const { __scopeModal, ...triggerProps } = props;
-    const { refs, getReferenceProps } = useModalContext(MODAL_NAME, __scopeModal);
-    const composedRefs = useComposedRefs(refs.setReference, forwardedRef);
-    return <Primitive.button ref={composedRefs} {...getReferenceProps(triggerProps)} />;
-  },
-);
+const ModalTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ScopedProps<ModalTriggerProps>>((props, forwardedRef) => {
+  const { __scopeModal, ...triggerProps } = props;
+  const { refs, getReferenceProps } = useModalContext(MODAL_NAME, __scopeModal);
+  const composedRefs = useComposedRefs(refs.setReference, forwardedRef);
+  return <Primitive.button ref={composedRefs} {...getReferenceProps(triggerProps)} />;
+});
 ModalTrigger.displayName = "Modal.Trigger";
 
 // =============== Modal.Portal ================
@@ -62,13 +60,7 @@ const ModalOverlay = forwardRef<HTMLDivElement, ScopedProps<ModalOverlayProps>>(
   } = props;
   const { lockScroll, transitionStatus } = useModalContext(MODAL_NAME, __scopeModal);
   return (
-    <FloatingOverlay
-      data-status={transitionStatus}
-      lockScroll={lockScroll}
-      className={className}
-      ref={forwardedRef}
-      {...overlayProps}
-    />
+    <FloatingOverlay data-status={transitionStatus} lockScroll={lockScroll} className={className} ref={forwardedRef} {...overlayProps} />
   );
 });
 ModalOverlay.displayName = "Modal.Overlay";
@@ -78,19 +70,20 @@ interface ModalContentProps extends PrimitivePropsWithRef<"div"> {
   initialFocus?: any;
 }
 export const ModalContent = forwardRef<HTMLDivElement, ScopedProps<ModalContentProps>>((props, forwardedRef) => {
-  const { __scopeModal, className, children, initialFocus, ...contentProps } = props;
-  const { refs, getFloatingProps, transitionStyle, context } = useModalContext(MODAL_NAME, __scopeModal);
+  const { __scopeModal, className, initialFocus, ...contentProps } = props;
+  const { refs, getFloatingProps, transitionStyle, context, isOpen } = useModalContext(MODAL_NAME, __scopeModal);
   const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
+
   return (
     <FloatingFocusManager context={context} initialFocus={initialFocus}>
-      <div
-        className={clsx("fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2", className)}
-        {...contentProps}
-      >
-        <div ref={composedRefs} style={transitionStyle} {...getFloatingProps()}>
-          {children}
-        </div>
-      </div>
+      <Primitive.div
+        ref={composedRefs}
+        aria-modal="true"
+        data-state={isOpen ? "open" : "closed"}
+        style={transitionStyle}
+        className={className ?? "fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"}
+        {...getFloatingProps(contentProps)}
+      />
     </FloatingFocusManager>
   );
 });
@@ -101,17 +94,22 @@ interface ModalCloseProps extends PrimitivePropsWithRef<"button"> {}
 const ModalClose = forwardRef<HTMLButtonElement, ScopedProps<ModalCloseProps>>((props, forwardedRef) => {
   const { __scopeModal, className, onClick, ...closeProps } = props;
   const { setIsOpen } = useModalContext(MODAL_NAME, __scopeModal);
-  return (
-    <Primitive.button
-      ref={forwardedRef}
-      onClick={(e) => {
-        onClick?.(e);
+  const handleClick = useCallback(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (onClick) {
+        const result = onClick(event);
+        //@ts-ignore
+        if (result instanceof Promise) {
+          await result;
+        }
+      }
+      if (!event.defaultPrevented) {
         setIsOpen(false);
-      }}
-      className={clsx(className)}
-      {...closeProps}
-    />
+      }
+    },
+    [onClick, setIsOpen],
   );
+  return <Primitive.button ref={forwardedRef} onClick={handleClick} className={clsx(className)} {...closeProps} />;
 });
 ModalClose.displayName = "Modal.Close";
 

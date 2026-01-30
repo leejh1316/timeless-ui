@@ -1,6 +1,7 @@
+import { ProgressStatusEnum } from "@src/const/ProgressStatus";
 import { ScrapeSchema } from "../../../utils/scraper";
 // LMS 학습현황 페이지
-type ProgressStatusCode = "EMPTY" | "PARTIAL" | "COMPLETED";
+type ProgressStatusCode = ProgressStatusEnum;
 type WeekProgress = {
   week: string;
   type: "normal" | "test" | "check";
@@ -66,13 +67,13 @@ const LMS_PROGRESS_SCHEMA: ScrapeSchema = {
           const text = el?.textContent?.trim() || "";
           switch (text) {
             case "Ⅹ":
-              return "EMPTY";
+              return ProgressStatusEnum.NOT_STARTED;
             case "△":
-              return "PARTIAL";
+              return ProgressStatusEnum.IN_PROGRESS;
             case "○":
-              return "COMPLETED";
+              return ProgressStatusEnum.COMPLETED;
             default:
-              return "EMPTY";
+              return ProgressStatusEnum.NOT_STARTED;
           }
         },
       },

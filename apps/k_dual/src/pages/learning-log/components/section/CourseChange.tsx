@@ -11,10 +11,7 @@ const CourseChange = () => {
   return (
     <Modal.Root open={modalOpen} onOpenChange={setModalOpen}>
       <Modal.Trigger asChild>
-        <Button
-          color="primary"
-          className="rounded-xl! w-full p-3 px-6 text-sm font-bold transition-all"
-        >
+        <Button color="primary" className="w-full rounded-xl! p-3 px-6 text-sm font-bold transition-all">
           <div className="flex items-center justify-center">
             <SendToBack size={18} className="mr-2" />
             과목변경
@@ -23,15 +20,17 @@ const CourseChange = () => {
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay className="bg-black/20" />
-        <Modal.Content className="w-[calc(100vw-2rem)] max-w-3xl rounded-lg">
-          <MyCourseWidget
-            title="수강선택"
-            defaultCourseData={courseData}
-            className="min-h-[340px]"
-            onNavigate={(courseId) => {
-              setModalOpen(false);
-            }}
-          />
+        <Modal.Content>
+          <div className="w-[calc(100vw-2rem)] max-w-3xl rounded-lg">
+            <MyCourseWidget
+              title="수강선택"
+              defaultCourseData={courseData}
+              className="min-h-[340px]"
+              onNavigate={(courseId) => {
+                setModalOpen(false);
+              }}
+            />
+          </div>
         </Modal.Content>
       </Modal.Portal>
     </Modal.Root>

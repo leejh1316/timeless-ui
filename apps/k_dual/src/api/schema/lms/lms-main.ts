@@ -1,5 +1,6 @@
 import { ScrapeSchema } from "@src/utils/scraper";
 import { Semester } from "../my/my-course";
+import { StatusEnum } from "@src/const/Status";
 // LMS 메인 페이지
 type CourseInfo = {
   departmentName: string;
@@ -18,7 +19,7 @@ type Notice = {
   regDate: string;
   link: string;
 };
-type Status = "completed" | "in-progress" | "not-started";
+type Status = StatusEnum;
 type WeeklySchedule = {
   week: string;
   period: string;
@@ -35,8 +36,7 @@ interface LmsMain {
   weeklySchedule: WeeklySchedule[];
 }
 const LMS_MAIN_SCHEMA: ScrapeSchema = {
-  courseName:
-    "#k_wrap_class > div.k_container.class > div.k_right_class > div.k_cnt_top > div.k_cnt_tit > h2",
+  courseName: "#k_wrap_class > div.k_container.class > div.k_right_class > div.k_cnt_top > div.k_cnt_tit > h2",
   semesterList: {
     listItem: "#SelectTermLT option",
 
@@ -111,9 +111,9 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
         selector: "td:nth-child(7) img",
         transform: (el) => {
           const altText = el?.getAttribute("alt") || "";
-          if (altText.includes("완료")) return "completed";
-          if (altText.includes("진행중")) return "in-progress";
-          return "not-started";
+          if (altText.includes("진행완료")) return StatusEnum.COMPLETED;
+          if (altText.includes("진행중")) return StatusEnum.IN_PROGRESS;
+          return StatusEnum.NOT_STARTED;
         },
       },
       isEvaluation: {

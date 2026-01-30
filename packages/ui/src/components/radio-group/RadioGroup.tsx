@@ -22,46 +22,21 @@ const useRadioGroupContext = () => {
 interface RadioGroupProps extends PrimitivePropsWithRef<"div">, RadioGroupContextType {
   defaultValue?: any;
 }
-const RadioGroupRoot = forwardRef<ElementRef<typeof Primitive.div>, RadioGroupProps>(
+const RadioGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, RadioGroupProps>(
   ({ value, defaultValue, onValueChange, name, disabled, readOnly, required, ...props }, ref) => {
     const [valueState, setValueState] = useControllableState({
       value,
       defaultValue: defaultValue ?? "",
       onChange: onValueChange,
     });
-    // const rootRef = useRef<HTMLDivElement>(null);
-
     const { rootRef, handleKeyDown } = useArrowNavigation({
       selector: '[role="radio"]:not([aria-disabled="true"])',
       clickOnNavigate: true,
     });
     const composedRef = useComposedRefs(ref, rootRef);
 
-    // const handleKeyDown = (e: React.KeyboardEvent) => {
-    //   if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) return;
-
-    //   e.preventDefault();
-    //   const items = Array.from(
-    //     rootRef.current?.querySelectorAll<HTMLButtonElement>('[role="radio"]:not([aria-disabled="true"])') ?? [],
-    //   );
-    //   const currentIndex = items.findIndex((item) => item.getAttribute("data-state") === "checked");
-    //   let nextIndex = -1;
-    //   if (["ArrowRight", "ArrowDown"].includes(e.key)) {
-    //     nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % items.length;
-    //   } else if (["ArrowLeft", "ArrowUp"].includes(e.key)) {
-    //     nextIndex = currentIndex === -1 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length;
-    //   }
-    //   if (nextIndex !== -1) {
-    //     const nextItem = items[nextIndex];
-    //     nextItem.focus();
-    //     nextItem.click();
-    //   }
-    // };
-
     return (
-      <RadioGroupContext.Provider
-        value={{ value: valueState, onValueChange: setValueState, name, disabled, readOnly, required }}
-      >
+      <RadioGroupContext.Provider value={{ value: valueState, onValueChange: setValueState, name, disabled, readOnly, required }}>
         <Primitive.div role="radiogroup" ref={composedRef} onKeyDown={handleKeyDown} {...props} />
       </RadioGroupContext.Provider>
     );
@@ -164,9 +139,11 @@ const RadioGroupItem = forwardRef<ElementRef<typeof Primitive.button>, RadioGrou
 );
 RadioGroupItem.displayName = "RadioGroup.Item";
 
-interface RadioGroupIndicatorProps extends PrimitivePropsWithRef<"div"> {}
-const RadioGroupIndicator = forwardRef<ElementRef<typeof Primitive.div>, RadioGroupIndicatorProps>(
-  ({ ...props }, ref) => {
+interface RadioGroupIndicatorProps extends Omit<PrimitivePropsWithRef<"div">, "children"> {
+  children?: (isChecked: boolean) => React.ReactNode;
+}
+const RadioGroupIndicator = forwardRef<React.ComponentRef<typeof Primitive.div>, RadioGroupIndicatorProps>(
+  ({ className, ...props }, ref) => {
     const itemContext = useRadioGroupItemContext();
     return (
       <Primitive.div
@@ -177,7 +154,9 @@ const RadioGroupIndicator = forwardRef<ElementRef<typeof Primitive.div>, RadioGr
         data-readonly={itemContext.isReadOnly}
         data-required={itemContext.isRequired}
         aria-hidden
-      />
+      >
+        {props?.children ? props?.children(itemContext.isSelected) : null}
+      </Primitive.div>
     );
   },
 );
@@ -190,3 +169,4 @@ const RadioGroup = {
 };
 
 export { RadioGroup };
+export type { RadioGroupProps, RadioGroupItemProps, RadioGroupIndicatorProps };

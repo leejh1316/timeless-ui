@@ -1,0 +1,181 @@
+{
+  "courseName": "DB설계 및 구축 실무",
+  "semesterList": [
+    {
+      "value": "725",
+      "label": "2025년 동계계절학기",
+      "isDefaultSelected": true
+    },
+    {
+      "value": "709",
+      "label": "2025년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "696",
+      "label": "2025년 하계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "665",
+      "label": "2025년 1학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "661",
+      "label": "2024년 동계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "639",
+      "label": "2024년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "518",
+      "label": "2022년 동계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "491",
+      "label": "2022년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "472",
+      "label": "2022년 하계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "419",
+      "label": "2022년 1학기",
+      "isDefaultSelected": false
+    }
+  ],
+  "courseInfo": {
+    "departmentName": "일학습병행학부",
+    "professorName": "전우치",
+    "semester": "2025년 동계계절학기",
+    "credits": "2학점",
+    "studentCount": "수강 1명"
+  },
+  "progressInfo": {
+    "currentWeek": 10,
+    "totalHours": 60,
+    "completedHours": 0
+  },
+  "noticeList": [
+    {
+      "title": "[평가] 도제식현장교육훈련(OJT) ...",
+      "regDate": "26-01-12",
+      "link": "/BBS/Board/Read/S69716C682674/48540"
+    }
+  ],
+  "weeklySchedule": [
+    {
+      "week": "1",
+      "period": "2025-12-29 ~ 2026-01-02",
+      "title": "데이터베이스 개요",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "2",
+      "period": "2025-12-29 ~ 2026-01-02",
+      "title": "데이터베이스 시스템",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "3",
+      "period": "2026-01-05 ~ 2026-01-09",
+      "title": "데이터베이스 설계와 데이터 모델",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "4",
+      "period": "2026-01-05 ~ 2026-01-09",
+      "title": "개념적 데이터 모델:개체-관계(Entity-Relationship) 데이터 모델",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "5",
+      "period": "2026-01-12 ~ 2026-01-16",
+      "title": "ERWin",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "6",
+      "period": "2026-01-12 ~ 2026-01-16",
+      "title": "논리적 데이터 모델",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "7",
+      "period": "2026-01-19 ~ 2026-01-23",
+      "title": "관계 데이터 모델",
+      "status": "completed",
+      "isEvaluation": true
+    },
+    {
+      "week": "8",
+      "period": "2026-01-19 ~ 2026-01-23",
+      "title": "SQL 1",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "9",
+      "period": "2026-01-26 ~ 2026-01-30",
+      "title": "DBMS(MySQL)",
+      "status": "completed",
+      "isEvaluation": false
+    },
+    {
+      "week": "10",
+      "period": "2026-01-26 ~ 2026-01-30",
+      "title": "DBMS(MS-SQL Server)",
+      "status": "in-progress",
+      "isEvaluation": false
+    },
+    {
+      "week": "11",
+      "period": "2026-02-02 ~ 2026-02-06",
+      "title": "SQL 2",
+      "status": "not-started",
+      "isEvaluation": false
+    },
+    {
+      "week": "12",
+      "period": "2026-02-02 ~ 2026-02-06",
+      "title": "데이터베이스 정규화 1",
+      "status": "not-started",
+      "isEvaluation": false
+    },
+    {
+      "week": "13",
+      "period": "2026-02-09 ~ 2026-02-13",
+      "title": "데이터베이스 정규화 2",
+      "status": "not-started",
+      "isEvaluation": false
+    },
+    {
+      "week": "14",
+      "period": "2026-02-09 ~ 2026-02-13",
+      "title": "역정규화",
+      "status": "not-started",
+      "isEvaluation": true
+    },
+    {
+      "week": "15",
+      "period": "2026-02-16 ~ 2026-02-20",
+      "title": "무손실 분해",
+      "status": "not-started",
+      "isEvaluation": true
+    }
+  ]
+}

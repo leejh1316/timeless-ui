@@ -1,6 +1,7 @@
 import { createContext, forwardRef, useCallback, useContext, useLayoutEffect, useRef, useState } from "react";
 import { useControllableState } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
+import { Button } from "../button/Button";
 
 type CheckboxState = boolean | "true" | "false" | "mixed";
 interface CheckboxContextType {
@@ -93,111 +94,113 @@ const CheckboxRoot = ({
 };
 
 interface CheckboxTriggerProps extends PrimitivePropsWithRef<"button"> {}
-const CheckboxTrigger = forwardRef<React.ElementRef<typeof Primitive.button>, CheckboxTriggerProps>(
-  ({ style, ...props }, ref) => {
-    const { onCheckedChange, disabled, checked, readOnly, id } = useCheckboxContext();
+const CheckboxTrigger = forwardRef<React.ComponentRef<typeof Button>, CheckboxTriggerProps>(({ style, onClick, ...props }, ref) => {
+  const { onCheckedChange, disabled, checked, readOnly, id } = useCheckboxContext();
 
-    const handleCheckedChange = useCallback(
-      (nextValue: boolean) => {
-        if (!readOnly && !disabled) {
-          onCheckedChange?.(nextValue);
+  const handleCheckedChange = useCallback(
+    (nextValue: boolean) => {
+      if (!readOnly && !disabled) {
+        onCheckedChange?.(nextValue);
+      }
+    },
+    [onCheckedChange, disabled, readOnly],
+  );
+
+  const getAriaChecked = () => {
+    if (checked === "mixed") return "mixed";
+    return checked ? "true" : "false";
+  };
+
+  const getDataState = () => {
+    if (checked === "mixed") return "indeterminate";
+    return checked ? "checked" : "unchecked";
+  };
+
+  return (
+    <Button
+      {...props}
+      ref={ref}
+      disabled={disabled}
+      role="checkbox"
+      aria-checked={getAriaChecked()}
+      data-state={getDataState()}
+      aria-labelledby={id}
+      onClick={(e) => {
+        handleCheckedChange(!checked);
+        onClick?.(e);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
         }
-      },
-      [onCheckedChange, disabled, readOnly],
-    );
-
-    const getAriaChecked = () => {
-      if (checked === "mixed") return "mixed";
-      return checked ? "true" : "false";
-    };
-
-    const getDataState = () => {
-      if (checked === "mixed") return "indeterminate";
-      return checked ? "checked" : "unchecked";
-    };
-
-    return (
-      <Primitive.button
-        {...props}
-        ref={ref}
-        role="checkbox"
-        data-slot="checkbox-trigger"
-        aria-checked={getAriaChecked()}
-        data-state={getDataState()}
-        data-disabled={disabled}
-        disabled={disabled}
-        aria-disabled={disabled}
-        aria-labelledby={id}
-        onClick={(e) => {
+        if (e.key === " ") {
+          e.preventDefault();
           handleCheckedChange(!checked);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-          }
-          if (e.key === " ") {
-            e.preventDefault();
-            handleCheckedChange(!checked);
-          }
-        }}
-      />
-    );
-  },
-);
+        }
+      }}
+    />
+  );
+});
 CheckboxTrigger.displayName = "CheckboxTrigger";
 
 interface CheckboxIconProps extends PrimitivePropsWithRef<"svg"> {
   size?: number;
 }
 
-const CheckboxIcon = forwardRef<React.ElementRef<typeof Primitive.svg>, CheckboxIconProps>(
-  ({ className, size = 16, ...props }, ref) => {
-    const { checked } = useCheckboxContext();
-    const [pathLength, setPathLength] = useState(0);
-    const pathRef = useRef<SVGPathElement>(null);
+const CheckboxIcon = forwardRef<React.ElementRef<typeof Primitive.svg>, CheckboxIconProps>(({ className, size = 16, ...props }, ref) => {
+  const { checked } = useCheckboxContext();
+  const [pathLength, setPathLength] = useState(0);
+  const pathRef = useRef<SVGPathElement>(null);
 
-    useLayoutEffect(() => {
-      if (pathRef.current) {
-        setPathLength(pathRef.current.getTotalLength());
-      }
-    }, []);
+  useLayoutEffect(() => {
+    if (pathRef.current) {
+      setPathLength(pathRef.current.getTotalLength());
+    }
+  }, []);
 
-    return (
-      <Primitive.svg
-        ref={ref}
-        width={size}
-        height={size}
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className={`transition-all duration-200 ease-in-out ${
-          checked ? "scale-100 opacity-100" : "scale-75 opacity-0"
-        } ${className}`}
-        {...props}
-      >
-        <path
-          ref={pathRef}
-          d="M4 8.5L7 11.5L12 5"
-          style={{
-            strokeDasharray: pathLength,
-            strokeDashoffset: checked ? 0 : pathLength,
-            transition: "stroke-dashoffset 0.2s ease-in-out",
-          }}
-        />
-      </Primitive.svg>
-    );
-  },
-);
+  return (
+    <Primitive.svg
+      ref={ref}
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={`transition-all duration-200 ease-in-out ${checked ? "scale-100 opacity-100" : "scale-75 opacity-0"} ${className}`}
+      {...props}
+    >
+      <path
+        ref={pathRef}
+        d="M4 8.5L7 11.5L12 5"
+        style={{
+          strokeDasharray: pathLength,
+          strokeDashoffset: checked ? 0 : pathLength,
+          transition: "stroke-dashoffset 0.2s ease-in-out",
+        }}
+      />
+    </Primitive.svg>
+  );
+});
 CheckboxIcon.displayName = "Checkbox.Icon";
+
+interface CheckboxStateProps {
+  children?: (state?: CheckboxState) => React.ReactNode;
+}
+const CheckboxState = ({ children }: CheckboxStateProps) => {
+  const { checked } = useCheckboxContext();
+  return <>{children?.(checked)}</>;
+};
+CheckboxState.displayName = "Checkbox.State";
 
 const Checkbox = {
   Root: CheckboxRoot,
   Trigger: CheckboxTrigger,
   Icon: CheckboxIcon,
+  State: CheckboxState,
 };
 export { Checkbox };
 export type { CheckboxState };
