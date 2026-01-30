@@ -22,13 +22,7 @@ interface EditFormProps {
 }
 
 // week -> inningId
-const EditForm = ({
-  activityFormData,
-  file,
-  fileGroupNo,
-  studyInningNo,
-  status,
-}: EditFormProps) => {
+const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo, status }: EditFormProps) => {
   const addToast = useToastStore((state) => state.addToast);
   const params = useParams<{ id: string; week: string }>();
   const [fileState, setFileState] = useState<File | null>(null);
@@ -74,6 +68,7 @@ const EditForm = ({
   };
 
   const isLoading = isSaving || isDeleting;
+  const isApproved = status === "APPROVED";
 
   return (
     <Card.Root className="w-full p-5 md:p-6">
@@ -87,7 +82,7 @@ const EditForm = ({
         <div className="flex flex-col gap-1">
           <span className="text-sm font-medium text-gray-600">훈련 일자</span>
           <DatePickerInput
-            disabled={status === "APPROVED"}
+            disabled={isApproved}
             value={new Date(formState.date)}
             defaultDisplayDate={new Date(formState.date)}
             onValueChange={(date) => {
@@ -114,7 +109,7 @@ const EditForm = ({
           <Textarea.Field
             disabled={status === "APPROVED"}
             maxLength={800}
-            className="focus-visible:ring-primary-600 min-h-[300px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent md:min-h-[450px]"
+            className="focus-visible:ring-primary-600 min-h-[300px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 ring ring-transparent outline-none md:min-h-[450px]"
             placeholder="활동 내용을 입력해주세요."
           />
         </Textarea.Root>
@@ -134,14 +129,12 @@ const EditForm = ({
           <Textarea.Field
             disabled={status === "APPROVED"}
             maxLength={200}
-            className="focus-visible:ring-primary-600 min-h-[130px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 outline-none ring ring-transparent"
+            className="focus-visible:ring-primary-600 min-h-[130px] w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-[15px] leading-[1.6em] text-gray-900 ring ring-transparent outline-none"
             placeholder="소감을 작성해주세요."
           />
         </Textarea.Root>
 
-        {hasTask && !hasUploadedFile && !fileState && (
-          <FileUploadArea onFileSelect={(file) => setFileState(file)} />
-        )}
+        {hasTask && !hasUploadedFile && !fileState && <FileUploadArea onFileSelect={(file) => setFileState(file)} />}
 
         {file.link && (
           <div className="flex gap-x-2">
@@ -153,7 +146,7 @@ const EditForm = ({
               }}
             >
               <div className="flex items-center justify-between px-4 py-3">
-                <div className="flex items-center gap-2.5 truncate whitespace-nowrap text-sm font-medium text-gray-900">
+                <div className="flex items-center gap-2.5 truncate text-sm font-medium whitespace-nowrap text-gray-900">
                   <FileArchive className="shrink-0 text-gray-500" size={16} />
                   {file.label}
                 </div>
@@ -162,10 +155,10 @@ const EditForm = ({
               </div>
             </Button>
             <AlertDialog.Root>
-              <AlertDialog.Trigger asChild>
+              <AlertDialog.Trigger asChild hidden={isApproved}>
                 <Button
                   className="bg-danger-50! hover:bg-danger-100! text-danger-600! flex w-12 min-w-0 shrink-0 items-center justify-center rounded-lg px-3"
-                  disabled={isLoading || status === "APPROVED"}
+                  disabled={isLoading || isApproved}
                   loading={isDeleting}
                   color="danger"
                   spinnerColor="danger"
@@ -175,26 +168,20 @@ const EditForm = ({
               </AlertDialog.Trigger>
               <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-black/40" />
-                <AlertDialog.Content className="-translate-1/2 fixed left-1/2 top-1/2">
+                <AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-1/2">
                   <Card.Root className="w-screen max-w-xs p-6 md:max-w-md">
                     <Card.Header>
                       <Card.Title>파일 삭제</Card.Title>
                     </Card.Header>
                     <div className="mb-4 text-gray-800">
                       정말로
-                      <span className="bg-danger-100 text-danger-500 mx-1 rounded-md px-1 py-1 font-medium">
-                        {file.label}
-                      </span>{" "}
-                      파일을 삭제하시겠습니까?
-                      <div className="mt-2 text-sm text-gray-600">
-                        삭제시 현재 작업중인 내용이 사라집니다.
-                      </div>
+                      <span className="bg-danger-100 text-danger-500 mx-1 rounded-md px-1 py-1 font-medium">{file.label}</span> 파일을
+                      삭제하시겠습니까?
+                      <div className="mt-2 text-sm text-gray-600">삭제시 현재 작업중인 내용이 사라집니다.</div>
                     </div>
                     <div className="flex justify-end gap-2">
                       <AlertDialog.Cancel asChild>
-                        <Button className="rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100">
-                          취소
-                        </Button>
+                        <Button className="rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100">취소</Button>
                       </AlertDialog.Cancel>
                       <AlertDialog.Action asChild>
                         <Button
@@ -222,10 +209,7 @@ const EditForm = ({
         )}
 
         {fileState && (
-          <Button
-            className="rounded-lg bg-gray-50 hover:bg-gray-100"
-            onClick={() => setFileState(null)}
-          >
+          <Button className="rounded-lg bg-gray-50 hover:bg-gray-100" onClick={() => setFileState(null)}>
             <div className="flex items-center justify-between px-4 py-3">
               <div className="flex items-center gap-2.5 text-sm font-medium text-gray-900">
                 <FileArchive className="text-gray-500" size={16} />
@@ -236,7 +220,7 @@ const EditForm = ({
             </div>
           </Button>
         )}
-        {status !== "APPROVED" && (
+        {!isApproved && (
           <div className="flex justify-end gap-2">
             <Button
               type="submit"

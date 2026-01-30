@@ -1,11 +1,11 @@
 enum ProgressStatusEnum {
-  PARTIAL = "PARTIAL",
-  EMPTY = "EMPTY",
+  IN_PROGRESS = "IN_PROGRESS",
+  NOT_STARTED = "NOT_STARTED",
   COMPLETED = "COMPLETED",
 }
 const ProgressStatusLabel = {
-  [ProgressStatusEnum.PARTIAL]: "부분작성",
-  [ProgressStatusEnum.EMPTY]: "미작성",
+  [ProgressStatusEnum.IN_PROGRESS]: "부분작성",
+  [ProgressStatusEnum.NOT_STARTED]: "미작성",
   [ProgressStatusEnum.COMPLETED]: "작성완료",
 };
 export { ProgressStatusEnum, ProgressStatusLabel };
