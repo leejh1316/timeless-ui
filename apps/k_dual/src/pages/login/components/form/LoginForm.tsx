@@ -56,7 +56,7 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
             <label htmlFor="userid" className="text-sm font-bold text-gray-900">
               아이디
             </label>
-            {errors.userid && <span className="text-sm text-red-500 opacity-80">{errors.userid.message}</span>}
+            {errors.userid && <span className="text-warning-500/80 text-sm">{errors.userid.message}</span>}
           </div>
           <Input id="userid" {...register("userid", { required: "아이디를 입력해주세요." })} />
         </div>
@@ -66,7 +66,7 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
             <label htmlFor="password" className="text-sm font-bold text-gray-900">
               비밀번호
             </label>
-            {errors.password && <span className="text-sm text-red-500 opacity-80">{errors.password.message}</span>}
+            {errors.password && <span className="text-warning-500/80 text-sm">{errors.password.message}</span>}
           </div>
           <Input id="password" type="password" {...register("password", { required: "비밀번호를 입력해주세요." })} />
         </div>
@@ -88,7 +88,7 @@ const LoginForm = ({ onLoginSuccess, ...props }: LoginFormProps) => {
           )}
         />
 
-        {isError && <div className="pt-3 text-sm text-red-600">{error.message}</div>}
+        {isError && <div className="text-warning-600 pt-3 text-sm">{error.message}</div>}
         <Button
           loading={isPending}
           type="submit"

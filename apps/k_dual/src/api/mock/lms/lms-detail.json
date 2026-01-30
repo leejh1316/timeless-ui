@@ -1,0 +1,104 @@
+{
+  "trainingInfo": {
+    "title": "개념적 데이터 모델:개체-관계(Entity-Relationship) 데이터 모델",
+    "inningList": [
+      {
+        "value": "1",
+        "label": "1차 데이터베이스 개요",
+        "isSelected": false
+      },
+      {
+        "value": "2",
+        "label": "2차 데이터베이스 시스템",
+        "isSelected": false
+      },
+      {
+        "value": "3",
+        "label": "3차 데이터베이스 설계와 데이터 모델",
+        "isSelected": false
+      },
+      {
+        "value": "4",
+        "label": "4차 개념적 데이터 모델:개체-관계(Entity-Relationship) 데이터 모델",
+        "isSelected": true
+      },
+      {
+        "value": "5",
+        "label": "5차 ERWin",
+        "isSelected": false
+      },
+      {
+        "value": "6",
+        "label": "6차 논리적 데이터 모델",
+        "isSelected": false
+      },
+      {
+        "value": "7",
+        "label": "7차 관계 데이터 모델",
+        "isSelected": false
+      },
+      {
+        "value": "8",
+        "label": "8차 SQL 1",
+        "isSelected": false
+      },
+      {
+        "value": "9",
+        "label": "9차 DBMS(MySQL)",
+        "isSelected": false
+      },
+      {
+        "value": "10",
+        "label": "10차 DBMS(MS-SQL Server)",
+        "isSelected": false
+      },
+      {
+        "value": "11",
+        "label": "11차  SQL 2",
+        "isSelected": false
+      },
+      {
+        "value": "12",
+        "label": "12차 데이터베이스 정규화 1",
+        "isSelected": false
+      },
+      {
+        "value": "13",
+        "label": "13차 데이터베이스 정규화 2",
+        "isSelected": false
+      },
+      {
+        "value": "14",
+        "label": "14차 역정규화",
+        "isSelected": false
+      },
+      {
+        "value": "15",
+        "label": "15차 무손실 분해",
+        "isSelected": false
+      }
+    ]
+  },
+  "periodInfo": {
+    "period": "2026-01-05 ~ 2026-01-09",
+    "trainingHours": "4시간"
+  },
+  "ncsInfo": {
+    "unit": "논리 데이터베이스 설계",
+    "element": "관계 상세화하기"
+  },
+  "status": "PENDING",
+  "activityForm": {
+    "date": "2026-01-13",
+    "content": "1. 관계의 종류\n종속 관계(Dependent Relationship)\n-개체 간 주/종 관계를 표현하며 식별 및 비식별 관계로 구분\n-식별 관계: 상위 개체의 주 식별자가 하위 개체의 주 식별자 전체 또는 일부로 전이됨\n-비식별 관계: 상위 개체의 식별자가 하위 개체의 일반 속성(외래 키)으로만 존재\n\n중복 관계(Redundant Relationship)\n-동일한 두 개체 간에 두 번 이상의 종속 관계가 발생하는 형태\n-관계 데이터베이스의 복잡도 증가 및 최적화 작업 난항 유발\n-실제 업무상 필수적인 경우를 제외하고는 사용 자제 권고\n\n재귀 관계(Recursive Relationship)\n-개체가 자기 자신을 다시 참조하는 종속 관계 정의\n-데이터베이스 시스템 성능에 영향을 미칠 수 있어 설계 시 주의 필수\n\n배타 관계(Exclusive Relationship)\n-특정 속성 조건이나 구분자에 의해 개체 특성을 분할하는 일반화 및 데이터 통합 개념\n-배타 AND 관계: 구분자 조건에 따라 하위 개체들 중 반드시 단 하나만 선택\n-배타 OR 관계: 구분자 조건에 따라 하위 개체들 중 하나 이상 선택 가능",
+    "impression": "개체간의 관계 종류에 대해 학습했다. 각 관계의 상황에 따라 어떤 관계가 적용되는지 이해했다.",
+    "feedback": "- 3회차 과제의 ‘요구사항서’ 내용을 E-R 모델로 작성하여 제출하시오.\n- 작성된 ‘E-R 다이어그램’(ERD)을 ‘새발 표기법’으로 변환하여 제출하시오.\n※ 참고 : 개체가 5개 이하로 나오면 3회차 과제를 수정해서라도 5개 이상의 개체가 나오도록 작성하시오."
+  },
+  "feedbacks": {
+    "companyTeacher": "",
+    "professor": ""
+  },
+  "fileGroupNo": "286739",
+  "file": {},
+  "studyInningNo": "2281861"
+}

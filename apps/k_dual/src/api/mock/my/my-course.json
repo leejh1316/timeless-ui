@@ -1,0 +1,65 @@
+{
+  "semesterList": [
+    {
+      "value": "725",
+      "label": "2025년 동계계절학기",
+      "isDefaultSelected": true
+    },
+    {
+      "value": "709",
+      "label": "2025년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "696",
+      "label": "2025년 하계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "665",
+      "label": "2025년 1학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "661",
+      "label": "2024년 동계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "639",
+      "label": "2024년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "518",
+      "label": "2022년 동계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "491",
+      "label": "2022년 2학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "472",
+      "label": "2022년 하계계절학기",
+      "isDefaultSelected": false
+    },
+    {
+      "value": "419",
+      "label": "2022년 1학기",
+      "isDefaultSelected": false
+    }
+  ],
+  "courseList": [
+    {
+      "yearSemester": "2025/동계계절",
+      "courseName": "DB설계 및 구축 실무",
+      "lmsId": 68267,
+      "department": "일학습병행학부",
+      "credits": "2",
+      "professor": "전우치",
+      "companyTeacher": "김철수"
+    }
+  ]
+}

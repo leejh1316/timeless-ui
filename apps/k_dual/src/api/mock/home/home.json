@@ -1,0 +1,28 @@
+{
+  "universityName": "한국공학대학교",
+  "userName": "이재혁",
+  "isLogin": true,
+  "noticeList": [
+    {
+      "link": "/HelpDesk/Detail/1382",
+      "title": "★2025학년도 겨울계절학기 도제식현...",
+      "regDate": "26.01.14"
+    },
+    {
+      "link": "/HelpDesk/Detail/1377",
+      "title": "■ 2025학년도 겨울계절학기 학과별...",
+      "regDate": "25.12.15"
+    },
+    {
+      "link": "/HelpDesk/Detail/1376",
+      "title": "★ 2025학년도 겨울계절학기 현장훈...",
+      "regDate": "25.12.15"
+    },
+    {
+      "link": "/HelpDesk/Detail/1345",
+      "title": "■ 2025학년도 2학기 학과별 OJ...",
+      "regDate": "25.08.14"
+    }
+  ],
+  "academicSchedule": []
+}

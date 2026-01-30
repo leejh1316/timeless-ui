@@ -1,20 +1,18 @@
 const MOCK_KEY = "k-dual-mock";
 
 function mockInit() {
-  const mockValue = localStorage.getItem(MOCK_KEY);
+  const mockValue = sessionStorage.getItem(MOCK_KEY);
   if (mockValue === null) {
-    localStorage.setItem(MOCK_KEY, "false");
+    sessionStorage.setItem(MOCK_KEY, "false");
   }
 }
 function mockClear() {
-  localStorage.removeItem(MOCK_KEY);
+  sessionStorage.removeItem(MOCK_KEY);
 }
 function getMockMode() {
-  return localStorage.getItem(MOCK_KEY) === "true";
+  return sessionStorage.getItem(MOCK_KEY) === "true";
 }
-function toggleMockMode() {
-  const isMock = getMockMode();
-  localStorage.setItem(MOCK_KEY, isMock ? "false" : "true");
+function setMockMode(value: boolean) {
+  sessionStorage.setItem(MOCK_KEY, value ? "true" : "false");
 }
-
-export { mockInit, mockClear, getMockMode, toggleMockMode };
+export { mockInit, mockClear, getMockMode, setMockMode };

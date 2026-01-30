@@ -2,6 +2,7 @@ import { makeMutationApi } from "@src/hooks/useApiHook";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../axios";
 import { QUERY_KEY } from "../_queryKey";
+import { getMockMode, mockClear, setMockMode } from "@src/config/mock";
 
 interface LoginPayload {
   login_type: string;
@@ -17,7 +18,6 @@ const login = (payload: string) =>
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: payload,
-    // redirect: "manual",
   });
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
@@ -50,6 +50,9 @@ export const useLogoutMutation = () => {
     mutationFn: async () => {
       try {
         await logout();
+        if (getMockMode()) {
+          setMockMode(false);
+        }
       } catch (error) {
         throw error;
       }
