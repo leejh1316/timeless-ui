@@ -22,8 +22,8 @@ interface ProgressBarRootProps extends PrimitivePropsWithRef<"div">, Partial<Pro
 const ProgressBarRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<ProgressBarRootProps>>((props, forwardedRef) => {
   const { __scopeProgressBar, min, max, ...rootProps } = props;
   return (
-    <ProgressBarProvider scope={__scopeProgressBar} min={min} max={max}>
-      <Primitive.div ref={forwardedRef} {...rootProps} />
+    <ProgressBarProvider scope={__scopeProgressBar} min={min} max={max} >
+      <Primitive.div ref={forwardedRef} {...rootProps} role="progressbar"/>
     </ProgressBarProvider>
   );
 });
