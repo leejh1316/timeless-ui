@@ -8,6 +8,7 @@ import { createContext, forwardRef, memo, useCallback, useContext, useEffect, us
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
+import { useControllableState } from "../../hooks/useControllableState";
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
@@ -48,15 +49,7 @@ const useCarouselApi = (externalApi: CarouselApi | null) => {
 const CarouselRoot = memo(
   forwardRef(
     (
-      {
-        orientation = "horizontal",
-        options,
-        setApi,
-        onSelect,
-        plugins,
-        className,
-        ...props
-      }: PrimitivePropsWithRef<"div"> & CarouselProps,
+      { orientation = "horizontal", options, setApi, onSelect, plugins, className, ...props }: PrimitivePropsWithRef<"div"> & CarouselProps,
       ref,
     ) => {
       const [carouselRef, api] = useEmblaCarousel(
@@ -99,46 +92,37 @@ CarouselRoot.displayName = "Carousel.Root";
 // =========== Carousel.Container ===========
 const CarouselContainer = ({ className, ...props }: PrimitivePropsWithRef<"div">) => {
   const { carouselRef } = useCarousel();
-  return (
-    <Primitive.div
-      ref={carouselRef}
-      data-slot="carousel-container"
-      className={clsx("overflow-hidden", className)}
-      {...props}
-    />
-  );
+  return <Primitive.div ref={carouselRef} data-slot="carousel-container" className={clsx(className, "overflow-hidden")} {...props} />;
 };
 CarouselContainer.displayName = "Carousel.container";
 
 // =========== Carousel.Track ===========
-const CarouselTrack = forwardRef<React.ElementRef<"div">, PrimitivePropsWithRef<"div">>(
-  ({ className, ...props }, ref) => {
-    const { orientation, api } = useCarousel();
-    const { rootRef, handleKeyDown } = useArrowNavigation({
-      selector: '[data-slot="carousel-item"]',
-      orientation,
-      onNavigate: ({ direction }) => {
-        if (!api) return;
-        if (direction === "next") {
-          api.scrollNext();
-        } else {
-          api.scrollPrev();
-        }
-      },
-    });
-    const composedRef = useComposedRefs(ref, rootRef);
-    return (
-      <Primitive.div
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        ref={composedRef}
-        className={clsx("flex", orientation === "horizontal" ? "" : "flex-col", className)}
-        data-slot="carousel-track"
-        {...props}
-      />
-    );
-  },
-);
+const CarouselTrack = forwardRef<React.ElementRef<"div">, PrimitivePropsWithRef<"div">>(({ className, ...props }, ref) => {
+  const { orientation, api } = useCarousel();
+  const { rootRef, handleKeyDown } = useArrowNavigation({
+    selector: '[data-slot="carousel-item"]',
+    orientation,
+    onNavigate: ({ direction }) => {
+      if (!api) return;
+      if (direction === "next") {
+        api.scrollNext();
+      } else {
+        api.scrollPrev();
+      }
+    },
+  });
+  const composedRef = useComposedRefs(ref, rootRef);
+  return (
+    <Primitive.div
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      ref={composedRef}
+      className={clsx("flex", orientation === "horizontal" ? "" : "flex-col", className)}
+      data-slot="carousel-track"
+      {...props}
+    />
+  );
+});
 CarouselTrack.displayName = "Carousel.track";
 
 // =========== Carousel.Item ===========
@@ -240,7 +224,8 @@ const useCurrentIndex = (api: CarouselApi | null) => {
   return currentIndex;
 };
 
-const CarouselCurrentIndex = memo(({ carouselApi, ...props }: CarouselModuleProps<"span">) => {
+interface CarouselCurrentIndexProps extends CarouselModuleProps<"span"> {}
+const CarouselCurrentIndex = memo(({ carouselApi, ...props }: CarouselCurrentIndexProps) => {
   const api = useCarouselApi(carouselApi);
   const currentIndex = useCurrentIndex(api);
   return <Primitive.span data-slot="carousel-current-index" {...props} children={currentIndex + 1} />;
@@ -263,6 +248,7 @@ const useTotalCount = (api: CarouselApi | null) => {
   }, [api, updateTotalCount]);
   return totalCount;
 };
+interface CarouselTotalCountProps extends CarouselModuleProps<"span"> {}
 const CarouselTotalCount = memo(({ carouselApi, ...props }: CarouselModuleProps<"span">) => {
   const api = useCarouselApi(carouselApi);
   const totalCount = useTotalCount(api);
@@ -363,8 +349,21 @@ CarouselIndicator.displayName = "Carousel.Indicator";
 
 // =========== Plugin ===========
 // =========== Plugin Autoplay ===========
-const useAutoplay = (api: CarouselApi | null) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+type CarouselPluginParameters = {
+  api: CarouselApi | null;
+  defaultState?: "playing" | "paused";
+  state?: "playing" | "paused";
+  onStateChange?: (state: "playing" | "paused") => void;
+};
+const useAutoplay = (param: CarouselPluginParameters) => {
+  const { api, defaultState, onStateChange, state } = param;
+  const [isPlaying, setIsPlaying] = useControllableState({
+    defaultValue: defaultState === "playing",
+    value: state ? state === "playing" : undefined,
+    onChange: (playing) => {
+      onStateChange?.(playing ? "playing" : "paused");
+    },
+  });
 
   const toggleAutoplay = useCallback(() => {
     const autoplayApi = api?.plugins().autoplay;
@@ -386,10 +385,12 @@ const useAutoplay = (api: CarouselApi | null) => {
 
   const startPlaying = useCallback(() => {
     setIsPlaying(true);
-  }, []);
+    onStateChange?.("playing");
+  }, [onStateChange]);
   const stopPlaying = useCallback(() => {
     setIsPlaying(false);
-  }, []);
+    onStateChange?.("paused");
+  }, [onStateChange]);
   const updateIsPlaying = useCallback((api: NonNullable<CarouselApi>) => {
     setIsPlaying(api.plugins().autoplay.isPlaying());
   }, []);
@@ -470,10 +471,22 @@ export const Carousel = {
   Indicator: CarouselIndicator,
 };
 // =========== Export Hooks ===========
-export { useCanScroll, useCurrentIndex, useTotalCount };
+export { useCanScroll, useCurrentIndex, useTotalCount, useCarouselApi };
 
 // =========== Export Plugin Hooks ===========
 export { useAutoplay, useAutoScroll };
 
 // =========== Export Types ===========
-export type { CarouselApi, CarouselOptions, CarouselPlugin, CarouselProps };
+export type {
+  CarouselApi,
+  CarouselOptions,
+  CarouselPlugin,
+  CarouselProps,
+  CarouselIndicatorProps,
+  CarouselIndicatorWrapperProps,
+  CarouselNavigationButtonProps,
+  CarouselCurrentIndexProps,
+  CarouselTotalCountProps,
+  CarouselModuleProps,
+  CarouselPluginParameters,
+};

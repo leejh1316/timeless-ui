@@ -1,4 +1,4 @@
-import React, { createContext, forwardRef, useContext, useEffect, useMemo } from "react";
+import React, { createContext, forwardRef, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useControllableState } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Checkbox } from "./Checkbox";
@@ -7,6 +7,7 @@ interface CheckboxGroupContextType {
   values: string[];
   onValueChange: (value: string) => void;
   onValuesChange: (values: string[]) => void;
+  registerItem: (value: string, disabled: boolean) => () => void;
   disabledValues?: string[];
   disabled?: boolean;
 }
@@ -30,40 +31,71 @@ const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, C
       defaultValue: defaultValues ?? [],
       onChange: onValuesChange,
     });
+
+    const [itemMap, setItemMap] = useState<Map<string, boolean>>(new Map());
+
+    const registerItem = useCallback((value: string, disabled: boolean) => {
+      setItemMap((prev) => new Map(prev).set(value, disabled));
+      return () => {
+        setItemMap((prev) => {
+          const newMap = new Map(prev);
+          newMap.delete(value);
+          return newMap;
+        });
+      };
+    }, []);
+
     const handleValueChange = (itemValue: string) => {
       setValuesState(valuesState.includes(itemValue) ? valuesState.filter((v) => v !== itemValue) : [...valuesState, itemValue]);
     };
 
+    // const disabledValues = useMemo(() => {
+    //   const values: string[] = [];
+    //   // 재귀 함수 정의
+    //   const loop = (nodes: React.ReactNode) => {
+    //     React.Children.forEach(nodes, (node) => {
+    //       if (!React.isValidElement(node)) return;
+
+    //       const type = node.type as any;
+
+    //       if (type.displayName === "CheckboxGroup.Item") {
+    //         const props = node.props as CheckboxGroupItemProps;
+    //         if (props.disabled) {
+    //           values.push(props.value);
+    //         }
+    //         return;
+    //       }
+
+    //       const props = node.props as any;
+    //       if (props.children) {
+    //         loop(props.children);
+    //       }
+    //     });
+    //   };
+    //   loop(children);
+    //   return values;
+    // }, [children]);
+
     const disabledValues = useMemo(() => {
       const values: string[] = [];
-      // 재귀 함수 정의
-      const loop = (nodes: React.ReactNode) => {
-        React.Children.forEach(nodes, (node) => {
-          if (!React.isValidElement(node)) return;
-
-          const type = node.type as any;
-
-          if (type.displayName === "CheckboxGroup.Item") {
-            const props = node.props as CheckboxGroupItemProps;
-            if (props.disabled) {
-              values.push(props.value);
-            }
-            return;
-          }
-
-          const props = node.props as any;
-          if (props.children) {
-            loop(props.children);
-          }
-        });
-      };
-      loop(children);
+      itemMap.forEach((isDisabled, value) => {
+        if (isDisabled) {
+          values.push(value);
+        }
+      });
       return values;
-    }, [children]);
+    }, [itemMap]);
 
     return (
       <CheckboxGroupContext.Provider
-        value={{ values: valuesState, disabledValues, onValueChange: handleValueChange, onValuesChange: setValuesState, disabled }}
+        value={{
+          values: valuesState,
+          disabledValues,
+          onValueChange: handleValueChange,
+          onValuesChange: setValuesState,
+          disabled,
+          registerItem,
+        }}
       >
         <Primitive.div role="group" ref={ref} {...props}>
           {children}
@@ -81,6 +113,10 @@ const CheckboxGroupItem = ({ value: itemValue, children, disabled: itemDisabled,
   const groupContext = useCheckboxGroupContext();
   const isChecked = groupContext.values.includes(itemValue);
   const isDisabled = groupContext.disabled || itemDisabled;
+
+  useEffect(() => {
+    return groupContext.registerItem(itemValue, !!itemDisabled);
+  }, [itemValue, itemDisabled, groupContext.registerItem]);
   return (
     <Checkbox.Root {...props} checked={isChecked} disabled={isDisabled} onCheckedChange={() => groupContext.onValueChange(itemValue)}>
       {children}
