@@ -204,7 +204,7 @@ export function Component() {
 
   const AutoplayCarousel = memo(() => {
     const [api, setApi] = useState<CarouselApi | null>(null);
-    const { isPlaying, toggleAutoplay } = useAutoplay(api);
+    const { isPlaying, toggleAutoplay } = useAutoplay({ api });
 
     return (
       <Carousel.Root
@@ -233,7 +233,7 @@ export function Component() {
 
   const AutoScrollCarousel = memo(() => {
     const [api, setApi] = useState<CarouselApi | null>(null);
-    const { isPlaying, toggleAutoplay: toggleAutoScroll } = useAutoScroll(api);
+    const { isPlaying, toggleAutoplay: toggleAutoScroll } = useAutoScroll({ api });
 
     return (
       <Carousel.Root
@@ -337,11 +337,7 @@ export function Component() {
         <BasicCarousel />
       </ComponentPreview>
 
-      <ComponentPreview
-        title="플러그인"
-        description="Autoplay와 AutoScroll 플러그인을 사용한 예제입니다."
-        code={example2Code}
-      >
+      <ComponentPreview title="플러그인" description="Autoplay와 AutoScroll 플러그인을 사용한 예제입니다." code={example2Code}>
         <div className="flex flex-col items-center gap-8">
           <div className="w-full">
             <h3 className="mb-4 text-lg font-semibold">Autoplay</h3>

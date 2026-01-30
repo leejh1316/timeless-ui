@@ -132,7 +132,7 @@ const CarouselItem = memo(({ className, ...props }: PrimitivePropsWithRef<"div">
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"
-      className={clsx(className, "min-w-0 flex-[0_0_100%]")}
+      className={clsx(className, "min-w-0 shrink-0 grow-0 basis-full")}
       {...props}
     />
   );
@@ -385,12 +385,10 @@ const useAutoplay = (param: CarouselPluginParameters) => {
 
   const startPlaying = useCallback(() => {
     setIsPlaying(true);
-    onStateChange?.("playing");
-  }, [onStateChange]);
+  }, []);
   const stopPlaying = useCallback(() => {
     setIsPlaying(false);
-    onStateChange?.("paused");
-  }, [onStateChange]);
+  }, []);
   const updateIsPlaying = useCallback((api: NonNullable<CarouselApi>) => {
     setIsPlaying(api.plugins().autoplay.isPlaying());
   }, []);
@@ -412,8 +410,15 @@ const useAutoplay = (param: CarouselPluginParameters) => {
   return { isPlaying, handleResetOrStop, toggleAutoplay };
 };
 // =========== Plugin AutoScroll===========
-const useAutoScroll = (api: CarouselApi | null) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const useAutoScroll = (param: CarouselPluginParameters) => {
+  const { api,defaultState,onStateChange,state } = param;
+  const [isPlaying, setIsPlaying] = useControllableState({
+    defaultValue: defaultState === "playing",
+    value: state ? state === "playing" : undefined,
+    onChange: (playing) => {
+      onStateChange?.(playing ? "playing" : "paused");
+    },
+  });
 
   const toggleAutoplay = useCallback(() => {
     const autoScrollApi = api?.plugins()?.autoScroll;

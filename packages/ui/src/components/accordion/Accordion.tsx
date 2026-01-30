@@ -1,4 +1,4 @@
-import { createContextScope, Scope } from "@src/hooks/useCreateContext";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { forwardRef, memo, useCallback, useId, useMemo } from "react";
 import { useArrowNavigation } from "../../hooks/useArrowNavigation";
 import { useComposedRefs } from "../../hooks/useComposeRefs";
