@@ -46,172 +46,19 @@ export interface RouteConfig {
   };
 }
 
-export const PAGE_ROUTES: {
-  components: {
+type RouteCategory = {
+  [categoryName: string]: {
     title: string;
     routes: RouteConfig[];
   };
-  hooks: {
-    title: string;
-    routes: RouteConfig[];
-  };
-  // usage: {
-  //   title: string;
-  //   routes: RouteConfig[];
-  // };
-} = {
-  components: {
-    title: "컴포넌트(Components)",
-    routes: [
-      {
-        path: "/",
-        element: <AspectRatioPage></AspectRatioPage>,
-        name: "AspectRatio",
-        handle: { crumb: "AspectRatio" },
-      },
-      {
-        path: "/accordion",
-        element: <AccordionPage />,
-        name: "Accordion",
-        handle: { crumb: "Accordion" },
-      },
-      {
-        path: "/alert-dialog",
-        element: <AlertDialogPage />,
-        name: "AlertDialog",
-        handle: { crumb: "AlertDialog" },
-      },
-      {
-        path: "/breakpoint",
-        element: <BreakpointPage />,
-        name: "Breakpoint",
-        handle: { crumb: "Breakpoint" },
-      },
-      { path: "/button", element: <ButtonPage />, name: "Button", handle: { crumb: "Button" } },
-      {
-        path: "/calendar",
-        element: <CalendarPage />,
-        name: "Calendar",
-        handle: { crumb: "Calendar" },
-      },
-      {
-        path: "/checkbox",
-        element: <CheckboxPage />,
-        name: "Checkbox",
-        handle: { crumb: "Checkbox" },
-      },
-      {
-        path: "/checkbox-group",
-        element: <CheckboxGroupPage />,
-        name: "CheckboxGroup",
-        handle: { crumb: "CheckboxGroup" },
-      },
-      {
-        path: "/carousel",
-        element: <CarouselPage />,
-        name: "Carousel",
-        handle: { crumb: "Carousel" },
-      },
-      {
-        path: "/collapsible",
-        element: <CollapsiblePage />,
-        name: "Collapsible",
-        handle: { crumb: "Collapsible" },
-      },
-      {
-        path: "/date-picker",
-        element: <DatePickerPage />,
-        name: "DatePicker",
-        handle: { crumb: "DatePicker" },
-      },
-      {
-        path: "/dropdown",
-        element: <DropdownPage />,
-        name: "Dropdown",
-        handle: { crumb: "Dropdown" },
-      },
-      { path: "/image", element: <ImagePage />, name: "Image", handle: { crumb: "Image" } },
-      { path: "/input", element: <InputPage />, name: "Input", handle: { crumb: "Input" } },
-      { path: "/in-view", element: <InViewPage />, name: "InView", handle: { crumb: "InView" } },
-      { path: "/modal", element: <ModalPage />, name: "Modal", handle: { crumb: "Modal" } },
-      { path: "/popover", element: <PopoverPage />, name: "Popover", handle: { crumb: "Popover" } },
-      {
-        path: "/pagination",
-        element: <PaginationPage />,
-        name: "Pagination",
-        handle: { crumb: "Pagination" },
-      },
-      {
-        path: "/presence",
-        element: <PresencePage />,
-        name: "Presence",
-        handle: { crumb: "Presence" },
-      },
-      { path: "/select", element: <SelectPage />, name: "Select", handle: { crumb: "Select" } },
-      { path: "/toggle", element: <TogglePage />, name: "Toggle", handle: { crumb: "Toggle" } },
-      { path: "/tooltip", element: <TooltipPage />, name: "Tooltip", handle: { crumb: "Tooltip" } },
-      { path: "/tabs", element: <TabsPage />, name: "Tabs", handle: { crumb: "Tabs" } },
-      {
-        path: "/textarea",
-        element: <TextareaPage />,
-        name: "Textarea",
-        handle: { crumb: "Textarea" },
-      },
-      { path: "/toast", element: <ToastPage />, name: "Toast", handle: { crumb: "Toast" } },
-      {
-        path: "/radio-group",
-        element: <RadioGroupPage />,
-        name: "RadioGroup",
-        handle: { crumb: "RadioGroup" },
-      },
-      { path: "/slider", element: <SliderPage />, name: "Slider", handle: { crumb: "Slider" } },
-      { path: "/form", element: <FormPage />, name: "Form", handle: { crumb: "Form" } },
-    ],
-  },
-  hooks: {
-    title: "훅(Hooks)",
-    routes: [
-      {
-        path: "/use-pagination",
-        element: <UsePaginationPage />,
-        name: "usePagination",
-        handle: { crumb: "usePagination" },
-      },
-      {
-        path: "/use-breakpoint",
-        element: <UseBreakpointPage />,
-        name: "useBreakpoint",
-        handle: { crumb: "useBreakpoint" },
-      },
-      {
-        path: "/use-arrow-navigation",
-        element: <UseArrowNavigationPage />,
-        name: "useArrowNavigation",
-        handle: { crumb: "useArrowNavigation" },
-      },
-      {
-        path: "/use-snooze",
-        element: <UseSnoozePage />,
-        name: "useSnooze",
-        handle: { crumb: "useSnooze" },
-      },
-    ],
-  },
-  // usage: {
-  //   title: "활용(Usage)",
-  //   routes: [{ path: "#", element: null, name: "지연 로딩 이미지", handle: { crumb: "지연 로딩 이미지" } }],
-  // },
-} as const;
+};
+export const PAGE_ROUTES: RouteCategory = {};
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     element: <App />,
-    children: [
-      ...PAGE_ROUTES.components.routes,
-      ...PAGE_ROUTES.hooks.routes,
-      //   ...PAGE_ROUTES.usage.routes
-    ],
+    children: [],
   },
   {
     path: `${PATH.NOT_FOUND}`,
