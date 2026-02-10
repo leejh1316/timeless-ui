@@ -16,6 +16,7 @@ type TOCStateContextValue = {
 };
 
 type TOCDispatchContextValue = {
+  onActiveItemChange?: (item: TOCItem) => void;
   setVisibleItemId: (id: string | null) => void;
 };
 
@@ -107,13 +108,14 @@ interface TOCRootProps {
   children: React.ReactNode;
   targetElement?: HTMLElement | null;
   searchTags?: string[];
+  onActiveItemChange?: (item: TOCItem) => void;
 }
-const TOCRoot = ({ children, targetElement = null, searchTags = DEFAULT_SEARCH_TAGS }: TOCRootProps) => {
+const TOCRoot = ({ children, targetElement = null, searchTags = DEFAULT_SEARCH_TAGS, onActiveItemChange }: TOCRootProps) => {
   const [visibleItemId, setVisibleItemId] = useState<string | null>(null);
   const items = useHeadingsDiscovery(targetElement, searchTags);
 
   return (
-    <TOCDispatchProvider setVisibleItemId={setVisibleItemId}>
+    <TOCDispatchProvider setVisibleItemId={setVisibleItemId} onActiveItemChange={onActiveItemChange}>
       <TOCStateProvider visibleItemId={visibleItemId} items={items}>
         {children}
       </TOCStateProvider>
@@ -122,43 +124,42 @@ const TOCRoot = ({ children, targetElement = null, searchTags = DEFAULT_SEARCH_T
 };
 TOCRoot.displayName = "TOC.Root";
 
-interface TOCObserverProps extends PrimitivePropsWithRef<"div"> {}
-const TOCObserver = memo(
-  forwardRef<React.ComponentRef<typeof Primitive.div>, TOCObserverProps>((props, forwardedRef) => {
-    const { items } = useTOCStateContext("TOCObserver");
-    const { setVisibleItemId } = useTOCDispatchContext("TOCObserver");
+const TOCObserver = memo(() => {
+  const { items } = useTOCStateContext("TOCObserver");
+  const { setVisibleItemId, onActiveItemChange } = useTOCDispatchContext("TOCObserver");
 
-    const observerRef = useRef<IntersectionObserver | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-    const observerCallback = useCallback<IntersectionObserverCallback>(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length > 0) {
-          const sorted = visible.sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
-          setVisibleItemId(sorted[0].target.id);
-        }
-      },
-      [setVisibleItemId],
-    );
+  const observerCallback = useCallback<IntersectionObserverCallback>(
+    (entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting);
+      if (visible.length > 0) {
+        const sorted = visible.sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+        setVisibleItemId(sorted[0].target.id);
 
-    useEffect(() => {
-      if (items.length === 0) return;
+        onActiveItemChange?.(items.find((item) => item.id === sorted[0].target.id)!);
+      }
+    },
+    [setVisibleItemId, onActiveItemChange, items],
+  );
 
-      observerRef.current = new IntersectionObserver(observerCallback, {
-        rootMargin: "-64px 0px -70% 0px",
-      });
-      items.forEach((item) => {
-        item.element && observerRef.current?.observe(item.element);
-      });
+  useEffect(() => {
+    if (items.length === 0) return;
 
-      return () => {
-        observerRef.current?.disconnect();
-      };
-    }, [observerCallback, items]);
+    observerRef.current = new IntersectionObserver(observerCallback, {
+      rootMargin: "-64px 0px -70% 0px",
+    });
+    items.forEach((item) => {
+      item.element && observerRef.current?.observe(item.element);
+    });
 
-    return null;
-  }),
-);
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [observerCallback, items]);
+
+  return null;
+});
 TOCObserver.displayName = "TOC.Observer";
 
 type TOCContentItemRenderFn = (item: TOCItem, activeId: string | null) => React.ReactNode;
@@ -179,12 +180,4 @@ const TOC = {
 };
 
 export { TOC };
-export type {
-  TOCContentItemRenderFn,
-  TOCContentProps,
-  TOCDispatchContextValue,
-  TOCItem,
-  TOCObserverProps,
-  TOCRootProps,
-  TOCStateContextValue,
-};
+export type { TOCContentItemRenderFn, TOCContentProps, TOCDispatchContextValue, TOCItem, TOCRootProps, TOCStateContextValue };
