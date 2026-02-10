@@ -13,7 +13,7 @@ const DocsLayout = () => {
         <main className="col-span-12 pt-5 md:col-span-9 xl:col-span-8 xl:px-10" ref={setContentRef}>
           <Outlet />
         </main>
-        <aside className="sticky top-[calc(var(--h-header)+1px)] hidden max-h-[calc(100dvh-var(--h-header)-1px)] overflow-y-auto pt-5 md:col-span-2 xl:col-span-2 xl:block">
+        <aside className="sticky top-[calc(var(--h-header)+1px)] hidden h-[calc(100dvh-var(--h-header)-1px)] overflow-y-auto pt-5 md:col-span-2 xl:col-span-2 xl:block">
           <div className="flex flex-col gap-4 pb-28">
             <h4 className="text-sm font-semibold text-gray-900">On This Page</h4>
             <nav className="flex flex-col gap-2">
