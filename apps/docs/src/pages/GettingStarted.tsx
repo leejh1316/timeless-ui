@@ -1,6 +1,6 @@
 const GettingStarted = () => {
   return (
-    <div className="prose prose-gray max-w-none py-8">
+    <div className="prose prose-gray max-w-none">
       <div className="mb-4 text-sm font-semibold text-blue-600">Docs</div>
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Getting Started</h1>
       <p className="leading-7 [&:not(:first-child)]:mt-6">Timeless UI를 시작하는 방법에 대해 알아봅니다.</p>

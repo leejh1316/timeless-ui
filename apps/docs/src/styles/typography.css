@@ -1,4 +1,4 @@
-/* Font 굵기는 Bold normal(Regular) Light만 사용 */
+/* Font 굵기는 semibold medium normal만 사용 */
 @theme {
   --font-pretendard:
     "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",

@@ -21,7 +21,7 @@ const Home = () => {
             href="https://github.com/your-repo/timeless-ui"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-gray-100 px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200"
+            className="text-dis rounded-full bg-gray-100 px-6 py-3 font-bold text-gray-900 shadow-sm hover:bg-gray-200"
           >
             GitHub
           </a>

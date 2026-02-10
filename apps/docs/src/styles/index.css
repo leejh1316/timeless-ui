@@ -18,3 +18,19 @@
 @utility h-header {
   height: var(--h-header);
 }
+
+@utility scrollbar {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #cacbd5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a5a5af;
+  }
+}

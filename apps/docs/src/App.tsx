@@ -4,13 +4,11 @@ import Header from "./components/layout/Header";
 
 function App() {
   return (
-    <div className="font-pretendard">
+    <div className="font-pretendard text-ink-primary scrollbar font-medium">
       <Header />
-      <main className="max-w-page mx-auto min-h-[calc(100dvh-var(--h-header)-1px)] px-5">
-        <div className="grid md:grid-cols-12">
-          <Outlet />
-        </div>
-      </main>
+      <div className="max-w-page mx-auto min-h-[calc(100dvh-var(--h-header)-1px)] w-full px-5">
+        <Outlet />
+      </div>
     </div>
   );
 }

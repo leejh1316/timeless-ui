@@ -1,20 +1,24 @@
 import { NavLink } from "react-router";
 import { PAGE_ROUTES } from "@src/router/router";
-
-const Sidebar = () => {
+import clsx from "clsx";
+interface SidebarProps extends React.ComponentPropsWithoutRef<"aside"> {}
+const Sidebar = ({ className, ...props }: SidebarProps) => {
   return (
-    <aside className="sticky top-[calc(var(--h-header)+1px)] hidden h-[calc(100vh-var(--h-header)-1px)] overflow-y-auto py-8 pr-4 md:col-span-3 md:block lg:col-span-2">
-      <nav className="space-y-8">
+    <aside {...props} className={clsx(className)}>
+      <nav className="space-y-8 pb-28">
         {Object.entries(PAGE_ROUTES).map(([key, category]) => (
           <div key={key}>
-            <h4 className="mb-3 text-sm font-semibold text-gray-900">{category.title}</h4>
-            <ul className="space-y-2">
+            <h4 className="text-body-4 text-ink-tertiary mb-3 font-semibold uppercase tracking-wider">{category.title}</h4>
+            <ul>
               {category.routes.map((route) => (
                 <li key={route.path}>
                   <NavLink
                     to={route.path}
                     className={({ isActive }) =>
-                      `block text-sm ${isActive ? "font-medium text-black" : "text-gray-600 hover:text-gray-900"}`
+                      clsx(
+                        "text-body-2 block py-1.5 transition-colors",
+                        isActive ? "font-semibold" : "text-ink-secondary hover:text-ink-primary",
+                      )
                     }
                   >
                     {route.name}

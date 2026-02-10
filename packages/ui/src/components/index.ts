@@ -26,6 +26,7 @@ export * from "./alert-dialog/AlertDialog";
 export * from "./tooltip/Tooltip";
 export * from "./form/form";
 export * from "./slider/Slider";
-export * from "./primitive/Primitive"
-export * from './input/Input';
-export * from './textarea/Textarea';
+export * from "./primitive/Primitive";
+export * from "./input/Input";
+export * from "./textarea/Textarea";
+export * from "./toc/TOC";

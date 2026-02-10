@@ -1,6 +1,6 @@
 const DocDetail = () => {
   return (
-    <div className="prose prose-gray max-w-none py-8">
+    <div className="">
       <div className="mb-4 text-sm font-semibold text-blue-600">Components</div>
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Button</h1>
       <p className="leading-7 [&:not(:first-child)]:mt-6">사용자의 인터랙션을 유도하는 버튼 컴포넌트입니다.</p>
@@ -9,9 +9,7 @@ const DocDetail = () => {
         {/* Preview Area */}
         <div className="flex items-center justify-center gap-4 rounded-xl border border-gray-200 bg-gray-50/50 p-8">
           <button className="rounded bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-800">Primary</button>
-          <button className="rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-            Secondary
-          </button>
+          <button className="text-text-primary rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium">Secondary</button>
           <button className="rounded px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50">Destructive</button>
         </div>
       </div>
