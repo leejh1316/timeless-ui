@@ -2,6 +2,7 @@ import { memo, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import { NavLink, Outlet } from "react-router";
 import { TOC, TOCItem } from "@timeless-ui/ui";
+import OnThisPage from "./OnThisPage";
 
 const DocsLayout = () => {
   const [contentRef, setContentRef] = useState<HTMLElement | null>(null);
@@ -27,17 +28,7 @@ const DocsLayout = () => {
         }}
       >
         <TOC.Observer />
-        <aside
-          className="sticky top-[calc(var(--h-header)+1px)] hidden h-[calc(100dvh-var(--h-header)-1px)] overflow-y-auto pt-5 md:col-span-2 xl:col-span-2 xl:block"
-          ref={tocContainerRef}
-        >
-          <div className="flex flex-col gap-4 pb-28">
-            <h4 className="text-sm font-semibold text-gray-900">On This Page</h4>
-            <nav className="flex flex-col gap-2">
-              <TOC.Content>{(item, activeId) => <TocItem key={item.id} {...item} isActive={item.id === activeId} />}</TOC.Content>
-            </nav>
-          </div>
-        </aside>
+        <OnThisPage className="sticky top-[calc(var(--h-header)+1px)] hidden h-[calc(100dvh-var(--h-header)-1px)] overflow-y-auto pt-5 md:col-span-2 xl:col-span-2 xl:block" />
       </TOC.Root>
     </div>
   );

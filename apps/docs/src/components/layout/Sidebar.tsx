@@ -1,11 +1,10 @@
 import { NavLink } from "react-router";
 import { PAGE_ROUTES } from "@src/router/router";
 import clsx from "clsx";
-interface SidebarProps extends React.ComponentPropsWithoutRef<"aside"> {}
-const Sidebar = ({ className, ...props }: SidebarProps) => {
+const Sidebar = ({ className, ...props }: React.ComponentPropsWithoutRef<"aside">) => {
   return (
     <aside {...props} className={clsx(className)}>
-      <nav className="space-y-8 pb-28">
+      <nav className="space-y-8 pb-20">
         {Object.entries(PAGE_ROUTES).map(([key, category]) => (
           <div key={key}>
             <h4 className="text-body-4 text-ink-tertiary mb-3 font-semibold uppercase tracking-wider">{category.title}</h4>
