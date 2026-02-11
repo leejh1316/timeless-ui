@@ -14,9 +14,7 @@ const DocDetail = () => {
         </div>
       </div>
 
-      <h2 id="installation" className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Installation
-      </h2>
+      <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">설치방법</h2>
       <div className="mt-4 rounded-md bg-gray-900 p-4">
         <code className="text-sm text-white">npm install @timeless-ui/button</code>
       </div>

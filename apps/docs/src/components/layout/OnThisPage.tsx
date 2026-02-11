@@ -26,7 +26,7 @@ const OnThisPage = forwardRef<React.ComponentRef<"aside">, React.ComponentProps<
     if (hash) {
       const element = document.getElementById(decodeURIComponent(hash.replace("#", "")));
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView();
       }
     }
   }, [hash]);
