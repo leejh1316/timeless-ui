@@ -1,9 +1,4 @@
-import {
-  FloatingFocusManager,
-  FloatingOverlay,
-  FloatingPortal,
-  FloatingPortalProps
-} from "@floating-ui/react";
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, FloatingPortalProps } from "@floating-ui/react";
 import { forwardRef, useCallback, useEffect } from "react";
 import { useComposedRefs, useModal } from "../../hooks";
 import { createContextScope, Scope } from "../../hooks/useCreateContext";
@@ -57,23 +52,23 @@ AlertDialogRoot.displayName = "AlertDialog.Root";
 // ================ AlertDialog.Trigger ================
 const ALERT_DIALOG_TRIGGER_NAME = "AlertDialogTrigger";
 interface AlertDialogTriggerProps extends ButtonProps {}
-const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<AlertDialogTriggerProps>>(
-  (props, forwardedRef) => {
-    const { __scopeAlertDialog, onClick, ...triggerProps } = props;
-    const { setIsOpen, refs, isOpen, getReferenceProps } = useAlertDialogContext(ALERT_DIALOG_TRIGGER_NAME, __scopeAlertDialog);
-    const composedRefs = useComposedRefs(forwardedRef, refs.setReference);
-    const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        setIsOpen(true);
-        onClick?.(event);
-      },
-      [onClick, setIsOpen],
-    );
-    return (
-      <Button ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} {...getReferenceProps(triggerProps)} />
-    );
-  },
-);
+const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<AlertDialogTriggerProps>>((props, forwardedRef) => {
+  const { __scopeAlertDialog, onClick, ...triggerProps } = props;
+  const { setIsOpen, refs, isOpen, getReferenceProps } = useAlertDialogContext(ALERT_DIALOG_TRIGGER_NAME, __scopeAlertDialog);
+  const composedRefs = useComposedRefs(forwardedRef, refs.setReference);
+  const handleClick = useCallback(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      const result = onClick?.(event);
+      //@ts-ignore
+      if (result instanceof Promise) {
+        await result;
+      }
+      setIsOpen(true);
+    },
+    [onClick, setIsOpen],
+  );
+  return <Button {...getReferenceProps(triggerProps)} ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} />;
+});
 AlertDialogTrigger.displayName = "AlertDialog.Trigger";
 
 // ================ AlertDialog.Portal ================
