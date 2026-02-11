@@ -1,9 +1,7 @@
 import App from "@src/App";
 import Home from "@src/pages/Home";
-import DocDetail from "@src/pages/DocDetail";
-import GettingStarted from "@src/pages/GettingStarted";
-import Alert from "@src/pages/components/Alert";
 import DocsLayout from "@src/components/layout/DocsLayout";
+import AlertDialogPage from "@src/pages/components/AlertDialogPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
 
@@ -26,18 +24,11 @@ type RouteCategory = {
 export const PAGE_ROUTES: RouteCategory = {
   docs: {
     title: "Getting Started",
-    routes: [
-      { path: "/docs/introduction", name: "Introduction", element: <GettingStarted /> },
-      { path: "/docs/installation", name: "Installation", element: <DocDetail /> },
-    ],
+    routes: [],
   },
   components: {
     title: "Components",
-    routes: [
-      { path: "/docs/button", name: "Button", element: <DocDetail /> },
-      { path: "/docs/alert", name: "Alert", element: <Alert /> },
-      { path: "/docs/input", name: "Input", element: <DocDetail /> },
-    ],
+    routes: [{ path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" }],
   },
 };
 

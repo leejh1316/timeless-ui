@@ -1,12 +1,24 @@
 /* Font 굵기는 semibold medium normal만 사용 */
+
 @theme {
   --font-pretendard:
     "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
     "Noto Sans KR", "Malgun Gothic", sans-serif;
-  --font-code: "JetBrains Mono", Consolas, "Courier New", monospace;
+  --font-code: "JetBrains Mono", "Pretendard Variable", Consolas, "Courier New", monospace;
 
   --tracking-ko: -0.025em;
 }
+
+/* 라이브러리 폰트 설정 */
+.shiki {
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-code) !important;
+  }
+}
+
 /* Mobile */
 :root {
   /* Display */

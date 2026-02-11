@@ -1,0 +1,33 @@
+import { useEffect, useState } from "react";
+import { codeToHtml } from "shiki";
+import { Card } from "../ui/Card";
+import clsx from "clsx";
+
+interface CodeBlockProps extends React.ComponentProps<"div"> {
+  code: string;
+  language?: string;
+}
+const CodeBlock = ({ code, language = "tsx", className, ...props }: CodeBlockProps) => {
+  const [highlightedCode, setHighlightedCode] = useState<string>("");
+
+  useEffect(() => {
+    codeToHtml(code, {
+      lang: "tsx",
+      theme: "one-dark-pro",
+    }).then((html) => {
+      setHighlightedCode(html);
+    });
+  }, [code, language]);
+
+  return (
+    <Card className={clsx(className, "text-body-4 overflow-x-auto bg-[#282c34] p-5 tracking-normal")} {...props}>
+      <div className="mb-1 flex items-center justify-between">
+        <span className="font-code text-ink-tertiary text-caption-2 select-none font-semibold">{language.toUpperCase()}</span>
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+    </Card>
+  );
+};
+
+CodeBlock.displayName = "CodeBlock";
+export { CodeBlock };
