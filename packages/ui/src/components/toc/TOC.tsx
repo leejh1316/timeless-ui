@@ -47,7 +47,7 @@ const useHeadingsDiscovery = (targetElement: Element | null | undefined, searchT
 
     const selector = searchTags.join(",");
 
-    const scanHeadings = () => {
+    const scanHeadings = useCallback(() => {
       const elements = Array.from(target.querySelectorAll(selector)) as HTMLElement[];
       const idList: { [key: string]: number } = {};
 
@@ -78,7 +78,7 @@ const useHeadingsDiscovery = (targetElement: Element | null | undefined, searchT
         const isSame = prev.length === newItems.length && prev.every((p, i) => p.id === newItems[i].id);
         return isSame ? prev : newItems;
       });
-    };
+    }, [selector, target]);
 
     scanHeadings();
 

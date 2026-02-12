@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { useMeasureSize } from "./useMeasureSize";
 
 interface UseOverflowDetectOptions {
@@ -35,7 +35,6 @@ export const useOverflowDetect = <TContainer extends HTMLElement = HTMLDivElemen
   const [containerRef, containerSize] = useMeasureSize<TContainer>();
   const itemRefs = useRef<(TItem | null)[]>([]);
   const [isOverflow, setIsOverflow] = useState(false);
-  const [_, startTransition] = useTransition();
 
   const checkOverflow = useCallback(() => {
     if (!containerRef.current) return;
@@ -51,15 +50,8 @@ export const useOverflowDetect = <TContainer extends HTMLElement = HTMLDivElemen
       return total + itemWidth + gapWidth;
     }, 0);
 
-    startTransition(() => {
-      setIsOverflow(itemsWidth > containerWidth);
-    });
+    setIsOverflow(itemsWidth > containerWidth);
   }, [containerRef, gap, offset]);
-
-  // 컨테이너 크기가 변경될 때 overflow 체크
-  useEffect(() => {
-    checkOverflow();
-  }, [containerSize, checkOverflow]);
 
   // 아이템 ref를 설정하는 콜백 함수 생성
   const setItemRef = useCallback((index: number) => {
@@ -67,6 +59,23 @@ export const useOverflowDetect = <TContainer extends HTMLElement = HTMLDivElemen
       itemRefs.current[index] = el;
     };
   }, []);
+
+  // 컨테이너 크기가 변경될 때 overflow 체크
+  useLayoutEffect(() => {
+    checkOverflow();
+  }, [containerSize, checkOverflow]);
+
+  // DOM 변경시 overflow 체크
+  useLayoutEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new MutationObserver(() => {
+      checkOverflow();
+    });
+    observer.observe(containerRef.current, { childList: true, characterData: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, [containerRef, checkOverflow]);
 
   return {
     /** 컨테이너에 연결할 ref */
