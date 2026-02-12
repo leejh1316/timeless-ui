@@ -17,7 +17,11 @@ const useDebounce = <T extends (...args: any[]) => any>(
   }, [func]);
 
   useEffect(() => {
-    return () => clearTimeout(timer.current!);
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
   }, []);
 
   const cancel = useCallback(() => {
