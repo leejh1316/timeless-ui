@@ -31,21 +31,21 @@ interface TooltipRootProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  triggerMode?: "hover" | "click" | "focus" | Array<"hover" | "click" | "focus">;
   options?: UseHoverProps;
   offset?: OffsetOptions;
   placement?: Placement;
 }
 const TooltipRoot = (props: ScopedProps<TooltipRootProps>) => {
-  const { __scopeTooltip, children, open, defaultOpen, onOpenChange, options, offset, placement } = props;
-  const [isOpen, setIsOpen] = useControllableState({
-    value: open,
-    defaultValue: defaultOpen ?? false,
-    onChange: onOpenChange,
-  });
+  const { __scopeTooltip, children, open, defaultOpen, onOpenChange, triggerMode = "hover", options, offset, placement } = props;
+
   const arrowRef = useRef<SVGElement | null>(null);
   const popover = usePopover({
+    open,
+    onOpenChange,
+    initialOpen: defaultOpen,
     placement,
-    triggerMode: ["hover"],
+    triggerMode,
     middlewareOptions: {
       arrow: {
         element: arrowRef,
@@ -64,7 +64,7 @@ const TooltipRoot = (props: ScopedProps<TooltipRootProps>) => {
     },
   });
   return (
-    <TooltipProvider {...popover} arrowRef={arrowRef} isOpen={isOpen} setIsOpen={setIsOpen} scope={__scopeTooltip}>
+    <TooltipProvider {...popover} arrowRef={arrowRef} scope={__scopeTooltip}>
       {children}
     </TooltipProvider>
   );
@@ -77,9 +77,7 @@ interface TooltipTriggerProps extends PrimitivePropsWithRef<typeof Button> {}
 const TooltipTrigger = (props: ScopedProps<TooltipTriggerProps>) => {
   const { __scopeTooltip, ...triggerProps } = props;
   const { refs, isOpen, getReferenceProps } = useTooltipContext(TOOLTIP_TRIGGER_NAME, __scopeTooltip);
-  return (
-    <Button ref={refs.setReference} data-state={isOpen ? "open" : "closed"} {...getReferenceProps(triggerProps)} />
-  );
+  return <Button ref={refs.setReference} data-state={isOpen ? "open" : "closed"} {...getReferenceProps(triggerProps)} />;
 };
 TooltipTrigger.displayName = "Tooltip.Trigger";
 
@@ -104,35 +102,43 @@ const TooltipPortal = (props: ScopedProps<TooltipPortalProps>) => {
 };
 TooltipPortal.displayName = "Tooltip.Portal";
 
+// ================ Tooltip.View ===============
+const TOOLTIP_VIEW_NAME = "TooltipView";
+interface TooltipViewProps extends PrimitivePropsWithRef<"div"> {}
+const TooltipView = forwardRef<React.ComponentRef<"div">, ScopedProps<TooltipViewProps>>((props, forwardedRef) => {
+  const { __scopeTooltip, ...viewProps } = props;
+  const { refs, context, getFloatingProps, floatingStyles, transitionStatus } = useTooltipContext(TOOLTIP_VIEW_NAME, __scopeTooltip);
+  const composedRefs = useComposedRefs(forwardedRef, refs.setFloating);
+  return (
+    <Primitive.div
+      ref={composedRefs}
+      {...getFloatingProps()}
+      {...viewProps}
+      style={floatingStyles}
+      data-status={transitionStatus}
+      data-state={context.open ? "open" : "closed"}
+    />
+  );
+});
+TooltipView.displayName = "Tooltip.View";
+
 // ================ Tooltip.Content ================
+
 const TOOLTIP_CONTENT_NAME = "TooltipContent";
 interface TooltipContentProps extends PrimitivePropsWithRef<"div"> {}
-const TooltipContent = forwardRef<React.ComponentRef<"div">, ScopedProps<TooltipContentProps>>(
-  (props, forwardedRef) => {
-    const { __scopeTooltip, ...contentProps } = props;
-    const { refs, context, getFloatingProps, floatingStyles, transitionStyle, transitionStatus } = useTooltipContext(
-      TOOLTIP_CONTENT_NAME,
-      __scopeTooltip,
-    );
-    const composedRefs = useComposedRefs(forwardedRef, refs.setFloating);
-    return (
-      <Primitive.div
-        ref={composedRefs}
-        {...getFloatingProps()}
-        style={floatingStyles}
-        data-status={transitionStatus}
-        data-state={context.open ? "open" : "closed"}
-      >
-        <Primitive.div
-          style={transitionStyle}
-          {...contentProps}
-          data-status={transitionStatus}
-          data-state={context.open ? "open" : "closed"}
-        />
-      </Primitive.div>
-    );
-  },
-);
+const TooltipContent = forwardRef<React.ComponentRef<"div">, ScopedProps<TooltipContentProps>>((props, forwardedRef) => {
+  const { __scopeTooltip, ...contentProps } = props;
+  const { context, transitionStyle, transitionStatus } = useTooltipContext(TOOLTIP_CONTENT_NAME, __scopeTooltip);
+  return (
+    <Primitive.div
+      ref={forwardedRef}
+      style={transitionStyle}
+      {...contentProps}
+      data-status={transitionStatus}
+      data-state={context.open ? "open" : "closed"}
+    />
+  );
+});
 TooltipContent.displayName = "Tooltip.Content";
 
 export const Tooltip = {
@@ -140,5 +146,6 @@ export const Tooltip = {
   Trigger: TooltipTrigger,
   Arrow: TooltipArrow,
   Portal: TooltipPortal,
+  View: TooltipView,
   Content: TooltipContent,
 };
