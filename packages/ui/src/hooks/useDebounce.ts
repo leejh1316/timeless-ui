@@ -16,20 +16,14 @@ const useDebounce = <T extends (...args: any[]) => any>(
     callbackRef.current = func;
   }, [func]);
 
-  useEffect(() => {
-    return () => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-    };
-  }, []);
-
   const cancel = useCallback(() => {
     if (timer.current) {
       clearTimeout(timer.current);
       timer.current = null;
     }
   }, []);
+
+  useEffect(() => cancel, []);
 
   const debounce = useCallback(
     (...args: Parameters<T>) => {
