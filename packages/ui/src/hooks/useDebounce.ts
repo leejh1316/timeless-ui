@@ -23,7 +23,7 @@ const useDebounce = <T extends (...args: any[]) => any>(
     }
   }, []);
 
-  useEffect(() => cancel, []);
+  useEffect(() => cancel, [cancel]);
 
   const debounce = useCallback(
     (...args: Parameters<T>) => {

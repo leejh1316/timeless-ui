@@ -25,7 +25,7 @@ const useThrottle = <T extends (...args: any[]) => any>(
     lastArgs.current = null;
   }, []);
 
-  useEffect(() => cancel, []);
+  useEffect(() => cancel, [cancel]);
 
   const throttle = useCallback(
     (...args: Parameters<T>) => {
