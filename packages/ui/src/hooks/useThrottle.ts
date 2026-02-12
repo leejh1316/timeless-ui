@@ -17,14 +17,6 @@ const useThrottle = <T extends (...args: any[]) => any>(
     callbackRef.current = func;
   }, [func]);
 
-  useEffect(() => {
-    return () => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-    };
-  }, []);
-
   const cancel = useCallback(() => {
     if (timer.current) {
       clearTimeout(timer.current);
@@ -33,35 +25,36 @@ const useThrottle = <T extends (...args: any[]) => any>(
     lastArgs.current = null;
   }, []);
 
+  useEffect(() => cancel, []);
+
   const throttle = useCallback(
     (...args: Parameters<T>) => {
       // 호출된 마지막 인자를 저장
       lastArgs.current = args;
 
-      // 타이머가 없을 때 함수 실행
-      if (!timer.current) {
-        if (leading) {
-          callbackRef.current(...args); // 첫 호출 실행
-          lastArgs.current = null; // 호출했기에 소모된 인자 초기화
-        }
+      if (timer.current) return;
 
-        // 타이머 재귀 설정
-        const loop = () => {
-          // setTimeout으로 인해 loop가 호출될때 마지막 인자가 남아있다면 trailing 옵션에 따라 실행
-          if (trailing && lastArgs.current) {
-            callbackRef.current(...lastArgs.current);
-            lastArgs.current = null;
-
-            // 다음 throttle 을 위해 타이머 재설정
-            timer.current = setTimeout(loop, wait);
-          } else {
-            timer.current = null;
-          }
-        };
-
-        // 최초 타이머 설정
-        timer.current = setTimeout(loop, wait);
+      if (leading) {
+        callbackRef.current(...args); // 첫 호출 실행
+        lastArgs.current = null; // 호출했기에 소모된 인자 초기화
       }
+
+      // 타이머 재귀 설정
+      const loop = () => {
+        // setTimeout으로 인해 loop가 호출될때 마지막 인자가 남아있다면 trailing 옵션에 따라 실행
+        if (trailing && lastArgs.current) {
+          callbackRef.current(...lastArgs.current);
+          lastArgs.current = null;
+
+          // 다음 throttle 을 위해 타이머 재설정
+          timer.current = setTimeout(loop, wait);
+        } else {
+          timer.current = null;
+        }
+      };
+
+      // 최초 타이머 설정
+      timer.current = setTimeout(loop, wait);
     },
     [wait, trailing, leading],
   );
