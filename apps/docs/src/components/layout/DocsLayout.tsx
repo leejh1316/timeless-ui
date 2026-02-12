@@ -13,7 +13,7 @@ const DocsLayout = () => {
         <Outlet />
       </main>
       <TOC.Root targetElement={contentRef}>
-        <TOC.Observer />
+        <TOC.Observer rootMargin="-64px 0px -15% 0px" />
         <OnThisPage className="sticky top-[calc(var(--h-header)+1px)] hidden h-[calc(100dvh-var(--h-header)-1px)] overflow-y-auto pt-5 md:col-span-2 xl:col-span-2 xl:block" />
       </TOC.Root>
     </div>
