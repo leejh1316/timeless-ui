@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { codeToHtml } from "shiki";
 import { Card } from "../ui/Card";
 import clsx from "clsx";
+import { CopyButton } from "./CopyButton";
 
 interface CodeBlockProps extends React.ComponentProps<"div"> {
   code: string;
@@ -23,6 +24,11 @@ const CodeBlock = ({ code, language = "tsx", className, ...props }: CodeBlockPro
     <Card className={clsx(className, "text-body-4 overflow-x-auto bg-[#282c34] p-5 tracking-normal")} {...props}>
       <div className="mb-1 flex items-center justify-between">
         <span className="font-code text-ink-tertiary text-caption-2 select-none font-semibold">{language.toUpperCase()}</span>
+        <CopyButton
+          text={code}
+          size="sm"
+          className="text-icon-tertiary hover:text-icon-white hover:bg-icon-tertiary/10 rounded-md transition-colors"
+        />
       </div>
       <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </Card>
