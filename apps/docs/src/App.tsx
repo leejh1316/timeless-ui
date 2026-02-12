@@ -4,7 +4,7 @@ import Header from "./components/layout/Header";
 function App() {
   return (
     <>
-      <div className="font-pretendard text-ink-primary scrollbar font-medium">
+      <div className="">
         <Header />
         <div className="max-w-page mx-auto min-h-[calc(100dvh-var(--h-header)-1px)] w-full px-5">
           <Outlet />
