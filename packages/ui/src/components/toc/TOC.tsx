@@ -1,6 +1,5 @@
-import { forwardRef, memo, useCallback, useEffect, useRef, useState } from "react";
-import { createContext } from "../../hooks";
-import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { createContext, useDebounce } from "../../hooks";
 
 // Types
 type TOCItem = {
@@ -41,65 +40,82 @@ const [TOCDispatchProvider, useTOCDispatchContext] = createContext<TOCDispatchCo
 const useHeadingsDiscovery = (targetElement: Element | null | undefined, searchTags: string[]) => {
   const [items, setItems] = useState<TOCItem[]>([]);
 
+  const scanHeadings = useCallback(() => {
+    const target = targetElement || (typeof document !== "undefined" ? document.body : null);
+    if (!target) return;
+    const selector = searchTags.join(",");
+
+    const elements = Array.from(target.querySelectorAll(selector)) as HTMLElement[];
+    const idList: { [key: string]: number } = {};
+
+    // 기존 ID 카운트 집계 (ID 중복 방지)
+    elements.forEach((el) => {
+      if (el.id) {
+        idList[el.id] = (idList[el.id] || 0) + 1;
+      }
+    });
+
+    const newItems = elements.map((el) => {
+      const text = el.textContent || "";
+
+      // ID 생성 및 주입 (기존 ID 유지)
+      if (!el.id) {
+        let newId = slugify(text);
+
+        if (idList[newId]) {
+          let count = 2;
+          while (idList[`${newId}-${count}`]) {
+            count++;
+          }
+          newId = `${newId}-${count}`;
+        }
+
+        idList[newId] = 1;
+        el.id = newId;
+      }
+
+      return {
+        id: el.id,
+        text: text,
+        level: parseInt(el.tagName.substring(1), 10),
+        element: el,
+      };
+    });
+
+    setItems((prev) => {
+      const isSame = prev.length === newItems.length && prev.every((p, i) => p.id === newItems[i].id);
+      return isSame ? prev : newItems;
+    });
+  }, [searchTags, targetElement]);
+
+  const [debouncedScan] = useDebounce(scanHeadings, 200);
+
   useEffect(() => {
+    debouncedScan();
+
     const target = targetElement || (typeof document !== "undefined" ? document.body : null);
     if (!target) return;
 
-    const selector = searchTags.join(",");
-
-    const scanHeadings = useCallback(() => {
-      const elements = Array.from(target.querySelectorAll(selector)) as HTMLElement[];
-      const idList: { [key: string]: number } = {};
-
-      const newItems = elements.map((el) => {
-        const text = el.textContent || "";
-
-        // ID 생성 및 주입 (기존 ID 유지)
-        if (!el.id) {
-          let newId = slugify(text);
-          if (idList[newId]) {
-            idList[newId]++;
-            newId = `${newId}-${idList[newId]}`;
-          } else {
-            idList[newId] = 1;
-          }
-          el.id = newId;
-        }
-
-        return {
-          id: el.id,
-          text: text,
-          level: parseInt(el.tagName.substring(1), 10),
-          element: el,
-        };
-      });
-
-      setItems((prev) => {
-        const isSame = prev.length === newItems.length && prev.every((p, i) => p.id === newItems[i].id);
-        return isSame ? prev : newItems;
-      });
-    }, [selector, target]);
-
-    scanHeadings();
-
     const observer = new MutationObserver((mutations) => {
-      let shouldUpdate = false;
-      for (const mutation of mutations) {
-        if (mutation.type === "childList") {
-          shouldUpdate = true;
-          break;
+      const isUpdated = mutations.some((mutation) => {
+        if (mutation.type === "childList") return true;
+        if (mutation.type === "characterData") {
+          const parent = mutation.target.parentElement as HTMLElement;
+          return parent && searchTags.includes(parent.tagName.toLowerCase());
         }
-      }
-      if (shouldUpdate) scanHeadings();
+        return false;
+      });
+      if (isUpdated) debouncedScan();
     });
 
     observer.observe(target, {
       childList: true,
       subtree: true,
+      characterData: true,
     });
 
     return () => observer.disconnect();
-  }, [targetElement, searchTags]);
+  }, [targetElement, searchTags, debouncedScan]);
 
   return items;
 };
@@ -124,7 +140,9 @@ const TOCRoot = ({ children, targetElement = null, searchTags = DEFAULT_SEARCH_T
 };
 TOCRoot.displayName = "TOC.Root";
 
-const TOCObserver = memo(() => {
+interface TOCObserverProps extends IntersectionObserverInit {}
+const TOCObserver = memo((props: TOCObserverProps) => {
+  const { root, rootMargin = "-10% 0px -80% 0px", threshold = 0 } = props;
   const { items } = useTOCStateContext("TOCObserver");
   const { setVisibleItemId, onActiveItemChange } = useTOCDispatchContext("TOCObserver");
 
@@ -133,11 +151,13 @@ const TOCObserver = memo(() => {
   const observerCallback = useCallback<IntersectionObserverCallback>(
     (entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting);
+      // 가장 상단에 위치한 보이는 항목을 활성화
       if (visible.length > 0) {
         const sorted = visible.sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
         setVisibleItemId(sorted[0].target.id);
 
-        onActiveItemChange?.(items.find((item) => item.id === sorted[0].target.id)!);
+        const activeItem = items.find((item) => item.id === sorted[0].target.id);
+        if (activeItem) onActiveItemChange?.(activeItem);
       }
     },
     [setVisibleItemId, onActiveItemChange, items],
@@ -147,8 +167,11 @@ const TOCObserver = memo(() => {
     if (items.length === 0) return;
 
     observerRef.current = new IntersectionObserver(observerCallback, {
-      rootMargin: "-64px 0px -70% 0px",
+      root,
+      rootMargin,
+      threshold,
     });
+
     items.forEach((item) => {
       item.element && observerRef.current?.observe(item.element);
     });
@@ -156,7 +179,7 @@ const TOCObserver = memo(() => {
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [observerCallback, items]);
+  }, [observerCallback, items, root, rootMargin, threshold]);
 
   return null;
 });
