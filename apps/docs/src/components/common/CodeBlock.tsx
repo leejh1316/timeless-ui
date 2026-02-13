@@ -26,7 +26,7 @@ const CodeBlock = ({ code, language = "tsx", className, ...props }: CodeBlockPro
         <span className="font-code text-ink-tertiary text-caption-2 select-none font-semibold">{language.toUpperCase()}</span>
         <CopyButton
           text={code}
-          size="sm"
+          size="xs"
           className="text-icon-tertiary hover:text-icon-white hover:bg-icon-tertiary/10 rounded-md transition-colors"
         />
       </div>
