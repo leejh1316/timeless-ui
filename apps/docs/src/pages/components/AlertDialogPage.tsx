@@ -1,3 +1,4 @@
+import { PropsTable } from "@src/components/common";
 import { AnatomyCard } from "@src/components/common/AnatomyCard";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { AlertDialog } from "@timeless-ui/ui";
@@ -202,32 +203,11 @@ interface PropRow {
   description: string;
 }
 
-const PropsTable = ({ title, data }: { title: string; data: PropRow[] }) => (
+const PropsTableComp = ({ title, data }: { title: string; data: PropRow[] }) => (
   <div>
     <h4 className="text-title-4 mb-3 font-semibold">{title}</h4>
     <div className="overflow-x-auto rounded-xl border border-neutral-200">
-      <table className="w-full text-left text-sm">
-        <thead>
-          <tr className="border-b border-neutral-200 bg-neutral-50">
-            <th className="px-4 py-3 font-semibold text-neutral-600">Prop</th>
-            <th className="px-4 py-3 font-semibold text-neutral-600">Type</th>
-            <th className="px-4 py-3 font-semibold text-neutral-600">Default</th>
-            <th className="px-4 py-3 font-semibold text-neutral-600">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row) => (
-            <tr key={row.name} className="border-b border-neutral-100 last:border-0">
-              <td className="px-4 py-3">
-                <InlineCode>{row.name}</InlineCode>
-              </td>
-              <td className="text-ink-secondary font-code px-4 py-3 text-[13px]">{row.type}</td>
-              <td className="text-ink-tertiary px-4 py-3">{row.defaultValue}</td>
-              <td className="text-ink-secondary px-4 py-3">{row.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <PropsTable rows={data} />
     </div>
   </div>
 );
@@ -427,13 +407,13 @@ const AlertDialogPage = () => {
         <SectionTitle id="api-reference">API Reference</SectionTitle>
 
         <SubSectionTitle id="root-props">Root</SubSectionTitle>
-        <PropsTable title="" data={rootProps} />
+        <PropsTableComp title="" data={rootProps} />
 
         <SubSectionTitle id="trigger-props">Trigger</SubSectionTitle>
         <p className="text-body-2 text-ink-secondary">
           <InlineCode>Button</InlineCode> 컴포넌트를 확장합니다. 모든 버튼 속성을 지원합니다.
         </p>
-        <PropsTable title="" data={triggerProps} />
+        <PropsTableComp title="" data={triggerProps} />
 
         <SubSectionTitle id="portal-props">Portal</SubSectionTitle>
         <p className="text-body-2 text-ink-secondary">
@@ -453,7 +433,7 @@ const AlertDialogPage = () => {
         </p>
 
         <SubSectionTitle id="cancel-action-props">Cancel / Action</SubSectionTitle>
-        <PropsTable title="" data={actionCancelProps} />
+        <PropsTableComp title="" data={actionCancelProps} />
       </section>
 
       {/* ─── Accessibility ─── */}
