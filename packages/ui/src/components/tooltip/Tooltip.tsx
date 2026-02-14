@@ -149,3 +149,5 @@ export const Tooltip = {
   View: TooltipView,
   Content: TooltipContent,
 };
+
+export type { TooltipRootProps, TooltipTriggerProps, TooltipArrowProps, TooltipPortalProps, TooltipViewProps, TooltipContentProps };
