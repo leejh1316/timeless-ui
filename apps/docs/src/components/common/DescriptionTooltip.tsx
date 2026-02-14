@@ -15,7 +15,9 @@ const DescriptionTooltip = ({ description, ...props }: DescriptionTooltipProps) 
       </Tooltip.Trigger>
       <Tooltip.Portal>
         <Tooltip.View className="z-50">
-          <Tooltip.Content className="text-ink-secondary text-body-3 max-w-72 bg-white p-3">{description}</Tooltip.Content>
+          <Tooltip.Content className="text-ink-secondary text-body-3 max-w-72 rounded-lg bg-white p-3 shadow-sm">
+            {description}
+          </Tooltip.Content>
         </Tooltip.View>
       </Tooltip.Portal>
     </Tooltip.Root>

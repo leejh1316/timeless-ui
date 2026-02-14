@@ -35,14 +35,22 @@ const BasicDemo = () => (
    ────────────────────────────────────────────── */
 
 const basicCode = `<AlertDialog.Root>
-  <AlertDialog.Trigger>삭제하기</AlertDialog.Trigger>
+  <AlertDialog.Trigger className="inline-flex h-10 items-center justify-center rounded-lg bg-neutral-900 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-neutral-800 active:bg-neutral-950">
+    삭제하기
+  </AlertDialog.Trigger>
   <AlertDialog.Portal>
-    <AlertDialog.Overlay />
-    <AlertDialog.Content>
-      <h3>정말 삭제하시겠습니까?</h3>
-      <p>이 작업은 되돌릴 수 없습니다.</p>
-      <AlertDialog.Cancel>취소</AlertDialog.Cancel>
-      <AlertDialog.Action>삭제</AlertDialog.Action>
+    <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
+    <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
+      <h3 className="text-title-3 font-semibold">정말 삭제하시겠습니까?</h3>
+      <p className="text-body-2 text-ink-secondary mt-2">이 작업은 되돌릴 수 없습니다. 데이터가 영구적으로 삭제됩니다.</p>
+      <div className="mt-6 flex justify-end gap-1">
+        <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
+          취소
+        </AlertDialog.Cancel>
+        <AlertDialog.Action className="inline-flex h-9 items-center justify-center rounded-lg bg-red-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-red-700">
+          삭제
+        </AlertDialog.Action>
+      </div>
     </AlertDialog.Content>
   </AlertDialog.Portal>
 </AlertDialog.Root>`;
