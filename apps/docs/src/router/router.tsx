@@ -1,7 +1,7 @@
 import App from "@src/App";
 import Home from "@src/pages/Home";
 import DocsLayout from "@src/components/layout/DocsLayout";
-import AlertDialogPage from "@src/pages/components/AlertDialogPage";
+import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
 
