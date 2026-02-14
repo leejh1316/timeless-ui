@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { InlineCode } from "../ui/InlineCode";
 import { Tooltip } from "../ui/Tooltip";
 import IconButton from "../ui/IconButton";
-import { Table } from "../ui/table";
+import { Table } from "../ui/Table";
 
 type PropsTableRow = {
   name: string;
@@ -36,7 +36,7 @@ const PropsTable = forwardRef<React.ComponentRef<"table">, PropsTableProps>(({ r
             </Table.Cell>
             <Table.Cell className="items-start">
               <Table.CellLabel className="mt-0.5">Type</Table.CellLabel>
-              <div className="break-all">{type}</div>
+              <div className="font-code break-all">{type}</div>
             </Table.Cell>
             <Table.Cell>
               <Table.CellLabel>Default</Table.CellLabel>

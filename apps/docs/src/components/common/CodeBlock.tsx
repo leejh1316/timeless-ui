@@ -21,7 +21,7 @@ const CodeBlock = ({ code, language = "tsx", className, ...props }: CodeBlockPro
   }, [code, language]);
 
   return (
-    <Card className={clsx(className, "text-body-4 overflow-x-auto bg-[#282c34] p-5 tracking-normal")} {...props}>
+    <Card className={clsx(className, "text-body-4 bg-[#282c34] p-5 tracking-normal")} {...props}>
       <div className="mb-1 flex items-center justify-between">
         <span className="font-code text-ink-tertiary text-caption-2 select-none font-semibold">{language.toUpperCase()}</span>
         <CopyButton
@@ -30,7 +30,9 @@ const CodeBlock = ({ code, language = "tsx", className, ...props }: CodeBlockPro
           className="text-icon-tertiary hover:text-icon-white hover:bg-icon-tertiary/10 rounded-md transition-colors"
         />
       </div>
-      <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+      <div className="overflow-x-auto pb-2">
+        <div className="" dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+      </div>
     </Card>
   );
 };

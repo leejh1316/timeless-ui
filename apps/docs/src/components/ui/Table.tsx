@@ -1,10 +1,11 @@
 import clsx from "clsx";
 import * as React from "react";
+import { Card } from "./Card";
 
 const TableRoot = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <Card className="relative w-full overflow-auto">
     <table ref={ref} className={clsx("text-body-3 w-full caption-bottom text-left", className)} {...props} />
-  </div>
+  </Card>
 ));
 TableRoot.displayName = "Table.Root";
 

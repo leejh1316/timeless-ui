@@ -10,7 +10,7 @@ const AnatomyCard = ({ description, title }: AnatomyCardProps) => {
       <div className="bg-icon-primary mt-1 h-2 w-2 shrink-0 rounded-full md:mt-1.5" />
       <div>
         <p className="font-code text-body-3 font-semibold">{title}</p>
-        <p className="text-body-4 text-ink-tertiary mt-0.5">{description}</p>
+        <p className="text-body-3 text-ink-tertiary mt-0.5">{description}</p>
       </div>
     </Card>
   );
