@@ -50,3 +50,4 @@ const PropsTable = forwardRef<React.ComponentRef<"table">, PropsTableProps>(({ r
 PropsTable.displayName = "PropsTable";
 
 export { PropsTable };
+export type { PropsTableRow, PropsTableProps };
