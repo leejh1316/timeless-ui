@@ -4,6 +4,7 @@ import DocsLayout from "@src/components/layout/DocsLayout";
 import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
+import PageNotFound from "@src/pages/errors/PageNotFound";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -56,10 +57,10 @@ export const routes: RouteObject[] = [
       },
     ],
   },
-  // {
-  //   path: `${PATH.NOT_FOUND}`,
-  //   element: null,
-  // },
+  {
+    path: `${PATH.NOT_FOUND}`,
+    element: <PageNotFound />,
+  },
 ];
 
 const router = createBrowserRouter(routes);
