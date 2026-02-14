@@ -24,7 +24,7 @@ TableBody.displayName = "Table.Body";
 const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
   <tr
     ref={ref}
-    className={clsx("border-line-regular text-ink-secondary flex flex-col border-b py-3 transition-colors md:table-row md:py-0", className)}
+    className={clsx("border-line-light text-ink-secondary flex flex-col border-b py-3 transition-colors md:table-row md:py-0", className)}
     {...props}
   />
 ));
