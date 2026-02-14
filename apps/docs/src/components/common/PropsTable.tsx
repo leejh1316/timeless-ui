@@ -1,9 +1,8 @@
 import clsx from "clsx";
 import { forwardRef } from "react";
 import { InlineCode } from "../ui/InlineCode";
-import { Tooltip } from "../ui/Tooltip";
-import IconButton from "../ui/IconButton";
 import { Table } from "../ui/Table";
+import { DescriptionTooltip } from "./DescriptionTooltip";
 
 type PropsTableRow = {
   name: string;
@@ -49,26 +48,5 @@ const PropsTable = forwardRef<React.ComponentRef<"table">, PropsTableProps>(({ r
   );
 });
 PropsTable.displayName = "PropsTable";
-interface DescriptionTooltipProps {
-  description?: string;
-}
-const DescriptionTooltip = ({ description }: DescriptionTooltipProps) => {
-  if (!description) {
-    return null;
-  }
-  return (
-    <Tooltip.Root placement="top">
-      <Tooltip.Trigger asChild>
-        <IconButton name="info" size="tiny" className="rounded-md transition-colors hover:bg-neutral-100" />
-      </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <Tooltip.View className="z-50">
-          <Tooltip.Content className="text-ink-secondary text-body-3 max-w-72 bg-white p-3">{description}</Tooltip.Content>
-        </Tooltip.View>
-      </Tooltip.Portal>
-    </Tooltip.Root>
-  );
-};
-DescriptionTooltip.displayName = "DescriptionTooltip";
 
 export { PropsTable };
