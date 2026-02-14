@@ -1,5 +1,5 @@
 import { Document } from "@src/components/ui/Document";
-import { AnatomyCard } from "@src/components/common/AnatomyCard";
+import { AnatomyCard, AnatomyCardGroup } from "@src/components/common/AnatomyCard";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 
 /* ──────────────────────────────────────────────
@@ -51,17 +51,17 @@ const anatomyCode = `import { AlertDialog } from "@timeless-ui/ui";
 
 const CompoundStructureSection = () => (
   <section>
-    <Document.Heading1>컴파운드 컴포넌트 구조</Document.Heading1>
+    <Document.Heading1>컴포넌트 구조</Document.Heading1>
     <Document.Paragraph mb={6}>
       AlertDialog는 Compound Component 패턴으로 설계되어, 각 하위 컴포넌트를 조합하여 유연하게 구성할 수 있습니다. 아래는 AlertDialog를
       구성하는 모든 하위 컴포넌트의 역할입니다.
     </Document.Paragraph>
 
-    <div className="mb-8 grid gap-3 sm:grid-cols-2">
+    <AnatomyCardGroup>
       {anatomyItems.map((item) => (
         <AnatomyCard key={item.name} title={item.name} description={item.desc} />
       ))}
-    </div>
+    </AnatomyCardGroup>
 
     {/* 기본적인 구조 사용법 */}
     <Document.Heading2>기본적인 구조 사용법</Document.Heading2>

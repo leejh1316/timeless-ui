@@ -17,4 +17,10 @@ const AnatomyCard = ({ description, title }: AnatomyCardProps) => {
 };
 AnatomyCard.displayName = "AnatomyCard";
 
-export { AnatomyCard };
+// AnatomyCard 컴포넌트를 그룹화하는 레이아웃 컴포넌트
+const AnatomyCardGroup = ({ children }: { children: React.ReactNode }) => {
+  return <div className="mb-8 grid gap-3 sm:grid-cols-2">{children}</div>;
+};
+AnatomyCardGroup.displayName = "AnatomyCardGroup";
+
+export { AnatomyCard, AnatomyCardGroup };
