@@ -95,6 +95,11 @@
   }
 }
 
+@utility font-code {
+  font-family: var(--font-code);
+  letter-spacing: 0em !important;
+}
+
 /* Display */
 @utility text-display-1 {
   font-size: var(--size-text-display-1);
