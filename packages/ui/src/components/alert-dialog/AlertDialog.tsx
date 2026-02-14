@@ -35,7 +35,7 @@ const AlertDialogRoot = (props: ScopedProps<AlertDialogProps>) => {
     open,
     defaultOpen,
     onOpenChange,
-    lockScroll,
+    lockScroll = true,
     isDismissable = true,
     onCloseAfter = () => {},
   } = props;
