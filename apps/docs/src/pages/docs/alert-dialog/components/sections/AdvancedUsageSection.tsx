@@ -18,11 +18,11 @@ const ControlledDemo = () => {
           구독 취소
         </AlertDialog.Trigger>
         <AlertDialog.Portal>
-          <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
+          <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
           <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
             <h3 className="text-title-3 font-semibold">구독을 취소하시겠습니까?</h3>
             <p className="text-body-2 text-ink-secondary mt-2">현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
-            <div className="mt-6 flex justify-end gap-3">
+            <div className="mt-6 flex justify-end gap-1">
               <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
                 유지하기
               </AlertDialog.Cancel>
@@ -40,6 +40,21 @@ const ControlledDemo = () => {
   );
 };
 
+const controlledCode = `const [open, setOpen] = useState(false);
+
+<AlertDialog.Root open={open} onOpenChange={setOpen}>
+  <AlertDialog.Trigger>구독 취소</AlertDialog.Trigger>
+  <AlertDialog.Portal>
+    <AlertDialog.Overlay />
+    <AlertDialog.Content>
+      <h3>구독을 취소하시겠습니까?</h3>
+      <p>현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
+      <AlertDialog.Cancel>유지하기</AlertDialog.Cancel>
+      <AlertDialog.Action>구독 취소</AlertDialog.Action>
+    </AlertDialog.Content>
+  </AlertDialog.Portal>
+</AlertDialog.Root>`;
+
 /* ──────────────────────────────────────────────
    Demo: Async Action
    ────────────────────────────────────────────── */
@@ -55,7 +70,7 @@ const AsyncActionDemo = () => {
   };
 
   return (
-    <AlertDialog.Root>
+    <AlertDialog.Root isDismissable={!loading}>
       <AlertDialog.Trigger className="inline-flex h-10 items-center justify-center rounded-lg bg-amber-500 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-600 active:bg-amber-700">
         계정 비활성화
       </AlertDialog.Trigger>
@@ -64,7 +79,7 @@ const AsyncActionDemo = () => {
         <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
           <h3 className="text-title-3 font-semibold">계정을 비활성화하시겠습니까?</h3>
           <p className="text-body-2 text-ink-secondary mt-2">비활성화 후 30일 이내에 다시 활성화할 수 있습니다.</p>
-          <div className="mt-6 flex justify-end gap-3">
+          <div className="mt-6 flex justify-end gap-1">
             <AlertDialog.Cancel
               disabled={loading}
               className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
@@ -94,6 +109,28 @@ const AsyncActionDemo = () => {
     </AlertDialog.Root>
   );
 };
+const asyncCode = `const [loading, setLoading] = useState(false);
+
+const handleAction = async (e: React.MouseEvent) => {
+  e.preventDefault(); // 자동 닫힘 방지
+  setLoading(true);
+  await someAsyncOperation();
+  setLoading(false);
+};
+
+<AlertDialog.Root isDismissable={!loading}>
+  <AlertDialog.Trigger>계정 비활성화</AlertDialog.Trigger>
+  <AlertDialog.Portal>
+    <AlertDialog.Overlay />
+    <AlertDialog.Content>
+      <h3>계정을 비활성화하시겠습니까?</h3>
+      <AlertDialog.Cancel disabled={loading}>취소</AlertDialog.Cancel>
+      <AlertDialog.Action onClick={handleAction} disabled={loading}>
+        {loading ? "처리 중..." : "비활성화"}
+      </AlertDialog.Action>
+    </AlertDialog.Content>
+  </AlertDialog.Portal>
+</AlertDialog.Root>`;
 
 /* ──────────────────────────────────────────────
    Demo: Non-dismissable
@@ -109,7 +146,7 @@ const NonDismissableDemo = () => (
       <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,440px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
         <h3 className="text-title-3 font-semibold">서비스 이용약관에 동의해 주세요</h3>
         <p className="text-body-2 text-ink-secondary mt-2">서비스를 이용하려면 약관에 동의해야 합니다. 외부 클릭으로 닫을 수 없습니다.</p>
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-6 flex justify-end gap-1">
           <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
             거부
           </AlertDialog.Cancel>
@@ -121,49 +158,6 @@ const NonDismissableDemo = () => (
     </AlertDialog.Portal>
   </AlertDialog.Root>
 );
-
-/* ──────────────────────────────────────────────
-   Code Snippets
-   ────────────────────────────────────────────── */
-
-const controlledCode = `const [open, setOpen] = useState(false);
-
-<AlertDialog.Root open={open} onOpenChange={setOpen}>
-  <AlertDialog.Trigger>구독 취소</AlertDialog.Trigger>
-  <AlertDialog.Portal>
-    <AlertDialog.Overlay />
-    <AlertDialog.Content>
-      <h3>구독을 취소하시겠습니까?</h3>
-      <p>현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
-      <AlertDialog.Cancel>유지하기</AlertDialog.Cancel>
-      <AlertDialog.Action>구독 취소</AlertDialog.Action>
-    </AlertDialog.Content>
-  </AlertDialog.Portal>
-</AlertDialog.Root>`;
-
-const asyncCode = `const [loading, setLoading] = useState(false);
-
-const handleAction = async (e: React.MouseEvent) => {
-  e.preventDefault(); // 자동 닫힘 방지
-  setLoading(true);
-  await someAsyncOperation();
-  setLoading(false);
-};
-
-<AlertDialog.Root>
-  <AlertDialog.Trigger>계정 비활성화</AlertDialog.Trigger>
-  <AlertDialog.Portal>
-    <AlertDialog.Overlay />
-    <AlertDialog.Content>
-      <h3>계정을 비활성화하시겠습니까?</h3>
-      <AlertDialog.Cancel disabled={loading}>취소</AlertDialog.Cancel>
-      <AlertDialog.Action onClick={handleAction} disabled={loading}>
-        {loading ? "처리 중..." : "비활성화"}
-      </AlertDialog.Action>
-    </AlertDialog.Content>
-  </AlertDialog.Portal>
-</AlertDialog.Root>`;
-
 const nonDismissableCode = `<AlertDialog.Root isDismissable={false}>
   <AlertDialog.Trigger>약관 동의</AlertDialog.Trigger>
   <AlertDialog.Portal>
