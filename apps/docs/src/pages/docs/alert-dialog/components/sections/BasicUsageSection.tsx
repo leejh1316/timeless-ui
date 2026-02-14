@@ -17,7 +17,7 @@ const BasicDemo = () => (
       <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
         <h3 className="text-title-3 font-semibold">정말 삭제하시겠습니까?</h3>
         <p className="text-body-2 text-ink-secondary mt-2">이 작업은 되돌릴 수 없습니다. 데이터가 영구적으로 삭제됩니다.</p>
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-6 flex justify-end gap-1">
           <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
             취소
           </AlertDialog.Cancel>
