@@ -86,12 +86,12 @@ Root.displayName = "Document.Root";
 
 /* ────────────────────────────────────────────────────────────
  * Title — <h1>
- * text-headline-2, font-semibold, ink-primary
+ * text-headline-1, font-semibold, ink-primary
  * 기본 간격: mb-4
  * ──────────────────────────────────────────────────────────── */
 
 const Title = forwardRef<HTMLHeadingElement, DocumentTitleProps>(({ className, mt, mb = 4, ...props }, ref) => (
-  <h1 ref={ref} className={clsx("text-headline-2 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h1 ref={ref} className={clsx("text-headline-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
 ));
 Title.displayName = "Document.Title";
 
@@ -113,7 +113,7 @@ Description.displayName = "Document.Description";
  * ──────────────────────────────────────────────────────────── */
 
 const Heading1 = forwardRef<HTMLHeadingElement, DocumentHeading1Props>(({ className, mt = 12, mb = 4, ...props }, ref) => (
-  <h2 ref={ref} className={clsx("text-title-2 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h2 ref={ref} className={clsx("text-title-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
 ));
 Heading1.displayName = "Document.Heading1";
 
