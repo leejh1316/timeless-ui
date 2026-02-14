@@ -26,11 +26,11 @@ const AttributeTable = ({ rows, ...props }: AttributeTableProps) => {
               <Table.CellLabel>Attribute</Table.CellLabel>
               <InlineCode>[{name}]</InlineCode>
             </Table.Cell>
-            <Table.Cell>
-              <Table.CellLabel className="mt-0.5">Value</Table.CellLabel>
+            <Table.Cell className="items-stretch">
+              <Table.CellLabel>Value</Table.CellLabel>
               <div className="font-code">{value}</div>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className="items-stretch">
               <Table.CellLabel>Description</Table.CellLabel>
               <div>{description || "—"}</div>
             </Table.Cell>

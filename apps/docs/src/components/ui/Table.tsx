@@ -41,7 +41,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
 TableCell.displayName = "Table.Cell";
 
 const TableCellLabel = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(({ className, ...props }, ref) => (
-  <span ref={ref} className={clsx("text-ink-tertiary min-w-14 font-medium md:hidden", className)} {...props} />
+  <span ref={ref} className={clsx("text-ink-tertiary min-w-16 font-medium md:hidden", className)} {...props} />
 ));
 TableCellLabel.displayName = "Table.CellLabel";
 

@@ -33,11 +33,11 @@ const PropsTable = forwardRef<React.ComponentRef<"table">, PropsTableProps>(({ r
                 <DescriptionTooltip description={description} />
               </div>
             </Table.Cell>
-            <Table.Cell className="items-start">
-              <Table.CellLabel className="mt-0.5">Type</Table.CellLabel>
-              <div className="font-code break-all">{type}</div>
+            <Table.Cell className="items-stretch">
+              <Table.CellLabel>Type</Table.CellLabel>
+              <div className="font-code">{type}</div>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className="items-stretch">
               <Table.CellLabel>Default</Table.CellLabel>
               <div className="font-code">{defaultValue || "—"}</div>
             </Table.Cell>
