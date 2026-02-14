@@ -26,13 +26,17 @@ const OnThisPage = forwardRef<React.ComponentRef<"aside">, React.ComponentProps<
     if (hash) {
       const element = document.getElementById(decodeURIComponent(hash.replace("#", "")));
       if (element) {
-        element.scrollIntoView();
+        const headerHeight = getComputedStyle(document.documentElement).getPropertyValue("--h-header").trim();
+        const offset = 12;
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY - parseInt(headerHeight) - offset,
+        });
       }
     }
   }, [hash]);
 
   useEffect(() => {
-    // 페이지가 바뀌면 스크롤을 맨 위로 이동
+    // 페이지가 바뀌면 내부 스크롤을 맨 위로 이동
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({ top: 0 });
     }
