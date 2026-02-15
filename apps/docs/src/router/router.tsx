@@ -2,6 +2,7 @@ import App from "@src/App";
 import Home from "@src/pages/Home";
 import DocsLayout from "@src/components/layout/DocsLayout";
 import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
+import AccordionPage from "@src/pages/docs/accordion/AccordionPage";
 import BreakpointPage from "@src/pages/docs/breakpoint/BreakpointPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
@@ -31,6 +32,7 @@ export const PAGE_ROUTES: RouteCategory = {
   components: {
     title: "Components",
     routes: [
+      { path: "/docs/accordion", element: <AccordionPage />, name: "Accordion" },
       { path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" },
       { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
     ],
