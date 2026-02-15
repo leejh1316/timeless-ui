@@ -63,12 +63,13 @@ export function useBreakpoint<T extends HTMLElement = HTMLDivElement>({
   // Breakpoint 컴포넌트의 로직을 훅 내부로 이동
 
   // 1. 브레이크포인트 키를 값(width) 기준으로 오름차순 정렬
-  const sortedBreakpointKeys = useMemo(
-    () => Object.keys(breakpoints).sort((a, b) => breakpoints[a] - breakpoints[b]),
-    [breakpoints],
-  );
+  const sortedBreakpointKeys = useMemo(() => Object.keys(breakpoints).sort((a, b) => breakpoints[a] - breakpoints[b]), [breakpoints]);
 
   // 2. 쿼리(only, up, down)를 기반으로 렌더링 여부(matches) 계산
+  // CSS media query와 동일한 동작:
+  // - up="md": @media (min-width: 768px) → width >= 768
+  // - down="md": @media (max-width: 767px) → width < 768 (md 미만)
+  // - only="md": @media (min-width: 768px) and (max-width: 1023px) → 768 <= width < 1024
   const matches = useMemo(() => {
     if (only) {
       return activeBreakpoint === only;
@@ -78,14 +79,16 @@ export function useBreakpoint<T extends HTMLElement = HTMLDivElement>({
 
     if (up) {
       const upIndex = sortedBreakpointKeys.indexOf(up);
-      // activeIndex가 -1 (즉, 'sm'보다 작음)일 경우, upIndex가 0('sm') 이상이면 항상 false
+      // width >= breakpoints[up]와 동일
+      // activeIndex가 -1 (첫 번째 브레이크포인트 미만)일 경우 false
       return activeIndex >= upIndex;
     }
 
     if (down) {
       const downIndex = sortedBreakpointKeys.indexOf(down);
-      // activeIndex가 -1일 경우, 항상 downIndex보다 작거나 같으므로 true (sm 미만은 'sm down'에 포함)
-      return activeIndex <= downIndex;
+      // width < breakpoints[down]와 동일 (down 브레이크포인트 미만)
+      // CSS의 max-width: breakpoint - 1px와 동일한 동작
+      return activeIndex < downIndex;
     }
 
     // 쿼리가 없으면 항상 true
