@@ -24,8 +24,7 @@ type CalendarContextType = {
 const [CalendarProvider, useCalendarContext] = createCalendarContext<CalendarContextType>(CALENDAR_NAME);
 
 // ================ Calendar.Root ================
-interface CalendarRootProps {
-  children: React.ReactNode;
+interface CalendarRootProps extends PrimitivePropsWithRef<"div"> {
   date?: Date;
   defaultDate?: Date;
   formatStr?: string;
@@ -43,6 +42,7 @@ const CalendarRoot = memo((props: ScopedProps<CalendarRootProps>) => {
     locale = ko,
     onMonthChange,
     onYearChange,
+    ...otherProps
   } = props;
   const [controllableDate, setControllableDate] = useControllableState({
     value: date,
@@ -63,7 +63,7 @@ const CalendarRoot = memo((props: ScopedProps<CalendarRootProps>) => {
       onMonthChange={setControllableDate}
       onYearChange={onYearChange}
     >
-      {children}
+      <Primitive.div {...otherProps}>{children}</Primitive.div>
     </CalendarProvider>
   );
 });
@@ -182,41 +182,37 @@ CalendarMonth.displayName = "Calendar.Month";
 
 // ================ Calendar.Prev ================
 interface CalendarPrevProps extends PrimitivePropsWithRef<"button"> {}
-const CalendarPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarPrevProps>>(
-  (props, forwardedRef) => {
-    const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
-    const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarPrev", __scopeCalendar);
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return;
-      const prevDate = subMonths(date, 1);
-      if (!isSameYear(prevDate, date)) {
-        onYearChange?.(prevDate);
-      }
-      onMonthChange(prevDate);
-      onClick?.(e);
-    };
-    return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
-  },
-);
+const CalendarPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarPrevProps>>((props, forwardedRef) => {
+  const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
+  const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarPrev", __scopeCalendar);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (disabled) return;
+    const prevDate = subMonths(date, 1);
+    if (!isSameYear(prevDate, date)) {
+      onYearChange?.(prevDate);
+    }
+    onMonthChange(prevDate);
+    onClick?.(e);
+  };
+  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
+});
 CalendarPrev.displayName = "Calendar.Prev";
 // ================ Calendar.Next ================
 interface CalendarNextProps extends PrimitivePropsWithRef<"button"> {}
-const CalendarNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarNextProps>>(
-  (props, forwardedRef) => {
-    const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
-    const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarNext", __scopeCalendar);
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return;
-      const nextDate = addMonths(date, 1);
-      if (!isSameYear(nextDate, date)) {
-        onYearChange?.(nextDate);
-      }
-      onMonthChange(nextDate);
-      onClick?.(e);
-    };
-    return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
-  },
-);
+const CalendarNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarNextProps>>((props, forwardedRef) => {
+  const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
+  const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarNext", __scopeCalendar);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (disabled) return;
+    const nextDate = addMonths(date, 1);
+    if (!isSameYear(nextDate, date)) {
+      onYearChange?.(nextDate);
+    }
+    onMonthChange(nextDate);
+    onClick?.(e);
+  };
+  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
+});
 CalendarNext.displayName = "Calendar.Next";
 
 // ================ Export ================
