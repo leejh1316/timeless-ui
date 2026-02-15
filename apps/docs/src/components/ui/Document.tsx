@@ -91,7 +91,12 @@ Root.displayName = "Document.Root";
  * ──────────────────────────────────────────────────────────── */
 
 const Title = forwardRef<HTMLHeadingElement, DocumentTitleProps>(({ className, mt, mb = 4, ...props }, ref) => (
-  <h1 ref={ref} className={clsx("text-headline-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h1
+    ref={ref}
+    data-document-element="title"
+    className={clsx("text-headline-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Title.displayName = "Document.Title";
 
@@ -102,7 +107,12 @@ Title.displayName = "Document.Title";
  * ──────────────────────────────────────────────────────────── */
 
 const Description = forwardRef<HTMLParagraphElement, DocumentDescriptionProps>(({ className, mt, mb = 8, ...props }, ref) => (
-  <p ref={ref} className={clsx("text-body-1 text-ink-secondary font-normal", spacingCls(mt, mb), className)} {...props} />
+  <p
+    ref={ref}
+    data-document-element="description"
+    className={clsx("text-body-1 text-ink-secondary font-normal", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Description.displayName = "Document.Description";
 
@@ -113,7 +123,12 @@ Description.displayName = "Document.Description";
  * ──────────────────────────────────────────────────────────── */
 
 const Heading1 = forwardRef<HTMLHeadingElement, DocumentHeading1Props>(({ className, mt = 12, mb = 4, ...props }, ref) => (
-  <h2 ref={ref} className={clsx("text-title-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h2
+    ref={ref}
+    data-document-element="heading1"
+    className={clsx("text-title-1 text-ink-primary font-semibold", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Heading1.displayName = "Document.Heading1";
 
@@ -124,7 +139,12 @@ Heading1.displayName = "Document.Heading1";
  * ──────────────────────────────────────────────────────────── */
 
 const Heading2 = forwardRef<HTMLHeadingElement, DocumentHeading2Props>(({ className, mt = 8, mb = 3, ...props }, ref) => (
-  <h3 ref={ref} className={clsx("text-title-3 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h3
+    ref={ref}
+    data-document-element="heading2"
+    className={clsx("text-title-3 text-ink-primary font-semibold", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Heading2.displayName = "Document.Heading2";
 
@@ -135,7 +155,12 @@ Heading2.displayName = "Document.Heading2";
  * ──────────────────────────────────────────────────────────── */
 
 const Heading3 = forwardRef<HTMLHeadingElement, DocumentHeading3Props>(({ className, mt = 6, mb = 2, ...props }, ref) => (
-  <h4 ref={ref} className={clsx("text-title-4 text-ink-primary font-semibold", spacingCls(mt, mb), className)} {...props} />
+  <h4
+    ref={ref}
+    data-document-element="heading3"
+    className={clsx("text-title-4 text-ink-primary font-semibold", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Heading3.displayName = "Document.Heading3";
 
@@ -146,7 +171,12 @@ Heading3.displayName = "Document.Heading3";
  * ──────────────────────────────────────────────────────────── */
 
 const Paragraph = forwardRef<HTMLParagraphElement, DocumentParagraphProps>(({ className, mt, mb = 4, ...props }, ref) => (
-  <p ref={ref} className={clsx("text-body-1 text-ink-secondary font-normal", spacingCls(mt, mb), className)} {...props} />
+  <p
+    ref={ref}
+    data-document-element="paragraph"
+    className={clsx("text-body-1 text-ink-secondary font-normal", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Paragraph.displayName = "Document.Paragraph";
 
@@ -157,7 +187,12 @@ Paragraph.displayName = "Document.Paragraph";
  * ──────────────────────────────────────────────────────────── */
 
 const Divider = forwardRef<HTMLHRElement, DocumentDividerProps>(({ className, mt = 8, mb = 8, ...props }, ref) => (
-  <hr ref={ref} className={clsx("border-line-regular border-t", spacingCls(mt, mb), className)} {...props} />
+  <hr
+    ref={ref}
+    data-document-element="divider"
+    className={clsx("border-line-regular border-t", spacingCls(mt, mb), className)}
+    {...props}
+  />
 ));
 Divider.displayName = "Document.Divider";
 
