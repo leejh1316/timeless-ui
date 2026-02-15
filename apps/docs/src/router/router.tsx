@@ -1,14 +1,15 @@
 import App from "@src/App";
-import Home from "@src/pages/Home";
 import DocsLayout from "@src/components/layout/DocsLayout";
-import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
 import AccordionPage from "@src/pages/docs/accordion/AccordionPage";
+import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
 import BreakpointPage from "@src/pages/docs/breakpoint/BreakpointPage";
 import ButtonPage from "@src/pages/docs/button/ButtonPage";
-import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
+import Home from "@src/pages/Home";
 
-import { createBrowserRouter, RouteObject } from "react-router";
+import DatePickerPage from "@src/pages/docs/date-picker/DatePickerPage";
 import PageNotFound from "@src/pages/errors/PageNotFound";
+import { createBrowserRouter, RouteObject } from "react-router";
+import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -39,6 +40,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
       { path: "/docs/button", element: <ButtonPage />, name: "Button" },
       { path: "/docs/calendar", element: <CalendarPage />, name: "Calendar" },
+      { path: "/docs/date-picker", element: <DatePickerPage />, name: "DatePicker" },
     ],
   },
 };
