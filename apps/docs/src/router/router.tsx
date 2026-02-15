@@ -10,6 +10,7 @@ import DatePickerPage from "@src/pages/docs/date-picker/DatePickerPage";
 import PageNotFound from "@src/pages/errors/PageNotFound";
 import { createBrowserRouter, RouteObject } from "react-router";
 import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
+import CarouselPage from "@src/pages/docs/carousel/CarouselPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -39,6 +40,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" },
       { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
       { path: "/docs/button", element: <ButtonPage />, name: "Button" },
+      { path: "/docs/carousel", element: <CarouselPage />, name: "Carousel" },
       { path: "/docs/calendar", element: <CalendarPage />, name: "Calendar" },
       { path: "/docs/date-picker", element: <DatePickerPage />, name: "DatePicker" },
     ],
