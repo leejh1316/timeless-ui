@@ -21,8 +21,8 @@ const AccordionPage = () => (
 
     {/* ─── Sections ─── */}
     <BasicUsageSection />
-    <ApiSpecSection />
     <CompoundStructureSection />
+    <ApiSpecSection />
     <ExampleSection />
   </Document.Root>
 );

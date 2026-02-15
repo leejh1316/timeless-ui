@@ -21,8 +21,8 @@ const AlertDialogPage = () => (
 
     {/* ─── Sections ─── */}
     <BasicUsageSection />
-    <ApiSpecSection />
     <CompoundStructureSection />
+    <ApiSpecSection />
     <ExampleSection />
   </Document.Root>
 );
