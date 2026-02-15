@@ -114,20 +114,20 @@ const TargetRefDemo = () => {
         style={{ minWidth: "200px", maxWidth: "100%", minHeight: "100px" }}
       >
         <p className="text-body-3 text-ink-secondary mb-3">
-          우측 하단을 드래그하여 크기를 조절하세요
-          <div>사이즈: {size.width}px</div>
+          우측 하단을 드래그하여 크기를 조절하세요 <br />
+          <span>사이즈: {size.width}px</span>
         </p>
 
         <div className="space-y-2">
           <Breakpoint targetRef={containerRef} breakpoints={customBreakpoints} up="md">
             <div className="rounded-lg bg-neutral-100 p-3">
-              <p className="text-body-3 font-medium">컨테이너 너비 ≥400px</p>
+              <p className="text-body-3 font-medium">컨테이너 너비 ≥400px (md 이상)</p>
             </div>
           </Breakpoint>
 
           <Breakpoint targetRef={containerRef} breakpoints={customBreakpoints} down="md">
             <div className="rounded-lg bg-neutral-100 p-3">
-              <p className="text-body-3 font-medium">컨테이너 너비 {"<"}400px</p>
+              <p className="text-body-3 font-medium">컨테이너 너비 {"<"}400px (md 미만)</p>
             </div>
           </Breakpoint>
         </div>

@@ -1,37 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PropsTable, PropsTableRow } from "@src/components/common/PropsTable";
 import { AttributeTable, AttributeTableRow } from "@src/components/common/AttributeTable";
-
-const ApiSpecSection = () => (
-  <section>
-    <Document.Heading1>API 명세</Document.Heading1>
-    <Document.Paragraph mb={8}>Accordion 컴포넌트의 Props와 속성에 대한 상세 명세입니다.</Document.Paragraph>
-
-    <Document.Heading2>Accordion.Root</Document.Heading2>
-    <Document.Paragraph>모든 Accordion 항목을 감싸는 최상위 컨테이너입니다.</Document.Paragraph>
-    <PropsTable rows={rootProps} />
-
-    <Document.Heading2>Accordion.Item</Document.Heading2>
-    <Document.Paragraph>개별 접이식 항목을 정의합니다.</Document.Paragraph>
-    <PropsTable rows={itemProps} />
-
-    <Document.Heading2>Accordion.Header</Document.Heading2>
-    <Document.Paragraph>Trigger를 감싸는 헤더 요소입니다.</Document.Paragraph>
-    <PropsTable rows={headerProps} />
-
-    <Document.Heading2>Accordion.Trigger</Document.Heading2>
-    <Document.Paragraph>항목을 열고 닫는 버튼입니다.</Document.Paragraph>
-    <PropsTable rows={triggerProps} />
-
-    <Document.Heading2>Accordion.Content</Document.Heading2>
-    <Document.Paragraph>표시될 내용을 담는 컨테이너입니다.</Document.Paragraph>
-    <PropsTable rows={contentProps} />
-
-    <Document.Heading2>주요 속성 (Attributes)</Document.Heading2>
-    <Document.Paragraph>스타일링을 위해 자동 부여되는 data attributes입니다.</Document.Paragraph>
-    <AttributeTable rows={attributeRows} />
-  </section>
-);
+import { CssPropertyTable, CssPropertyTableRow } from "@src/components/common/CssPropertyTable";
 
 const rootProps: PropsTableRow[] = [
   {
@@ -134,8 +104,54 @@ const attributeRows: AttributeTableRow[] = [
   {
     name: "data-orientation",
     value: '"vertical" | "horizontal"',
-    description: "아코디언의 방향을 나타냅니다.",
+    description: "아코디언의 키보드 네비게이션 방향을 나타냅니다.",
   },
 ];
+
+const cssRows: CssPropertyTableRow[] = [
+  {
+    name: "--accordion-content-width",
+    description: "accordion content 영역의 너비 입니다.",
+  },
+  {
+    name: "--accordion-content-height",
+    description: "accordion content 영역의 높이입니다.",
+  },
+];
+
+const ApiSpecSection = () => (
+  <section>
+    <Document.Heading1>API 명세</Document.Heading1>
+    <Document.Paragraph mb={8}>Accordion 컴포넌트의 Props와 속성에 대한 상세 명세입니다.</Document.Paragraph>
+
+    <Document.Heading2>Accordion.Root</Document.Heading2>
+    <Document.Paragraph>모든 Accordion 항목을 감싸는 최상위 컨테이너입니다.</Document.Paragraph>
+    <PropsTable rows={rootProps} />
+
+    <Document.Heading2>Accordion.Item</Document.Heading2>
+    <Document.Paragraph>개별 접이식 항목을 정의합니다.</Document.Paragraph>
+    <PropsTable rows={itemProps} />
+
+    <Document.Heading2>Accordion.Header</Document.Heading2>
+    <Document.Paragraph>Trigger를 감싸는 헤더 요소입니다.</Document.Paragraph>
+    <PropsTable rows={headerProps} />
+
+    <Document.Heading2>Accordion.Trigger</Document.Heading2>
+    <Document.Paragraph>항목을 열고 닫는 버튼입니다.</Document.Paragraph>
+    <PropsTable rows={triggerProps} />
+
+    <Document.Heading2>Accordion.Content</Document.Heading2>
+    <Document.Paragraph>표시될 내용을 담는 컨테이너입니다.</Document.Paragraph>
+    <PropsTable rows={contentProps} />
+
+    <Document.Heading2>주요 속성 (Attributes)</Document.Heading2>
+    <Document.Paragraph>스타일링을 위해 자동 부여되는 data attributes입니다.</Document.Paragraph>
+    <AttributeTable rows={attributeRows} />
+
+    <Document.Heading2>CSS 속성</Document.Heading2>
+    <Document.Paragraph>스타일링을 위해 자동 부여되는 CSS 속성입니다.</Document.Paragraph>
+    <CssPropertyTable rows={cssRows} />
+  </section>
+);
 
 export { ApiSpecSection };

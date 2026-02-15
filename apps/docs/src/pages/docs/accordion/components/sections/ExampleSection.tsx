@@ -38,29 +38,62 @@ const MultipleDemo = () => (
   <Accordion.Root mode="multiple" className="w-full max-w-sm rounded-md border border-neutral-200 bg-white shadow-sm">
     <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
           Step 1: Sign up
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-        Create an account to get started.
+      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+        <div className="px-4 pb-3">Create an account to get started.</div>
       </Accordion.Content>
     </Accordion.Item>
 
     <Accordion.Item value="item-2" className="border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
           Step 2: Profile
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-        Complete your profile details.
+      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+        <div className="px-4 pb-3">Complete your profile details.</div>
       </Accordion.Content>
     </Accordion.Item>
   </Accordion.Root>
 );
+
+const multipleCode = `
+import { Accordion } from "@timeless-ui/ui";
+import { ChevronDownIcon } from "lucide-react";
+
+export default () => (
+  <Accordion.Root mode="multiple" className="w-full max-w-sm rounded-md border border-neutral-200 bg-white shadow-sm">
+    <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
+      <Accordion.Header className="flex">
+        <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
+          Step 1: Sign up
+          <ChevronDownIcon className="text-icon-tertiary group-data-[open=true]:rotate-180 h-4 w-4 transition-transform duration-200" />
+        </Accordion.Trigger>
+      </Accordion.Header>
+      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+        <div className="px-4 pb-3">Create an account to get started.</div>
+      </Accordion.Content>
+    </Accordion.Item>
+
+    <Accordion.Item value="item-2" className="border-b border-neutral-200 last:border-0">
+      <Accordion.Header className="flex">
+        <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
+          Step 2: Profile
+          <ChevronDownIcon className="text-icon-tertiary group-data-[open=true]:rotate-180 h-4 w-4 transition-transform duration-200" />
+        </Accordion.Trigger>
+      </Accordion.Header>
+      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+        <div className="px-4 pb-3">Complete your profile details.</div>
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Root>
+);
+`;
 
 const ControlledDemo = () => {
   const [value, setValue] = useState<string | null>("item-1");
@@ -80,25 +113,25 @@ const ControlledDemo = () => {
       >
         <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
           <Accordion.Header className="flex">
-            <Accordion.Trigger className="text-body-2 text-ink-primary data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+            <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
               Controlled Item 1
-              <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-            This accordion state is controlled by React state.
+          <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+            <div className="px-4 pb-3">This accordion state is controlled by React state.</div>
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value="item-2" className="last:border-0">
           <Accordion.Header className="flex">
-            <Accordion.Trigger className="text-body-2 text-ink-primary data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+            <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
               Controlled Item 2
-              <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-            Change the state externally if needed.
+          <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+            <div className="px-4 pb-3">Change the state externally if needed.</div>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
@@ -120,43 +153,6 @@ const ControlledDemo = () => {
     </div>
   );
 };
-
-/* ──────────────────────────────────────────────
-   Code Snippets
-   ────────────────────────────────────────────── */
-
-const multipleCode = `
-import { Accordion } from "@timeless-ui/ui";
-import { ChevronDownIcon } from "lucide-react";
-
-export default () => (
-  <Accordion.Root mode="multiple" className="w-full max-w-sm rounded-md border border-neutral-200 bg-white shadow-sm">
-    <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
-      <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
-          Step 1: Sign up
-          <ChevronDownIcon className="text-icon-tertiary group-data-[state=open]:rotate-180 h-4 w-4 transition-transform duration-200" />
-        </Accordion.Trigger>
-      </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-        Create an account to get started.
-      </Accordion.Content>
-    </Accordion.Item>
-
-    <Accordion.Item value="item-2" className="border-b border-neutral-200 last:border-0">
-      <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
-          Step 2: Profile
-          <ChevronDownIcon className="text-icon-tertiary group-data-[state=open]:rotate-180 h-4 w-4 transition-transform duration-200" />
-        </Accordion.Trigger>
-      </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-        Complete your profile details.
-      </Accordion.Content>
-    </Accordion.Item>
-  </Accordion.Root>
-);
-`;
 
 const controlledCode = `
 import { useState } from "react";
@@ -181,25 +177,25 @@ export default () => {
       >
         <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
           <Accordion.Header className="flex">
-            <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
+            <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
               Controlled Item 1
-              <ChevronDownIcon className="text-icon-tertiary group-data-[state=open]:rotate-180 h-4 w-4 transition-transform duration-200" />
+              <ChevronDownIcon className="text-icon-tertiary group-data-[open=true]:rotate-180 h-4 w-4 transition-transform duration-200" />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-            This accordion state is controlled by React state.
+          <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+            <div className="px-4 pb-3">This accordion state is controlled by React state.</div>
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value="item-2" className="last:border-0">
             <Accordion.Header className="flex">
-            <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[state=open]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
+            <Accordion.Trigger className="text-body-2 text-ink-primary hover:bg-neutral-50 data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all">
               Controlled Item 2
-              <ChevronDownIcon className="text-icon-tertiary group-data-[state=open]:rotate-180 h-4 w-4 transition-transform duration-200" />
+              <ChevronDownIcon className="text-icon-tertiary group-data-[open=true]:rotate-180 h-4 w-4 transition-transform duration-200" />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content className="text-body-3 text-ink-secondary data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-4 pb-3">
-            Change the state externally if needed.
+          <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+            <div className="px-4 pb-3">Change the state externally if needed.</div>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>

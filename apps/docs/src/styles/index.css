@@ -5,7 +5,7 @@
 @import "./color.css";
 @import "./spacing.css";
 @import "./scrollbar.css";
-
+@import "./anime.css";
 @custom-variant dark (&: is(.dark *));
 
 @theme {
