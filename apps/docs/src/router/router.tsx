@@ -2,6 +2,7 @@ import App from "@src/App";
 import Home from "@src/pages/Home";
 import DocsLayout from "@src/components/layout/DocsLayout";
 import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
+import BreakpointPage from "@src/pages/docs/breakpoint/BreakpointPage";
 
 import { createBrowserRouter, RouteObject } from "react-router";
 import PageNotFound from "@src/pages/errors/PageNotFound";
@@ -29,7 +30,10 @@ export const PAGE_ROUTES: RouteCategory = {
   },
   components: {
     title: "Components",
-    routes: [{ path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" }],
+    routes: [
+      { path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" },
+      { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
+    ],
   },
 };
 
