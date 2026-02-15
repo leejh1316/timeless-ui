@@ -189,6 +189,15 @@ const DatePickerCalendarDateTrigger = forwardRef<React.ComponentRef<typeof Butto
         data-selected={isSameDay(value, data.dateObject)}
         onClick={handleClick}
         ref={forwardedRef}
+        aria-label={`${data.date} ${data.day} button`}
+        data-date={data.date}
+        data-day-index={data.dayIndex}
+        data-current-month={data.isCurrentMonth}
+        data-today={data.isToday}
+        data-weekend={data.isWeekend}
+        data-weekday={data.isWeekday}
+        data-prev-month-end={data.isPrevMonthEnd}
+        data-next-month-start={data.isNextMonthStart}
         {...dateProps}
       />
     );
