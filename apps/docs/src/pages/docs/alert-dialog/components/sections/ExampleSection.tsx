@@ -215,7 +215,7 @@ const nonDismissableCode = `<AlertDialog.Root isDismissable={false}>
    Section Component
    ────────────────────────────────────────────── */
 
-const AdvancedUsageSection = () => (
+const ExampleSection = () => (
   <section>
     <Document.Heading1>심화 활용 예제</Document.Heading1>
     <Document.Paragraph mb={8}>
@@ -258,4 +258,4 @@ const AdvancedUsageSection = () => (
   </section>
 );
 
-export { AdvancedUsageSection };
+export { ExampleSection };

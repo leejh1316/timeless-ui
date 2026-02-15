@@ -3,7 +3,7 @@ import { Document } from "@src/components/ui/Document";
 import { BasicUsageSection } from "./components/sections/BasicUsageSection";
 import { ApiSpecSection } from "./components/sections/ApiSpecSection";
 import { CompoundStructureSection } from "./components/sections/CompoundStructureSection";
-import { AdvancedUsageSection } from "./components/sections/AdvancedUsageSection";
+import { ExampleSection } from "./components/sections/ExampleSection";
 
 /* ──────────────────────────────────────────────
    AlertDialog Documentation Page
@@ -23,7 +23,7 @@ const AlertDialogPage = () => (
     <BasicUsageSection />
     <ApiSpecSection />
     <CompoundStructureSection />
-    <AdvancedUsageSection />
+    <ExampleSection />
   </Document.Root>
 );
 
