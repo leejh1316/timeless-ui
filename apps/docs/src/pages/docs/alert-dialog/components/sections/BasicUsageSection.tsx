@@ -4,6 +4,26 @@ import { CodeBlock } from "@src/components/common/CodeBlock";
 import { AlertDialog } from "@timeless-ui/ui";
 
 /* ──────────────────────────────────────────────
+   Section Component
+   ────────────────────────────────────────────── */
+
+const BasicUsageSection = () => (
+  <section>
+    <Document.Heading1>기본적인 사용법</Document.Heading1>
+    <Document.Paragraph mb={6}>
+      가장 기본적인 AlertDialog 사용 예시입니다. Trigger 버튼을 클릭하면 다이얼로그가 열리고, Cancel 또는 Action 버튼으로 닫을 수 있습니다.
+      AlertDialog는 사용자의 명시적인 응답을 요구하기 때문에, 되돌릴 수 없는 작업(삭제, 초기화 등)에 적합합니다.
+    </Document.Paragraph>
+
+    <PreviewContainer className="mb-4">
+      <BasicDemo />
+    </PreviewContainer>
+
+    <CodeBlock code={basicCode} />
+  </section>
+);
+
+/* ──────────────────────────────────────────────
    Demo: Basic AlertDialog
    ────────────────────────────────────────────── */
 
@@ -54,25 +74,5 @@ const basicCode = `<AlertDialog.Root>
     </AlertDialog.Content>
   </AlertDialog.Portal>
 </AlertDialog.Root>`;
-
-/* ──────────────────────────────────────────────
-   Section Component
-   ────────────────────────────────────────────── */
-
-const BasicUsageSection = () => (
-  <section>
-    <Document.Heading1>기본적인 사용법</Document.Heading1>
-    <Document.Paragraph mb={6}>
-      가장 기본적인 AlertDialog 사용 예시입니다. Trigger 버튼을 클릭하면 다이얼로그가 열리고, Cancel 또는 Action 버튼으로 닫을 수 있습니다.
-      AlertDialog는 사용자의 명시적인 응답을 요구하기 때문에, 되돌릴 수 없는 작업(삭제, 초기화 등)에 적합합니다.
-    </Document.Paragraph>
-
-    <PreviewContainer className="mb-4">
-      <BasicDemo />
-    </PreviewContainer>
-
-    <CodeBlock code={basicCode} />
-  </section>
-);
 
 export { BasicUsageSection };

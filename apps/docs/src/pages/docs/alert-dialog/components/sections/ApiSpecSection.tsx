@@ -3,49 +3,6 @@ import { PropsTable, PropsTableRow } from "@src/components/common/PropsTable";
 import { AttributeTable, AttributeTableRow } from "@src/components/common";
 
 /* ──────────────────────────────────────────────
-   Props Data
-   ────────────────────────────────────────────── */
-
-const rootProps: PropsTableRow[] = [
-  { name: "open", type: "boolean", defaultValue: "—", description: "다이얼로그의 열림 상태를 제어합니다." },
-  { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "초기 열림 상태를 설정합니다." },
-  { name: "onOpenChange", type: "(open: boolean) => void", defaultValue: "—", description: "열림 상태가 변경될 때 호출됩니다." },
-  { name: "isDismissable", type: "boolean", defaultValue: "true", description: "오버레이 클릭 시 닫힘 여부를 설정합니다." },
-  { name: "lockScroll", type: "boolean", defaultValue: "true", description: "열린 상태에서 스크롤 잠금 여부를 설정합니다." },
-  { name: "onCloseAfter", type: "() => void", defaultValue: "—", description: "닫힘 애니메이션이 완료된 후 호출됩니다." },
-];
-
-const triggerProps: PropsTableRow[] = [
-  {
-    name: "onClick",
-    type: "(e: MouseEvent) => void | Promise<void>",
-    defaultValue: "—",
-    description: "클릭 시 호출됩니다. Promise를 반환하면 완료 후 다이얼로그가 열립니다.",
-  },
-];
-
-const actionCancelProps: PropsTableRow[] = [
-  {
-    name: "onClick",
-    type: "(e: MouseEvent) => void | Promise<void>",
-    defaultValue: "—",
-    description: "클릭 시 호출됩니다. preventDefault()를 호출하면 자동 닫힘을 방지할 수 있습니다.",
-  },
-];
-
-const primaryAttributeRows: AttributeTableRow[] = [
-  {
-    name: "data-status",
-    value: `'unmounted' | 'initial' | 'open' | 'close'`,
-    description: "다이얼로그의 애니메이션 상태를 나타냅니다.",
-  },
-  {
-    name: "data-state",
-    value: `'open' | 'closed'`,
-    description: "다이얼로그의 열림 상태를 나타냅니다.",
-  },
-];
-/* ──────────────────────────────────────────────
    Section Component
    ────────────────────────────────────────────── */
 
@@ -101,5 +58,48 @@ const ApiSpecSection = () => (
     <AttributeTable rows={primaryAttributeRows} />
   </section>
 );
+/* ──────────────────────────────────────────────
+   Props Data
+   ────────────────────────────────────────────── */
+
+const rootProps: PropsTableRow[] = [
+  { name: "open", type: "boolean", defaultValue: "—", description: "다이얼로그의 열림 상태를 제어합니다." },
+  { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "초기 열림 상태를 설정합니다." },
+  { name: "onOpenChange", type: "(open: boolean) => void", defaultValue: "—", description: "열림 상태가 변경될 때 호출됩니다." },
+  { name: "isDismissable", type: "boolean", defaultValue: "true", description: "오버레이 클릭 시 닫힘 여부를 설정합니다." },
+  { name: "lockScroll", type: "boolean", defaultValue: "true", description: "열린 상태에서 스크롤 잠금 여부를 설정합니다." },
+  { name: "onCloseAfter", type: "() => void", defaultValue: "—", description: "닫힘 애니메이션이 완료된 후 호출됩니다." },
+];
+
+const triggerProps: PropsTableRow[] = [
+  {
+    name: "onClick",
+    type: "(e: MouseEvent) => void | Promise<void>",
+    defaultValue: "—",
+    description: "클릭 시 호출됩니다. Promise를 반환하면 완료 후 다이얼로그가 열립니다.",
+  },
+];
+
+const actionCancelProps: PropsTableRow[] = [
+  {
+    name: "onClick",
+    type: "(e: MouseEvent) => void | Promise<void>",
+    defaultValue: "—",
+    description: "클릭 시 호출됩니다. preventDefault()를 호출하면 자동 닫힘을 방지할 수 있습니다.",
+  },
+];
+
+const primaryAttributeRows: AttributeTableRow[] = [
+  {
+    name: "data-status",
+    value: `'unmounted' | 'initial' | 'open' | 'close'`,
+    description: "다이얼로그의 애니메이션 상태를 나타냅니다.",
+  },
+  {
+    name: "data-state",
+    value: `'open' | 'closed'`,
+    description: "다이얼로그의 열림 상태를 나타냅니다.",
+  },
+];
 
 export { ApiSpecSection };

@@ -3,6 +3,39 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { Breakpoint, useComposedRefs, useMeasureSize } from "@timeless-ui/ui";
+/* ──────────────────────────────────────────────
+   Section Component
+   ────────────────────────────────────────────── */
+
+const ExampleSection = () => (
+  <section>
+    <Document.Heading1>활용 예제</Document.Heading1>
+    <Document.Paragraph mb={8}>
+      Breakpoint 컴포넌트는 커스텀 브레이크포인트와 특정 요소 기준 반응형 등 다양한 고급 기능을 제공합니다.
+    </Document.Paragraph>
+
+    <Document.Heading2>커스텀 브레이크포인트</Document.Heading2>
+    <Document.Paragraph mb={6}>
+      프로젝트의 디자인 시스템에 맞는 고유한 브레이크포인트를 정의할 수 있습니다.{" "}
+      <code className="font-code text-primary-500 rounded-md bg-neutral-100 px-1.5 py-0.5">breakpoints</code> prop에 객체를 전달하여 커스텀
+      값을 사용하세요.
+    </Document.Paragraph>
+    <PreviewContainer className="mb-4">
+      <CustomBreakpointsDemo />
+    </PreviewContainer>
+    <CodeBlock code={customBreakpointsCode} className="mb-10" />
+
+    <Document.Heading2>특정 요소 기준 반응형 (Container Queries)</Document.Heading2>
+    <Document.Paragraph mb={6}>
+      <code className="font-code text-primary-500 rounded-md bg-neutral-100 px-1.5 py-0.5">targetRef</code>를 사용하면 viewport가 아닌 특정
+      컨테이너의 너비를 기준으로 반응형 디자인을 구현할 수 있습니다. 이는 재사용 가능한 컴포넌트를 만들 때 특히 유용합니다.
+    </Document.Paragraph>
+    <PreviewContainer className="mb-4">
+      <TargetRefDemo />
+    </PreviewContainer>
+    <CodeBlock code={targetRefCode} />
+  </section>
+);
 
 /* ──────────────────────────────────────────────
    Demo: Custom Breakpoints
@@ -133,39 +166,5 @@ const containerRef = useRef<HTMLDivElement>(null);
     </Breakpoint>
   </div>
 </div>`;
-
-/* ──────────────────────────────────────────────
-   Section Component
-   ────────────────────────────────────────────── */
-
-const ExampleSection = () => (
-  <section>
-    <Document.Heading1>활용 예제</Document.Heading1>
-    <Document.Paragraph mb={8}>
-      Breakpoint 컴포넌트는 커스텀 브레이크포인트와 특정 요소 기준 반응형 등 다양한 고급 기능을 제공합니다.
-    </Document.Paragraph>
-
-    <Document.Heading2>커스텀 브레이크포인트</Document.Heading2>
-    <Document.Paragraph mb={6}>
-      프로젝트의 디자인 시스템에 맞는 고유한 브레이크포인트를 정의할 수 있습니다.{" "}
-      <code className="font-code text-primary-500 rounded-md bg-neutral-100 px-1.5 py-0.5">breakpoints</code> prop에 객체를 전달하여 커스텀
-      값을 사용하세요.
-    </Document.Paragraph>
-    <PreviewContainer className="mb-4">
-      <CustomBreakpointsDemo />
-    </PreviewContainer>
-    <CodeBlock code={customBreakpointsCode} className="mb-10" />
-
-    <Document.Heading2>특정 요소 기준 반응형 (Container Queries)</Document.Heading2>
-    <Document.Paragraph mb={6}>
-      <code className="font-code text-primary-500 rounded-md bg-neutral-100 px-1.5 py-0.5">targetRef</code>를 사용하면 viewport가 아닌 특정
-      컨테이너의 너비를 기준으로 반응형 디자인을 구현할 수 있습니다. 이는 재사용 가능한 컴포넌트를 만들 때 특히 유용합니다.
-    </Document.Paragraph>
-    <PreviewContainer className="mb-4">
-      <TargetRefDemo />
-    </PreviewContainer>
-    <CodeBlock code={targetRefCode} />
-  </section>
-);
 
 export { ExampleSection };

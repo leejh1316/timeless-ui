@@ -1,50 +1,6 @@
 import { Document } from "@src/components/ui/Document";
 import { AnatomyCard, AnatomyCardGroup } from "@src/components/common/AnatomyCard";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-
-/* ──────────────────────────────────────────────
-   Anatomy Data
-   ────────────────────────────────────────────── */
-
-const anatomyItems = [
-  { name: "AlertDialog.Root", desc: "상태를 관리하는 최상위 컨테이너" },
-  { name: "AlertDialog.Trigger", desc: "다이얼로그를 여는 버튼" },
-  { name: "AlertDialog.Portal", desc: "DOM 트리 밖에 렌더링하는 포털" },
-  { name: "AlertDialog.Overlay", desc: "배경 오버레이 레이어" },
-  { name: "AlertDialog.Content", desc: "다이얼로그 콘텐츠 영역" },
-  { name: "AlertDialog.Cancel", desc: "취소 버튼 (닫힘 동작 포함)" },
-  { name: "AlertDialog.Action", desc: "확인/실행 버튼 (닫힘 동작 포함)" },
-];
-
-/* ──────────────────────────────────────────────
-   Code Snippets
-   ────────────────────────────────────────────── */
-
-const anatomyCode = `import { AlertDialog } from "@timeless-ui/ui";
-
-<AlertDialog.Root>
-  {/* 1. 다이얼로그를 여는 트리거 */}
-  <AlertDialog.Trigger>열기</AlertDialog.Trigger>
-
-  {/* 2. Portal로 DOM 최상단에 렌더링 */}
-  <AlertDialog.Portal>
-
-    {/* 3. 배경 오버레이 */}
-    <AlertDialog.Overlay />
-
-    {/* 4. 콘텐츠 영역 */}
-    <AlertDialog.Content>
-      <h3>제목</h3>
-      <p>설명 텍스트</p>
-
-      {/* 5. 액션 버튼들 */}
-      <AlertDialog.Cancel>취소</AlertDialog.Cancel>
-      <AlertDialog.Action>확인</AlertDialog.Action>
-    </AlertDialog.Content>
-
-  </AlertDialog.Portal>
-</AlertDialog.Root>`;
-
 /* ──────────────────────────────────────────────
    Section Component
    ────────────────────────────────────────────── */
@@ -125,5 +81,47 @@ const CompoundStructureSection = () => (
     </div>
   </section>
 );
+/* ──────────────────────────────────────────────
+   Anatomy Data
+   ────────────────────────────────────────────── */
+
+const anatomyItems = [
+  { name: "AlertDialog.Root", desc: "상태를 관리하는 최상위 컨테이너" },
+  { name: "AlertDialog.Trigger", desc: "다이얼로그를 여는 버튼" },
+  { name: "AlertDialog.Portal", desc: "DOM 트리 밖에 렌더링하는 포털" },
+  { name: "AlertDialog.Overlay", desc: "배경 오버레이 레이어" },
+  { name: "AlertDialog.Content", desc: "다이얼로그 콘텐츠 영역" },
+  { name: "AlertDialog.Cancel", desc: "취소 버튼 (닫힘 동작 포함)" },
+  { name: "AlertDialog.Action", desc: "확인/실행 버튼 (닫힘 동작 포함)" },
+];
+
+/* ──────────────────────────────────────────────
+   Code Snippets
+   ────────────────────────────────────────────── */
+
+const anatomyCode = `import { AlertDialog } from "@timeless-ui/ui";
+
+<AlertDialog.Root>
+  {/* 1. 다이얼로그를 여는 트리거 */}
+  <AlertDialog.Trigger>열기</AlertDialog.Trigger>
+
+  {/* 2. Portal로 DOM 최상단에 렌더링 */}
+  <AlertDialog.Portal>
+
+    {/* 3. 배경 오버레이 */}
+    <AlertDialog.Overlay />
+
+    {/* 4. 콘텐츠 영역 */}
+    <AlertDialog.Content>
+      <h3>제목</h3>
+      <p>설명 텍스트</p>
+
+      {/* 5. 액션 버튼들 */}
+      <AlertDialog.Cancel>취소</AlertDialog.Cancel>
+      <AlertDialog.Action>확인</AlertDialog.Action>
+    </AlertDialog.Content>
+
+  </AlertDialog.Portal>
+</AlertDialog.Root>`;
 
 export { CompoundStructureSection };

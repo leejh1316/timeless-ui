@@ -3,6 +3,52 @@ import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { AlertDialog } from "@timeless-ui/ui";
 import { useState } from "react";
+/* ──────────────────────────────────────────────
+   Section Component
+   ────────────────────────────────────────────── */
+
+const ExampleSection = () => (
+  <section>
+    <Document.Heading1>심화 활용 예제</Document.Heading1>
+    <Document.Paragraph mb={8}>
+      AlertDialog는 기본적인 확인/취소 외에도, 외부 상태 제어, 비동기 처리, 닫힘 방지 등 다양한 시나리오에 대응할 수 있습니다. 아래 예제를
+      통해 실무에서 자주 사용되는 패턴을 확인해 보세요.
+    </Document.Paragraph>
+
+    {/* Controlled */}
+    <Document.Heading2>Controlled (외부 상태 제어)</Document.Heading2>
+    <Document.Paragraph mb={6}>
+      open과 onOpenChange props를 사용하면 다이얼로그의 열림/닫힘 상태를 외부에서 직접 제어할 수 있습니다. 특정 조건에 따라 프로그래밍적으로
+      다이얼로그를 열거나 닫아야 할 때 유용합니다.
+    </Document.Paragraph>
+    <PreviewContainer className="mb-4">
+      <ControlledDemo />
+    </PreviewContainer>
+    <CodeBlock code={controlledCode} className="mb-10" />
+
+    {/* Non-dismissable */}
+    <Document.Heading2>닫힘 방지 (Non-dismissable)</Document.Heading2>
+    <Document.Paragraph mb={6}>
+      isDismissable을 false로 설정하면 오버레이 클릭으로 다이얼로그를 닫을 수 없습니다. 약관 동의처럼 사용자가 반드시 명시적으로 선택해야
+      하는 상황에 적합합니다.
+    </Document.Paragraph>
+    <PreviewContainer className="mb-4">
+      <NonDismissableDemo />
+    </PreviewContainer>
+    <CodeBlock code={nonDismissableCode} />
+
+    {/* Async Action */}
+    <Document.Heading2>비동기 작업 처리 (Async Action)</Document.Heading2>
+    <Document.Paragraph mb={6}>
+      Action 버튼의 onClick에서 e.preventDefault()를 호출하면 자동 닫힘을 방지합니다. 이를 활용하여 API 호출 등의 비동기 작업을 수행하고,
+      완료 후에 프로그래밍적으로 다이얼로그를 닫을 수 있습니다. 로딩 중에는 Cancel 버튼을 비활성화하여 사용자의 잘못된 조작을 방지합니다.
+    </Document.Paragraph>
+    <PreviewContainer className="mb-4">
+      <AsyncActionDemo />
+    </PreviewContainer>
+    <CodeBlock code={asyncCode} className="mb-10" />
+  </section>
+);
 
 /* ──────────────────────────────────────────────
    Demo: Controlled
@@ -210,52 +256,5 @@ const nonDismissableCode = `<AlertDialog.Root isDismissable={false}>
     </AlertDialog.Content>
   </AlertDialog.Portal>
 </AlertDialog.Root>`;
-
-/* ──────────────────────────────────────────────
-   Section Component
-   ────────────────────────────────────────────── */
-
-const ExampleSection = () => (
-  <section>
-    <Document.Heading1>심화 활용 예제</Document.Heading1>
-    <Document.Paragraph mb={8}>
-      AlertDialog는 기본적인 확인/취소 외에도, 외부 상태 제어, 비동기 처리, 닫힘 방지 등 다양한 시나리오에 대응할 수 있습니다. 아래 예제를
-      통해 실무에서 자주 사용되는 패턴을 확인해 보세요.
-    </Document.Paragraph>
-
-    {/* Controlled */}
-    <Document.Heading2>Controlled (외부 상태 제어)</Document.Heading2>
-    <Document.Paragraph mb={6}>
-      open과 onOpenChange props를 사용하면 다이얼로그의 열림/닫힘 상태를 외부에서 직접 제어할 수 있습니다. 특정 조건에 따라 프로그래밍적으로
-      다이얼로그를 열거나 닫아야 할 때 유용합니다.
-    </Document.Paragraph>
-    <PreviewContainer className="mb-4">
-      <ControlledDemo />
-    </PreviewContainer>
-    <CodeBlock code={controlledCode} className="mb-10" />
-
-    {/* Non-dismissable */}
-    <Document.Heading2>닫힘 방지 (Non-dismissable)</Document.Heading2>
-    <Document.Paragraph mb={6}>
-      isDismissable을 false로 설정하면 오버레이 클릭으로 다이얼로그를 닫을 수 없습니다. 약관 동의처럼 사용자가 반드시 명시적으로 선택해야
-      하는 상황에 적합합니다.
-    </Document.Paragraph>
-    <PreviewContainer className="mb-4">
-      <NonDismissableDemo />
-    </PreviewContainer>
-    <CodeBlock code={nonDismissableCode} />
-
-    {/* Async Action */}
-    <Document.Heading2>비동기 작업 처리 (Async Action)</Document.Heading2>
-    <Document.Paragraph mb={6}>
-      Action 버튼의 onClick에서 e.preventDefault()를 호출하면 자동 닫힘을 방지합니다. 이를 활용하여 API 호출 등의 비동기 작업을 수행하고,
-      완료 후에 프로그래밍적으로 다이얼로그를 닫을 수 있습니다. 로딩 중에는 Cancel 버튼을 비활성화하여 사용자의 잘못된 조작을 방지합니다.
-    </Document.Paragraph>
-    <PreviewContainer className="mb-4">
-      <AsyncActionDemo />
-    </PreviewContainer>
-    <CodeBlock code={asyncCode} className="mb-10" />
-  </section>
-);
 
 export { ExampleSection };
