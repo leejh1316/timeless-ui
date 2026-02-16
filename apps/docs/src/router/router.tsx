@@ -25,6 +25,7 @@ import PaginationPage from "@src/pages/docs/pagination/PaginationPage";
 import PopoverPage from "@src/pages/docs/popover/PopoverPage";
 import ProgressBarPage from "@src/pages/docs/progress-bar/ProgressBarPage";
 import RadioGroupPage from "@src/pages/docs/radio-group/RadioGroupPage";
+import InputPage from "@src/pages/docs/input/InputPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -66,6 +67,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/funnel", element: <FunnelPage />, name: "Funnel" },
       { path: "/docs/image", element: <ImagePage />, name: "Image" },
       { path: "/docs/in-view", element: <InViewPage />, name: "InView" },
+      { path: "/docs/input", element: <InputPage />, name: "Input" },
       { path: "/docs/modal", element: <ModalPage />, name: "Modal" },
       { path: "/docs/pagination", element: <PaginationPage />, name: "Pagination" },
       { path: "/docs/popover", element: <PopoverPage />, name: "Popover" },
