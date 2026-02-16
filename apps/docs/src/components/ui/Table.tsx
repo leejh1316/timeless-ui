@@ -3,8 +3,8 @@ import * as React from "react";
 import { Card } from "./Card";
 
 const TableRoot = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
-  <Card className="relative w-full overflow-auto">
-    <table ref={ref} className={clsx("text-body-3 w-full caption-bottom text-left", className)} {...props} />
+  <Card className={clsx("relative w-full overflow-auto", className)}>
+    <table ref={ref} className={clsx("text-body-3 w-full caption-bottom text-left")} {...props} />
   </Card>
 ));
 TableRoot.displayName = "Table.Root";
