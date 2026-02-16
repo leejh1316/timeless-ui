@@ -47,26 +47,16 @@ const TabsRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, TabsRootPr
 );
 TabsRoot.displayName = "Tabs.Root";
 
-const TabsList = forwardRef<React.ComponentRef<typeof Primitive.div>, PrimitivePropsWithRef<"div">>(
-  (props, forwardedRef) => {
-    const { orientation } = useTabsContext();
-    const { rootRef, handleKeyDown } = useArrowNavigation({
-      orientation,
-      selector: '[data-slot="tabs-trigger"]',
-      clickOnNavigate: true,
-    });
-    const composedRef = useComposedRefs(forwardedRef, rootRef);
-    return (
-      <Primitive.div
-        role="tablist"
-        ref={composedRef}
-        onKeyDown={handleKeyDown}
-        data-orientation={orientation}
-        {...props}
-      />
-    );
-  },
-);
+const TabsList = forwardRef<React.ComponentRef<typeof Primitive.div>, PrimitivePropsWithRef<"div">>((props, forwardedRef) => {
+  const { orientation } = useTabsContext();
+  const { rootRef, handleKeyDown } = useArrowNavigation({
+    orientation,
+    selector: '[data-slot="tabs-trigger"]',
+    clickOnNavigate: true,
+  });
+  const composedRef = useComposedRefs(forwardedRef, rootRef);
+  return <Primitive.div role="tablist" ref={composedRef} onKeyDown={handleKeyDown} data-orientation={orientation} {...props} />;
+});
 TabsList.displayName = "Tabs.List";
 
 interface TabsTriggerProps extends PrimitivePropsWithRef<"button"> {
@@ -74,7 +64,7 @@ interface TabsTriggerProps extends PrimitivePropsWithRef<"button"> {
 }
 const TabsTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, TabsTriggerProps>(
   ({ value, disabled, onClick, ...props }, forwardedRef) => {
-    const { activeTab, orientation, triggerRefs,setActiveTab } = useTabsContext();
+    const { activeTab, orientation, triggerRefs, setActiveTab } = useTabsContext();
     const isActive = activeTab === value;
 
     const handleClick = useCallback(
@@ -85,7 +75,7 @@ const TabsTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, Tabs
       [setActiveTab, onClick, value],
     );
 
-   const composedRefs = useComposedRefs(forwardedRef, (el) => {
+    const composedRefs = useComposedRefs(forwardedRef, (el) => {
       const index = triggerRefs.current?.length;
       //@ts-ignore
       triggerRefs.current[index] = el;
@@ -111,28 +101,26 @@ TabsTrigger.displayName = "Tabs.Trigger";
 interface TabsContentProps extends PrimitivePropsWithRef<"div"> {
   value: string;
 }
-const TabsContent = forwardRef<React.ComponentRef<typeof Primitive.div>, TabsContentProps>(
-  ({ value, ...props }, forwardedRef) => {
-    const { activeTab, orientation } = useTabsContext();
-    const isActive = activeTab === value;
+const TabsContent = forwardRef<React.ComponentRef<typeof Primitive.div>, TabsContentProps>(({ value, ...props }, forwardedRef) => {
+  const { activeTab, orientation } = useTabsContext();
+  const isActive = activeTab === value;
 
-    return (
-      <Primitive.div
-        ref={forwardedRef}
-        role="tabpanel"
-        hidden={!isActive}
-        data-orientation={orientation}
-        data-slot="tabs-content"
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Primitive.div
+      ref={forwardedRef}
+      role="tabpanel"
+      hidden={!isActive}
+      data-orientation={orientation}
+      data-slot="tabs-content"
+      {...props}
+    />
+  );
+});
 TabsContent.displayName = "Tabs.Content";
 
 interface TabsIndicatorProps extends PrimitivePropsWithRef<"span"> {}
-const TabsIndicator = forwardRef<React.ComponentRef<typeof Primitive.span>, TabsIndicatorProps>(({className, ...props }, forwardedRef) => {
-    const { triggerRefs, activeTab } = useTabsContext();
+const TabsIndicator = forwardRef<React.ComponentRef<typeof Primitive.span>, TabsIndicatorProps>(({ ...props }, forwardedRef) => {
+  const { triggerRefs, activeTab } = useTabsContext();
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
   const composedRefs = useComposedRefs(forwardedRef, indicatorRef);
   const onActiveTabChange = () => {
@@ -152,19 +140,12 @@ const TabsIndicator = forwardRef<React.ComponentRef<typeof Primitive.span>, Tabs
     indicator.style.left = `${triggerRect.left - parentRect.left}px`;
   };
   onActiveTabChange();
-  
+
   useEffect(() => {
     onActiveTabChange();
   }, [activeTab, triggerRefs]);
-  return (
-    <Primitive.span 
-      ref={composedRefs}
-      data-slot="tabs-indicator"
-      className={`absolute inline-block transition-all ${className}`}
-      {...props}
-    />
-  );
-})
+  return <Primitive.span ref={composedRefs} data-slot="tabs-indicator" {...props} />;
+});
 
 export const Tabs = {
   Root: TabsRoot,
