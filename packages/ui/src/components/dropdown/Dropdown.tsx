@@ -150,6 +150,40 @@ const DropdownPortal: React.FC<DropdownPortalProps> = (props: ScopedProps<Dropdo
 
 DropdownPortal.displayName = PORTAL_NAME;
 
+// =========== Dropdown.View ===========
+const VIEW_NAME = "DropdownContent";
+
+type DropdownViewElement = React.ElementRef<typeof Primitive.div>;
+interface DropdownContentProps extends React.ComponentPropsWithoutRef<typeof Primitive.div> {}
+
+const DropdownView = forwardRef<DropdownViewElement, DropdownContentProps>((props: ScopedProps<DropdownContentProps>, forwardedRef) => {
+  const { __scopeDropdown, ...contentProps } = props;
+  const context = useDropdownContext(VIEW_NAME, __scopeDropdown);
+  const {
+    popover: { context: popoverContext, refs, getFloatingProps, floatingStyles, placement, isMounted },
+    modal,
+  } = context;
+  const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
+
+  if (!isMounted) return null;
+
+  return (
+    <FloatingFocusManager context={popoverContext} modal={modal}>
+      <Primitive.div
+        ref={composedRefs}
+        id={context.contentId}
+        data-state={isMounted ? "open" : "closed"}
+        data-side={placement.split("-")[0]}
+        data-align={placement.split("-")[1]}
+        {...getFloatingProps(contentProps)}
+        style={{ ...floatingStyles, ...contentProps.style }}
+      />
+    </FloatingFocusManager>
+  );
+});
+
+DropdownView.displayName = VIEW_NAME;
+
 // =========== Dropdown.Content ===========
 const CONTENT_NAME = "DropdownContent";
 
@@ -159,26 +193,18 @@ interface DropdownContentProps extends React.ComponentPropsWithoutRef<typeof Pri
 const DropdownContent = forwardRef<DropdownContentElement, DropdownContentProps>(
   (props: ScopedProps<DropdownContentProps>, forwardedRef) => {
     const { __scopeDropdown, ...contentProps } = props;
-    const context = useDropdownContext(CONTENT_NAME, __scopeDropdown);
-    const {
-      popover: { context: popoverContext, refs, getFloatingProps, floatingStyles, transitionStyle, isMounted },
-      modal,
-    } = context;
-    const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
-
-    if (!isMounted) return null;
-
+    const { popover } = useDropdownContext(CONTENT_NAME, __scopeDropdown);
+    const { isMounted, transitionStatus, transitionStyle, placement } = popover;
     return (
-      <FloatingFocusManager context={popoverContext} modal={modal}>
-        <Primitive.div
-          ref={composedRefs}
-          id={context.contentId}
-          {...getFloatingProps(contentProps)}
-          style={{ ...floatingStyles, ...contentProps.style, outline: "none" }}
-        >
-          <div style={transitionStyle}>{props.children}</div>
-        </Primitive.div>
-      </FloatingFocusManager>
+      <Primitive.div
+        ref={forwardedRef}
+        style={{ ...transitionStyle, ...contentProps.style, ...(!isMounted ? { display: "none" } : {}) }}
+        data-status={transitionStatus}
+        data-state={isMounted ? "open" : "closed"}
+        data-side={placement.split("-")[0]}
+        data-align={placement.split("-")[1]}
+        {...contentProps}
+      />
     );
   },
 );
@@ -193,68 +219,66 @@ interface DropdownItemProps extends React.ComponentPropsWithoutRef<typeof Primit
   onSelect?: (event: React.SyntheticEvent) => void;
 }
 
-const DropdownItem = forwardRef<DropdownItemElement, DropdownItemProps>(
-  (props: ScopedProps<DropdownItemProps>, forwardedRef) => {
-    const { __scopeDropdown, disabled = false, onSelect, ...itemProps } = props;
-    const context = useDropdownContext(ITEM_NAME, __scopeDropdown);
-    const { activeIndex, elementListRef, itemListRef, setActiveIndex, getItemProps } = context;
-    const itemRef = useRef<HTMLDivElement>(null);
+const DropdownItem = forwardRef<DropdownItemElement, DropdownItemProps>((props: ScopedProps<DropdownItemProps>, forwardedRef) => {
+  const { __scopeDropdown, disabled = false, onSelect, ...itemProps } = props;
+  const context = useDropdownContext(ITEM_NAME, __scopeDropdown);
+  const { activeIndex, elementListRef, itemListRef, setActiveIndex, getItemProps } = context;
+  const itemRef = useRef<HTMLDivElement>(null);
 
-    const composedRefs = useComposedRefs(forwardedRef, itemRef);
+  const composedRefs = useComposedRefs(forwardedRef, itemRef);
 
-    const index = useMemo(() => {
-      return itemRef.current ? elementListRef.current.indexOf(itemRef.current) : -1;
-    }, [elementListRef.current, itemRef.current]);
+  const index = useMemo(() => {
+    return itemRef.current ? elementListRef.current.indexOf(itemRef.current) : -1;
+  }, [elementListRef.current, itemRef.current]);
 
-    useLayoutEffect(() => {
-      const node = itemRef.current;
-      if (node) {
-        const itemText = node.textContent || "";
-        const currentIndex = elementListRef.current.length;
-        elementListRef.current.push(node);
-        itemListRef.current.push(itemText);
-        return () => {
-          elementListRef.current = elementListRef.current.filter((el) => el !== node);
-          itemListRef.current.splice(currentIndex, 1);
-        };
-      }
-    }, []);
+  useLayoutEffect(() => {
+    const node = itemRef.current;
+    if (node) {
+      const itemText = node.textContent || "";
+      const currentIndex = elementListRef.current.length;
+      elementListRef.current.push(node);
+      itemListRef.current.push(itemText);
+      return () => {
+        elementListRef.current = elementListRef.current.filter((el) => el !== node);
+        itemListRef.current.splice(currentIndex, 1);
+      };
+    }
+  }, []);
 
-    const handleSelect = (e: React.SyntheticEvent) => {
-      if (disabled) return;
-      onSelect?.(e);
-      context.onOpenChange(false);
-      setActiveIndex(null);
-    };
+  const handleSelect = (e: React.SyntheticEvent) => {
+    if (disabled) return;
+    onSelect?.(e);
+    context.onOpenChange(false);
+    setActiveIndex(null);
+  };
 
-    return (
-      <Primitive.div
-        {...merge(
-          itemProps,
-          getItemProps({
-            onClick: (e) => {
-              props.onClick?.(e as any);
+  return (
+    <Primitive.div
+      {...merge(
+        itemProps,
+        getItemProps({
+          onClick: (e) => {
+            props.onClick?.(e as any);
+            handleSelect(e);
+          },
+          onKeyDown: (e) => {
+            props.onKeyDown?.(e as any);
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
               handleSelect(e);
-            },
-            onKeyDown: (e) => {
-              props.onKeyDown?.(e as any);
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleSelect(e);
-              }
-            },
-          }),
-        )}
-        ref={composedRefs}
-        role="menuitem"
-        tabIndex={activeIndex === index ? 0 : -1}
-        aria-disabled={disabled || undefined}
-        data-disabled={disabled ? "" : undefined}
-        data-focus={activeIndex === index ? "" : undefined}
-      />
-    );
-  },
-);
+            }
+          },
+        }),
+      )}
+      ref={composedRefs}
+      role="menuitem"
+      tabIndex={activeIndex === index ? 0 : -1}
+      aria-disabled={disabled || undefined}
+      data-disabled={disabled ? "" : undefined}
+      data-focus={activeIndex === index ? "" : undefined}
+    />
+  );
+});
 
 DropdownItem.displayName = ITEM_NAME;
 
