@@ -23,6 +23,7 @@ import InViewPage from "@src/pages/docs/in-view/InViewPage";
 import ModalPage from "@src/pages/docs/modal/ModalPage";
 import PaginationPage from "@src/pages/docs/pagination/PaginationPage";
 import PopoverPage from "@src/pages/docs/popover/PopoverPage";
+import ProgressBarPage from "@src/pages/docs/progress-bar/ProgressBarPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -67,6 +68,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/modal", element: <ModalPage />, name: "Modal" },
       { path: "/docs/pagination", element: <PaginationPage />, name: "Pagination" },
       { path: "/docs/popover", element: <PopoverPage />, name: "Popover" },
+      { path: "/docs/progress-bar", element: <ProgressBarPage />, name: "ProgressBar" },
     ],
   },
 };
