@@ -2,6 +2,7 @@ import { Document } from "@src/components/ui/Document";
 import { InlineCode } from "@src/components/ui/InlineCode";
 import { PropsTable, PropsTableRow } from "@src/components/common/PropsTable";
 import { AttributeTable, AttributeTableRow } from "@src/components/common/AttributeTable";
+import { CodeBlock } from "@src/components/common/CodeBlock";
 
 /* ──────────────────────────────────────────────
    API Spec Section
@@ -64,13 +65,47 @@ const ApiSpecSection = () => (
       <InlineCode>Calendar.Content</InlineCode>의 render function이 제공하는 배열의 각 항목 타입입니다. 개별 날짜 셀에 대한 모든 정보를
       포함합니다.
     </Document.Paragraph>
-    <PropsTable rows={calendarDataTypeProps} />
+    <CodeBlock
+      code={`type CalendarDataType = {
+  /** 날짜 객체 */
+  dateObject: Date;
+  /** formatStr에 따라 포맷팅된 요일 문자열 */
+  day: string;
+  /** 요일 인덱스 (0: 일요일 ~ 6: 토요일) */
+  dayIndex: number;
+  /** 날짜 숫자 (1 ~ 31) */
+  date: number;
+  /** 주말 여부 */
+  isWeekend: boolean;
+  /** 평일 여부 */
+  isWeekday: boolean;
+  /** 현재 표시 중인 월에 속한 날짜인지 여부 */
+  isCurrentMonth: boolean;
+  /** 오늘 날짜 여부 */
+  isToday: boolean;
+  /** 이전 달의 마지막 날짜인지 여부 */
+  isPrevMonthEnd: boolean;
+  /** 다음 달의 첫 날짜인지 여부 */
+  isNextMonthStart: boolean;
+};`}
+    />
 
     <Document.Heading3>WeekdaysDataType</Document.Heading3>
     <Document.Paragraph mb={4}>
       <InlineCode>Calendar.Header</InlineCode>의 render function이 제공하는 배열의 각 항목 타입입니다. 요일 정보를 포함합니다.
     </Document.Paragraph>
-    <PropsTable rows={weekdaysDataTypeProps} />
+    <CodeBlock
+      code={`type WeekdaysDataType = {
+  /** formatStr에 따라 포맷팅된 요일 문자열 */
+  day: string;
+  /** 요일 인덱스 (0: 일요일 ~ 6: 토요일) */
+  dayIndex: number;
+  /** 주말 여부 */
+  isWeekend: boolean;
+  /** 평일 여부 */
+  isWeekday: boolean;
+};`}
+    />
 
     <Document.Heading2>Data Attributes</Document.Heading2>
     <Document.Paragraph mb={4}>
@@ -162,100 +197,6 @@ const dateProps: PropsTableRow[] = [
     type: "CalendarDataType",
     defaultValue: "—",
     description: "날짜 정보 객체입니다",
-  },
-];
-
-/* ──────────────────────────────────────────────
-   Custom Type Props
-   ────────────────────────────────────────────── */
-
-const calendarDataTypeProps: PropsTableRow[] = [
-  {
-    name: "dateObject",
-    type: "Date",
-    defaultValue: "—",
-    description: "날짜 객체입니다",
-  },
-  {
-    name: "day",
-    type: "string",
-    defaultValue: "—",
-    description: "formatStr에 따라 포맷팅된 요일 문자열입니다",
-  },
-  {
-    name: "dayIndex",
-    type: "number",
-    defaultValue: "—",
-    description: "요일 인덱스입니다 (0: 일요일 ~ 6: 토요일)",
-  },
-  {
-    name: "date",
-    type: "number",
-    defaultValue: "—",
-    description: "날짜 숫자입니다 (1 ~ 31)",
-  },
-  {
-    name: "isWeekend",
-    type: "boolean",
-    defaultValue: "—",
-    description: "주말 여부입니다",
-  },
-  {
-    name: "isWeekday",
-    type: "boolean",
-    defaultValue: "—",
-    description: "평일 여부입니다",
-  },
-  {
-    name: "isCurrentMonth",
-    type: "boolean",
-    defaultValue: "—",
-    description: "현재 표시 중인 월에 속한 날짜인지 여부입니다",
-  },
-  {
-    name: "isToday",
-    type: "boolean",
-    defaultValue: "—",
-    description: "오늘 날짜 여부입니다",
-  },
-  {
-    name: "isPrevMonthEnd",
-    type: "boolean",
-    defaultValue: "—",
-    description: "이전 달의 마지막 날짜인지 여부입니다",
-  },
-  {
-    name: "isNextMonthStart",
-    type: "boolean",
-    defaultValue: "—",
-    description: "다음 달의 첫 날짜인지 여부입니다",
-  },
-];
-
-const weekdaysDataTypeProps: PropsTableRow[] = [
-  {
-    name: "day",
-    type: "string",
-    defaultValue: "—",
-    description: "formatStr에 따라 포맷팅된 요일 문자열입니다",
-  },
-  {
-    name: "dayIndex",
-    type: "number",
-    defaultValue: "—",
-    description: "요일 인덱스입니다 (0: 일요일 ~ 6: 토요일)",
-  },
-  {
-    name: "isWeekend",
-    type: "boolean",
-    defaultValue: "—",
-    description: "주말 여부입니다",
-  },
-  {
-    name: "isWeekday",
-    type: "boolean",
-    defaultValue: "—",
-    description: "평일 여부입니다",
   },
 ];
 
