@@ -95,7 +95,7 @@ const DateRangeDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:hover:bg-neutral-100"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
@@ -156,7 +156,7 @@ const DateRangeDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors data-[current-month=true]:text-neutral-800 data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[selected=true]:text-white data-[current-month=true]:hover:bg-neutral-100 data-[current-month=false]:cursor-default data-[current-month=false]:text-neutral-400 data-[current-month=false]:hover:bg-transparent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
@@ -210,7 +210,7 @@ const DisabledDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:hover:bg-neutral-100"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
@@ -263,7 +263,7 @@ const DisabledDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors data-[current-month=true]:text-neutral-800 data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[selected=true]:text-white data-[current-month=true]:hover:bg-neutral-100 data-[current-month=false]:cursor-default data-[current-month=false]:text-neutral-400 data-[current-month=false]:hover:bg-transparent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
@@ -282,17 +282,10 @@ const DisabledDemo = () => {
 
 const ControlledDemo = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
+  const [displayedDate, setDisplayedDate] = useState<Date>(new Date());
   const goToToday = () => {
     setSelectedDate(new Date());
-  };
-
-  const goToNextWeek = () => {
-    setSelectedDate(addDays(selectedDate, 7));
-  };
-
-  const goToPrevWeek = () => {
-    setSelectedDate(subDays(selectedDate, 7));
+    setDisplayedDate(new Date());
   };
 
   return (
@@ -304,21 +297,14 @@ const ControlledDemo = () => {
         >
           오늘로 이동
         </button>
-        <button
-          onClick={goToPrevWeek}
-          className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-        >
-          -7일
-        </button>
-        <button
-          onClick={goToNextWeek}
-          className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-        >
-          +7일
-        </button>
       </div>
 
-      <DatePicker.Root value={selectedDate} onValueChange={setSelectedDate} displayDate={selectedDate}>
+      <DatePicker.Root
+        value={selectedDate}
+        onValueChange={setSelectedDate}
+        displayDate={displayedDate}
+        onDisplayDateChange={setDisplayedDate}
+      >
         <DatePicker.Calendar>
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-lg font-semibold text-neutral-800">
@@ -350,7 +336,7 @@ const ControlledDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:hover:bg-neutral-100"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   <DatePicker.Date data={date}>{date.date}</DatePicker.Date>
                 </DatePicker.DateTrigger>
@@ -369,21 +355,13 @@ const ControlledDemo = () => {
 
 const controlledCode = `import { useState } from "react";
 import { DatePicker } from "@timeless-ui/ui";
-import { addDays, subDays } from "date-fns";
 
 const ControlledDemo = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
+  const [displayedDate, setDisplayedDate] = useState<Date>(new Date());
   const goToToday = () => {
     setSelectedDate(new Date());
-  };
-
-  const goToNextWeek = () => {
-    setSelectedDate(addDays(selectedDate, 7));
-  };
-
-  const goToPrevWeek = () => {
-    setSelectedDate(subDays(selectedDate, 7));
+    setDisplayedDate(new Date());
   };
 
   return (
@@ -395,21 +373,9 @@ const ControlledDemo = () => {
         >
           오늘로 이동
         </button>
-        <button
-          onClick={goToPrevWeek}
-          className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-        >
-          -7일
-        </button>
-        <button
-          onClick={goToNextWeek}
-          className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-        >
-          +7일
-        </button>
       </div>
 
-      <DatePicker.Root value={selectedDate} onValueChange={setSelectedDate}>
+      <DatePicker.Root value={selectedDate} onValueChange={setSelectedDate} displayDate={displayedDate} onDisplayDateChange={setDisplayedDate}>
         <DatePicker.Calendar>
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-lg font-semibold text-neutral-800">
@@ -441,7 +407,7 @@ const ControlledDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors data-[current-month=true]:text-neutral-800 data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[selected=true]:text-white data-[current-month=true]:hover:bg-neutral-100 data-[current-month=false]:cursor-default data-[current-month=false]:text-neutral-400 data-[current-month=false]:hover:bg-transparent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>

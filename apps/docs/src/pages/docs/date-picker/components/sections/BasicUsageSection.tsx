@@ -59,7 +59,7 @@ const BasicDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:hover:bg-neutral-100"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent data-[current-month=false]:cursor-default data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[current-month=false]:text-neutral-400 data-[current-month=true]:text-neutral-800 data-[selected=true]:text-white data-[current-month=false]:hover:bg-transparent data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
@@ -116,7 +116,7 @@ const BasicDemo = () => {
                 <DatePicker.DateTrigger
                   key={index}
                   data={date}
-                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors data-[current-month=true]:text-neutral-800 data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[selected=true]:text-white data-[current-month=true]:hover:bg-neutral-100 data-[current-month=false]:cursor-default data-[current-month=false]:text-neutral-400 data-[current-month=false]:hover:bg-transparent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
+                  className="flex h-10 items-center justify-center rounded-md text-sm transition-colors data-[current-month=true]:text-neutral-800 data-[selected=true]:bg-neutral-800 data-[selected=true]:font-semibold data-[selected=true]:text-white data-[current-month=true]:data-[selected=true]:hover:bg-neutral-900 data-[current-month=true]:hover:bg-neutral-100 data-[current-month=false]:cursor-default data-[current-month=false]:text-neutral-400 data-[current-month=false]:hover:bg-transparent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
                 >
                   {date.date}
                 </DatePicker.DateTrigger>
