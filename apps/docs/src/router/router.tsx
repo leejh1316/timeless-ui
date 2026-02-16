@@ -31,6 +31,7 @@ import TabsPage from "@src/pages/docs/tabs/TabsPage";
 import TOCPage from "@src/pages/docs/toc/TOCPage";
 import TooltipPage from "@src/pages/docs/tooltip/TooltipPage";
 import UseArrowNavigationPage from "@src/pages/docs/use-arrow-navigation/UseArrowNavigationPage";
+import UseSnoozePage from "@src/pages/docs/use-snooze/UseSnoozePage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -82,7 +83,10 @@ export const PAGE_ROUTES: RouteCategory = {
   },
   hooks: {
     title: "Hooks",
-    routes: [{ path: "/docs/use-arrow-navigation", element: <UseArrowNavigationPage />, name: "useArrowNavigation" }],
+    routes: [
+      { path: "/docs/use-arrow-navigation", element: <UseArrowNavigationPage />, name: "useArrowNavigation" },
+      { path: "/docs/use-snooze", element: <UseSnoozePage />, name: "useSnooze" },
+    ],
   },
 };
 
