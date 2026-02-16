@@ -288,6 +288,7 @@ const Dropdown = {
   Root: DropdownRoot,
   Trigger: DropdownTrigger,
   Portal: DropdownPortal,
+  View: DropdownView,
   Content: DropdownContent,
   Item: DropdownItem,
 };
