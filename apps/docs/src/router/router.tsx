@@ -21,6 +21,7 @@ import FunnelPage from "@src/pages/docs/funnel/FunnelPage";
 import ImagePage from "@src/pages/docs/image/ImagePage";
 import InViewPage from "@src/pages/docs/in-view/InViewPage";
 import ModalPage from "@src/pages/docs/modal/ModalPage";
+import PaginationPage from "@src/pages/docs/pagination/PaginationPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -63,6 +64,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/image", element: <ImagePage />, name: "Image" },
       { path: "/docs/in-view", element: <InViewPage />, name: "InView" },
       { path: "/docs/modal", element: <ModalPage />, name: "Modal" },
+      { path: "/docs/pagination", element: <PaginationPage />, name: "Pagination" },
     ],
   },
 };
