@@ -1,5 +1,5 @@
+import { useControllableState } from "../../hooks";
 import { useState, useMemo } from "react";
-import { useControllableState } from "./useControllableState";
 
 interface UseFunnelParams<TStep extends string, TData extends object> {
   steps: readonly TStep[];

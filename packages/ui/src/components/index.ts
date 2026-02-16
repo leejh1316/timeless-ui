@@ -13,7 +13,7 @@ export * from "./date-picker/DatePicker";
 export * from "./dropdown/Dropdown";
 export * from "./file-upload/FileUpload";
 export * from "./form/form";
-export * from "./funnel/Funnel";
+export * from "./funnel";
 export * from "./image/Image";
 export * from "./in-view/InView";
 export * from "./input/Input";
