@@ -19,7 +19,7 @@ const basicCode = `import { Button } from "@timeless-ui/ui";
 
 const BasicDemo = () => {
   return (
-    <Button className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg px-6 py-2.5 font-semibold text-white transition-colors">
+    <Button className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg px-6 py-2.5 font-semibold text-white transition-colors">
       버튼
     </Button>
   );

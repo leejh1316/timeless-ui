@@ -60,14 +60,14 @@ const ControlledDemo = () => {
   return (
     <div className="flex items-center gap-4">
       <AlertDialog.Root open={open} onOpenChange={setOpen}>
-        <AlertDialog.Trigger className="bg-primary hover:bg-primary-700 active:bg-primary-800 inline-flex h-10 items-center justify-center rounded-lg px-5 text-sm font-semibold text-white shadow-sm transition-colors">
+        <AlertDialog.Trigger className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 active:bg-blue-800">
           구독 취소
         </AlertDialog.Trigger>
         <AlertDialog.Portal>
           <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
           <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-            <h3 className="text-title-3 font-semibold">구독을 취소하시겠습니까?</h3>
-            <p className="text-body-2 text-ink-secondary mt-2">현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
+            <h3 className="text-xl font-semibold">구독을 취소하시겠습니까?</h3>
+            <p className="mt-2 text-sm text-neutral-600">현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
             <div className="mt-6 flex justify-end gap-1">
               <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
                 유지하기
@@ -79,8 +79,8 @@ const ControlledDemo = () => {
           </AlertDialog.Content>
         </AlertDialog.Portal>
       </AlertDialog.Root>
-      <span className="text-body-3 text-ink-tertiary">
-        상태: <code className="font-code rounded bg-neutral-100 px-1.5 py-0.5 text-xs">{open ? "open" : "closed"}</code>
+      <span className="text-sm text-neutral-500">
+        상태: <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs">{open ? "open" : "closed"}</code>
       </span>
     </div>
   );
@@ -89,14 +89,14 @@ const ControlledDemo = () => {
 const controlledCode = `const [open, setOpen] = useState(false);
 
 <AlertDialog.Root open={open} onOpenChange={setOpen}>
-  <AlertDialog.Trigger className="bg-primary hover:bg-primary-700 active:bg-primary-800 inline-flex h-10 items-center justify-center rounded-lg px-5 text-sm font-semibold text-white shadow-sm transition-colors">
+  <AlertDialog.Trigger className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 active:bg-blue-800">
     구독 취소
   </AlertDialog.Trigger>
   <AlertDialog.Portal>
     <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
     <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-      <h3 className="text-title-3 font-semibold">구독을 취소하시겠습니까?</h3>
-      <p className="text-body-2 text-ink-secondary mt-2">현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
+      <h3 className="text-xl font-semibold">구독을 취소하시겠습니까?</h3>
+      <p className="mt-2 text-sm text-neutral-600">현재 구독 기간이 끝나면 프리미엄 기능을 이용할 수 없습니다.</p>
       <div className="mt-6 flex justify-end gap-1">
         <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
           유지하기
@@ -131,8 +131,8 @@ const AsyncActionDemo = () => {
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
         <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-          <h3 className="text-title-3 font-semibold">계정을 비활성화하시겠습니까?</h3>
-          <p className="text-body-2 text-ink-secondary mt-2">비활성화 후 30일 이내에 다시 활성화할 수 있습니다.</p>
+          <h3 className="text-xl font-semibold">계정을 비활성화하시겠습니까?</h3>
+          <p className="mt-2 text-sm text-neutral-600">비활성화 후 30일 이내에 다시 활성화할 수 있습니다.</p>
           <div className="mt-6 flex justify-end gap-1">
             <AlertDialog.Cancel
               disabled={loading}
@@ -179,8 +179,8 @@ const handleAction = async (e: React.MouseEvent<HTMLButtonElement>) => {
   <AlertDialog.Portal>
     <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
     <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-      <h3 className="text-title-3 font-semibold">계정을 비활성화하시겠습니까?</h3>
-      <p className="text-body-2 text-ink-secondary mt-2">비활성화 후 30일 이내에 다시 활성화할 수 있습니다.</p>
+      <h3 className="text-xl font-semibold">계정을 비활성화하시겠습니까?</h3>
+      <p className="mt-2 text-sm text-neutral-600">비활성화 후 30일 이내에 다시 활성화할 수 있습니다.</p>
       <div className="mt-6 flex justify-end gap-1">
         <AlertDialog.Cancel
           disabled={loading}
@@ -222,8 +222,8 @@ const NonDismissableDemo = () => (
     <AlertDialog.Portal>
       <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
       <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,440px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-        <h3 className="text-title-3 font-semibold">서비스 이용약관에 동의해 주세요</h3>
-        <p className="text-body-2 text-ink-secondary mt-2">서비스를 이용하려면 약관에 동의해야 합니다. 외부 클릭으로 닫을 수 없습니다.</p>
+        <h3 className="text-xl font-semibold">서비스 이용약관에 동의해 주세요</h3>
+        <p className="mt-2 text-sm text-neutral-600">서비스를 이용하려면 약관에 동의해야 합니다. 외부 클릭으로 닫을 수 없습니다.</p>
         <div className="mt-6 flex justify-end gap-1">
           <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
             거부
@@ -243,8 +243,8 @@ const nonDismissableCode = `<AlertDialog.Root isDismissable={false}>
   <AlertDialog.Portal>
     <AlertDialog.Overlay className="z-1000 fixed inset-0 bg-black/50 backdrop-blur-[2px] transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
     <AlertDialog.Content className="z-1000 fixed left-1/2 top-1/2 w-[min(90vw,440px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-      <h3 className="text-title-3 font-semibold">서비스 이용약관에 동의해 주세요</h3>
-      <p className="text-body-2 text-ink-secondary mt-2">서비스를 이용하려면 약관에 동의해야 합니다. 외부 클릭으로 닫을 수 없습니다.</p>
+      <h3 className="text-xl font-semibold">서비스 이용약관에 동의해 주세요</h3>
+      <p className="mt-2 text-sm text-neutral-600">서비스를 이용하려면 약관에 동의해야 합니다. 외부 클릭으로 닫을 수 없습니다.</p>
       <div className="mt-6 flex justify-end gap-1">
         <AlertDialog.Cancel className="inline-flex h-9 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
           거부

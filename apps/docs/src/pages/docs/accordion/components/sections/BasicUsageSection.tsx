@@ -36,36 +36,36 @@ const BasicDemo = () => (
   >
     <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           웹 접근성은 준수하나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+      <Accordion.Content className="data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down overflow-hidden text-sm text-neutral-600">
         <div className="px-4 pb-3">네. WAI-ARIA 디자인 패턴을 준수하여 접근성을 보장합니다.</div>
       </Accordion.Content>
     </Accordion.Item>
 
     <Accordion.Item value="item-2" className="overflow-hidden border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           스타일이 적용되어 있나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up">
+      <Accordion.Content className="data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down text-sm text-neutral-600">
         <div className="px-4 pb-3">아니요 스타일이 적용되어 있지 않습니다. 필요에 따라 자유롭게 커스터마이징하여 사용하세요.</div>
       </Accordion.Content>
     </Accordion.Item>
 
     <Accordion.Item value="item-3" className="last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           애니메이션이 적용되어 있나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+      <Accordion.Content className="data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down overflow-hidden text-sm text-neutral-600">
         <div className="px-4 pb-3">아니요 애니메이션이 적용되어 있지 않습니다. 필요에 따라 자유롭게 커스터마이징하여 사용하세요.</div>
       </Accordion.Content>
     </Accordion.Item>
@@ -88,36 +88,36 @@ export default () => (
   >
     <Accordion.Item value="item-1" className="border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           웹 접근성은 준수하나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+      <Accordion.Content className="overflow-hidden text-sm text-neutral-600 data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down">
         <div className="px-4 pb-3">네. WAI-ARIA 디자인 패턴을 준수하여 접근성을 보장합니다.</div>
       </Accordion.Content>
     </Accordion.Item>
 
     <Accordion.Item value="item-2" className="overflow-hidden border-b border-neutral-200 last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           스타일이 적용되어 있나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up">
+      <Accordion.Content className="text-sm text-neutral-600 data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down">
         <div className="px-4 pb-3">아니요 스타일이 적용되어 있지 않습니다. 필요에 따라 자유롭게 커스터마이징하여 사용하세요.</div>
       </Accordion.Content>
     </Accordion.Item>
 
     <Accordion.Item value="item-3" className="last:border-0">
       <Accordion.Header className="flex">
-        <Accordion.Trigger className="text-body-2 text-ink-primary data-[open=true]:text-primary-600 group flex flex-1 items-center justify-between px-4 py-3 font-medium transition-all hover:bg-neutral-50">
+        <Accordion.Trigger className="group flex flex-1 items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 data-[open=true]:text-blue-600">
           애니메이션이 적용되어 있나요?
-          <ChevronDownIcon className="text-icon-tertiary h-4 w-4 transition-transform duration-200 group-data-[open=true]:rotate-180" />
+          <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform duration-200 group-data-[open=true]:rotate-180" />
         </Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="text-body-3 text-ink-secondary data-[open=true]:animate-accordion-down data-[open=false]:animate-accordion-up overflow-hidden">
+      <Accordion.Content className="overflow-hidden text-sm text-neutral-600 data-[open=false]:animate-accordion-up data-[open=true]:animate-accordion-down">
         <div className="px-4 pb-3">아니요 애니메이션이 적용되어 있지 않습니다. 필요에 따라 자유롭게 커스터마이징하여 사용하세요.</div>
       </Accordion.Content>
     </Accordion.Item>

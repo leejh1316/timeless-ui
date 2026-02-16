@@ -52,17 +52,17 @@ const basicCode = `const BasicDemo = () => (
         <Carousel.Track className="-ml-2">
           <Carousel.Item className="pl-2">
             <div className="flex h-60 items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+              <span className="text-xl text-neutral-600">슬라이드 1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="pl-2">
             <div className="flex h-60 items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+              <span className="text-xl text-neutral-600">슬라이드 2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="pl-2">
             <div className="flex h-60 items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+              <span className="text-xl text-neutral-600">슬라이드 3</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>

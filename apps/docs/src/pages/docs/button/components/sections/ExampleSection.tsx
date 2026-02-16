@@ -24,7 +24,7 @@ const LoadingDemo = () => {
     <Button
       loading={isLoading}
       onClick={handleClick}
-      className="bg-primary-500 hover:bg-primary-600 rounded-lg px-6 py-2.5 font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:bg-neutral-300"
+      className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-neutral-300"
     >
       {isLoading ? (
         <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ const LoadingDemo = () => {
     <Button
       loading={isLoading}
       onClick={handleClick}
-      className="bg-primary-500 hover:bg-primary-600 disabled:bg-neutral-300 disabled:cursor-not-allowed rounded-lg px-6 py-2.5 font-semibold text-white transition-colors"
+      className="bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed rounded-lg px-6 py-2.5 font-semibold text-white transition-colors"
     >
       {isLoading ? (
         <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ const disabledCode = `import { Button } from "@timeless-ui/ui";
 const DisabledDemo = () => {
   return (
     <div className="flex flex-wrap gap-4">
-      <Button className="bg-primary-500 hover:bg-primary-600 rounded-lg px-6 py-2.5 font-semibold text-white transition-colors">
+      <Button className="bg-blue-600 hover:bg-blue-700 rounded-lg px-6 py-2.5 font-semibold text-white transition-colors">
         활성화된 버튼
       </Button>
       <Button
@@ -107,7 +107,7 @@ const DisabledDemo = () => {
 // ─── Pressed State Demo ───
 const PressedDemo = () => {
   return (
-    <Button className="bg-primary-500 hover:bg-primary-600 rounded-lg px-6 py-2.5 font-semibold text-white transition-all data-[pressed=true]:scale-95">
+    <Button className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white transition-all hover:bg-blue-700 data-[pressed=true]:scale-95">
       눌러보세요
     </Button>
   );
@@ -117,7 +117,7 @@ const pressedCode = `import { Button } from "@timeless-ui/ui";
 
 const PressedDemo = () => {
   return (
-    <Button className="bg-primary-500 hover:bg-primary-600 data-[pressed=true]:scale-95 rounded-lg px-6 py-2.5 font-semibold text-white transition-all">
+    <Button className="bg-blue-600 hover:bg-blue-700 data-[pressed=true]:scale-95 rounded-lg px-6 py-2.5 font-semibold text-white transition-all">
       눌러보세요
     </Button>
   );

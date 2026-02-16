@@ -96,7 +96,7 @@ const NavigationDemo = () => (
           <ChevronRight className="h-5 w-5" />
         </Carousel.NextButton>
       </div>
-      <div className="text-body-3 mt-3 text-center text-neutral-500">
+      <div className="mt-3 text-center text-sm text-neutral-500">
         <Carousel.CurrentIndex /> / <Carousel.TotalCount />
       </div>
     </Carousel.Root>
@@ -111,17 +111,17 @@ const navigationCode = `const NavigationDemo = () => (
           <Carousel.Track>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-100">
-                <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+                <span className="text-xl text-neutral-600">슬라이드 1</span>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-200">
-                <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+                <span className="text-xl text-neutral-600">슬라이드 2</span>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-300">
-                <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+                <span className="text-xl text-neutral-600">슬라이드 3</span>
               </div>
             </Carousel.Item>
           </Carousel.Track>
@@ -133,7 +133,7 @@ const navigationCode = `const NavigationDemo = () => (
           <ChevronRight className="h-5 w-5" />
         </Carousel.NextButton>
       </div>
-      <div className="mt-3 text-center text-body-3 text-neutral-500">
+      <div className="mt-3 text-center text-sm text-neutral-500">
         <Carousel.CurrentIndex /> / <Carousel.TotalCount />
       </div>
     </Carousel.Root>
@@ -147,22 +147,22 @@ const IndicatorDemo = () => (
         <Carousel.Track>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+              <span className="text-xl text-neutral-600">슬라이드 1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+              <span className="text-xl text-neutral-600">슬라이드 2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+              <span className="text-xl text-neutral-600">슬라이드 3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-2 text-neutral-600">슬라이드 4</span>
+              <span className="text-xl text-neutral-600">슬라이드 4</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
@@ -189,22 +189,22 @@ const indicatorCode = `const IndicatorDemo = () => (
         <Carousel.Track>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+              <span className="text-xl text-neutral-600">슬라이드 1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+              <span className="text-xl text-neutral-600">슬라이드 2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+              <span className="text-xl text-neutral-600">슬라이드 3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-2 text-neutral-600">슬라이드 4</span>
+              <span className="text-xl text-neutral-600">슬라이드 4</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
@@ -238,17 +238,17 @@ const AutoplayDemo = () => {
           <Carousel.Track>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-100">
-                <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+                <span className="text-xl text-neutral-600">슬라이드 1</span>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-200">
-                <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+                <span className="text-xl text-neutral-600">슬라이드 2</span>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className="flex h-48 items-center justify-center rounded-xl bg-neutral-300">
-                <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+                <span className="text-xl text-neutral-600">슬라이드 3</span>
               </div>
             </Carousel.Item>
           </Carousel.Track>
@@ -256,12 +256,12 @@ const AutoplayDemo = () => {
         <div className="mt-4 flex items-center justify-center gap-3">
           <button
             onClick={toggleAutoplay}
-            className="text-body-3 flex items-center gap-2 rounded-lg bg-neutral-800 px-4 py-2 text-white transition-colors hover:bg-neutral-700"
+            className="flex items-center gap-2 rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700"
           >
             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             {isPlaying ? "일시정지" : "재생"}
           </button>
-          <div className="text-body-3 text-neutral-500">
+          <div className="text-sm text-neutral-500">
             <Carousel.CurrentIndex /> / <Carousel.TotalCount />
           </div>
         </div>
@@ -302,12 +302,12 @@ const autoplayCode = `const AutoplayDemo = () => {
         <div className="mt-4 flex items-center justify-center gap-3">
           <button
             onClick={toggleAutoplay}
-            className="flex items-center gap-2 rounded-lg bg-neutral-800 px-4 py-2 text-body-3 text-white transition-colors hover:bg-neutral-700"
+            className="flex items-center gap-2 rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700"
           >
             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             {isPlaying ? "일시정지" : "재생"}
           </button>
-          <div className="text-body-3 text-neutral-500">
+          <div className="text-sm text-neutral-500">
             <Carousel.CurrentIndex /> / <Carousel.TotalCount />
           </div>
         </div>
@@ -323,22 +323,22 @@ const VerticalDemo = () => (
         <Carousel.Track className="h-[400px]">
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+              <span className="text-xl text-neutral-600">슬라이드 1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+              <span className="text-xl text-neutral-600">슬라이드 2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+              <span className="text-xl text-neutral-600">슬라이드 3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-2 text-neutral-600">슬라이드 4</span>
+              <span className="text-xl text-neutral-600">슬라이드 4</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
@@ -354,22 +354,22 @@ const verticalCode = `const VerticalDemo = () => (
         <Carousel.Track className="h-[400px]">
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-2 text-neutral-600">슬라이드 1</span>
+              <span className="text-xl text-neutral-600">슬라이드 1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-2 text-neutral-600">슬라이드 2</span>
+              <span className="text-xl text-neutral-600">슬라이드 2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-2 text-neutral-600">슬라이드 3</span>
+              <span className="text-xl text-neutral-600">슬라이드 3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="flex h-full items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-2 text-neutral-600">슬라이드 4</span>
+              <span className="text-xl text-neutral-600">슬라이드 4</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
@@ -385,27 +385,27 @@ const MultipleItemsDemo = () => (
         <Carousel.Track className="-ml-3">
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-3 text-neutral-600">1</span>
+              <span className="text-lg text-neutral-600">1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-3 text-neutral-600">2</span>
+              <span className="text-lg text-neutral-600">2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-3 text-neutral-600">3</span>
+              <span className="text-lg text-neutral-600">3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-3 text-neutral-600">4</span>
+              <span className="text-lg text-neutral-600">4</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-500">
-              <span className="text-title-3 text-neutral-50">5</span>
+              <span className="text-lg text-neutral-50">5</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
@@ -421,27 +421,27 @@ const multipleItemsCode = `const MultipleItemsDemo = () => (
         <Carousel.Track className="-ml-3">
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-100">
-              <span className="text-title-3 text-neutral-600">1</span>
+              <span className="text-lg text-neutral-600">1</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-200">
-              <span className="text-title-3 text-neutral-600">2</span>
+              <span className="text-lg text-neutral-600">2</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-300">
-              <span className="text-title-3 text-neutral-600">3</span>
+              <span className="text-lg text-neutral-600">3</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-400">
-              <span className="text-title-3 text-neutral-600">4</span>
+              <span className="text-lg text-neutral-600">4</span>
             </div>
           </Carousel.Item>
           <Carousel.Item className="basis-1/2! pl-3">
             <div className="flex h-40 items-center justify-center rounded-xl bg-neutral-500">
-              <span className="text-title-3 text-neutral-50">5</span>
+              <span className="text-lg text-neutral-50">5</span>
             </div>
           </Carousel.Item>
         </Carousel.Track>
