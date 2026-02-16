@@ -27,6 +27,7 @@ import ProgressBarPage from "@src/pages/docs/progress-bar/ProgressBarPage";
 import RadioGroupPage from "@src/pages/docs/radio-group/RadioGroupPage";
 import InputPage from "@src/pages/docs/input/InputPage";
 import SelectPage from "@src/pages/docs/select/SelectPage";
+import TabsPage from "@src/pages/docs/tabs/TabsPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -75,6 +76,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/progress-bar", element: <ProgressBarPage />, name: "ProgressBar" },
       { path: "/docs/radio-group", element: <RadioGroupPage />, name: "RadioGroup" },
       { path: "/docs/select", element: <SelectPage />, name: "Select" },
+      { path: "/docs/tabs", element: <TabsPage />, name: "Tabs" },
     ],
   },
 };
