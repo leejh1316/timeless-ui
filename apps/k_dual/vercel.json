@@ -1,4 +1,8 @@
 {
+  "buildCommand": "cd ../.. && pnpm run build && cd apps/k_dual && pnpm run build",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/kdual/:path*",
