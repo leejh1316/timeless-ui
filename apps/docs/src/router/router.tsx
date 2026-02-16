@@ -24,6 +24,7 @@ import ModalPage from "@src/pages/docs/modal/ModalPage";
 import PaginationPage from "@src/pages/docs/pagination/PaginationPage";
 import PopoverPage from "@src/pages/docs/popover/PopoverPage";
 import ProgressBarPage from "@src/pages/docs/progress-bar/ProgressBarPage";
+import RadioGroupPage from "@src/pages/docs/radio-group/RadioGroupPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -69,6 +70,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/pagination", element: <PaginationPage />, name: "Pagination" },
       { path: "/docs/popover", element: <PopoverPage />, name: "Popover" },
       { path: "/docs/progress-bar", element: <ProgressBarPage />, name: "ProgressBar" },
+      { path: "/docs/radio-group", element: <RadioGroupPage />, name: "RadioGroup" },
     ],
   },
 };
