@@ -29,6 +29,7 @@ import InputPage from "@src/pages/docs/input/InputPage";
 import SelectPage from "@src/pages/docs/select/SelectPage";
 import TabsPage from "@src/pages/docs/tabs/TabsPage";
 import TOCPage from "@src/pages/docs/toc/TOCPage";
+import TooltipPage from "@src/pages/docs/tooltip/TooltipPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -79,6 +80,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/select", element: <SelectPage />, name: "Select" },
       { path: "/docs/tabs", element: <TabsPage />, name: "Tabs" },
       { path: "/docs/toc", element: <TOCPage />, name: "TOC" },
+      { path: "/docs/tooltip", element: <TooltipPage />, name: "Tooltip" },
     ],
   },
 };
