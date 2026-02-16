@@ -1,4 +1,4 @@
-import { createContext, forwardRef, useCallback, useContext, useLayoutEffect, useRef, useState } from "react";
+import { createContext, forwardRef, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useControllableState } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
@@ -149,14 +149,19 @@ interface CheckboxIconProps extends PrimitivePropsWithRef<"svg"> {
 
 const CheckboxIcon = forwardRef<React.ElementRef<typeof Primitive.svg>, CheckboxIconProps>(({ className, size = 16, ...props }, ref) => {
   const { checked } = useCheckboxContext();
-  const [pathLength, setPathLength] = useState(0);
-  const pathRef = useRef<SVGPathElement>(null);
 
-  useLayoutEffect(() => {
-    if (pathRef.current) {
-      setPathLength(pathRef.current.getTotalLength());
-    }
-  }, []);
+  const isChecked = checked === true || checked === "true";
+  const isMixed = checked === "mixed";
+  const isVisible = isChecked || isMixed;
+
+  const checkPath = "M4 8.5 L7 11.5 L12 5";
+  const mixedPath = "M4 8 L8 8 L12 8";
+  const [currentPath, setCurrentPath] = useState(isChecked ? checkPath : mixedPath);
+
+  useEffect(() => {
+    if (isMixed) setCurrentPath(mixedPath);
+    else if (isChecked) setCurrentPath(checkPath);
+  }, [isChecked, isMixed]);
 
   return (
     <Primitive.svg
@@ -170,21 +175,22 @@ const CheckboxIcon = forwardRef<React.ElementRef<typeof Primitive.svg>, Checkbox
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className={`transition-all duration-200 ease-in-out ${checked ? "scale-100 opacity-100" : "scale-75 opacity-0"} ${className}`}
+      className={`transition-all duration-200 ease-in-out ${isVisible ? "scale-100 opacity-100" : "scale-75 opacity-0"} ${className}`}
       {...props}
     >
       <path
-        ref={pathRef}
-        d="M4 8.5L7 11.5L12 5"
+        d={currentPath}
+        pathLength={1}
         style={{
-          strokeDasharray: pathLength,
-          strokeDashoffset: checked ? 0 : pathLength,
-          transition: "stroke-dashoffset 0.2s ease-in-out",
+          strokeDasharray: 1,
+          strokeDashoffset: isVisible ? 0 : 1,
+          transition: "stroke-dashoffset 0.2s ease-in-out, d 0.2s ease-in-out",
         }}
       />
     </Primitive.svg>
   );
 });
+
 CheckboxIcon.displayName = "Checkbox.Icon";
 
 interface CheckboxStateProps {
