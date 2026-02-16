@@ -29,7 +29,7 @@ const BasicDemo = () => (
     <Modal.Portal>
       <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
       <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-        <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">알림</h2>
           <p className="mb-6 text-sm text-neutral-600">
             이것은 기본적인 모달 예제입니다. 오버레이를 클릭하거나 닫기 버튼을 눌러 모달을 닫을 수 있습니다.
@@ -55,7 +55,7 @@ const BasicDemo = () => (
     <Modal.Portal>
       <Modal.Overlay className="bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0"/>
       <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-        <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">알림</h2>
           <p className="mb-6 text-sm text-neutral-600">
             이것은 기본적인 모달 예제입니다. 오버레이를 클릭하거나 닫기 버튼을 눌러 모달을 닫을 수 있습니다.

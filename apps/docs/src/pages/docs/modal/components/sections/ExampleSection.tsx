@@ -82,7 +82,7 @@ const ControlledDemo = () => {
         <Modal.Portal>
           <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
           <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-            <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+            <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
               <h2 className="mb-2 text-lg font-semibold text-neutral-900">제어되는 모달</h2>
               <p className="mb-6 text-sm text-neutral-600">이 모달의 상태는 외부 state로 제어됩니다.</p>
               <div className="flex justify-end gap-2">
@@ -120,7 +120,8 @@ const ControlledDemo = () => {
         <Modal.Portal>
           <Modal.Overlay className="bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0"/>
           <Modal.Content className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"> className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"> className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">>
-            <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+            
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
               <h2 className="mb-2 text-lg font-semibold text-neutral-900">제어되는 모달</h2>
               <p className="mb-6 text-sm text-neutral-600">이 모달의 상태는 외부 state로 제어됩니다.</p>
               <div className="flex justify-end gap-2">
@@ -156,7 +157,7 @@ const ConfirmationDemo = () => {
       <Modal.Portal>
         <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
         <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+          <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
             <h2 className="mb-2 text-lg font-semibold text-neutral-900">삭제 확인</h2>
             <p className="mb-6 text-sm text-neutral-600">정말로 이 항목을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
             <div className="flex justify-end gap-2">
@@ -192,7 +193,8 @@ const ConfirmationDemo = () => {
       <Modal.Portal>
         <Modal.Overlay className="bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0"/>
         <Modal.Content className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+          
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
             <h2 className="mb-2 text-lg font-semibold text-neutral-900">삭제 확인</h2>
             <p className="mb-6 text-sm text-neutral-600">정말로 이 항목을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
             <div className="flex justify-end gap-2">
@@ -237,7 +239,7 @@ const FormDemo = () => {
       <Modal.Portal>
         <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
         <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+          <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-neutral-900">프로필 수정</h2>
             <div className="mb-6">
               <label className="mb-2 block text-sm font-medium text-neutral-700">이름</label>
@@ -290,7 +292,8 @@ const FormDemo = () => {
       <Modal.Portal>
         <Modal.Overlay className="bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0"/>
         <Modal.Content className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+          
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-neutral-900">프로필 수정</h2>
             <div className="mb-6">
               <label className="mb-2 block text-sm font-medium text-neutral-700">이름</label>
@@ -332,7 +335,7 @@ const NonDismissableDemo = () => (
     <Modal.Portal>
       <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
       <Modal.Content className="fixed left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
-        <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">중요 알림</h2>
           <p className="mb-6 text-sm text-neutral-600">
             이 모달은 반드시 확인 버튼을 눌러야 닫힙니다. 오버레이 클릭이나 ESC 키로는 닫을 수 없습니다.
@@ -358,7 +361,8 @@ const NonDismissableDemo = () => (
     <Modal.Portal>
       <Modal.Overlay className="bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0"/>
       <Modal.Content className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"> className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">>
-        <div className="w-[400px] rounded-xl bg-white p-6 shadow-xl">
+        
+        <div className="w-[min(90vw,400px)] rounded-xl bg-white p-6 shadow-xl">
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">중요 알림</h2>
           <p className="mb-6 text-sm text-neutral-600">
             이 모달은 반드시 확인 버튼을 눌러야 닫힙니다. 오버레이 클릭이나 ESC 키로는 닫을 수 없습니다.
