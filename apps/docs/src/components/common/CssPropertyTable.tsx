@@ -15,7 +15,7 @@ const CssPropertyTable = forwardRef<React.ComponentRef<"table">, CssPropertyTabl
     <Table.Root className={clsx(className)} ref={forwardedRef} {...props}>
       <Table.Header>
         <Table.Row>
-          <Table.Head>Prop</Table.Head>
+          <Table.Head>Name</Table.Head>
           <Table.Head>Description</Table.Head>
         </Table.Row>
       </Table.Header>
@@ -23,7 +23,7 @@ const CssPropertyTable = forwardRef<React.ComponentRef<"table">, CssPropertyTabl
         {rows.map(({ name, description }) => (
           <Table.Row key={name}>
             <Table.Cell>
-              <Table.CellLabel>Prop</Table.CellLabel>
+              <Table.CellLabel>Name</Table.CellLabel>
               <div className="flex items-center gap-1">
                 <InlineCode>{name}</InlineCode>
               </div>
