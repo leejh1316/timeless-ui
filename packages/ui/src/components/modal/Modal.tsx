@@ -53,15 +53,9 @@ ModalPortal.displayName = "Modal.Portal";
 // =============== Modal.Overlay ================
 interface ModalOverlayProps extends PrimitivePropsWithRef<"div"> {}
 const ModalOverlay = forwardRef<HTMLDivElement, ScopedProps<ModalOverlayProps>>((props, forwardedRef) => {
-  const {
-    __scopeModal,
-    className = "bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
-    ...overlayProps
-  } = props;
+  const { __scopeModal, ...overlayProps } = props;
   const { lockScroll, transitionStatus } = useModalContext(MODAL_NAME, __scopeModal);
-  return (
-    <FloatingOverlay data-status={transitionStatus} lockScroll={lockScroll} className={className} ref={forwardedRef} {...overlayProps} />
-  );
+  return <FloatingOverlay data-status={transitionStatus} lockScroll={lockScroll} ref={forwardedRef} {...overlayProps} />;
 });
 ModalOverlay.displayName = "Modal.Overlay";
 
@@ -70,7 +64,7 @@ interface ModalContentProps extends PrimitivePropsWithRef<"div"> {
   initialFocus?: any;
 }
 export const ModalContent = forwardRef<HTMLDivElement, ScopedProps<ModalContentProps>>((props, forwardedRef) => {
-  const { __scopeModal, className, initialFocus, ...contentProps } = props;
+  const { __scopeModal, initialFocus, ...contentProps } = props;
   const { refs, getFloatingProps, transitionStyle, context, isOpen } = useModalContext(MODAL_NAME, __scopeModal);
   const composedRefs = useComposedRefs(refs.setFloating, forwardedRef);
 
@@ -81,7 +75,6 @@ export const ModalContent = forwardRef<HTMLDivElement, ScopedProps<ModalContentP
         aria-modal="true"
         data-state={isOpen ? "open" : "closed"}
         style={transitionStyle}
-        className={className ?? "fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"}
         {...getFloatingProps(contentProps)}
       />
     </FloatingFocusManager>

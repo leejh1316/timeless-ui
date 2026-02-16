@@ -92,15 +92,12 @@ AlertDialogPortal.displayName = "AlertDialog.Portal";
 const ALERT_DIALOG_OVERLAY_NAME = "AlertDialogOverlay";
 interface AlertDialogOverlayProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogOverlay = forwardRef<React.ComponentRef<"div">, ScopedProps<AlertDialogOverlayProps>>((props, forwardedRef) => {
-  const { __scopeAlertDialog, className, ...overlayProps } = props;
+  const { __scopeAlertDialog, ...overlayProps } = props;
   const { lockScroll, isOpen, transitionStatus } = useAlertDialogContext(ALERT_DIALOG_OVERLAY_NAME, __scopeAlertDialog);
   return (
     <FloatingOverlay
       data-status={transitionStatus}
       lockScroll={lockScroll}
-      className={
-        className ?? "inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100"
-      }
       data-state={isOpen ? "open" : "closed"}
       ref={forwardedRef}
       {...overlayProps}
@@ -114,7 +111,7 @@ const ALERT_DIALOG_CONTENT_NAME = "AlertDialogContent";
 interface AlertDialogContentProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<AlertDialogContentProps>>(
   (props, forwardedRef) => {
-    const { __scopeAlertDialog, className, ...contentProps } = props;
+    const { __scopeAlertDialog, ...contentProps } = props;
     const { refs, context, isOpen, getFloatingProps, transitionStyle } = useAlertDialogContext(
       ALERT_DIALOG_CONTENT_NAME,
       __scopeAlertDialog,
@@ -128,7 +125,6 @@ const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, 
           aria-modal="true"
           data-state={isOpen ? "open" : "closed"}
           style={transitionStyle}
-          className={className ?? "fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"}
           {...getFloatingProps(contentProps)}
         />
       </FloatingFocusManager>
