@@ -100,7 +100,7 @@ const Home = () => {
             <ArrowRight size={16} />
           </Link>
           <a
-            href="https://github.com/timeless-ui"
+            href="https://github.com/leejh1316/timeless-ui"
             target="_blank"
             rel="noreferrer"
             className="border-line-regular text-ink-secondary text-body-2 inline-flex items-center gap-2 rounded-lg border px-6 py-3 font-medium transition-colors hover:bg-neutral-50"
@@ -261,7 +261,7 @@ const Home = () => {
         </p>
         <div className="flex items-center justify-center gap-3">
           <Link
-            to="/docs/button"
+            to="/docs/alert-dialog"
             className="bg-ink-primary text-ink-white text-body-2 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold transition-opacity hover:opacity-85"
           >
             컴포넌트 둘러보기
