@@ -1,3 +1,4 @@
+// TODO: Store -> Custom Event로 변경하기
 import { create } from "zustand";
 
 export type ToastStatus = "success" | "error" | "warning" | "info";
