@@ -149,7 +149,8 @@ MIT License
 
 ## 🔗 링크
 
-- [문서 사이트](https://timeless-ui.vercel.app)
+- [문서 사이트](https://timeless-ui-docs.vercel.app/)
+- [랩핑 사이트](https://timeless-ui-k-dual.vercel.app/)
 - [GitHub Repository](https://github.com/leejh1316/timeless-ui)
 - [NPM Package](https://www.npmjs.com/package/@timeless-ui/react)
 
