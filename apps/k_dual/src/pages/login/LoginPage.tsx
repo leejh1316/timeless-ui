@@ -1,6 +1,6 @@
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
-import { Tooltip, useQueryString } from "@timeless-ui/ui";
+import { Tooltip, useQueryString } from "@timeless-ui/react";
 import { useNavigate } from "react-router";
 import LoginForm from "./components/form/LoginForm";
 import { setMockMode } from "@src/config/mock";
@@ -36,13 +36,15 @@ const LoginPage = () => {
             </Tooltip.Trigger>
           </div>
           <Tooltip.Portal>
-            <Tooltip.Content>
-              <Card.Root className="rounded-lg p-3">
-                <h3 className="font-semibold">체험 모드 (Mock)</h3>
-                <p className="mt-0.5 text-sm text-gray-600">미리 구성된 데이터로 서비스를 둘러볼 수 있습니다.</p>
-                <div className="mt-2 text-sm font-semibold text-rose-500">※ 기능이 제한됩니다.</div>
-              </Card.Root>
-            </Tooltip.Content>
+            <Tooltip.View>
+              <Tooltip.Content>
+                <Card.Root className="rounded-lg p-3">
+                  <h3 className="font-semibold">체험 모드 (Mock)</h3>
+                  <p className="mt-0.5 text-sm text-gray-600">미리 구성된 데이터로 서비스를 둘러볼 수 있습니다.</p>
+                  <div className="mt-2 text-sm font-semibold text-rose-500">※ 기능이 제한됩니다.</div>
+                </Card.Root>
+              </Tooltip.Content>
+            </Tooltip.View>
           </Tooltip.Portal>
         </Tooltip.Root>
       </Card.Root>

@@ -1,5 +1,5 @@
 import { useFetchMyInfo } from "@src/api/endpoints/my";
-import { Popover } from "@timeless-ui/ui";
+import { Popover } from "@timeless-ui/react";
 import clsx from "clsx";
 import { Avatar } from "../base/Avatar";
 import { Button } from "../base/Button";

@@ -1,9 +1,4 @@
-import {
-  FloatingFocusManager,
-  FloatingOverlay,
-  FloatingPortal,
-  FloatingPortalProps
-} from "@floating-ui/react";
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, FloatingPortalProps } from "@floating-ui/react";
 import { forwardRef, useCallback, useEffect } from "react";
 import { useComposedRefs, useModal } from "../../hooks";
 import { createContextScope, Scope } from "../../hooks/useCreateContext";
@@ -40,7 +35,7 @@ const AlertDialogRoot = (props: ScopedProps<AlertDialogProps>) => {
     open,
     defaultOpen,
     onOpenChange,
-    lockScroll,
+    lockScroll = true,
     isDismissable = true,
     onCloseAfter = () => {},
   } = props;
@@ -57,23 +52,23 @@ AlertDialogRoot.displayName = "AlertDialog.Root";
 // ================ AlertDialog.Trigger ================
 const ALERT_DIALOG_TRIGGER_NAME = "AlertDialogTrigger";
 interface AlertDialogTriggerProps extends ButtonProps {}
-const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<AlertDialogTriggerProps>>(
-  (props, forwardedRef) => {
-    const { __scopeAlertDialog, onClick, ...triggerProps } = props;
-    const { setIsOpen, refs, isOpen, getReferenceProps } = useAlertDialogContext(ALERT_DIALOG_TRIGGER_NAME, __scopeAlertDialog);
-    const composedRefs = useComposedRefs(forwardedRef, refs.setReference);
-    const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        setIsOpen(true);
-        onClick?.(event);
-      },
-      [onClick, setIsOpen],
-    );
-    return (
-      <Button ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} {...getReferenceProps(triggerProps)} />
-    );
-  },
-);
+const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<AlertDialogTriggerProps>>((props, forwardedRef) => {
+  const { __scopeAlertDialog, onClick, ...triggerProps } = props;
+  const { setIsOpen, refs, isOpen, getReferenceProps } = useAlertDialogContext(ALERT_DIALOG_TRIGGER_NAME, __scopeAlertDialog);
+  const composedRefs = useComposedRefs(forwardedRef, refs.setReference);
+  const handleClick = useCallback(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      const result = onClick?.(event);
+      //@ts-ignore
+      if (result instanceof Promise) {
+        await result;
+      }
+      setIsOpen(true);
+    },
+    [onClick, setIsOpen],
+  );
+  return <Button {...getReferenceProps(triggerProps)} ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} />;
+});
 AlertDialogTrigger.displayName = "AlertDialog.Trigger";
 
 // ================ AlertDialog.Portal ================
@@ -97,15 +92,12 @@ AlertDialogPortal.displayName = "AlertDialog.Portal";
 const ALERT_DIALOG_OVERLAY_NAME = "AlertDialogOverlay";
 interface AlertDialogOverlayProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogOverlay = forwardRef<React.ComponentRef<"div">, ScopedProps<AlertDialogOverlayProps>>((props, forwardedRef) => {
-  const { __scopeAlertDialog, className, ...overlayProps } = props;
+  const { __scopeAlertDialog, ...overlayProps } = props;
   const { lockScroll, isOpen, transitionStatus } = useAlertDialogContext(ALERT_DIALOG_OVERLAY_NAME, __scopeAlertDialog);
   return (
     <FloatingOverlay
       data-status={transitionStatus}
       lockScroll={lockScroll}
-      className={
-        className ?? "inset-0 z-[1000] bg-gray-900/70 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100"
-      }
       data-state={isOpen ? "open" : "closed"}
       ref={forwardedRef}
       {...overlayProps}
@@ -119,7 +111,7 @@ const ALERT_DIALOG_CONTENT_NAME = "AlertDialogContent";
 interface AlertDialogContentProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<AlertDialogContentProps>>(
   (props, forwardedRef) => {
-    const { __scopeAlertDialog, className, ...contentProps } = props;
+    const { __scopeAlertDialog, ...contentProps } = props;
     const { refs, context, isOpen, getFloatingProps, transitionStyle } = useAlertDialogContext(
       ALERT_DIALOG_CONTENT_NAME,
       __scopeAlertDialog,
@@ -133,7 +125,6 @@ const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, 
           aria-modal="true"
           data-state={isOpen ? "open" : "closed"}
           style={transitionStyle}
-          className={className ?? "fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2"}
           {...getFloatingProps(contentProps)}
         />
       </FloatingFocusManager>

@@ -1,4 +1,4 @@
-import { Primitive, PrimitivePropsWithRef } from "@timeless-ui/ui";
+import { Primitive, PrimitivePropsWithRef } from "@timeless-ui/react";
 import clsx from "clsx";
 import { ComponentRef, forwardRef } from "react";
 

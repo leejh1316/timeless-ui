@@ -1,4 +1,4 @@
-import { createContextScope, Scope } from "@src/hooks/useCreateContext";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
 import clsx from "clsx";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
@@ -22,8 +22,8 @@ interface ProgressBarRootProps extends PrimitivePropsWithRef<"div">, Partial<Pro
 const ProgressBarRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<ProgressBarRootProps>>((props, forwardedRef) => {
   const { __scopeProgressBar, min, max, ...rootProps } = props;
   return (
-    <ProgressBarProvider scope={__scopeProgressBar} min={min} max={max} >
-      <Primitive.div ref={forwardedRef} {...rootProps} role="progressbar"/>
+    <ProgressBarProvider scope={__scopeProgressBar} min={min} max={max}>
+      <Primitive.div ref={forwardedRef} {...rootProps} role="progressbar" />
     </ProgressBarProvider>
   );
 });
@@ -31,8 +31,15 @@ ProgressBarRoot.displayName = "ProgressBar.Root";
 
 interface ProgressBarTrackProps extends PrimitivePropsWithRef<"div"> {}
 const ProgressBarTrack = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarTrackProps>>((props, forwardedRef) => {
-  const { className, ...otherProps } = props;
-  return <Primitive.div className={clsx(className, "relative")} ref={forwardedRef} {...otherProps} />;
+  return (
+    <Primitive.div
+      style={{
+        position: "relative",
+      }}
+      ref={forwardedRef}
+      {...props}
+    />
+  );
 });
 ProgressBarTrack.displayName = "ProgressBar.Track";
 
@@ -41,7 +48,7 @@ interface ProgressBarValueProps extends PrimitivePropsWithRef<"div"> {
   getPercentValue?: (percentValue: number) => void;
 }
 const ProgressBarValue = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarValueProps>>((props, forwardedRef) => {
-  const { className, style, value, __scopeProgressBar, getPercentValue, ...otherProps } = props;
+  const { style, value, __scopeProgressBar, getPercentValue, ...otherProps } = props;
   const context = useProgressBarContext("ProgressBar.Value", __scopeProgressBar);
   const percent = getPercent(value, { min: context.min, max: context.max });
 
@@ -58,8 +65,15 @@ const ProgressBarValue = forwardRef<React.ComponentRef<"div">, ScopedProps<Progr
   return (
     <Primitive.div
       ref={forwardedRef}
-      className={clsx(className, "absolute inset-y-0 left-0 h-full")}
-      style={{ width: `${percent}%`, ...style }}
+      style={{
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        height: "100%",
+        width: `${percent}%`,
+        ...style,
+      }}
       {...otherProps}
     />
   );

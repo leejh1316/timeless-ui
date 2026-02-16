@@ -13,6 +13,10 @@
     "esModuleInterop": true, // CommonJS 모듈을 ES6 모듈처럼 가져올 수 있게 함
     "skipLibCheck": true, // 라이브러리 파일(.d.ts)의 타입 체크를 건너뜀
     "forceConsistentCasingInFileNames": true, // 파일 이름의 대소문자를 일관되게 사용하도록 강제
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    // 사용되지 않는 지역 변수 체크
+    "noUnusedLocals": false,
+    // 사용되지 않는 매개변수 체크
+    "noUnusedParameters": false
   }
 }

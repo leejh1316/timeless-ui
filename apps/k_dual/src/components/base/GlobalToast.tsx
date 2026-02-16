@@ -1,7 +1,7 @@
 import { CheckCircle2, AlertCircle, AlertTriangle, Info } from "lucide-react";
 import { useToastStore, ToastStatus } from "../../store/useToastStore";
 import { Toast } from "./Toast";
-import { Button } from "@timeless-ui/ui"; // Assuming Button is available or use HTML button
+import { Button } from "@timeless-ui/react"; // Assuming Button is available or use HTML button
 
 const StatusIcon = ({ status }: { status?: ToastStatus }) => {
   switch (status) {

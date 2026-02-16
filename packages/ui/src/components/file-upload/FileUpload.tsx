@@ -1,10 +1,9 @@
 import * as React from "react";
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from "react";
-import { createContextScope, Scope } from "@src/hooks/useCreateContext";
-import { useControllableState } from "@src/hooks/useControllableState";
-import { useComposedRefs } from "@src/hooks/useComposeRefs";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
+import { useControllableState } from "../../hooks/useControllableState";
 import { Button, ButtonProps } from "../button/Button";
-import { composeEventHandlers } from "@src/utils/composeEventHandlers";
+import { composeEventHandlers } from "../../utils/composeEventHandlers";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Image, ImageRootProps } from "../image/Image";
 
@@ -569,12 +568,11 @@ const FileUploadItemPreview = forwardRef<HTMLImageElement, ScopedProps<FileUploa
     return fallback ? <>{fallback}</> : null;
   }
 
-  return  (
+  return (
     <Image.Root ref={forwardedRef} src={previewUrl} alt={`${itemContext.file.name} 미리보기`} {...previewProps}>
-      <Image.View/>
+      <Image.View />
     </Image.Root>
-  )
-  
+  );
 });
 
 FileUploadItemPreview.displayName = `${FILE_UPLOAD_NAME}.ItemPreview`;
@@ -692,9 +690,8 @@ const FileUpload = {
   ItemDeleteTrigger,
 };
 
-export default FileUpload;
-
 export {
+  FileUpload,
   createFileUploadScope,
   //
   FileUploadRoot,
@@ -706,16 +703,6 @@ export {
   FileUploadItemName,
   FileUploadItemSize,
   FileUploadItemDeleteTrigger,
-  //
-  Root,
-  Trigger,
-  DropZone,
-  List,
-  Item,
-  ItemPreview,
-  ItemName,
-  ItemSize,
-  ItemDeleteTrigger,
   //
   formatFileSize,
   getMaxSizeInBytes,

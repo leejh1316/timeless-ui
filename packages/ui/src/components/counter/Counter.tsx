@@ -1,5 +1,5 @@
-import { useControllableState } from "@src/hooks/useControllableState";
-import { createContextScope, Scope } from "@src/hooks/useCreateContext";
+import { useControllableState } from "../../hooks/useControllableState";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { forwardRef, useCallback } from "react";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
@@ -126,5 +126,3 @@ export const Counter = {
   Decrement: CounterDecrement,
 };
 export type { CounterRootProps, CounterValueProps, CounterIncrementProps, CounterDecrementProps };
-
-

@@ -1,4 +1,4 @@
-import { Button, useArrowNavigation, useComposedRefs, Primitive, PrimitivePropsWithRef } from "@timeless-ui/ui";
+import { Button, useArrowNavigation, useComposedRefs, Primitive, PrimitivePropsWithRef } from "@timeless-ui/react";
 import clsx from "clsx";
 
 import { createContext, forwardRef, RefObject, useContext, useEffect, useRef, useState } from "react";

@@ -1,5 +1,5 @@
 import React, { createContext, forwardRef, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { useControllableState } from "../../hooks";
+import { useArrowNavigation, useComposedRefs, useControllableState } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Checkbox } from "./Checkbox";
 
@@ -31,6 +31,12 @@ const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, C
       defaultValue: defaultValues ?? [],
       onChange: onValuesChange,
     });
+
+    const { rootRef, handleKeyDown } = useArrowNavigation({
+      selector: '[role="checkbox"]:not([aria-disabled="true"])',
+    });
+
+    const composedRef = useComposedRefs(ref, rootRef);
 
     const [itemMap, setItemMap] = useState<Map<string, boolean>>(new Map());
 
@@ -97,7 +103,7 @@ const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, C
           registerItem,
         }}
       >
-        <Primitive.div role="group" ref={ref} {...props}>
+        <Primitive.div role="group" onKeyDown={handleKeyDown} ref={composedRef} {...props}>
           {children}
         </Primitive.div>
       </CheckboxGroupContext.Provider>

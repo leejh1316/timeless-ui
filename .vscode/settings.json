@@ -17,6 +17,6 @@
   },
   "editor.quickSuggestions": {
     "strings": "on"
-  },
+  }
   // "tailwindCSS.experimental.classRegex": [["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]]
 }

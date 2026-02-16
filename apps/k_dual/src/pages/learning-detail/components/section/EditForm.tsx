@@ -1,6 +1,6 @@
 import { ActivityForm, File as LmsFile } from "@src/api/schema/lms/lms-detail";
 import { Card } from "@src/components/base/Card";
-import { AlertDialog, Input, Textarea } from "@timeless-ui/ui";
+import { AlertDialog, Input, Textarea } from "@timeless-ui/react";
 import { useEffect, useRef, useState } from "react";
 import DatePickerInput from "../input/DatePickerInput";
 import { Delete, FileArchive, SquarePen, Trash, Trash2 } from "lucide-react";
@@ -167,7 +167,7 @@ const EditForm = ({ activityFormData, file, fileGroupNo, studyInningNo, status }
                 </Button>
               </AlertDialog.Trigger>
               <AlertDialog.Portal>
-                <AlertDialog.Overlay className="bg-black/40" />
+                <AlertDialog.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
                 <AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-1/2">
                   <Card.Root className="w-screen max-w-xs p-6 md:max-w-md">
                     <Card.Header>

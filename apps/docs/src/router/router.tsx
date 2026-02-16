@@ -1,38 +1,37 @@
 import App from "@src/App";
-import AccordionPage from "@src/pages/accordion/AccordionPage";
-import AlertDialogPage from "@src/pages/alert-dialog/AlertDialogPage";
-import { AspectRatioPage } from "@src/pages/aspect-ratio/AspectRatioPage";
-import BreakpointPage from "@src/pages/breakpoint/BreakpointPage";
-import ButtonPage from "@src/pages/button/ButtonPage";
-import CalendarPage from "@src/pages/calendar/CalendarPage";
-import CarouselPage from "@src/pages/carousel/CarouselPage";
-import CheckboxGroupPage from "@src/pages/checkbox-group/CheckboxGroupPage";
-import CheckboxPage from "@src/pages/checkbox/CheckboxPage";
-import CollapsiblePage from "@src/pages/collapsible/CollapsiblePage";
-import DatePickerPage from "@src/pages/date-picker/DatePickerPage";
-import DropdownPage from "@src/pages/dropdown/DropdownPage";
-import PageNotFound from "@src/pages/error/PageNotFound";
-import FormPage from "@src/pages/form/FormPage";
-import ImagePage from "@src/pages/image/ImagePage";
-import InputPage from "@src/pages/input/InputPage";
-import TextareaPage from "@src/pages/textarea/TextareaPage";
-import PaginationPage from "@src/pages/pagination/PaginationPage";
-import InViewPage from "@src/pages/in-view/InViewPage";
-import ModalPage from "@src/pages/modal/ModalPage";
-import PopoverPage from "@src/pages/popover/PopoverPage";
-import PresencePage from "@src/pages/presence/PresencePage";
-import RadioGroupPage from "@src/pages/radio-group/RadioGroupPage";
-import SliderPage from "@src/pages/slider/SliderPage";
-import SelectPage from "@src/pages/select/SelectPage";
-import TabsPage from "@src/pages/taps/TabsPage";
-import ToastPage from "@src/pages/toast/ToastPage";
-import TogglePage from "@src/pages/toggle/TogglePage";
-import TooltipPage from "@src/pages/tooltip/TooltipPage";
-import UseArrowNavigationPage from "@src/pages/use-arrow-navigation/UseArrowNavigationPage";
-import UsePaginationPage from "@src/pages/use-pagination/UsePaginationPage";
-import UseSnoozePage from "@src/pages/use-snooze/UseSnoozePage";
-import UseBreakpointPage from "@src/pages/use-breakpoint/UseBreakpointPage";
+import DocsLayout from "@src/components/layout/DocsLayout";
+import AccordionPage from "@src/pages/docs/accordion/AccordionPage";
+import AlertDialogPage from "@src/pages/docs/alert-dialog/AlertDialogPage";
+import BreakpointPage from "@src/pages/docs/breakpoint/BreakpointPage";
+import ButtonPage from "@src/pages/docs/button/ButtonPage";
+import Home from "@src/pages/Home";
+
+import DatePickerPage from "@src/pages/docs/date-picker/DatePickerPage";
+import PageNotFound from "@src/pages/errors/PageNotFound";
 import { createBrowserRouter, RouteObject } from "react-router";
+import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
+import CarouselPage from "@src/pages/docs/carousel/CarouselPage";
+import CheckboxPage from "@src/pages/docs/checkbox/CheckboxPage";
+import CheckboxGroupPage from "@src/pages/docs/checkbox-group/CheckboxGroupPage";
+import CollapsiblePage from "@src/pages/docs/collapsible/CollapsiblePage";
+import CounterPage from "@src/pages/docs/counter/CounterPage";
+import DropdownPage from "@src/pages/docs/dropdown/DropdownPage";
+import FileUploadPage from "@src/pages/docs/file-upload/FileUploadPage";
+import FunnelPage from "@src/pages/docs/funnel/FunnelPage";
+import ImagePage from "@src/pages/docs/image/ImagePage";
+import InViewPage from "@src/pages/docs/in-view/InViewPage";
+import ModalPage from "@src/pages/docs/modal/ModalPage";
+import PaginationPage from "@src/pages/docs/pagination/PaginationPage";
+import PopoverPage from "@src/pages/docs/popover/PopoverPage";
+import ProgressBarPage from "@src/pages/docs/progress-bar/ProgressBarPage";
+import RadioGroupPage from "@src/pages/docs/radio-group/RadioGroupPage";
+import InputPage from "@src/pages/docs/input/InputPage";
+import SelectPage from "@src/pages/docs/select/SelectPage";
+import TabsPage from "@src/pages/docs/tabs/TabsPage";
+import TOCPage from "@src/pages/docs/toc/TOCPage";
+import TooltipPage from "@src/pages/docs/tooltip/TooltipPage";
+import UseArrowNavigationPage from "@src/pages/docs/use-arrow-navigation/UseArrowNavigationPage";
+import UseSnoozePage from "@src/pages/docs/use-snooze/UseSnoozePage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -41,176 +40,78 @@ export interface RouteConfig {
   path: string;
   element: React.ReactNode | null;
   name: string;
-  handle: {
-    crumb: string;
-  };
 }
 
-export const PAGE_ROUTES: {
-  components: {
+type RouteCategory = {
+  [categoryName: string]: {
     title: string;
     routes: RouteConfig[];
   };
-  hooks: {
-    title: string;
-    routes: RouteConfig[];
-  };
-  // usage: {
-  //   title: string;
-  //   routes: RouteConfig[];
-  // };
-} = {
+};
+
+export const PAGE_ROUTES: RouteCategory = {
   components: {
-    title: "컴포넌트(Components)",
+    title: "Components",
     routes: [
-      {
-        path: "/",
-        element: <AspectRatioPage></AspectRatioPage>,
-        name: "AspectRatio",
-        handle: { crumb: "AspectRatio" },
-      },
-      {
-        path: "/accordion",
-        element: <AccordionPage />,
-        name: "Accordion",
-        handle: { crumb: "Accordion" },
-      },
-      {
-        path: "/alert-dialog",
-        element: <AlertDialogPage />,
-        name: "AlertDialog",
-        handle: { crumb: "AlertDialog" },
-      },
-      {
-        path: "/breakpoint",
-        element: <BreakpointPage />,
-        name: "Breakpoint",
-        handle: { crumb: "Breakpoint" },
-      },
-      { path: "/button", element: <ButtonPage />, name: "Button", handle: { crumb: "Button" } },
-      {
-        path: "/calendar",
-        element: <CalendarPage />,
-        name: "Calendar",
-        handle: { crumb: "Calendar" },
-      },
-      {
-        path: "/checkbox",
-        element: <CheckboxPage />,
-        name: "Checkbox",
-        handle: { crumb: "Checkbox" },
-      },
-      {
-        path: "/checkbox-group",
-        element: <CheckboxGroupPage />,
-        name: "CheckboxGroup",
-        handle: { crumb: "CheckboxGroup" },
-      },
-      {
-        path: "/carousel",
-        element: <CarouselPage />,
-        name: "Carousel",
-        handle: { crumb: "Carousel" },
-      },
-      {
-        path: "/collapsible",
-        element: <CollapsiblePage />,
-        name: "Collapsible",
-        handle: { crumb: "Collapsible" },
-      },
-      {
-        path: "/date-picker",
-        element: <DatePickerPage />,
-        name: "DatePicker",
-        handle: { crumb: "DatePicker" },
-      },
-      {
-        path: "/dropdown",
-        element: <DropdownPage />,
-        name: "Dropdown",
-        handle: { crumb: "Dropdown" },
-      },
-      { path: "/image", element: <ImagePage />, name: "Image", handle: { crumb: "Image" } },
-      { path: "/input", element: <InputPage />, name: "Input", handle: { crumb: "Input" } },
-      { path: "/in-view", element: <InViewPage />, name: "InView", handle: { crumb: "InView" } },
-      { path: "/modal", element: <ModalPage />, name: "Modal", handle: { crumb: "Modal" } },
-      { path: "/popover", element: <PopoverPage />, name: "Popover", handle: { crumb: "Popover" } },
-      {
-        path: "/pagination",
-        element: <PaginationPage />,
-        name: "Pagination",
-        handle: { crumb: "Pagination" },
-      },
-      {
-        path: "/presence",
-        element: <PresencePage />,
-        name: "Presence",
-        handle: { crumb: "Presence" },
-      },
-      { path: "/select", element: <SelectPage />, name: "Select", handle: { crumb: "Select" } },
-      { path: "/toggle", element: <TogglePage />, name: "Toggle", handle: { crumb: "Toggle" } },
-      { path: "/tooltip", element: <TooltipPage />, name: "Tooltip", handle: { crumb: "Tooltip" } },
-      { path: "/tabs", element: <TabsPage />, name: "Tabs", handle: { crumb: "Tabs" } },
-      {
-        path: "/textarea",
-        element: <TextareaPage />,
-        name: "Textarea",
-        handle: { crumb: "Textarea" },
-      },
-      { path: "/toast", element: <ToastPage />, name: "Toast", handle: { crumb: "Toast" } },
-      {
-        path: "/radio-group",
-        element: <RadioGroupPage />,
-        name: "RadioGroup",
-        handle: { crumb: "RadioGroup" },
-      },
-      { path: "/slider", element: <SliderPage />, name: "Slider", handle: { crumb: "Slider" } },
-      { path: "/form", element: <FormPage />, name: "Form", handle: { crumb: "Form" } },
+      { path: "/docs/accordion", element: <AccordionPage />, name: "Accordion" },
+      { path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" },
+      { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
+      { path: "/docs/button", element: <ButtonPage />, name: "Button" },
+      { path: "/docs/calendar", element: <CalendarPage />, name: "Calendar" },
+      { path: "/docs/carousel", element: <CarouselPage />, name: "Carousel" },
+      { path: "/docs/checkbox", element: <CheckboxPage />, name: "Checkbox" },
+      { path: "/docs/checkbox-group", element: <CheckboxGroupPage />, name: "CheckboxGroup" },
+      { path: "/docs/collapsible", element: <CollapsiblePage />, name: "Collapsible" },
+      { path: "/docs/counter", element: <CounterPage />, name: "Counter" },
+      { path: "/docs/date-picker", element: <DatePickerPage />, name: "DatePicker" },
+      { path: "/docs/dropdown", element: <DropdownPage />, name: "Dropdown" },
+      { path: "/docs/file-upload", element: <FileUploadPage />, name: "FileUpload" },
+      { path: "/docs/funnel", element: <FunnelPage />, name: "Funnel" },
+      { path: "/docs/image", element: <ImagePage />, name: "Image" },
+      { path: "/docs/in-view", element: <InViewPage />, name: "InView" },
+      { path: "/docs/input", element: <InputPage />, name: "Input" },
+      { path: "/docs/modal", element: <ModalPage />, name: "Modal" },
+      { path: "/docs/pagination", element: <PaginationPage />, name: "Pagination" },
+      { path: "/docs/popover", element: <PopoverPage />, name: "Popover" },
+      { path: "/docs/progress-bar", element: <ProgressBarPage />, name: "ProgressBar" },
+      { path: "/docs/radio-group", element: <RadioGroupPage />, name: "RadioGroup" },
+      { path: "/docs/select", element: <SelectPage />, name: "Select" },
+      { path: "/docs/tabs", element: <TabsPage />, name: "Tabs" },
+      { path: "/docs/toc", element: <TOCPage />, name: "TOC" },
+      { path: "/docs/tooltip", element: <TooltipPage />, name: "Tooltip" },
     ],
   },
   hooks: {
-    title: "훅(Hooks)",
+    title: "Hooks",
     routes: [
-      {
-        path: "/use-pagination",
-        element: <UsePaginationPage />,
-        name: "usePagination",
-        handle: { crumb: "usePagination" },
-      },
-      {
-        path: "/use-breakpoint",
-        element: <UseBreakpointPage />,
-        name: "useBreakpoint",
-        handle: { crumb: "useBreakpoint" },
-      },
-      {
-        path: "/use-arrow-navigation",
-        element: <UseArrowNavigationPage />,
-        name: "useArrowNavigation",
-        handle: { crumb: "useArrowNavigation" },
-      },
-      {
-        path: "/use-snooze",
-        element: <UseSnoozePage />,
-        name: "useSnooze",
-        handle: { crumb: "useSnooze" },
-      },
+      { path: "/docs/use-arrow-navigation", element: <UseArrowNavigationPage />, name: "useArrowNavigation" },
+      { path: "/docs/use-snooze", element: <UseSnoozePage />, name: "useSnooze" },
     ],
   },
-  // usage: {
-  //   title: "활용(Usage)",
-  //   routes: [{ path: "#", element: null, name: "지연 로딩 이미지", handle: { crumb: "지연 로딩 이미지" } }],
-  // },
-} as const;
+};
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     element: <App />,
     children: [
-      ...PAGE_ROUTES.components.routes,
-      ...PAGE_ROUTES.hooks.routes,
-      //   ...PAGE_ROUTES.usage.routes
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "docs",
+        element: <DocsLayout />,
+        children: [
+          // Generates routes from PAGE_ROUTES, or manually mapping them
+          ...Object.values(PAGE_ROUTES).flatMap((category) =>
+            category.routes.map((route) => ({
+              path: route.path.replace("/docs/", ""), // remove prefix since we are in /docs
+              element: route.element,
+            })),
+          ),
+        ],
+      },
     ],
   },
   {

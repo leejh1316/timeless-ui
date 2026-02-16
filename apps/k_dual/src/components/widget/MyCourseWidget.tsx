@@ -15,19 +15,9 @@ interface MyCourseWidgetProps extends CardProps {
   title?: string;
   onNavigate?: (courseId: number | string) => void;
 }
-const MyCourseWidget = ({
-  defaultCourseData,
-  title = "수강 내역",
-  className,
-  onNavigate,
-  ...props
-}: MyCourseWidgetProps) => {
-  const [selectedSemester, setSelectedSemester] = useState<string | null>(
-    defaultCourseData?.semesterList[0]?.value ?? null,
-  );
-  const { data, isLoading } = useFetchMyCourseList(
-    selectedSemester ? { sTermNo: selectedSemester, sordertype: "ASC" } : undefined,
-  );
+const MyCourseWidget = ({ defaultCourseData, title = "수강 내역", className, onNavigate, ...props }: MyCourseWidgetProps) => {
+  const [selectedSemester, setSelectedSemester] = useState<string | null>(defaultCourseData?.semesterList[0]?.value ?? null);
+  const { data, isLoading } = useFetchMyCourseList(selectedSemester ? { sTermNo: selectedSemester, sordertype: "ASC" } : undefined);
 
   const courseList: Course[] = data?.courseList ?? defaultCourseData?.courseList ?? [];
   return (
@@ -47,14 +37,10 @@ const MyCourseWidget = ({
             <Select.Icon />
           </Select.Trigger>
           <Select.Portal>
-            <Select.View>
+            <Select.View className="z-50">
               <Select.Content>
                 {defaultCourseData?.semesterList.map((semester) => (
-                  <Select.Item
-                    value={semester.value}
-                    textValue={semester.label}
-                    key={semester.value}
-                  >
+                  <Select.Item value={semester.value} textValue={semester.label} key={semester.value}>
                     {semester.label}
                   </Select.Item>
                 ))}
@@ -76,9 +62,7 @@ const MyCourseWidget = ({
             </div>
           ))
         ) : courseList.length > 0 ? (
-          courseList.map((course: Course) => (
-            <CourseItem key={course.lmsId} course={course} onNavigate={onNavigate} />
-          ))
+          courseList.map((course: Course) => <CourseItem key={course.lmsId} course={course} onNavigate={onNavigate} />)
         ) : (
           <div className="py-10 text-center text-sm text-gray-500">수강 내역이 없습니다.</div>
         )}
@@ -102,13 +86,11 @@ const CourseItem = ({ course, onNavigate }: CourseItemProps) => {
       }}
     >
       <div className="group flex cursor-pointer items-center rounded-2xl p-3 transition-all hover:bg-gray-50">
-        <div className="@max-sm:hidden bg-primary-50 text-primary-600 mr-4 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-all">
+        <div className="bg-primary-50 text-primary-600 mr-4 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-all @max-sm:hidden">
           {course.credits}학점
         </div>
         <div className="min-w-0 flex-1">
-          <div className="mb-1 truncate text-[15px] font-semibold text-gray-900">
-            {course.courseName}
-          </div>
+          <div className="mb-1 truncate text-[15px] font-semibold text-gray-900">{course.courseName}</div>
           <div className="flex items-center gap-2 truncate text-[13px] text-gray-500">
             <span>{course.professor} 교수</span>
             {course.companyTeacher && (
@@ -119,14 +101,11 @@ const CourseItem = ({ course, onNavigate }: CourseItemProps) => {
             )}
           </div>
         </div>
-        <Label
-          color="default"
-          className="rounded-full! px-2.5! py-1! @max-sm:hidden! ml-4 shrink-0 text-xs font-medium"
-        >
+        <Label color="default" className="ml-4 shrink-0 rounded-full! px-2.5! py-1! text-xs font-medium @max-sm:hidden!">
           {course.department}
         </Label>
 
-        <Label color="primary" className="@max-sm:inline-block hidden">
+        <Label color="primary" className="hidden @max-sm:inline-block">
           {course.credits}학점
         </Label>
       </div>

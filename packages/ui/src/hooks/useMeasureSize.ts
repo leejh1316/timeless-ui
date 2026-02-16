@@ -5,7 +5,7 @@ interface Size {
   height: number;
 }
 
-export const useMeasureSize = <T extends HTMLElement = HTMLDivElement>(): [React.RefObject<T | null>, Size] => {
+export const useMeasureSize = <T extends HTMLElement = HTMLDivElement>(): [React.RefObject<T>, Size] => {
   const ref = useRef<T>(null);
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
 

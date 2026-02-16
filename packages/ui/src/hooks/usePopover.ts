@@ -17,6 +17,7 @@ import {
   UseDismissProps,
   useFloating,
   UseFloatingOptions,
+  UseFloatingReturn,
   useFocus,
   UseFocusProps,
   useHover,
@@ -33,6 +34,7 @@ import {
   UseTypeaheadProps,
 } from "@floating-ui/react";
 import { useState } from "react";
+import { useControllableState } from "./useControllableState";
 
 type MiddlewareOptions = {
   offset?: OffsetOptions;
@@ -69,7 +71,7 @@ const defaultInteractionOptions: InteractionOptions = {
     escapeKey: true,
   },
 };
-const defafultTransitionStyle: UseTransitionStylesProps = {
+const defaultTransitionStyle: UseTransitionStylesProps = {
   duration: 200,
   initial: {
     opacity: 0,
@@ -94,6 +96,15 @@ export interface UsePopoverProps extends Omit<UseFloatingOptions, "middleware" |
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
+
+export interface UsePopoverReturn extends UseFloatingReturn {
+  transitionStatus: ReturnType<typeof useTransitionStatus>["status"];
+  transitionStyle: ReturnType<typeof useTransitionStyles>["styles"];
+  isMounted: boolean;
+  setIsOpen: (open: boolean) => void;
+  isOpen: boolean;
+}
+
 export const usePopover = ({
   initialOpen = false,
   triggerMode = "click",
@@ -104,10 +115,12 @@ export const usePopover = ({
   onOpenChange: setControlledOpen,
   whileElementsMounted = autoUpdate,
   ...props
-}: UsePopoverProps) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen);
-  const isOpen = controlledOpen ?? uncontrolledOpen;
-  const setIsOpen = setControlledOpen ?? setUncontrolledOpen;
+}: UsePopoverProps): UsePopoverReturn => {
+  const [isOpen, setIsOpen] = useControllableState({
+    value: controlledOpen,
+    defaultValue: initialOpen,
+    onChange: setControlledOpen,
+  });
 
   const trigger = Array.isArray(triggerMode) ? triggerMode : [triggerMode || "click"];
   const middlewares = getMiddleware(merge({}, defaultMiddlewareOptions, middlewareOptions));
@@ -120,14 +133,10 @@ export const usePopover = ({
   });
 
   const { isMounted, status: transitionStatus } = useTransitionStatus(context, {
-    duration: transition?.duration || defafultTransitionStyle.duration,
+    duration: transition?.duration || defaultTransitionStyle.duration,
   });
-  const { styles: transitionStyle } = useTransitionStyles(context, transition || defafultTransitionStyle);
-  const interactions = useCreateInteractions(
-    context,
-    trigger,
-    merge({}, defaultInteractionOptions, interactionOptions),
-  );
+  const { styles: transitionStyle } = useTransitionStyles(context, transition || defaultTransitionStyle);
+  const interactions = useCreateInteractions(context, trigger, merge({}, defaultInteractionOptions, interactionOptions));
 
   return {
     ...floating,

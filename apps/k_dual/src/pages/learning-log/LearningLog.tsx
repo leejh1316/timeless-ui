@@ -5,7 +5,7 @@ import { useFetchMyCourseList } from "@src/api/endpoints/my";
 import { useState } from "react";
 import { useParams } from "react-router";
 import MyCourseWidget from "@src/components/widget/MyCourseWidget";
-import { Button, Modal } from "@timeless-ui/ui";
+import { Button, Modal } from "@timeless-ui/react";
 import { Card } from "@src/components/base/Card";
 import CourseChange from "./components/section/CourseChange";
 import CourseOverviewWidget from "@src/components/widget/CourseOverviewWidget";
