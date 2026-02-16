@@ -142,7 +142,7 @@ timeless-ui/
 
 ## 📖 문서
 
-상세한 문서와 예제는 [공식 문서 사이트](https://timeless-ui.vercel.app)에서 확인하실 수 있습니다.
+상세한 문서와 예제는 [문서 사이트](https://timeless-ui-docs.vercel.app/)에서 확인하실 수 있습니다.
 
 각 컴포넌트의 사용법, API 명세, 접근성 가이드를 제공합니다.
 
@@ -151,5 +151,3 @@ timeless-ui/
 ## 📝 라이센스
 
 MIT License
-
----
