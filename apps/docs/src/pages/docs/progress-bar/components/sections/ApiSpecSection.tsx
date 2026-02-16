@@ -112,21 +112,6 @@ type ProgressBarContextValue = {
   min?: number;  // 진행바의 최소값 (기본값: 0)
   max?: number;  // 진행바의 최대값 (기본값: 100)
 };
-
-// Root 컴포넌트의 Props 타입
-interface ProgressBarRootProps 
-  extends React.ComponentPropsWithRef<'div'>, 
-          Partial<ProgressBarContextValue> {}
-
-// Track 컴포넌트의 Props 타입
-interface ProgressBarTrackProps 
-  extends React.ComponentPropsWithRef<'div'> {}
-
-// Value 컴포넌트의 Props 타입
-interface ProgressBarValueProps 
-  extends React.ComponentPropsWithRef<'div'> {
-  value: number;  // 현재 진행 값 (필수)
-  getPercentValue?: (percentValue: number) => void;  // 백분율 콜백
-}`;
+`;
 
 export { ApiSpecSection };

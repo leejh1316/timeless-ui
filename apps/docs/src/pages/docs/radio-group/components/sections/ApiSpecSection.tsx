@@ -33,11 +33,6 @@ const ApiSpecSection = () => (
     </Document.Paragraph>
     <PropsTable rows={indicatorProps} className="mb-10" />
 
-    {/* ─── Custom Types ─── */}
-    <Document.Heading2>커스텀 타입 명세</Document.Heading2>
-    <Document.Paragraph mb={4}>RadioGroup 컴포넌트에서 사용되는 커스텀 타입 정의입니다.</Document.Paragraph>
-    <CodeBlock code={customTypesCode} className="mb-10" />
-
     {/* ─── Data Attributes ─── */}
     <Document.Heading2>주요 속성 (Data Attributes)</Document.Heading2>
     <Document.Paragraph mb={4}>RadioGroup 컴포넌트에서 제공하는 HTML 속성으로, 스타일링 및 접근성을 위해 사용됩니다.</Document.Paragraph>
@@ -188,38 +183,5 @@ const attributeRows: AttributeTableRow[] = [
     description: "RadioGroup.Item에 적용되며, 스크린 리더에 필수 입력 여부를 전달합니다.",
   },
 ];
-
-/* ─────────────────────────────────────────────────────
-   Custom Types Code
-   ───────────────────────────────────────────────────── */
-
-const customTypesCode = `// Root 컴포넌트의 Props 타입
-interface RadioGroupProps 
-  extends React.ComponentPropsWithRef<'div'> {
-  value?: any;              // 현재 선택된 값 (Controlled)
-  defaultValue?: any;       // 초기 선택 값 (Uncontrolled)
-  onValueChange?: (value: any) => void;  // 값 변경 콜백
-  name?: string;            // 폼 제출 시 필드명
-  disabled?: boolean;       // 전체 그룹 비활성화
-  readOnly?: boolean;       // 전체 그룹 읽기 전용
-  required?: boolean;       // 전체 그룹 필수 입력
-}
-
-// Item 컴포넌트의 Props 타입
-interface RadioGroupItemProps 
-  extends React.ComponentPropsWithRef<'button'> {
-  id?: string;              // 고유 식별자
-  value: string | number;   // 라디오 버튼의 값 (필수)
-  disabled?: boolean;       // 개별 항목 비활성화
-  readOnly?: boolean;       // 개별 항목 읽기 전용
-  required?: boolean;       // 개별 항목 필수 입력
-}
-
-// Indicator 컴포넌트의 Props 타입
-interface RadioGroupIndicatorProps 
-  extends Omit<React.ComponentPropsWithRef<'div'>, 'children'> {
-  // 체크 상태를 인자로 받아 동적으로 렌더링하는 함수형 children
-  children?: (isChecked: boolean) => React.ReactNode;
-}`;
 
 export { ApiSpecSection };
