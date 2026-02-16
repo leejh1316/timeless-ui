@@ -12,6 +12,7 @@ import { createBrowserRouter, RouteObject } from "react-router";
 import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
 import CarouselPage from "@src/pages/docs/carousel/CarouselPage";
 import CheckboxPage from "@src/pages/docs/checkbox/CheckboxPage";
+import CheckboxGroupPage from "@src/pages/docs/checkbox-group/CheckboxGroupPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -41,9 +42,10 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/alert-dialog", element: <AlertDialogPage />, name: "AlertDialog" },
       { path: "/docs/breakpoint", element: <BreakpointPage />, name: "Breakpoint" },
       { path: "/docs/button", element: <ButtonPage />, name: "Button" },
+      { path: "/docs/calendar", element: <CalendarPage />, name: "Calendar" },
       { path: "/docs/carousel", element: <CarouselPage />, name: "Carousel" },
       { path: "/docs/checkbox", element: <CheckboxPage />, name: "Checkbox" },
-      { path: "/docs/calendar", element: <CalendarPage />, name: "Calendar" },
+      { path: "/docs/checkbox-group", element: <CheckboxGroupPage />, name: "CheckboxGroup" },
       { path: "/docs/date-picker", element: <DatePickerPage />, name: "DatePicker" },
     ],
   },
