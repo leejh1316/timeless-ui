@@ -99,7 +99,7 @@ const AlertDialogOverlay = forwardRef<React.ComponentRef<"div">, ScopedProps<Ale
       data-status={transitionStatus}
       lockScroll={lockScroll}
       className={
-        className ?? "inset-0 z-[1000] bg-gray-900/70 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100"
+        className ?? "inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100"
       }
       data-state={isOpen ? "open" : "closed"}
       ref={forwardedRef}

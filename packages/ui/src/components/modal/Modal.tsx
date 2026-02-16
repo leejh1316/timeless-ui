@@ -55,7 +55,7 @@ interface ModalOverlayProps extends PrimitivePropsWithRef<"div"> {}
 const ModalOverlay = forwardRef<HTMLDivElement, ScopedProps<ModalOverlayProps>>((props, forwardedRef) => {
   const {
     __scopeModal,
-    className = "bg-gray-900/70 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
+    className = "bg-black/50 inset-0 z-[1000] transition-opacity data-[status=open]:opacity-100 data-[status=close]:opacity-0",
     ...overlayProps
   } = props;
   const { lockScroll, transitionStatus } = useModalContext(MODAL_NAME, __scopeModal);
