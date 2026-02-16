@@ -54,12 +54,12 @@ const TooltipRoot = (props: ScopedProps<TooltipRootProps>) => {
     },
     interactionOptions: {
       hover: {
-        ...options,
-        enabled: true,
         delay: {
           close: 100,
           open: 100,
         },
+        enabled: true,
+        ...options,
       },
     },
   });
