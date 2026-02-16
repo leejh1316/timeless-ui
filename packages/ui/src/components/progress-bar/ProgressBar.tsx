@@ -31,8 +31,15 @@ ProgressBarRoot.displayName = "ProgressBar.Root";
 
 interface ProgressBarTrackProps extends PrimitivePropsWithRef<"div"> {}
 const ProgressBarTrack = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarTrackProps>>((props, forwardedRef) => {
-  const { className, ...otherProps } = props;
-  return <Primitive.div className={clsx(className, "relative")} ref={forwardedRef} {...otherProps} />;
+  return (
+    <Primitive.div
+      style={{
+        position: "relative",
+      }}
+      ref={forwardedRef}
+      {...props}
+    />
+  );
 });
 ProgressBarTrack.displayName = "ProgressBar.Track";
 
@@ -41,7 +48,7 @@ interface ProgressBarValueProps extends PrimitivePropsWithRef<"div"> {
   getPercentValue?: (percentValue: number) => void;
 }
 const ProgressBarValue = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarValueProps>>((props, forwardedRef) => {
-  const { className, style, value, __scopeProgressBar, getPercentValue, ...otherProps } = props;
+  const { style, value, __scopeProgressBar, getPercentValue, ...otherProps } = props;
   const context = useProgressBarContext("ProgressBar.Value", __scopeProgressBar);
   const percent = getPercent(value, { min: context.min, max: context.max });
 
