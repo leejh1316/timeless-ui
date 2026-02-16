@@ -13,6 +13,7 @@ import CalendarPage from "@src/pages/docs/calendar/CalendarPage";
 import CarouselPage from "@src/pages/docs/carousel/CarouselPage";
 import CheckboxPage from "@src/pages/docs/checkbox/CheckboxPage";
 import CheckboxGroupPage from "@src/pages/docs/checkbox-group/CheckboxGroupPage";
+import CollapsiblePage from "@src/pages/docs/collapsible/CollapsiblePage";
 import CounterPage from "@src/pages/docs/counter/CounterPage";
 
 export const PATH = {
@@ -47,6 +48,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/carousel", element: <CarouselPage />, name: "Carousel" },
       { path: "/docs/checkbox", element: <CheckboxPage />, name: "Checkbox" },
       { path: "/docs/checkbox-group", element: <CheckboxGroupPage />, name: "CheckboxGroup" },
+      { path: "/docs/collapsible", element: <CollapsiblePage />, name: "Collapsible" },
       { path: "/docs/counter", element: <CounterPage />, name: "Counter" },
       { path: "/docs/date-picker", element: <DatePickerPage />, name: "DatePicker" },
     ],
