@@ -8,9 +8,22 @@ interface InViewProps extends Omit<PrimitivePropsWithRef<"div">, "children" | "o
   children: InViewChildren;
   onResetOnce?: (resetFn: (hardReset: boolean) => void) => void;
 }
-export const InView = forwardRef<React.ComponentRef<typeof Primitive.div>, InViewProps>(({ children, onResetOnce, ...props }, ref) => {
+export const InView = forwardRef<React.ComponentRef<typeof Primitive.div>, InViewProps>((props, forwardedRef) => {
+  const {
+    root = null,
+    rootMargin = "0px",
+    threshold = 0,
+    once = false,
+    disabled = false,
+    onEnter,
+    onLeave,
+    onChange,
+    onResetOnce,
+    children,
+    ...elementProps
+  } = props;
   const { setTarget, isVisible, hasEntered, resetOnce } = useIntersection(props);
-  const composeRefs = useComposedRefs<Element | null>(setTarget, ref);
+  const composeRefs = useComposedRefs<Element | null>(setTarget, forwardedRef);
 
   const getInViewProps = useCallback(() => {
     return {
@@ -24,5 +37,9 @@ export const InView = forwardRef<React.ComponentRef<typeof Primitive.div>, InVie
     onResetOnce?.(resetOnce);
   }, [resetOnce]);
 
-  return <Primitive.div {...getInViewProps()}>{children({ hasEntered, isVisible, resetOnce })}</Primitive.div>;
+  return (
+    <Primitive.div {...getInViewProps()} {...elementProps}>
+      {children({ hasEntered, isVisible, resetOnce })}
+    </Primitive.div>
+  );
 });
