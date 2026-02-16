@@ -1,6 +1,6 @@
 import { ActivityForm, File as LmsFile } from "@src/api/schema/lms/lms-detail";
 import { Card } from "@src/components/base/Card";
-import { AlertDialog, Input, Textarea } from "@timeless-ui/ui";
+import { AlertDialog, Input, Textarea } from "@timeless-ui/react";
 import { useEffect, useRef, useState } from "react";
 import DatePickerInput from "../input/DatePickerInput";
 import { Delete, FileArchive, SquarePen, Trash, Trash2 } from "lucide-react";

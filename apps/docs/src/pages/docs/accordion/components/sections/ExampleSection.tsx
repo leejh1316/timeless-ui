@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion } from "@timeless-ui/ui";
+import { Accordion } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
@@ -63,7 +63,7 @@ const MultipleDemo = () => (
 );
 
 const multipleCode = `
-import { Accordion } from "@timeless-ui/ui";
+import { Accordion } from "@timeless-ui/react";
 import { ChevronDownIcon } from "lucide-react";
 
 export default () => (
@@ -156,7 +156,7 @@ const ControlledDemo = () => {
 
 const controlledCode = `
 import { useState } from "react";
-import { Accordion } from "@timeless-ui/ui";
+import { Accordion } from "@timeless-ui/react";
 import { ChevronDownIcon } from "lucide-react";
 
 export default () => {

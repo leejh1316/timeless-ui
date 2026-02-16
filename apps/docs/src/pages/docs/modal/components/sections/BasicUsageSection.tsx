@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Modal } from "@timeless-ui/ui";
+import { Modal } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Basic Usage Section
@@ -45,7 +45,7 @@ const BasicDemo = () => (
   </Modal.Root>
 );
 
-const basicCode = `import { Modal } from "@timeless-ui/ui";
+const basicCode = `import { Modal } from "@timeless-ui/react";
 
 const BasicDemo = () => (
   <Modal.Root>

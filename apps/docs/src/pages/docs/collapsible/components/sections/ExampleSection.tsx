@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Collapsible } from "@timeless-ui/ui";
+import { Collapsible } from "@timeless-ui/react";
 import { ChevronsUpDown } from "lucide-react";
 import { InlineCode } from "@src/components/ui/InlineCode";
 

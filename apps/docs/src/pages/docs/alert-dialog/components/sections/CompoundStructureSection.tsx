@@ -99,7 +99,7 @@ const anatomyItems = [
    Code Snippets
    ────────────────────────────────────────────── */
 
-const anatomyCode = `import { AlertDialog } from "@timeless-ui/ui";
+const anatomyCode = `import { AlertDialog } from "@timeless-ui/react";
 
 <AlertDialog.Root>
   {/* 1. 다이얼로그를 여는 트리거 */}

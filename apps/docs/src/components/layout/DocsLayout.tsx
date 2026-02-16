@@ -1,4 +1,4 @@
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 import { useState } from "react";
 import { Outlet } from "react-router";
 import OnThisPage from "./OnThisPage";

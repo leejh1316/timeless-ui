@@ -2,7 +2,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { Popover } from "@timeless-ui/ui";
+import { Popover } from "@timeless-ui/react";
 import { useState } from "react";
 
 /* ──────────────────────────────────────────────
@@ -70,7 +70,7 @@ const HoverDemo = () => (
   </Popover.Root>
 );
 
-const hoverCode = `import { Popover } from "@timeless-ui/ui";
+const hoverCode = `import { Popover } from "@timeless-ui/react";
 
 const HoverDemo = () => (
   <Popover.Root triggerMode="hover">
@@ -147,7 +147,7 @@ const PlacementDemo = () => (
   </div>
 );
 
-const placementCode = `import { Popover } from "@timeless-ui/ui";
+const placementCode = `import { Popover } from "@timeless-ui/react";
 
 const PlacementDemo = () => (
   <div className="flex flex-wrap items-center justify-center gap-3">
@@ -225,7 +225,7 @@ const MultiTriggerDemo = () => (
   </Popover.Root>
 );
 
-const multiTriggerCode = `import { Popover } from "@timeless-ui/ui";
+const multiTriggerCode = `import { Popover } from "@timeless-ui/react";
 
 const MultiTriggerDemo = () => (
   <Popover.Root triggerMode={["click", "focus"]}>

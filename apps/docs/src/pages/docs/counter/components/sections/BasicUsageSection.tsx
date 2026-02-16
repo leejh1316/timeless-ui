@@ -1,4 +1,4 @@
-import { Counter } from "@timeless-ui/ui";
+import { Counter } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
@@ -48,7 +48,7 @@ const BasicDemo = () => {
    Code Snippet
    ────────────────────────────────────────────── */
 
-const basicCode = `import { Counter } from "@timeless-ui/ui";
+const basicCode = `import { Counter } from "@timeless-ui/react";
 import { MinusIcon, PlusIcon } from "lucide-react";
 
 const BasicDemo = () => {

@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useRef, useState } from "react";
 import IconButton, { IconButtonProps } from "../ui/IconButton";
-import { Tooltip } from "@timeless-ui/ui";
+import { Tooltip } from "@timeless-ui/react";
 import { IconName } from "lucide-react/dynamic";
 
 interface CopyButtonProps extends Omit<IconButtonProps, "name"> {

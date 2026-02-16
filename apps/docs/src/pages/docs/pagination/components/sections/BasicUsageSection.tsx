@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Pagination } from "@timeless-ui/ui";
+import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 /* ──────────────────────────────────────────────
@@ -61,7 +61,7 @@ const BasicDemo = () => {
   );
 };
 
-const basicCode = `import { Pagination } from "@timeless-ui/ui";
+const basicCode = `import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 const BasicDemo = () => {

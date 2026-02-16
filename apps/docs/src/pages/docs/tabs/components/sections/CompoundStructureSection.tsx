@@ -62,7 +62,7 @@ const anatomyItems = [
   { name: "Tabs.Indicator", desc: "활성 탭을 강조하는 시각적 인디케이터 (선택사항)" },
 ];
 
-const anatomyCode = `import { Tabs } from "@timeless-ui/ui";
+const anatomyCode = `import { Tabs } from "@timeless-ui/react";
 
 <Tabs.Root defaultValue="tab1">
   <Tabs.List>

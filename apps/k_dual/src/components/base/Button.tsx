@@ -1,4 +1,4 @@
-import { Button as BaseButton } from "@timeless-ui/ui";
+import { Button as BaseButton } from "@timeless-ui/react";
 import clsx from "clsx";
 import { forwardRef } from "react";
 import { Spinner } from "./Spinner";

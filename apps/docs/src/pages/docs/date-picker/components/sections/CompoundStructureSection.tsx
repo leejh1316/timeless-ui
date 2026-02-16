@@ -109,7 +109,7 @@ const anatomyItems = [
   { name: "DatePicker.Next", desc: "다음 달로 이동하는 버튼입니다" },
 ];
 
-const anatomyCode = `import { DatePicker } from "@timeless-ui/ui";
+const anatomyCode = `import { DatePicker } from "@timeless-ui/react";
 
 <DatePicker.Root value={selectedDate} onValueChange={setSelectedDate}>
   <DatePicker.Calendar>

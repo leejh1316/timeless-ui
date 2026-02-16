@@ -1,4 +1,4 @@
-import { Primitive, PrimitivePropsWithRef } from "@timeless-ui/ui";
+import { Primitive, PrimitivePropsWithRef } from "@timeless-ui/react";
 import clsx from "clsx";
 
 export type LabelColor = "primary" | "secondary" | "danger" | "warning" | "info" | "default" | "none";

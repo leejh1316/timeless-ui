@@ -1,4 +1,4 @@
-import { InView } from "@timeless-ui/ui";
+import { InView } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";
@@ -43,7 +43,7 @@ const BasicDemo = () => (
   </div>
 );
 
-const basicCode = `import { InView } from "@timeless-ui/ui";
+const basicCode = `import { InView } from "@timeless-ui/react";
 
 const BasicDemo = () => (
   <div className="h-96 w-full overflow-y-auto rounded-lg border border-neutral-200 bg-neutral-50">

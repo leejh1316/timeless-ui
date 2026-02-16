@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Basic Usage Section
@@ -68,7 +68,7 @@ const BasicDemo = () => {
 };
 
 const basicCode = `import { useRef } from "react";
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 
 const BasicDemo = () => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);

@@ -53,7 +53,7 @@ const anatomyItems = [
   { name: "TOC.Content", desc: "목차 항목 렌더링 (render function 패턴)" },
 ];
 
-const anatomyCode = `import { TOC } from "@timeless-ui/ui";
+const anatomyCode = `import { TOC } from "@timeless-ui/react";
 
 <TOC.Root targetElement={contentRef.current}>
   <nav>

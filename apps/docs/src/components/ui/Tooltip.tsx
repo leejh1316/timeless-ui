@@ -1,4 +1,4 @@
-import { Tooltip as TooltipPrimitive } from "@timeless-ui/ui";
+import { Tooltip as TooltipPrimitive } from "@timeless-ui/react";
 import clsx from "clsx";
 import { forwardRef } from "react";
 

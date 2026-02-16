@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup } from "@timeless-ui/ui";
+import { Checkbox, CheckboxGroup } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
@@ -54,7 +54,7 @@ const BasicDemo = () => {
    Code Snippet
    ────────────────────────────────────────────── */
 
-const basicCode = `import { Checkbox, CheckboxGroup } from "@timeless-ui/ui";
+const basicCode = `import { Checkbox, CheckboxGroup } from "@timeless-ui/react";
 import { CheckIcon } from "lucide-react";
 
 const CheckboxItem = ({ value, label }: { value: string; label: string }) => (

@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Select } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Basic Usage Section
@@ -60,7 +60,7 @@ const BasicDemo = () => (
   </div>
 );
 
-const basicCode = `import { Select } from "@timeless-ui/ui";
+const basicCode = `import { Select } from "@timeless-ui/react";
 
 const BasicDemo = () => (
   <div className="w-64">

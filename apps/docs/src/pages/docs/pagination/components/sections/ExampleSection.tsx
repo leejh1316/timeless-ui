@@ -2,7 +2,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { Pagination } from "@timeless-ui/ui";
+import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 /* ──────────────────────────────────────────────
@@ -113,7 +113,7 @@ const CompleteDemo = () => {
   );
 };
 
-const completeCode = `import { Pagination } from "@timeless-ui/ui";
+const completeCode = `import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 const CompleteDemo = () => {
@@ -206,7 +206,7 @@ const CustomRangeDemo = () => {
   );
 };
 
-const customRangeCode = `import { Pagination } from "@timeless-ui/ui";
+const customRangeCode = `import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 const CustomRangeDemo = () => {
@@ -280,7 +280,7 @@ const UncontrolledDemo = () => (
   </Pagination.Root>
 );
 
-const uncontrolledCode = `import { Pagination } from "@timeless-ui/ui";
+const uncontrolledCode = `import { Pagination } from "@timeless-ui/react";
 
 const UncontrolledDemo = () => (
   <Pagination.Root totalItems={50} itemsPerPage={5} defaultPage={3} className="flex items-center gap-1">
@@ -339,7 +339,7 @@ const CompactDemo = () => {
   );
 };
 
-const compactCode = `import { Pagination } from "@timeless-ui/ui";
+const compactCode = `import { Pagination } from "@timeless-ui/react";
 import { useState } from "react";
 
 const CompactDemo = () => {

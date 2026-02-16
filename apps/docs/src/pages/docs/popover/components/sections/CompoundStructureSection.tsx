@@ -15,7 +15,7 @@ const anatomyItems = [
   { name: "Popover.Content", desc: "실제 팝오버 컨텐츠를 담는 컨테이너이며 트랜지션 효과를 적용하는 컴포넌트" },
 ];
 
-const anatomyCode = `import { Popover } from "@timeless-ui/ui";
+const anatomyCode = `import { Popover } from "@timeless-ui/react";
 
 <Popover.Root>
   <Popover.Trigger>트리거 버튼</Popover.Trigger>

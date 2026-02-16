@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { useState } from "react";
 import { Toast } from "../base/Toast";
 import { useToastStore } from "@src/store/useToastStore";
-import { Button } from "@timeless-ui/ui";
+import { Button } from "@timeless-ui/react";
 
 interface NoticeWidgetProps {
   noticeList: Notice[];

@@ -1,5 +1,5 @@
-import { Tooltip } from "@timeless-ui/ui";
-import type { TooltipRootProps } from "@timeless-ui/ui";
+import { Tooltip } from "@timeless-ui/react";
+import type { TooltipRootProps } from "@timeless-ui/react";
 import IconButton from "../ui/IconButton";
 interface DescriptionTooltipProps extends Omit<TooltipRootProps, "children"> {
   description?: string;

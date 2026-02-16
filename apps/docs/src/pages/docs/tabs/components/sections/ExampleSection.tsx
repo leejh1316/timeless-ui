@@ -3,7 +3,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { Tabs } from "@timeless-ui/ui";
+import { Tabs } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Example Section
@@ -98,7 +98,7 @@ const ControlledDemo = () => {
 };
 
 const controlledCode = `import { useState } from "react";
-import { Tabs } from "@timeless-ui/ui";
+import { Tabs } from "@timeless-ui/react";
 
 const ControlledDemo = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -164,7 +164,7 @@ const WithIndicatorDemo = () => (
   </Tabs.Root>
 );
 
-const withIndicatorCode = `import { Tabs } from "@timeless-ui/ui";
+const withIndicatorCode = `import { Tabs } from "@timeless-ui/react";
 
 const WithIndicatorDemo = () => (
   <Tabs.Root defaultValue="overview" className="w-full max-w-md">
@@ -232,7 +232,7 @@ const VerticalDemo = () => (
   </Tabs.Root>
 );
 
-const verticalCode = `import { Tabs } from "@timeless-ui/ui";
+const verticalCode = `import { Tabs } from "@timeless-ui/react";
 
 const VerticalDemo = () => (
   <Tabs.Root defaultValue="account" orientation="vertical" className="flex gap-4">
@@ -290,7 +290,7 @@ const DisabledDemo = () => (
   </Tabs.Root>
 );
 
-const disabledCode = `import { Tabs } from "@timeless-ui/ui";
+const disabledCode = `import { Tabs } from "@timeless-ui/react";
 
 const DisabledDemo = () => (
   <Tabs.Root defaultValue="active1" className="w-full max-w-md">

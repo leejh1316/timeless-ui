@@ -2,7 +2,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { Dropdown } from "@timeless-ui/ui";
+import { Dropdown } from "@timeless-ui/react";
 import clsx from "clsx";
 
 /* ──────────────────────────────────────────────

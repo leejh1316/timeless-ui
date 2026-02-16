@@ -3,7 +3,7 @@ import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
 import { useState } from "react";
-import { Funnel, useFunnel } from "@timeless-ui/ui";
+import { Funnel, useFunnel } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────────────────────
  * Example Section

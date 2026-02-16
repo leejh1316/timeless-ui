@@ -17,7 +17,7 @@ const anatomyItems = [
   { name: "Pagination.Page", desc: "개별 페이지 버튼 또는 ellipsis를 렌더링하는 컴포넌트" },
 ];
 
-const anatomyCode = `import { Pagination } from "@timeless-ui/ui";
+const anatomyCode = `import { Pagination } from "@timeless-ui/react";
 
 <Pagination.Root totalItems={100} itemsPerPage={10}>
   <Pagination.SkipPrev>처음</Pagination.SkipPrev>

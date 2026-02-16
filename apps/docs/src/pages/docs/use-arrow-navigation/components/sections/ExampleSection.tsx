@@ -1,4 +1,4 @@
-import { useArrowNavigation } from "@timeless-ui/ui";
+import { useArrowNavigation } from "@timeless-ui/react";
 import { useState } from "react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";

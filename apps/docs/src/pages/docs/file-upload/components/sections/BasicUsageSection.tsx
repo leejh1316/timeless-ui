@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileUpload } from "@timeless-ui/ui";
+import { FileUpload } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";

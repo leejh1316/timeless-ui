@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
-import { Input } from "@timeless-ui/ui";
+import { Input } from "@timeless-ui/react";
 
 const BasicUsageSection = () => (
   <section>
@@ -30,7 +30,7 @@ const BasicDemo = () => (
   </div>
 );
 
-const basicCode = `import { Input } from "@timeless-ui/ui";
+const basicCode = `import { Input } from "@timeless-ui/react";
 
 const BasicDemo = () => (
   <div className="w-full max-w-sm">

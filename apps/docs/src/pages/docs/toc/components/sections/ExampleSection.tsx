@@ -3,7 +3,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { TOC, TOCItem } from "@timeless-ui/ui";
+import { TOC, TOCItem } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Example Section
@@ -96,7 +96,7 @@ const HierarchicalDemo = () => {
 };
 
 const hierarchicalCode = `import { useState } from "react";
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 
 const HierarchicalDemo = () => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -194,7 +194,7 @@ const CustomTagsDemo = () => {
 };
 
 const customTagsCode = `import { useState } from "react";
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 
 const CustomTagsDemo = () => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -315,7 +315,7 @@ const ActiveItemCallbackDemo = () => {
 };
 
 const activeItemCallbackCode = `import { useState } from "react";
-import { TOC } from "@timeless-ui/ui";
+import { TOC } from "@timeless-ui/react";
 
 const ActiveItemCallbackDemo = () => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);

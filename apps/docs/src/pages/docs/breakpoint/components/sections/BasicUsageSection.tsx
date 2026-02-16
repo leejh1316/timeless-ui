@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Breakpoint } from "@timeless-ui/ui";
+import { Breakpoint } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Section Component

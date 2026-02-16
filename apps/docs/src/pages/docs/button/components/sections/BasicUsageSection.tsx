@@ -1,4 +1,4 @@
-import { Button } from "@timeless-ui/ui";
+import { Button } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";
@@ -15,7 +15,7 @@ const BasicDemo = () => {
   );
 };
 
-const basicCode = `import { Button } from "@timeless-ui/ui";
+const basicCode = `import { Button } from "@timeless-ui/react";
 
 const BasicDemo = () => {
   return (

@@ -1,4 +1,4 @@
-import { Toast as BaseToast, ToastRootProps } from "@timeless-ui/ui";
+import { Toast as BaseToast, ToastRootProps } from "@timeless-ui/react";
 import clsx from "clsx";
 import { CheckCircle2, X } from "lucide-react";
 import React, { forwardRef } from "react";

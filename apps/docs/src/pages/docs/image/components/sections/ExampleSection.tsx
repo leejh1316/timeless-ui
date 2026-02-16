@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image } from "@timeless-ui/ui";
+import { Image } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";
@@ -79,7 +79,7 @@ const FallbackDemo = () => {
 };
 
 const fallbackCode = `import { useState } from "react";
-import { Image } from "@timeless-ui/ui";
+import { Image } from "@timeless-ui/react";
 
 const FallbackDemo = () => {
   const [key, setKey] = useState(0);
@@ -140,7 +140,7 @@ const StatusTrackingDemo = () => {
 };
 
 const statusTrackingCode = `import { useState } from "react";
-import { Image } from "@timeless-ui/ui";
+import { Image } from "@timeless-ui/react";
 
 const StatusTrackingDemo = () => {
   const [status, setStatus] = useState("idle");
@@ -221,7 +221,7 @@ const FitOptionsDemo = () => (
   </div>
 );
 
-const fitOptionsCode = `import { Image } from "@timeless-ui/ui";
+const fitOptionsCode = `import { Image } from "@timeless-ui/react";
 
 const FitOptionsDemo = () => (
   <div className="grid grid-cols-2 gap-4">
@@ -300,7 +300,7 @@ const LazyLoadingDemo = () => {
 };
 
 const lazyLoadingCode = `import { useState } from "react";
-import { Image } from "@timeless-ui/ui";
+import { Image } from "@timeless-ui/react";
 
 const LazyLoadingDemo = () => {
   const [shouldLoad, setShouldLoad] = useState(false);

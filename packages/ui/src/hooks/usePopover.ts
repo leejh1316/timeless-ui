@@ -17,6 +17,7 @@ import {
   UseDismissProps,
   useFloating,
   UseFloatingOptions,
+  UseFloatingReturn,
   useFocus,
   UseFocusProps,
   useHover,
@@ -95,6 +96,15 @@ export interface UsePopoverProps extends Omit<UseFloatingOptions, "middleware" |
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
+
+export interface UsePopoverReturn extends UseFloatingReturn {
+  transitionStatus: ReturnType<typeof useTransitionStatus>["status"];
+  transitionStyle: ReturnType<typeof useTransitionStyles>["styles"];
+  isMounted: boolean;
+  setIsOpen: (open: boolean) => void;
+  isOpen: boolean;
+}
+
 export const usePopover = ({
   initialOpen = false,
   triggerMode = "click",
@@ -105,7 +115,7 @@ export const usePopover = ({
   onOpenChange: setControlledOpen,
   whileElementsMounted = autoUpdate,
   ...props
-}: UsePopoverProps) => {
+}: UsePopoverProps): UsePopoverReturn => {
   const [isOpen, setIsOpen] = useControllableState({
     value: controlledOpen,
     defaultValue: initialOpen,

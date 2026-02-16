@@ -2,7 +2,7 @@ import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { InlineCode } from "@src/components/ui/InlineCode";
-import { Modal } from "@timeless-ui/ui";
+import { Modal } from "@timeless-ui/react";
 import { useState } from "react";
 
 /* ──────────────────────────────────────────────
@@ -101,7 +101,7 @@ const ControlledDemo = () => {
   );
 };
 
-const controlledCode = `import { Modal } from "@timeless-ui/ui";
+const controlledCode = `import { Modal } from "@timeless-ui/react";
 import { useState } from "react";
 
 const ControlledDemo = () => {
@@ -178,7 +178,7 @@ const ConfirmationDemo = () => {
   );
 };
 
-const confirmationCode = `import { Modal } from "@timeless-ui/ui";
+const confirmationCode = `import { Modal } from "@timeless-ui/react";
 
 const ConfirmationDemo = () => {
   const handleConfirm = () => {
@@ -269,7 +269,7 @@ const FormDemo = () => {
   );
 };
 
-const formCode = `import { Modal } from "@timeless-ui/ui";
+const formCode = `import { Modal } from "@timeless-ui/react";
 import { useState } from "react";
 
 const FormDemo = () => {
@@ -351,7 +351,7 @@ const NonDismissableDemo = () => (
   </Modal.Root>
 );
 
-const nonDismissableCode = `import { Modal } from "@timeless-ui/ui";
+const nonDismissableCode = `import { Modal } from "@timeless-ui/react";
 
 const NonDismissableDemo = () => (
   <Modal.Root isDismissable={false}>

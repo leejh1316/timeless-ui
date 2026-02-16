@@ -1,27 +1,58 @@
 {
-  "name": "@timeless-ui/ui",
+  "name": "@timeless-ui/react",
   "version": "1.0.0",
+  "description": "접근성과 합성 패턴을 기반으로 설계된 헤드리스 React 컴포넌트 라이브러리",
   "private": false,
   "type": "module",
-  "main": "./dist/main.js",
+  "main": "./dist/main.cjs",
+  "module": "./dist/main.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./src/index.ts"
-    },
-    "./components": {
-      "import": "./src/components/index.ts"
-    },
-    "./hooks": {
-      "import": "./src/hooks/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
     }
   },
   "files": [
     "dist",
-    "src"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly"
+    "build": "vite build",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "headless",
+    "accessible",
+    "compound-pattern",
+    "typescript",
+    "unstyled"
+  ],
+  "author": "leejh1316",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leejh1316/timeless-ui.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://timeless-ui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/leejh1316/timeless-ui/issues"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-router": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
@@ -30,10 +61,7 @@
     "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
-    "lodash-es": "^4.17.21",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router": "^7.9.6"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -45,8 +73,16 @@
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^7.9.6",
     "tsconfig": "workspace:*",
     "typescript": "~5.6.2",
-    "typescript-eslint": "^8.18.2"
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.11",
+    "vite-plugin-dts": "^4.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

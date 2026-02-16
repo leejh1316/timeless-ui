@@ -62,7 +62,7 @@ const anatomyItems = [
   { name: "Accordion.Content", desc: "숨겨지거나 표시되는 내용" },
 ];
 
-const anatomyCode = `import { Accordion } from "@timeless-ui/ui";
+const anatomyCode = `import { Accordion } from "@timeless-ui/react";
 
 <Accordion.Root>
   <Accordion.Item value="item-1">

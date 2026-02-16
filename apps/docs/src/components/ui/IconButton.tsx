@@ -1,5 +1,5 @@
-import { Button as ButtonPrimitive } from "@timeless-ui/ui";
-import type { ButtonProps as ButtonPrimitiveProps } from "@timeless-ui/ui";
+import { Button as ButtonPrimitive } from "@timeless-ui/react";
+import type { ButtonProps as ButtonPrimitiveProps } from "@timeless-ui/react";
 import { forwardRef } from "react";
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 import clsx from "clsx";

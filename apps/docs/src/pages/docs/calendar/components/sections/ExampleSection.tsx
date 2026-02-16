@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar } from "@timeless-ui/ui";
+import { Calendar } from "@timeless-ui/react";
 import { isSameDay } from "date-fns";
 import { Document } from "@src/components/ui/Document";
 import { InlineCode } from "@src/components/ui/InlineCode";
@@ -94,7 +94,7 @@ const WeekendHighlightDemo = () => {
 };
 
 const weekendHighlightCode = `import { useState } from "react";
-import { Calendar } from "@timeless-ui/ui";
+import { Calendar } from "@timeless-ui/react";
 
 const WeekendHighlightDemo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -212,7 +212,7 @@ const ControlledDemo = () => {
 };
 
 const controlledCode = `import { useState } from "react";
-import { Calendar } from "@timeless-ui/ui";
+import { Calendar } from "@timeless-ui/react";
 
 const ControlledDemo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());

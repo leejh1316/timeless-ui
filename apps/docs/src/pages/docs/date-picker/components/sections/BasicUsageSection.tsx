@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
@@ -77,7 +77,7 @@ const BasicDemo = () => {
 };
 
 const basicCode = `import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 
 const BasicDemo = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());

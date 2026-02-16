@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@timeless-ui/ui";
+import { Button } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";
@@ -39,7 +39,7 @@ const LoadingDemo = () => {
 };
 
 const loadingCode = `import { useState } from "react";
-import { Button } from "@timeless-ui/ui";
+import { Button } from "@timeless-ui/react";
 
 const LoadingDemo = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -86,7 +86,7 @@ const DisabledDemo = () => {
   );
 };
 
-const disabledCode = `import { Button } from "@timeless-ui/ui";
+const disabledCode = `import { Button } from "@timeless-ui/react";
 
 const DisabledDemo = () => {
   return (
@@ -113,7 +113,7 @@ const PressedDemo = () => {
   );
 };
 
-const pressedCode = `import { Button } from "@timeless-ui/ui";
+const pressedCode = `import { Button } from "@timeless-ui/react";
 
 const PressedDemo = () => {
   return (

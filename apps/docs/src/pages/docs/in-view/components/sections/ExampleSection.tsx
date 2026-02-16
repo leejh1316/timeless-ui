@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { InView, Image } from "@timeless-ui/ui";
+import { InView, Image } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";
@@ -91,7 +91,7 @@ const OnceDemo = () => (
   </div>
 );
 
-const onceCode = `import { InView } from "@timeless-ui/ui";
+const onceCode = `import { InView } from "@timeless-ui/react";
 
 const OnceDemo = () => (
   <div className="h-96 w-full overflow-y-auto rounded-lg border border-neutral-200 bg-neutral-50">
@@ -148,7 +148,7 @@ const ThresholdDemo = () => (
   </div>
 );
 
-const thresholdCode = `import { InView } from "@timeless-ui/ui";
+const thresholdCode = `import { InView } from "@timeless-ui/react";
 
 const ThresholdDemo = () => (
   <div className="h-96 w-full overflow-y-auto rounded-lg border border-neutral-200 bg-neutral-50">
@@ -203,7 +203,7 @@ const ImageLazyLoadingDemo = () => (
   </div>
 );
 
-const imageLazyLoadingCode = `import { InView, Image } from "@timeless-ui/ui";
+const imageLazyLoadingCode = `import { InView, Image } from "@timeless-ui/react";
 
 const ImageLazyLoadingDemo = () => (
   <div className="h-96 w-full overflow-y-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4">
@@ -255,7 +255,7 @@ const AnimationDemo = () => (
   </div>
 );
 
-const animationCode = `import { InView } from "@timeless-ui/ui";
+const animationCode = `import { InView } from "@timeless-ui/react";
 
 const AnimationDemo = () => (
   <div className="h-96 w-full overflow-y-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4">
@@ -315,7 +315,7 @@ const ResetOnceDemo = () => {
 };
 
 const resetOnceCode = `import { useState } from "react";
-import { InView } from "@timeless-ui/ui";
+import { InView } from "@timeless-ui/react";
 
 const ResetOnceDemo = () => {
   const [resetFn, setResetFn] = useState<((hardReset?: boolean) => void) | null>(null);

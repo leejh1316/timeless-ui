@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Breakpoint, useComposedRefs, useMeasureSize } from "@timeless-ui/ui";
+import { Breakpoint, useComposedRefs, useMeasureSize } from "@timeless-ui/react";
 /* ──────────────────────────────────────────────
    Section Component
    ────────────────────────────────────────────── */
@@ -141,7 +141,7 @@ const TargetRefDemo = () => {
    ────────────────────────────────────────────── */
 
 const targetRefCode = `import { useRef } from "react";
-import { Breakpoint } from "@timeless-ui/ui";
+import { Breakpoint } from "@timeless-ui/react";
 
 const containerRef = useRef<HTMLDivElement>(null);
 

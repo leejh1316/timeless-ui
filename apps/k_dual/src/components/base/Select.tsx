@@ -3,8 +3,8 @@ import type {
   SelectIconProps,
   SelectItemProps,
   SelectTriggerProps,
-} from "@timeless-ui/ui";
-import { Select as BaseSelect } from "@timeless-ui/ui";
+} from "@timeless-ui/react";
+import { Select as BaseSelect } from "@timeless-ui/react";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { forwardRef } from "react";

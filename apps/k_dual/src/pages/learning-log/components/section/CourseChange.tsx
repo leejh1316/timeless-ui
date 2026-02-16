@@ -1,7 +1,7 @@
 import { useFetchMyCourseList } from "@src/api/endpoints/my";
 import { Button } from "@src/components/base/Button";
 import MyCourseWidget from "@src/components/widget/MyCourseWidget";
-import { Modal } from "@timeless-ui/ui";
+import { Modal } from "@timeless-ui/react";
 import { SendToBack } from "lucide-react";
 import { useState } from "react";
 
@@ -19,8 +19,8 @@ const CourseChange = () => {
         </Button>
       </Modal.Trigger>
       <Modal.Portal>
-        <Modal.Overlay className="inset-0 z-[1000] bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
-        <Modal.Content className="fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
+        <Modal.Overlay className="inset-0 z-40 bg-black/50 transition-opacity data-[status=close]:opacity-0 data-[status=open]:opacity-100" />
+        <Modal.Content className="fixed top-1/2 left-1/2 z-40 -translate-x-1/2 -translate-y-1/2">
           <div className="w-[calc(100vw-2rem)] max-w-3xl rounded-lg">
             <MyCourseWidget
               title="수강선택"

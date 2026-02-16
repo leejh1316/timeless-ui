@@ -1,4 +1,4 @@
-import { Tooltip } from "@timeless-ui/ui";
+import { Tooltip } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { Document } from "@src/components/ui/Document";

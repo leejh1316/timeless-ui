@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { RadioGroup } from "@timeless-ui/ui";
+import { RadioGroup } from "@timeless-ui/react";
 import { InlineCode } from "@src/components/ui/InlineCode";
 import { useState } from "react";
 

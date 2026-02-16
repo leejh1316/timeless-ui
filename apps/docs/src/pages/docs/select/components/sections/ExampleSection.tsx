@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Document } from "@src/components/ui/Document";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
-import { Select } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/react";
 import { InlineCode } from "@src/components/ui/InlineCode";
 
 const ExampleSection = () => (
@@ -107,7 +107,7 @@ const ControlledDemo = () => {
 };
 
 const controlledCode = `import { useState } from "react";
-import { Select } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/react";
 
 const ControlledDemo = () => {
   const [value, setValue] = useState<string | string[] | null>(null);
@@ -199,7 +199,7 @@ const MultipleDemo = () => {
 };
 
 const multipleCode = `import { useState } from "react";
-import { Select } from "@timeless-ui/ui";
+import { Select } from "@timeless-ui/react";
 
 const MultipleDemo = () => {
   const [value, setValue] = useState<string | string[] | null>([]);
@@ -292,7 +292,7 @@ const GroupedDemo = () => (
   </div>
 );
 
-const groupedCode = `import { Select } from "@timeless-ui/ui";
+const groupedCode = `import { Select } from "@timeless-ui/react";
 
 const GroupedDemo = () => (
   <div className="w-64">
@@ -385,7 +385,7 @@ const DisabledDemo = () => (
   </div>
 );
 
-const disabledCode = `import { Select } from "@timeless-ui/ui";
+const disabledCode = `import { Select } from "@timeless-ui/react";
 
 const DisabledDemo = () => (
   <div className="flex gap-4">
@@ -472,7 +472,7 @@ const PlacementDemo = () => (
   </div>
 );
 
-const placementCode = `import { Select } from "@timeless-ui/ui";
+const placementCode = `import { Select } from "@timeless-ui/react";
 
 const PlacementDemo = () => (
   <div className="w-64">

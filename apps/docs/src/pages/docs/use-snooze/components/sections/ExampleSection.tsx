@@ -1,4 +1,4 @@
-import { useSnooze } from "@timeless-ui/ui";
+import { useSnooze } from "@timeless-ui/react";
 import { useEffect, useState } from "react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";

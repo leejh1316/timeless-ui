@@ -99,7 +99,7 @@ const anatomyItems = [
   { name: "Select.Arrow", desc: "드롭다운 메뉴의 화살표 요소" },
 ];
 
-const anatomyCode = `import { Select } from "@timeless-ui/ui";
+const anatomyCode = `import { Select } from "@timeless-ui/react";
 
 function Example() {
   return (

@@ -1,7 +1,7 @@
 import { useLoginMutation } from "@src/api/endpoints/login";
 import { Button } from "@src/components/base/Button";
 import { Input } from "@src/components/base/Input";
-import { Checkbox } from "@timeless-ui/ui";
+import { Checkbox } from "@timeless-ui/react";
 import clsx from "clsx";
 import { ComponentPropsWithRef } from "react";
 import { Controller, useForm } from "react-hook-form";

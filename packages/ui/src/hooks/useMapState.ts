@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import cloneDeep from "lodash/cloneDeep";
+import cloneDeep from "lodash-es/cloneDeep";
 
 type InitialState<K, V> = Map<K, V> | [K, V][];
 

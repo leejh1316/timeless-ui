@@ -91,7 +91,7 @@ const anatomyItems = [
   { name: "Calendar.Next", desc: "다음 달로 이동하는 버튼입니다" },
 ];
 
-const anatomyCode = `import { Calendar } from "@timeless-ui/ui";
+const anatomyCode = `import { Calendar } from "@timeless-ui/react";
 
 <Calendar.Root>
   {/* 헤더 영역: 년월 표시 및 이전/다음 버튼 */}

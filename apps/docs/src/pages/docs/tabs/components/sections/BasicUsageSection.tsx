@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Tabs } from "@timeless-ui/ui";
+import { Tabs } from "@timeless-ui/react";
 
 /* ──────────────────────────────────────────────
    Basic Usage Section
@@ -55,7 +55,7 @@ const BasicDemo = () => (
   </Tabs.Root>
 );
 
-const basicCode = `import { Tabs } from "@timeless-ui/ui";
+const basicCode = `import { Tabs } from "@timeless-ui/react";
 
 const BasicDemo = () => (
   <Tabs.Root defaultValue="tab1" className="w-full max-w-md">

@@ -1,4 +1,4 @@
-import { Image as BaseImage, ImageRootProps, ImageViewProps } from "@timeless-ui/ui";
+import { Image as BaseImage, ImageRootProps, ImageViewProps } from "@timeless-ui/react";
 import clsx from "clsx";
 import { forwardRef } from "react";
 

@@ -58,7 +58,7 @@ const anatomyItems = [
   { name: "Input.ClearButton", desc: "입력 값을 초기화하는 버튼" },
 ];
 
-const anatomyCode = `import { Input } from "@timeless-ui/ui";
+const anatomyCode = `import { Input } from "@timeless-ui/react";
 
 function Example() {
   return (

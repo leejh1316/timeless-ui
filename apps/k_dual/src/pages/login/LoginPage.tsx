@@ -1,6 +1,6 @@
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
-import { Tooltip, useQueryString } from "@timeless-ui/ui";
+import { Tooltip, useQueryString } from "@timeless-ui/react";
 import { useNavigate } from "react-router";
 import LoginForm from "./components/form/LoginForm";
 import { setMockMode } from "@src/config/mock";

@@ -1,4 +1,4 @@
-import { TOC, TOCItem, useComposedRefs } from "@timeless-ui/ui";
+import { TOC, TOCItem, useComposedRefs } from "@timeless-ui/react";
 import clsx from "clsx";
 import { forwardRef, memo, useCallback, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router";

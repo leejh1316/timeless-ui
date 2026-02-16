@@ -6,7 +6,7 @@ import { Label, LabelColor } from "@src/components/base/Label";
 import { Skeleton } from "@src/components/base/Skeleton";
 import { ProgressStatusEnum, ProgressStatusLabel } from "@src/const/ProgressStatus";
 import { StatusEnum, StatusLabel } from "@src/const/Status";
-import { Tabs } from "@timeless-ui/ui";
+import { Tabs } from "@timeless-ui/react";
 import clsx from "clsx";
 import { FileX } from "lucide-react";
 import { useMemo } from "react";
@@ -65,7 +65,7 @@ const Curriculum = ({ weekSchedules, progressStatus, isLoading }: CurriculumProp
                 {tab.label} ({tab.items.length})
               </Tabs.Trigger>
             ))}
-            <Tabs.Indicator className="bg-primary-500 bottom-0 -ml-1 box-content h-0.5 rounded-full px-1" />
+            <Tabs.Indicator className="bg-primary-500 absolute bottom-0 -ml-1 box-content h-0.5 rounded-full px-1 transition-all" />
           </Tabs.List>
 
           <div className="mt-4 px-4 md:px-5">

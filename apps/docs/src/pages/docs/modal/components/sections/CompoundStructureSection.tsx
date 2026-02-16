@@ -16,7 +16,7 @@ const anatomyItems = [
   { name: "Modal.Close", desc: "모달을 닫는 버튼 컴포넌트" },
 ];
 
-const anatomyCode = `import { Modal } from "@timeless-ui/ui";
+const anatomyCode = `import { Modal } from "@timeless-ui/react";
 
 <Modal.Root>
   <Modal.Trigger>모달 열기</Modal.Trigger>

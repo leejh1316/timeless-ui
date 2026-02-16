@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { Counter } from "@timeless-ui/ui";
+import { Counter } from "@timeless-ui/react";
 import { MinusIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
 import { InlineCode } from "@src/components/ui/InlineCode";
 import { useState } from "react";

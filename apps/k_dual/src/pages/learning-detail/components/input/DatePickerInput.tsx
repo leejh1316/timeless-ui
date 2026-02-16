@@ -1,6 +1,6 @@
 import { Button } from "@src/components/base/Button";
 import { Card } from "@src/components/base/Card";
-import { DatePicker, DatePickerRootProps, Popover, useControllableState } from "@timeless-ui/ui";
+import { DatePicker, DatePickerRootProps, Popover, useControllableState } from "@timeless-ui/react";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";

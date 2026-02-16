@@ -54,7 +54,7 @@ const anatomyItems = [
   },
 ];
 
-const anatomyCode = `import { Image } from "@timeless-ui/ui";
+const anatomyCode = `import { Image } from "@timeless-ui/react";
 
 <Image.Root src="..." alt="...">
   <Image.View />

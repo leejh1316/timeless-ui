@@ -1,4 +1,4 @@
-import { Collapsible } from "@timeless-ui/ui";
+import { Collapsible } from "@timeless-ui/react";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
@@ -40,10 +40,10 @@ const BasicDemo = () => {
           <span className="sr-only">Toggle</span>
         </Collapsible.Trigger>
       </div>
-      <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/ui</div>
+      <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/react</div>
       <Collapsible.Content className="space-y-2">
-        <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/ui/components</div>
-        <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/ui/hooks</div>
+        <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/react/components</div>
+        <div className="rounded-md border bg-white px-4 py-3 font-mono text-sm text-neutral-600 shadow-sm">@timeless-ui/react/hooks</div>
       </Collapsible.Content>
     </Collapsible.Root>
   );
@@ -53,7 +53,7 @@ const BasicDemo = () => {
    Code Snippet
    ────────────────────────────────────────────── */
 
-const basicCode = `import { Collapsible } from "@timeless-ui/ui";
+const basicCode = `import { Collapsible } from "@timeless-ui/react";
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 

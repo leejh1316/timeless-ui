@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 import { addDays, subDays } from "date-fns";
 import { Document } from "@src/components/ui/Document";
 import { InlineCode } from "@src/components/ui/InlineCode";
@@ -109,7 +109,7 @@ const DateRangeDemo = () => {
 };
 
 const dateRangeCode = `import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 import { addDays, subDays } from "date-fns";
 
 const DateRangeDemo = () => {
@@ -224,7 +224,7 @@ const DisabledDemo = () => {
 };
 
 const disabledCode = `import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 
 const DisabledDemo = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -354,7 +354,7 @@ const ControlledDemo = () => {
 };
 
 const controlledCode = `import { useState } from "react";
-import { DatePicker } from "@timeless-ui/ui";
+import { DatePicker } from "@timeless-ui/react";
 
 const ControlledDemo = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());

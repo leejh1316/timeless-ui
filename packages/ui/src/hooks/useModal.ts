@@ -4,7 +4,9 @@ import { usePopover, UsePopoverProps } from "./usePopover";
 export interface UseModalProps extends Pick<UsePopoverProps, "open" | "onOpenChange" | "initialOpen"> {
   isDismissable?: boolean;
 }
-export const useModal = ({ open, initialOpen = false, isDismissable = true, onOpenChange }: UseModalProps) => {
+
+export interface UseModalReturn extends ReturnType<typeof usePopover> {}
+export const useModal = ({ open, initialOpen = false, isDismissable = true, onOpenChange }: UseModalProps): UseModalReturn => {
   const [isOpen, setIsOpen] = useControllableState({
     defaultValue: initialOpen,
     value: open,

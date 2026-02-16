@@ -67,7 +67,7 @@ const ApiSpecSection = () => (
     {/* Custom Types Section */}
     <Document.Heading2 mb={4}>커스텀 타입</Document.Heading2>
     <Document.Paragraph mb={6}>
-      FileUpload 컴포넌트에서 사용되는 특수한 타입들입니다. 이 타입들은 <InlineCode>@timeless-ui/ui</InlineCode>에서 export되어 사용할 수
+      FileUpload 컴포넌트에서 사용되는 특수한 타입들입니다. 이 타입들은 <InlineCode>@timeless-ui/react</InlineCode>에서 export되어 사용할 수
       있습니다.
     </Document.Paragraph>
 

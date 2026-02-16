@@ -1,7 +1,7 @@
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
 import { CodeBlock } from "@src/components/common/CodeBlock";
-import { AlertDialog } from "@timeless-ui/ui";
+import { AlertDialog } from "@timeless-ui/react";
 import { useState } from "react";
 /* ──────────────────────────────────────────────
    Section Component

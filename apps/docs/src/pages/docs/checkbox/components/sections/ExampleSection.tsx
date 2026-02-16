@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox, CheckboxState } from "@timeless-ui/ui";
+import { Checkbox, CheckboxState } from "@timeless-ui/react";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { Document } from "@src/components/ui/Document";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";

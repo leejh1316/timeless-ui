@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Document } from "@src/components/ui/Document";
 import { CodeBlock } from "@src/components/common/CodeBlock";
 import { PreviewContainer } from "@src/components/common/PreviewContainer";
-import { Input } from "@timeless-ui/ui";
+import { Input } from "@timeless-ui/react";
 import { InlineCode } from "@src/components/ui/InlineCode";
 
 const ExampleSection = () => (
@@ -57,7 +57,7 @@ const ClearButtonDemo = () => {
 };
 
 const clearButtonCode = `import { useState } from "react";
-import { Input } from "@timeless-ui/ui";
+import { Input } from "@timeless-ui/react";
 
 const ClearButtonDemo = () => {
   const [value, setValue] = useState("");
@@ -106,7 +106,7 @@ const ControlledDemo = () => {
 };
 
 const controlledCode = `import { useState } from "react";
-import { Input } from "@timeless-ui/ui";
+import { Input } from "@timeless-ui/react";
 
 const ControlledDemo = () => {
   const [value, setValue] = useState("");
