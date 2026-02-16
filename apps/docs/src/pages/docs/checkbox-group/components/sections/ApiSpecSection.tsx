@@ -35,7 +35,7 @@ const stateProps: PropsTableRow[] = [
 
 const itemAttributes: AttributeTableRow[] = [
   { name: "data-state", value: "'checked' | 'unchecked'", description: "항목의 현재 선택 상태입니다." },
-  { name: "data-disabled", value: "true | undefined", description: "항목이 비활성화된 경우 존재합니다." },
+  { name: "data-disabled", value: "true | false", description: "항목이 비활성화된 경우 존재합니다." },
 ];
 
 const selectAllAttributes: AttributeTableRow[] = [
