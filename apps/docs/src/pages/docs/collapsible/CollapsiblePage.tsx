@@ -23,8 +23,8 @@ const CollapsiblePage = () => (
     {/* ─── Sections ─── */}
     <BasicUsageSection />
     <CompoundStructureSection />
-    <ExampleSection />
     <ApiSpecSection />
+    <ExampleSection />
   </Document.Root>
 );
 

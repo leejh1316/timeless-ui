@@ -20,8 +20,8 @@ const CounterPage = () => (
     {/* ─── Sections ─── */}
     <BasicUsageSection />
     <CompoundStructureSection />
-    <ExampleSection />
     <ApiSpecSection />
+    <ExampleSection />
   </Document.Root>
 );
 
