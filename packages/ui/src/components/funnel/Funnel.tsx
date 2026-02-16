@@ -129,5 +129,5 @@ const Funnel = {
   Cancel: FunnelCancel,
   Complete: FunnelComplete,
 };
-export { Funnel };
+export { Funnel, useFunnelContext };
 export type { FunnelRootProps, FunnelStepProps };
