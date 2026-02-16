@@ -58,8 +58,15 @@ const ProgressBarValue = forwardRef<React.ComponentRef<"div">, ScopedProps<Progr
   return (
     <Primitive.div
       ref={forwardedRef}
-      className={clsx(className, "absolute inset-y-0 left-0 h-full")}
-      style={{ width: `${percent}%`, ...style }}
+      style={{
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        height: "100%",
+        width: `${percent}%`,
+        ...style,
+      }}
       {...otherProps}
     />
   );
