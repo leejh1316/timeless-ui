@@ -19,6 +19,7 @@ import DropdownPage from "@src/pages/docs/dropdown/DropdownPage";
 import FileUploadPage from "@src/pages/docs/file-upload/FileUploadPage";
 import FunnelPage from "@src/pages/docs/funnel/FunnelPage";
 import ImagePage from "@src/pages/docs/image/ImagePage";
+import InViewPage from "@src/pages/docs/in-view/InViewPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -59,6 +60,7 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/file-upload", element: <FileUploadPage />, name: "FileUpload" },
       { path: "/docs/funnel", element: <FunnelPage />, name: "Funnel" },
       { path: "/docs/image", element: <ImagePage />, name: "Image" },
+      { path: "/docs/in-view", element: <InViewPage />, name: "InView" },
     ],
   },
 };
