@@ -18,7 +18,7 @@ export * from "./image/Image";
 export * from "./in-view/InView";
 export * from "./input/Input";
 export * from "./modal/Modal";
-export * from "./pagination/Pagination";
+export * from "./pagination";
 export * from "./popover/Popover";
 export * from "./presence/Presence";
 export * from "./primitive/Primitive";

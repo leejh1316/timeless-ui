@@ -2,7 +2,6 @@ export * from "./useControllableState";
 export * from "./useIntersection";
 export * from "./useMergeRefs";
 export * from "./useModal";
-export * from "./usePagination";
 export * from "./usePopover";
 // export * from './useQueryString';
 export * from "./useCreateContext";

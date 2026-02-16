@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useControllableState } from "./useControllableState";
+import { useControllableState } from "../../hooks/useControllableState";
 
 // 유틸리티 함수: 특정 범위의 숫자 배열 생성
 const range = (start: number, end: number) => {
