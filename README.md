@@ -2,6 +2,13 @@
 
 이 프로젝트는 Radix-ui 컴포넌트를 참고하여 학습용으로 개발된 React 컴포넌트 라이브러리 입니다.
 
+#### 🔗 링크
+
+- [문서 사이트](https://timeless-ui-docs.vercel.app/)
+- [랩핑 사이트](https://timeless-ui-k-dual.vercel.app/)
+- [GitHub Repository](https://github.com/leejh1316/timeless-ui)
+- [NPM Package](https://www.npmjs.com/package/@timeless-ui/react)
+
 ---
 
 <div align="center">
@@ -144,16 +151,5 @@ timeless-ui/
 ## 📝 라이센스
 
 MIT License
-
-<br />
-
-## 🔗 링크
-
-- [문서 사이트](https://timeless-ui-docs.vercel.app/)
-- [랩핑 사이트](https://timeless-ui-k-dual.vercel.app/)
-- [GitHub Repository](https://github.com/leejh1316/timeless-ui)
-- [NPM Package](https://www.npmjs.com/package/@timeless-ui/react)
-
-<br />
 
 ---
