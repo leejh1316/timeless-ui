@@ -1,7 +1,7 @@
 import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { forwardRef } from "react";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
-import { useFunnel } from "../../hooks/useFunnel";
+import { useFunnel } from "./useFunnel";
 
 type ScopedProps<P> = P & { __scopeFunnel?: Scope };
 const FUNNEL_NAME = "Funnel";
