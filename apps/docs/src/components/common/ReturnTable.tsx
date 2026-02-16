@@ -4,27 +4,27 @@ import { InlineCode } from "../ui/InlineCode";
 import { Table } from "../ui/Table";
 import { DescriptionTooltip } from "./DescriptionTooltip";
 
-type ParameterTableRow = {
+type ReturnTableRow = {
   name: string;
   type: string;
-  defaultValue?: string;
   description?: string;
 };
-interface ParameterTableProps extends React.ComponentProps<"table"> {
-  rows: ParameterTableRow[];
+
+interface ReturnTableProps extends React.ComponentProps<"table"> {
+  rows: ReturnTableRow[];
 }
-const ParameterTable = forwardRef<React.ComponentRef<"table">, ParameterTableProps>(({ rows, className, ...props }, forwardedRef) => {
+
+const ReturnTable = forwardRef<React.ComponentRef<"table">, ReturnTableProps>(({ rows, className, ...props }, forwardedRef) => {
   return (
     <Table.Root className={clsx(className)} ref={forwardedRef} {...props}>
       <Table.Header>
         <Table.Row>
           <Table.Head>Name</Table.Head>
           <Table.Head>Type</Table.Head>
-          <Table.Head>Default</Table.Head>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {rows.map(({ name, type, defaultValue, description }) => (
+        {rows.map(({ name, type, description }) => (
           <Table.Row key={name}>
             <Table.Cell>
               <Table.CellLabel>Name</Table.CellLabel>
@@ -37,17 +37,13 @@ const ParameterTable = forwardRef<React.ComponentRef<"table">, ParameterTablePro
               <Table.CellLabel>Type</Table.CellLabel>
               <div className="font-code">{type}</div>
             </Table.Cell>
-            <Table.Cell className="items-stretch">
-              <Table.CellLabel>Default</Table.CellLabel>
-              <div className="font-code">{defaultValue || "—"}</div>
-            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
     </Table.Root>
   );
 });
-ParameterTable.displayName = "ParameterTable";
+ReturnTable.displayName = "ReturnTable";
 
-export { ParameterTable };
-export type { ParameterTableRow, ParameterTableProps };
+export { ReturnTable };
+export type { ReturnTableRow, ReturnTableProps };

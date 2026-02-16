@@ -30,6 +30,7 @@ import SelectPage from "@src/pages/docs/select/SelectPage";
 import TabsPage from "@src/pages/docs/tabs/TabsPage";
 import TOCPage from "@src/pages/docs/toc/TOCPage";
 import TooltipPage from "@src/pages/docs/tooltip/TooltipPage";
+import UseArrowNavigationPage from "@src/pages/docs/use-arrow-navigation/UseArrowNavigationPage";
 
 export const PATH = {
   NOT_FOUND: `*`,
@@ -48,10 +49,6 @@ type RouteCategory = {
 };
 
 export const PAGE_ROUTES: RouteCategory = {
-  docs: {
-    title: "Getting Started",
-    routes: [],
-  },
   components: {
     title: "Components",
     routes: [
@@ -82,6 +79,10 @@ export const PAGE_ROUTES: RouteCategory = {
       { path: "/docs/toc", element: <TOCPage />, name: "TOC" },
       { path: "/docs/tooltip", element: <TooltipPage />, name: "Tooltip" },
     ],
+  },
+  hooks: {
+    title: "Hooks",
+    routes: [{ path: "/docs/use-arrow-navigation", element: <UseArrowNavigationPage />, name: "useArrowNavigation" }],
   },
 };
 

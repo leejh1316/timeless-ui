@@ -26,8 +26,8 @@ type ItemCountOptions = {
 };
 
 type UseArrowNavigationOptions = UseArrowNavigationOptionsBase & (SelectorOptions | ItemCountOptions);
-type GetItemPropsOptions<E extends React.ElementType = "div"> = ComponentPropsWithRef<E> & { index: number };
-interface UseArrowNavigationReturn<E extends React.ElementType = "div"> {
+type GetItemPropsOptions<E extends React.ElementType = any> = ComponentPropsWithRef<E> & { index: number };
+interface UseArrowNavigationReturn<E extends React.ElementType = any> {
   rootRef: RefObject<any>; // 루트 요소에 할당할 ref
   activeIndex: number; // 현재 활성화된 아이템의 인덱스
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>; // 활성화된 아이템의 인덱스를 설정하는 함수
@@ -38,13 +38,11 @@ interface UseArrowNavigationReturn<E extends React.ElementType = "div"> {
 
 const ACTIVE_ITEM_ATTRIBUTE = "data-arrow-navigation-active-item";
 
-function useArrowNavigation(
-  options: UseArrowNavigationOptionsBase & SelectorOptions,
-): Omit<UseArrowNavigationReturn, "getItemProps">;
-function useArrowNavigation<E extends React.ElementType = "div">(
+function useArrowNavigation(options: UseArrowNavigationOptionsBase & SelectorOptions): Omit<UseArrowNavigationReturn, "getItemProps">;
+function useArrowNavigation<E extends React.ElementType = any>(
   options: UseArrowNavigationOptionsBase & ItemCountOptions,
 ): UseArrowNavigationReturn<E>;
-function useArrowNavigation(options: UseArrowNavigationOptions): UseArrowNavigationReturn {
+function useArrowNavigation<E extends React.ElementType>(options: UseArrowNavigationOptions): UseArrowNavigationReturn<E> {
   const {
     itemCount,
     selector,
@@ -107,9 +105,7 @@ function useArrowNavigation(options: UseArrowNavigationOptions): UseArrowNavigat
 
       const items = selector
         ? Array.from(rootRef.current?.querySelectorAll<HTMLElement>(`${selector}:not([aria-disabled="true"])`) ?? [])
-        : itemsRef.current.filter(
-            (item): item is HTMLElement => item !== null && item.getAttribute("aria-disabled") !== "true",
-          );
+        : itemsRef.current.filter((item): item is HTMLElement => item !== null && item.getAttribute("aria-disabled") !== "true");
       if (items.length === 0) return;
 
       const currentIndex = activeIndex;

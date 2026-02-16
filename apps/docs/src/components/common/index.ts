@@ -5,3 +5,6 @@ export * from "./PropsTable";
 export * from "./PreviewContainer";
 export * from "./DescriptionTooltip";
 export * from "./AttributeTable";
+export * from "./ParameterTable";
+export * from "./CssPropertyTable";
+export * from "./ReturnTable";
