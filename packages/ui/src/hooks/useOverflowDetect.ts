@@ -33,7 +33,7 @@ export const useOverflowDetect = <TContainer extends HTMLElement = HTMLDivElemen
 
   // useMeasureSize를 사용하여 컨테이너 크기 변화 감지
   const [containerRef, containerSize] = useMeasureSize<TContainer>();
-  const itemRefs = useRef<(TItem | null)[]>([]);
+  const itemRefs = useRef<TItem[]>([]);
   const [isOverflow, setIsOverflow] = useState(false);
 
   const checkOverflow = useCallback(() => {
@@ -55,7 +55,7 @@ export const useOverflowDetect = <TContainer extends HTMLElement = HTMLDivElemen
 
   // 아이템 ref를 설정하는 콜백 함수 생성
   const setItemRef = useCallback((index: number) => {
-    return (el: TItem | null) => {
+    return (el: TItem) => {
       itemRefs.current[index] = el;
     };
   }, []);
