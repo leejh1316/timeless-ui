@@ -48,7 +48,7 @@ const BasicDemo = () => {
       <Modal.Portal>
         <Modal.Overlay className="data-[status='close']:animate-fade-out data-[status='open']:animate-fade-in fixed inset-0 z-50 bg-black/50" />
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <Modal.Content className="data-[state='closed']:animate-scale-out data-[state='open']:animate-scale-in w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+          <Modal.Content className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
             <h3 className="mb-3 text-xl font-semibold text-neutral-900">useSnooze 데모</h3>
             <p className="mb-6 text-sm text-neutral-600">서비스 업데이트가 완료되었습니다. 새로운 기능을 확인해보세요!</p>
             <div className="flex gap-2">
