@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../axios";
 import { QUERY_KEY } from "../_queryKey";
 import { getMockMode, mockClear, setMockMode } from "@src/config/mock";
+import { AxiosRequestConfig } from "axios";
 
 interface LoginPayload {
   login_type: string;
@@ -12,12 +13,10 @@ interface LoginPayload {
 }
 
 const login = (payload: string) =>
-  fetch("/kdual/Account/LogOnProcess", {
-    method: "POST",
+  api.post("/Account/LogOnProcess", payload, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: payload,
   });
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
@@ -26,11 +25,12 @@ export const useLoginMutation = () => {
       try {
         const params = new URLSearchParams(payload as any).toString();
         const response = await login(params);
-        const queryString = Object.fromEntries(new URLSearchParams(response.url.split("?")[1]));
-        if (queryString["ErrorMessage"]) {
+        const request: XMLHttpRequest = response.request;
+        const { responseURL } = request;
+        if (responseURL.includes("ErrorMessage")) {
           throw new Error("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
         }
-        return response;
+        return true;
       } catch (error) {
         console.log(error);
         throw error;
@@ -48,13 +48,9 @@ export const useLogoutMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
-      try {
-        await logout();
-        if (getMockMode()) {
-          setMockMode(false);
-        }
-      } catch (error) {
-        throw error;
+      await logout();
+      if (getMockMode()) {
+        setMockMode(false);
       }
     },
     onSuccess: async () => {
