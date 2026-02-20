@@ -47,9 +47,7 @@ export default defineConfig(({ mode }) => {
         "/kdual": {
           target: "https://kpu.kdual.net",
           changeOrigin: true,
-          rewriteWsOrigin: true,
           rewrite: (path) => path.replace(/^\/kdual/, ""),
-          cookieDomainRewrite: "localhost",
           configure: (proxy, _options) => {
             proxy.on("proxyReq", (proxyReq, _req, _res) => {
               proxyReq.setHeader(
@@ -59,6 +57,9 @@ export default defineConfig(({ mode }) => {
               proxyReq.setHeader("Origin", "https://kpu.kdual.net");
               proxyReq.setHeader("Referer", "https://kpu.kdual.net/");
             });
+            // 리다이렉트의 location 헤더를 수정해서 vite proxy를 타도록 수정
+            // 리다이렉트시 응답에 location : http://kpu.kdual.net/Mypage.... 이런식으로 오는데
+            // 이걸 강제로 localhost/kdual/Mypage... 이런식으로 바꿔주는 작업 -> /kdual로 시작하는 요청은 프록시를 타도록 되어있음
             proxy.on("proxyRes", (proxyRes, _req, _res) => {
               const location = proxyRes.headers["location"];
               if (location) {
