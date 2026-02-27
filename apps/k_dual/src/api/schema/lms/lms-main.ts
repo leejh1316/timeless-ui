@@ -76,15 +76,15 @@ const LMS_MAIN_SCHEMA: ScrapeSchema = {
   progressInfo: {
     currentWeek: {
       selector: ".class_info .layer_th",
-      transform: (el) => Number(el?.textContent),
+      transform: (el) => Number(el?.textContent) || 0,
     },
     totalHours: {
       selector: ".class_info1 .layer_total span:nth-child(1)",
-      transform: (el) => Number(el?.textContent),
+      transform: (el) => Number(el?.textContent) || 0,
     },
     completedHours: {
       selector: ".class_info1 .layer_status:nth-child(3) span",
-      transform: (el) => Number(el?.textContent),
+      transform: (el) => Number(el?.textContent) || 0,
     },
   },
   noticeList: {

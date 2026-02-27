@@ -23,11 +23,9 @@ const CurrentWeekReport = ({ schedule, courseId }: CurrentWeekReportProps) => {
               </Label>
             )}
             <h3 className="mb-2 text-2xl font-bold">{schedule.week}주차 학습일지</h3>
-            <p className="flex items-center gap-1.5 break-keep text-sm font-semibold text-teal-600">
-              {schedule.title}
-            </p>
+            <p className="flex items-center gap-1.5 text-sm font-semibold break-keep text-teal-600">{schedule.title}</p>
           </div>
-          <div className="mt-4 text-sm text-gray-500">{schedule.period.replace(/\-/g, ".")}</div>
+          <div className="mt-4 text-sm text-gray-500">{schedule.period.replace(/-/g, ".")}</div>
         </div>
         <div className="flex w-full shrink-0 gap-x-3 md:w-auto">
           <Button
@@ -37,7 +35,7 @@ const CurrentWeekReport = ({ schedule, courseId }: CurrentWeekReportProps) => {
               "flex w-full items-center justify-center gap-2 md:w-auto",
             )}
           >
-            <PenTool size={18} className="rotate-180 -scale-x-100" />
+            <PenTool size={18} className="-scale-x-100 rotate-180" />
             작성 시작하기
           </Button>
         </div>

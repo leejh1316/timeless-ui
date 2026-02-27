@@ -36,7 +36,7 @@ const DashboardPage = () => {
             <Page.Content className="grid gap-4 md:grid-cols-[6fr_4fr] md:gap-6 lg:grid-cols-[7fr_3fr]">
               <div className="flex flex-col gap-4 md:gap-6">
                 <CurrentWeekReport
-                  schedule={learningMainData!.weeklySchedule[learningMainData!.progressInfo.currentWeek - 1]}
+                  schedule={learningMainData!.weeklySchedule[Math.max(learningMainData!.progressInfo.currentWeek - 1, 0)]}
                   courseId={courseData?.courseList[0]?.lmsId}
                 />
                 <MyCourseWidget className="min-h-[330px]" defaultCourseData={courseData} />
