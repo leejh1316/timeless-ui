@@ -26,6 +26,7 @@ export * from "./progress-bar/ProgressBar";
 export * from "./radio-group/RadioGroup";
 export * from "./select/Select";
 export * from "./slider/Slider";
+export { Slot, Slottable } from "./slot/Slot";
 export * from "./tabs/Tabs";
 export * from "./textarea/Textarea";
 export * from "./toast/Toast";
