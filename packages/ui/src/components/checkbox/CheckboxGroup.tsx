@@ -2,6 +2,7 @@ import React, { createContext, forwardRef, useCallback, useContext, useEffect, u
 import { useArrowNavigation, useComposedRefs, useControllableState } from "../../hooks";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Checkbox } from "./Checkbox";
+import { composeEventHandlers } from "../../utils/composeEventHandlers";
 
 interface CheckboxGroupContextType {
   values: string[];
@@ -25,7 +26,7 @@ interface CheckboxGroupProps extends PrimitivePropsWithRef<"div"> {
   disabled?: boolean;
 }
 const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, CheckboxGroupProps>(
-  ({ values, defaultValues, onValuesChange, disabled, children, ...props }, ref) => {
+  ({ values, defaultValues, onValuesChange, disabled, children, onKeyDown, ...otherProps }, ref) => {
     const [valuesState, setValuesState] = useControllableState({
       value: values,
       defaultValue: defaultValues ?? [],
@@ -55,33 +56,6 @@ const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, C
       setValuesState(valuesState.includes(itemValue) ? valuesState.filter((v) => v !== itemValue) : [...valuesState, itemValue]);
     };
 
-    // const disabledValues = useMemo(() => {
-    //   const values: string[] = [];
-    //   // 재귀 함수 정의
-    //   const loop = (nodes: React.ReactNode) => {
-    //     React.Children.forEach(nodes, (node) => {
-    //       if (!React.isValidElement(node)) return;
-
-    //       const type = node.type as any;
-
-    //       if (type.displayName === "CheckboxGroup.Item") {
-    //         const props = node.props as CheckboxGroupItemProps;
-    //         if (props.disabled) {
-    //           values.push(props.value);
-    //         }
-    //         return;
-    //       }
-
-    //       const props = node.props as any;
-    //       if (props.children) {
-    //         loop(props.children);
-    //       }
-    //     });
-    //   };
-    //   loop(children);
-    //   return values;
-    // }, [children]);
-
     const disabledValues = useMemo(() => {
       const values: string[] = [];
       itemMap.forEach((isDisabled, value) => {
@@ -103,7 +77,7 @@ const CheckboxGroupRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, C
           registerItem,
         }}
       >
-        <Primitive.div role="group" onKeyDown={handleKeyDown} ref={composedRef} {...props}>
+        <Primitive.div role="group" onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)} ref={composedRef} {...otherProps}>
           {children}
         </Primitive.div>
       </CheckboxGroupContext.Provider>
@@ -115,7 +89,7 @@ CheckboxGroupRoot.displayName = "CheckboxGroup.Root";
 interface CheckboxGroupItemProps extends Omit<React.ComponentProps<typeof Checkbox.Root>, "checked" | "onCheckedChange"> {
   value: string;
 }
-const CheckboxGroupItem = ({ value: itemValue, children, disabled: itemDisabled, ...props }: CheckboxGroupItemProps) => {
+const CheckboxGroupItem = ({ value: itemValue, children, disabled: itemDisabled, ...otherProps }: CheckboxGroupItemProps) => {
   const groupContext = useCheckboxGroupContext();
   const isChecked = groupContext.values.includes(itemValue);
   const isDisabled = groupContext.disabled || itemDisabled;
@@ -124,7 +98,7 @@ const CheckboxGroupItem = ({ value: itemValue, children, disabled: itemDisabled,
     return groupContext.registerItem(itemValue, !!itemDisabled);
   }, [itemValue, itemDisabled, groupContext.registerItem]);
   return (
-    <Checkbox.Root {...props} checked={isChecked} disabled={isDisabled} onCheckedChange={() => groupContext.onValueChange(itemValue)}>
+    <Checkbox.Root {...otherProps} checked={isChecked} disabled={isDisabled} onCheckedChange={() => groupContext.onValueChange(itemValue)}>
       {children}
     </Checkbox.Root>
   );
@@ -134,7 +108,7 @@ CheckboxGroupItem.displayName = "CheckboxGroup.Item";
 interface CheckboxGroupSelectAllProps extends Omit<React.ComponentProps<typeof Checkbox.Root>, "checked" | "onCheckedChange"> {
   allValues: string[];
 }
-const CheckboxGroupSelectAll = ({ allValues, children, ...props }: CheckboxGroupSelectAllProps) => {
+const CheckboxGroupSelectAll = ({ allValues, children, ...otherProps }: CheckboxGroupSelectAllProps) => {
   const { values, onValuesChange, disabledValues } = useCheckboxGroupContext();
 
   const isAllSelected = allValues.length > 0 && allValues.every((v) => values.includes(v));
@@ -150,7 +124,7 @@ const CheckboxGroupSelectAll = ({ allValues, children, ...props }: CheckboxGroup
   };
 
   return (
-    <Checkbox.Root {...props} checked={checked} onCheckedChange={handleCheckedChange}>
+    <Checkbox.Root {...otherProps} checked={checked} onCheckedChange={handleCheckedChange}>
       {children}
     </Checkbox.Root>
   );
