@@ -1,21 +1,11 @@
+import React, { forwardRef, memo, useCallback, useId, useLayoutEffect, useRef, useState } from "react";
 import { useComposedRefs } from "../../hooks/useComposeRefs";
 import { useControllableState } from "../../hooks/useControllableState";
-import React, {
-  createContext,
-  forwardRef,
-  memo,
-  useCallback,
-  useContext,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContextScope, Scope } from "../../hooks/useCreateContext";
+import { Button } from "../button/Button";
 import { Presence } from "../presence/Presence";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
-import { createContextScope } from "../../hooks/useCreateContext";
-import { Scope } from "../../hooks/useCreateContext";
-import { Button } from "../button/Button";
+import { composeEventHandlers } from "../../utils/composeEventHandlers";
 
 // =========== Collapsible Context ===========
 
@@ -30,20 +20,17 @@ type CollapsibleContextValue = {
 const COLLAPSIBLE_NAME = "Collapsible";
 const [createCollapsibleContext, createCollapsibleScope] = createContextScope(COLLAPSIBLE_NAME);
 
-const [CollapsibleProvider, useCollapsibleContext] =
-  createCollapsibleContext<CollapsibleContextValue>(COLLAPSIBLE_NAME);
+const [CollapsibleProvider, useCollapsibleContext] = createCollapsibleContext<CollapsibleContextValue>(COLLAPSIBLE_NAME);
 
 // =========== Collapsible.Root ===========
-interface CollapsibleRootProps
-  extends PrimitivePropsWithRef<"div">,
-    Partial<Omit<CollapsibleContextValue, "componentId">> {}
+interface CollapsibleRootProps extends PrimitivePropsWithRef<"div">, Partial<Omit<CollapsibleContextValue, "componentId">> {}
 const CollapsibleRoot = ({
   defaultOpen = false,
   onOpenChange,
   open,
   disabled,
   __scopeCollapsible,
-  ...props
+  ...otherProps
 }: ScopedProps<CollapsibleRootProps>) => {
   const [isOpen, setIsOpen] = useControllableState({
     value: open,
@@ -60,7 +47,7 @@ const CollapsibleRoot = ({
       componentId={`timeless-${componentId}`}
       scope={__scopeCollapsible}
     >
-      <Primitive.div data-slot="collapsible" data-disabled={disabled} data-open={isOpen} {...props} />
+      <Primitive.div data-slot="collapsible" data-disabled={disabled} data-open={isOpen} {...otherProps} />
     </CollapsibleProvider>
   );
 };
@@ -70,32 +57,26 @@ CollapsibleRoot.displayName = "Collapsible.Root";
 const COLLAPSIBLE_TRIGGER_NAME = "CollapsibleTrigger";
 interface CollapsibleTriggerProps extends PrimitivePropsWithRef<"button"> {}
 const CollapsibleTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CollapsibleTriggerProps>>(
-  ({ onClick, __scopeCollapsible, ...props }, forwardedRef) => {
-    const {
-      disabled,
-      open: isOpen,
-      componentId,
-      onOpenChange,
-    } = useCollapsibleContext(COLLAPSIBLE_TRIGGER_NAME, __scopeCollapsible);
+  ({ onClick, __scopeCollapsible, ...otherProps }, forwardedRef) => {
+    const { disabled, open: isOpen, componentId, onOpenChange } = useCollapsibleContext(COLLAPSIBLE_TRIGGER_NAME, __scopeCollapsible);
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (disabled) return;
         onOpenChange?.(!isOpen);
-        onClick?.(e);
       },
       [disabled, isOpen, onOpenChange],
     );
     return (
       <Button
         ref={forwardedRef}
-        onClick={handleClick}
+        onClick={composeEventHandlers(onClick, handleClick)}
         data-slot="collapsible-trigger"
         disabled={disabled}
         data-disabled={disabled}
         data-open={isOpen}
         aria-expanded={isOpen}
         aria-controls={componentId}
-        {...props}
+        {...otherProps}
       />
     );
   },
@@ -107,17 +88,12 @@ const COLLAPSIBLE_CONTENT_NAME = "CollapsibleContent";
 interface CollapsibleContentProps extends PrimitivePropsWithRef<"div"> {}
 const CollapsibleContent = memo(
   forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<CollapsibleContentProps>>(
-    ({ __scopeCollapsible, ...props }, forwardedRef) => {
+    ({ __scopeCollapsible, ...otherProps }, forwardedRef) => {
       const { open: isOpen } = useCollapsibleContext(COLLAPSIBLE_CONTENT_NAME, __scopeCollapsible);
       return (
         <Presence present={isOpen}>
           {({ isPresent }) => (
-            <CollapsibleContentImpl
-              __scopeCollapsible={__scopeCollapsible}
-              {...props}
-              ref={forwardedRef}
-              present={isPresent}
-            />
+            <CollapsibleContentImpl __scopeCollapsible={__scopeCollapsible} {...otherProps} ref={forwardedRef} present={isPresent} />
           )}
         </Presence>
       );
@@ -133,11 +109,8 @@ interface CollapsibleContentImplProps extends PrimitivePropsWithRef<"div"> {
 }
 const CollapsibleContentImpl = memo(
   forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<CollapsibleContentImplProps>>(
-    ({ children, style, present, __scopeCollapsible, ...props }, forwardedRef) => {
-      const { disabled, open: isOpenFromContext } = useCollapsibleContext(
-        COLLAPSIBLE_CONTENT_IMPL_NAME,
-        __scopeCollapsible,
-      );
+    ({ children, style, present, __scopeCollapsible, ...otherProps }, forwardedRef) => {
+      const { disabled, open: isOpenFromContext } = useCollapsibleContext(COLLAPSIBLE_CONTENT_IMPL_NAME, __scopeCollapsible);
 
       const heightRef = useRef<number | undefined>(0);
       const widthRef = useRef<number | undefined>(0);
@@ -193,7 +166,7 @@ const CollapsibleContentImpl = memo(
           data-slot="collapsible-content"
           data-disabled={disabled}
           data-open={isOpenFromContext}
-          {...props}
+          {...otherProps}
           style={_style}
           ref={composedRefs}
         >
@@ -213,7 +186,6 @@ export const Collapsible = {
 };
 
 // =========== Export Context ===========
-export { useCollapsibleContext };
-export { createCollapsibleScope };
+export { createCollapsibleScope, useCollapsibleContext };
 // =========== Export Type ===========
-export type { CollapsibleContextValue, CollapsibleRootProps, CollapsibleTriggerProps, CollapsibleContentProps };
+export type { CollapsibleContentProps, CollapsibleContextValue, CollapsibleRootProps, CollapsibleTriggerProps };
