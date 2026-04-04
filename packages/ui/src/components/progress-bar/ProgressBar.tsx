@@ -30,17 +30,20 @@ const ProgressBarRoot = forwardRef<React.ComponentRef<typeof Primitive.div>, Sco
 ProgressBarRoot.displayName = "ProgressBar.Root";
 
 interface ProgressBarTrackProps extends PrimitivePropsWithRef<"div"> {}
-const ProgressBarTrack = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarTrackProps>>((props, forwardedRef) => {
-  return (
-    <Primitive.div
-      style={{
-        position: "relative",
-      }}
-      ref={forwardedRef}
-      {...props}
-    />
-  );
-});
+const ProgressBarTrack = forwardRef<React.ComponentRef<"div">, ScopedProps<ProgressBarTrackProps>>(
+  ({ style, ...otherProps }, forwardedRef) => {
+    return (
+      <Primitive.div
+        style={{
+          position: "relative",
+          ...style,
+        }}
+        ref={forwardedRef}
+        {...otherProps}
+      />
+    );
+  },
+);
 ProgressBarTrack.displayName = "ProgressBar.Track";
 
 interface ProgressBarValueProps extends PrimitivePropsWithRef<"div"> {
