@@ -10,8 +10,9 @@
     "dev:k-dual": "pnpm --filter k-dual dev",
     "build": "pnpm -r --filter \"./packages/**\" build",
     "build:apps": "pnpm -r --filter \"./apps/**\" build",
-    "build:docs": "pnpm --filter @timeless-ui/react build && pnpm --filter timeless-ui-docs build",
-    "build:k-dual": "pnpm --filter @timeless-ui/react build && pnpm --filter k-dual build",
+    "build:ui": "pnpm --filter @timeless-ui/react build",
+    "build:docs": "pnpm --filter timeless-ui-docs build",
+    "build:k-dual": "pnpm --filter k-dual build",
     "preview:docs": "pnpm --filter timeless-ui-docs preview",
     "preview:k-dual": "pnpm --filter k-dual preview"
   },
