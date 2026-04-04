@@ -6,8 +6,8 @@ import clsx from "clsx";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { createContext, forwardRef, memo, useCallback, useContext, useEffect, useState } from "react";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
-import AutoScroll from "embla-carousel-auto-scroll";
-import Autoplay from "embla-carousel-autoplay";
+import "embla-carousel-autoplay";
+import "embla-carousel-auto-scroll";
 import { useControllableState } from "../../hooks/useControllableState";
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -49,7 +49,15 @@ const useCarouselApi = (externalApi: CarouselApi | null) => {
 const CarouselRoot = memo(
   forwardRef(
     (
-      { orientation = "horizontal", options, setApi, onSelect, plugins, className, ...props }: PrimitivePropsWithRef<"div"> & CarouselProps,
+      {
+        orientation = "horizontal",
+        options,
+        setApi,
+        onSelect,
+        plugins,
+        className,
+        ...otherProps
+      }: PrimitivePropsWithRef<"div"> & CarouselProps,
       ref,
     ) => {
       const [carouselRef, api] = useEmblaCarousel(
@@ -80,7 +88,7 @@ const CarouselRoot = memo(
             role="region"
             aria-roledescription="carousel"
             data-slot="carousel"
-            {...props}
+            {...otherProps}
           />
         </CarouselContext.Provider>
       );
@@ -90,14 +98,14 @@ const CarouselRoot = memo(
 CarouselRoot.displayName = "Carousel.Root";
 
 // =========== Carousel.Container ===========
-const CarouselContainer = ({ className, ...props }: PrimitivePropsWithRef<"div">) => {
+const CarouselContainer = ({ className, ...otherProps }: PrimitivePropsWithRef<"div">) => {
   const { carouselRef } = useCarousel();
-  return <Primitive.div ref={carouselRef} data-slot="carousel-container" className={clsx(className, "overflow-hidden")} {...props} />;
+  return <Primitive.div ref={carouselRef} data-slot="carousel-container" className={clsx(className, "overflow-hidden")} {...otherProps} />;
 };
 CarouselContainer.displayName = "Carousel.container";
 
 // =========== Carousel.Track ===========
-const CarouselTrack = forwardRef<React.ElementRef<"div">, PrimitivePropsWithRef<"div">>(({ className, ...props }, ref) => {
+const CarouselTrack = forwardRef<React.ElementRef<"div">, PrimitivePropsWithRef<"div">>(({ className, ...otherProps }, ref) => {
   const { orientation, api } = useCarousel();
   const { rootRef, handleKeyDown } = useArrowNavigation({
     selector: '[data-slot="carousel-item"]',
@@ -119,7 +127,7 @@ const CarouselTrack = forwardRef<React.ElementRef<"div">, PrimitivePropsWithRef<
       ref={composedRef}
       className={clsx("flex", orientation === "horizontal" ? "" : "flex-col", className)}
       data-slot="carousel-track"
-      {...props}
+      {...otherProps}
     />
   );
 });
@@ -142,14 +150,14 @@ CarouselItem.displayName = "Carousel.Item";
 // ==================== Carousel.NavigationButton (내부용) ====================
 // 훅은 export
 const useCanScroll = (api: CarouselApi | null, direction: "prev" | "next") => {
-  const [isCanScroll, setIsCanScroll] = useState(true);
+  const [isCanScroll, setIsCanScroll] = useState(false);
   const isPrev = direction === "prev";
   const scroll = isPrev ? api?.scrollPrev : api?.scrollNext;
   const canScroll = isPrev ? api?.canScrollPrev : api?.canScrollNext;
 
   const onSelect = useCallback(() => {
     if (!canScroll) return;
-    setIsCanScroll(!canScroll());
+    setIsCanScroll(canScroll());
   }, [canScroll]);
 
   useEffect(() => {
@@ -171,7 +179,7 @@ interface CarouselNavigationButtonProps extends CarouselModuleProps<"button"> {
   direction: "prev" | "next";
 }
 
-const CarouselNavigationButton = ({ carouselApi, direction, ...props }: CarouselNavigationButtonProps) => {
+const CarouselNavigationButton = ({ carouselApi, direction, ...otherProps }: CarouselNavigationButtonProps) => {
   const api = useCarouselApi(carouselApi);
   const { isCanScroll, scroll } = useCanScroll(api, direction);
 
@@ -181,13 +189,13 @@ const CarouselNavigationButton = ({ carouselApi, direction, ...props }: Carousel
 
   return (
     <Primitive.button
-      disabled={isCanScroll}
-      aria-disabled={isCanScroll}
-      data-disabled={isCanScroll}
+      disabled={!isCanScroll}
+      aria-disabled={!isCanScroll}
+      data-disabled={!isCanScroll}
       onClick={handleClick}
       aria-label={direction}
       role="button"
-      {...props}
+      {...otherProps}
     />
   );
 };
@@ -225,10 +233,10 @@ const useCurrentIndex = (api: CarouselApi | null) => {
 };
 
 interface CarouselCurrentIndexProps extends CarouselModuleProps<"span"> {}
-const CarouselCurrentIndex = memo(({ carouselApi, ...props }: CarouselCurrentIndexProps) => {
+const CarouselCurrentIndex = memo(({ carouselApi, ...otherProps }: CarouselCurrentIndexProps) => {
   const api = useCarouselApi(carouselApi);
   const currentIndex = useCurrentIndex(api);
-  return <Primitive.span data-slot="carousel-current-index" {...props} children={currentIndex + 1} />;
+  return <Primitive.span data-slot="carousel-current-index" {...otherProps} children={currentIndex + 1} />;
 });
 CarouselCurrentIndex.displayName = "Carousel.CurrentIndex";
 
@@ -249,10 +257,10 @@ const useTotalCount = (api: CarouselApi | null) => {
   return totalCount;
 };
 interface CarouselTotalCountProps extends CarouselModuleProps<"span"> {}
-const CarouselTotalCount = memo(({ carouselApi, ...props }: CarouselModuleProps<"span">) => {
+const CarouselTotalCount = memo(({ carouselApi, ...otherProps }: CarouselModuleProps<"span">) => {
   const api = useCarouselApi(carouselApi);
   const totalCount = useTotalCount(api);
-  return <Primitive.span data-slot="carousel-total-count" {...props} children={totalCount} />;
+  return <Primitive.span data-slot="carousel-total-count" {...otherProps} children={totalCount} />;
 });
 CarouselTotalCount.displayName = "Carousel.TotalCount";
 
@@ -261,7 +269,7 @@ interface CarouselIndicatorWrapperProps extends Omit<CarouselModuleProps<"div">,
   children?: React.ReactNode | ((totalSnap: number) => React.ReactNode);
 }
 const CarouselIndicatorWrapper = memo(
-  forwardRef<React.ElementRef<"div">, CarouselIndicatorWrapperProps>(({ carouselApi, children, ...props }, ref) => {
+  forwardRef<React.ElementRef<"div">, CarouselIndicatorWrapperProps>(({ carouselApi, children, ...otherProps }, ref) => {
     const api = useCarouselApi(carouselApi);
 
     const totalSnap = useTotalCount(api);
@@ -290,7 +298,7 @@ const CarouselIndicatorWrapper = memo(
     }, [api]);
 
     return (
-      <Primitive.div ref={composedRef} tabIndex={0} onKeyDown={handleKeyDown} data-slot="carousel-indicator-wrapper" {...props}>
+      <Primitive.div ref={composedRef} tabIndex={0} onKeyDown={handleKeyDown} data-slot="carousel-indicator-wrapper" {...otherProps}>
         {children instanceof Function ? children(totalSnap) : children}
       </Primitive.div>
     );
@@ -303,7 +311,7 @@ interface CarouselIndicatorProps extends Omit<CarouselModuleProps<"button">, "on
   index: number;
   onClick?: (event: React.MouseEvent, api: CarouselApi) => void;
 }
-const CarouselIndicator = memo(({ carouselApi, index, onClick, ...props }: CarouselIndicatorProps) => {
+const CarouselIndicator = memo(({ carouselApi, index, onClick, ...otherProps }: CarouselIndicatorProps) => {
   const api = useCarouselApi(carouselApi);
   const [isActive, setIsActive] = useState(false);
 
@@ -341,7 +349,7 @@ const CarouselIndicator = memo(({ carouselApi, index, onClick, ...props }: Carou
       data-active={isActive}
       aria-label={`carousel-indicator-${index + 1}`}
       data-index={index}
-      {...props}
+      {...otherProps}
     />
   );
 });
@@ -411,7 +419,7 @@ const useAutoplay = (param: CarouselPluginParameters) => {
 };
 // =========== Plugin AutoScroll===========
 const useAutoScroll = (param: CarouselPluginParameters) => {
-  const { api,defaultState,onStateChange,state } = param;
+  const { api, defaultState, onStateChange, state } = param;
   const [isPlaying, setIsPlaying] = useControllableState({
     defaultValue: defaultState === "playing",
     value: state ? state === "playing" : undefined,
