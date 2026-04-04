@@ -6,7 +6,7 @@ interface ButtonProps extends PrimitivePropsWithRef<"button"> {
 }
 
 const Button = forwardRef<React.ComponentRef<typeof Primitive.button>, ButtonProps>((props, forwardedRef) => {
-  const { disabled = false, loading = false, onPointerDown, onPointerUp, type = "button", ...buttonProps } = props;
+  const { disabled = false, loading = false, onPointerDown, onPointerUp, type = "button", ...otherProps } = props;
   const [isPressed, setIsPressed] = useState(false);
   const isDisabled = (disabled || loading) ?? false;
 
@@ -42,7 +42,7 @@ const Button = forwardRef<React.ComponentRef<typeof Primitive.button>, ButtonPro
       aria-disabled={isDisabled}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
-      {...buttonProps}
+      {...otherProps}
     />
   );
 });
