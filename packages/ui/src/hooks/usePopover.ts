@@ -1,4 +1,3 @@
-import { merge } from "lodash-es";
 import {
   arrow,
   ArrowOptions,
@@ -17,7 +16,6 @@ import {
   UseDismissProps,
   useFloating,
   UseFloatingOptions,
-  UseFloatingReturn,
   useFocus,
   UseFocusProps,
   useHover,
@@ -33,7 +31,7 @@ import {
   useTypeahead,
   UseTypeaheadProps,
 } from "@floating-ui/react";
-import { useState } from "react";
+import { merge } from "lodash-es";
 import { useControllableState } from "./useControllableState";
 
 type MiddlewareOptions = {
@@ -97,14 +95,6 @@ export interface UsePopoverProps extends Omit<UseFloatingOptions, "middleware" |
   onOpenChange?: (open: boolean) => void;
 }
 
-export interface UsePopoverReturn extends UseFloatingReturn {
-  transitionStatus: ReturnType<typeof useTransitionStatus>["status"];
-  transitionStyle: ReturnType<typeof useTransitionStyles>["styles"];
-  isMounted: boolean;
-  setIsOpen: (open: boolean) => void;
-  isOpen: boolean;
-}
-
 export const usePopover = ({
   initialOpen = false,
   triggerMode = "click",
@@ -115,7 +105,7 @@ export const usePopover = ({
   onOpenChange: setControlledOpen,
   whileElementsMounted = autoUpdate,
   ...props
-}: UsePopoverProps): UsePopoverReturn => {
+}: UsePopoverProps) => {
   const [isOpen, setIsOpen] = useControllableState({
     value: controlledOpen,
     defaultValue: initialOpen,

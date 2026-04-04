@@ -4,6 +4,7 @@ import { forwardRef, useCallback } from "react";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
 import { VisuallyHidden } from "../visually-hidden/VisuallyHidden";
+import { composeEventHandlers } from "../../utils/composeEventHandlers";
 
 type ScopedProps<P> = P & { __scopeCounter?: Scope };
 type CounterContextValueType = {
@@ -99,7 +100,7 @@ const CounterIncrement = forwardRef<React.ComponentRef<typeof Button>, ScopedPro
 
   const isDisabled = propsDisabled || disabled || (!isNaN(Number(maxValue)) && value >= maxValue!);
 
-  return <Button ref={forwardedRef} onClick={handleIncrement} disabled={isDisabled} {...otherProps} />;
+  return <Button ref={forwardedRef} onClick={composeEventHandlers(onClick, handleIncrement)} disabled={isDisabled} {...otherProps} />;
 });
 CounterIncrement.displayName = "Counter.Increment";
 
@@ -115,7 +116,7 @@ const CounterDecrement = forwardRef<React.ComponentRef<typeof Button>, ScopedPro
     onValueChange?.(nextValue);
   }, [value, step, minValue, onDecrement, onValueChange]);
   const isDisabled = propsDisabled || disabled || (!isNaN(Number(minValue)) && value <= minValue!);
-  return <Button ref={forwardedRef} onClick={handleDecrement} disabled={isDisabled} {...otherProps} />;
+  return <Button ref={forwardedRef} onClick={composeEventHandlers(onClick, handleDecrement)} disabled={isDisabled} {...otherProps} />;
 });
 CounterDecrement.displayName = "Counter.Decrement";
 

@@ -135,9 +135,9 @@ DatePickerCalendar.displayName = "DatePicker.Calendar";
 
 // ================ DatePicker.Header ================
 const DatePickerCalendarHeader = forwardRef<React.ComponentRef<typeof Calendar.Header>, ScopedProps<CalendarHeaderProps>>(
-  ({ __scopeDatePicker, ...props }, forwardedRef) => {
+  ({ __scopeDatePicker, ...otherProps }, forwardedRef) => {
     const calendarScope = useCalendarScope(__scopeDatePicker);
-    return <Calendar.Header ref={forwardedRef} {...calendarScope} {...props} />;
+    return <Calendar.Header ref={forwardedRef} {...calendarScope} {...otherProps} />;
   },
 );
 DatePickerCalendarHeader.displayName = "DatePicker.CalendarHeader";
@@ -148,9 +148,9 @@ const DatePickerCalendarDay = forwardRef<React.ComponentRef<typeof Calendar.Day>
 DatePickerCalendarDay.displayName = "DatePicker.CalendarDay";
 // ================ DatePicker.CalendarContent ================
 const DatePickerCalendarContent = forwardRef<React.ComponentRef<typeof Calendar.Content>, ScopedProps<CalendarContentProps>>(
-  ({ __scopeDatePicker, ...props }, forwardedRef) => {
+  ({ __scopeDatePicker, ...otherProps }, forwardedRef) => {
     const calendarScope = useCalendarScope(__scopeDatePicker);
-    return <Calendar.Content ref={forwardedRef} {...calendarScope} {...props} />;
+    return <Calendar.Content ref={forwardedRef} {...calendarScope} {...otherProps} />;
   },
 );
 DatePickerCalendarContent.displayName = "DatePicker.CalendarContent";
@@ -160,7 +160,7 @@ interface DatePickerCalendarDateTriggerProps extends PrimitivePropsWithRef<"butt
 }
 const DatePickerCalendarDateTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<DatePickerCalendarDateTriggerProps>>(
   (props, forwardedRef) => {
-    const { disabled, data, onClick, __scopeDatePicker, ...dateProps } = props;
+    const { disabled, data, onClick, __scopeDatePicker, ...otherProps } = props;
     const {
       minDate,
       maxDate,
@@ -198,7 +198,7 @@ const DatePickerCalendarDateTrigger = forwardRef<React.ComponentRef<typeof Butto
         data-weekday={data.isWeekday}
         data-prev-month-end={data.isPrevMonthEnd}
         data-next-month-start={data.isNextMonthStart}
-        {...dateProps}
+        {...otherProps}
       />
     );
   },
@@ -213,7 +213,7 @@ const DatePickerCalendarDate = forwardRef<React.ComponentRef<typeof Calendar.Dat
 // ================ DatePicker.Prev ================
 interface DatePickerPrevProps extends PrimitivePropsWithRef<"button"> {}
 const DatePickerPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<DatePickerPrevProps>>((props, forwardedRef) => {
-  const { disabled, __scopeDatePicker, ...buttonProps } = props;
+  const { disabled, __scopeDatePicker, onClick, ...otherProps } = props;
   const {
     displayDate,
     setDisplayDate,
@@ -231,14 +231,15 @@ const DatePickerPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps
     if (!isSameYear(prevDate, displayDate)) {
       onYearChange?.(prevDate);
     }
+    onClick?.(e);
   };
-  return <Button ref={forwardedRef} disabled={isDisabled} onClick={handleClick} {...buttonProps} />;
+  return <Button ref={forwardedRef} disabled={isDisabled} onClick={handleClick} {...otherProps} />;
 });
 DatePickerPrev.displayName = "DatePicker.Prev";
 // ================ DatePicker.Next ================
 interface DatePickerNextProps extends PrimitivePropsWithRef<"button"> {}
 const DatePickerNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<DatePickerNextProps>>((props, forwardedRef) => {
-  const { disabled, __scopeDatePicker, onClick, ...buttonProps } = props;
+  const { disabled, __scopeDatePicker, onClick, ...otherProps } = props;
   const {
     displayDate,
     setDisplayDate,
@@ -258,17 +259,17 @@ const DatePickerNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps
     }
     onClick?.(e);
   };
-  return <Button ref={forwardedRef} disabled={isDisabled} onClick={handleClick} {...buttonProps} />;
+  return <Button ref={forwardedRef} disabled={isDisabled} onClick={handleClick} {...otherProps} />;
 });
 DatePickerNext.displayName = "DatePicker.Next";
 // ================ DatePicker.Year ================
 interface DatePickerYearProps extends PrimitivePropsWithRef<"span"> {}
 const DatePickerYear = forwardRef<React.ComponentRef<typeof Primitive.span>, ScopedProps<DatePickerYearProps>>(
-  ({ __scopeDatePicker, children, ...props }, forwardedRef) => {
+  ({ __scopeDatePicker, children, ...otherProps }, forwardedRef) => {
     const { displayDate } = useDatePickerContext("DatePickerYear", __scopeDatePicker);
     const year = getYear(displayDate);
     return (
-      <Primitive.span ref={forwardedRef} {...props}>
+      <Primitive.span ref={forwardedRef} {...otherProps}>
         {children || year}
       </Primitive.span>
     );
@@ -279,11 +280,11 @@ DatePickerYear.displayName = "DatePicker.Year";
 // ================ DatePicker.Month ===============
 interface DatePickerMonthProps extends PrimitivePropsWithRef<"span"> {}
 const DatePickerMonth = forwardRef<React.ComponentRef<typeof Primitive.span>, ScopedProps<DatePickerMonthProps>>(
-  ({ __scopeDatePicker, children, ...props }, forwardedRef) => {
+  ({ __scopeDatePicker, children, ...otherProps }, forwardedRef) => {
     const { displayDate } = useDatePickerContext("DatePickerMonth", __scopeDatePicker);
     const month = getMonth(displayDate) + 1;
     return (
-      <Primitive.span ref={forwardedRef} {...props}>
+      <Primitive.span ref={forwardedRef} {...otherProps}>
         {children || month}
       </Primitive.span>
     );

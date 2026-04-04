@@ -1,7 +1,7 @@
-import { scrape, ScrapeSchema } from "./scraper";
+import { scrape, ScrapedResult, ScrapeSchema } from "./scraper";
 
-export function parseHtml<R extends any>(html: string, schema: ScrapeSchema): R {
+export function parseHtml<S extends ScrapeSchema>(html: string, schema: S): ScrapedResult<S> {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
-  return scrape(doc, schema) as R;
+  return scrape(doc, schema);
 }

@@ -192,18 +192,18 @@ interface DropdownContentProps extends React.ComponentPropsWithoutRef<typeof Pri
 
 const DropdownContent = forwardRef<DropdownContentElement, DropdownContentProps>(
   (props: ScopedProps<DropdownContentProps>, forwardedRef) => {
-    const { __scopeDropdown, ...contentProps } = props;
+    const { __scopeDropdown, style, ...otherProps } = props;
     const { popover } = useDropdownContext(CONTENT_NAME, __scopeDropdown);
     const { isMounted, transitionStatus, transitionStyle, placement } = popover;
     return (
       <Primitive.div
         ref={forwardedRef}
-        style={{ ...transitionStyle, ...contentProps.style, ...(!isMounted ? { display: "none" } : {}) }}
+        style={{ ...transitionStyle, ...style, ...(!isMounted ? { display: "none" } : {}) }}
         data-status={transitionStatus}
         data-state={isMounted ? "open" : "closed"}
         data-side={placement.split("-")[0]}
         data-align={placement.split("-")[1]}
-        {...contentProps}
+        {...otherProps}
       />
     );
   },
@@ -220,7 +220,7 @@ interface DropdownItemProps extends React.ComponentPropsWithoutRef<typeof Primit
 }
 
 const DropdownItem = forwardRef<DropdownItemElement, DropdownItemProps>((props: ScopedProps<DropdownItemProps>, forwardedRef) => {
-  const { __scopeDropdown, disabled = false, onSelect, ...itemProps } = props;
+  const { __scopeDropdown, disabled = false, onSelect, ...otherProps } = props;
   const context = useDropdownContext(ITEM_NAME, __scopeDropdown);
   const { activeIndex, elementListRef, itemListRef, setActiveIndex, getItemProps } = context;
   const itemRef = useRef<HTMLDivElement>(null);
@@ -255,14 +255,14 @@ const DropdownItem = forwardRef<DropdownItemElement, DropdownItemProps>((props: 
   return (
     <Primitive.div
       {...merge(
-        itemProps,
+        otherProps,
         getItemProps({
           onClick: (e) => {
-            props.onClick?.(e as any);
+            otherProps.onClick?.(e as any);
             handleSelect(e);
           },
           onKeyDown: (e) => {
-            props.onKeyDown?.(e as any);
+            otherProps.onKeyDown?.(e as any);
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
               handleSelect(e);

@@ -74,10 +74,10 @@ interface CalendarHeaderProps extends Omit<PrimitivePropsWithRef<"div">, "childr
   children: (weekdays: WeekdaysDataType[]) => React.ReactNode;
 }
 const CalendarHeader = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<CalendarHeaderProps>>(
-  ({ __scopeCalendar, children, ...props }, forwardedRef) => {
+  ({ __scopeCalendar, children, ...otherProps }, forwardedRef) => {
     const context = useCalendarContext("CalendarHeader", __scopeCalendar);
     return (
-      <Primitive.div ref={forwardedRef} {...props}>
+      <Primitive.div ref={forwardedRef} {...otherProps}>
         {children(context.weekdays)}
       </Primitive.div>
     );
@@ -90,7 +90,7 @@ interface CalendarDayProps extends PrimitivePropsWithRef<"div"> {
   day: WeekdaysDataType;
 }
 const CalendarDay = forwardRef<React.ComponentRef<typeof Primitive.div>, CalendarDayProps>((props, forwardedRef) => {
-  const { day, children, ...rest } = props;
+  const { day, children, ...otherProps } = props;
   return (
     <Primitive.div
       aria-label={day.day}
@@ -98,7 +98,7 @@ const CalendarDay = forwardRef<React.ComponentRef<typeof Primitive.div>, Calenda
       data-weekend={day.isWeekend}
       data-weekday={day.isWeekday}
       ref={forwardedRef}
-      {...rest}
+      {...otherProps}
     >
       {children || day.day}
     </Primitive.div>
@@ -111,10 +111,10 @@ interface CalendarContentProps extends Omit<PrimitivePropsWithRef<"div">, "child
   children: (calendarData: CalendarDataType[]) => React.ReactNode;
 }
 const CalendarContent = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<CalendarContentProps>>(
-  ({ __scopeCalendar, children, ...props }, forwardedRef) => {
+  ({ __scopeCalendar, children, ...otherProps }, forwardedRef) => {
     const context = useCalendarContext("CalendarContent", __scopeCalendar);
     return (
-      <Primitive.div ref={forwardedRef} {...props}>
+      <Primitive.div ref={forwardedRef} {...otherProps}>
         {children(context.calendarData)}
       </Primitive.div>
     );
@@ -128,7 +128,7 @@ interface CalendarDateProps extends PrimitivePropsWithRef<"div"> {
 }
 const CalendarDate = memo(
   forwardRef<React.ComponentRef<typeof Primitive.div>, CalendarDateProps>((props, forwardedRef) => {
-    const { data, children, ...rest } = props;
+    const { data, children, ...otherProps } = props;
     return (
       <Primitive.div
         aria-label={`${data.date} ${data.day}`}
@@ -141,7 +141,7 @@ const CalendarDate = memo(
         data-prev-month-end={data.isPrevMonthEnd}
         data-next-month-start={data.isNextMonthStart}
         ref={forwardedRef}
-        {...rest}
+        {...otherProps}
       >
         {children || data.date}
       </Primitive.div>
@@ -153,11 +153,11 @@ CalendarDate.displayName = "Calendar.Date";
 // ================ Calendar.Year ================
 interface CalendarYearProps extends PrimitivePropsWithRef<"span"> {}
 const CalendarYear = forwardRef<React.ComponentRef<typeof Primitive.span>, ScopedProps<CalendarYearProps>>(
-  ({ __scopeCalendar, children, ...props }, forwardedRef) => {
+  ({ __scopeCalendar, children, ...otherProps }, forwardedRef) => {
     const { date } = useCalendarContext("CalendarYear", __scopeCalendar);
     const year = getYear(date);
     return (
-      <Primitive.span ref={forwardedRef} {...props}>
+      <Primitive.span ref={forwardedRef} {...otherProps}>
         {children || year}
       </Primitive.span>
     );
@@ -168,11 +168,11 @@ CalendarYear.displayName = "Calendar.Year";
 // ================ Calendar.Month ===============
 interface CalendarMonthProps extends PrimitivePropsWithRef<"span"> {}
 const CalendarMonth = forwardRef<React.ComponentRef<typeof Primitive.span>, ScopedProps<CalendarMonthProps>>(
-  ({ __scopeCalendar, children, ...props }, forwardedRef) => {
+  ({ __scopeCalendar, children, ...otherProps }, forwardedRef) => {
     const { date } = useCalendarContext("CalendarMonth", __scopeCalendar);
     const month = getMonth(date) + 1;
     return (
-      <Primitive.span ref={forwardedRef} {...props}>
+      <Primitive.span ref={forwardedRef} {...otherProps}>
         {children || month}
       </Primitive.span>
     );
@@ -183,7 +183,7 @@ CalendarMonth.displayName = "Calendar.Month";
 // ================ Calendar.Prev ================
 interface CalendarPrevProps extends PrimitivePropsWithRef<"button"> {}
 const CalendarPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarPrevProps>>((props, forwardedRef) => {
-  const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
+  const { disabled, __scopeCalendar, onClick, ...otherProps } = props;
   const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarPrev", __scopeCalendar);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
@@ -191,16 +191,16 @@ const CalendarPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<C
     if (!isSameYear(prevDate, date)) {
       onYearChange?.(prevDate);
     }
-    onMonthChange(prevDate);
     onClick?.(e);
+    onMonthChange(prevDate);
   };
-  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
+  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...otherProps} />;
 });
 CalendarPrev.displayName = "Calendar.Prev";
 // ================ Calendar.Next ================
 interface CalendarNextProps extends PrimitivePropsWithRef<"button"> {}
 const CalendarNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<CalendarNextProps>>((props, forwardedRef) => {
-  const { disabled, __scopeCalendar, onClick, ...buttonProps } = props;
+  const { disabled, __scopeCalendar, onClick, ...otherProps } = props;
   const { date, onMonthChange, onYearChange } = useCalendarContext("CalendarNext", __scopeCalendar);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
@@ -208,10 +208,10 @@ const CalendarNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<C
     if (!isSameYear(nextDate, date)) {
       onYearChange?.(nextDate);
     }
-    onMonthChange(nextDate);
     onClick?.(e);
+    onMonthChange(nextDate);
   };
-  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...buttonProps} />;
+  return <Button ref={forwardedRef} disabled={disabled} onClick={handleClick} {...otherProps} />;
 });
 CalendarNext.displayName = "Calendar.Next";
 
