@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), tailwindcss()],
     resolve: {
+      conditions: ["timeless-source"], // dev 시 소스 직접 참조
       alias: {
         "@src": path.resolve(__dirname, "./src"),
         "@api": path.resolve(__dirname, "./src/api"),
