@@ -3,7 +3,7 @@ import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { PaginationItem, usePagination, UsePaginationProps } from "./usePagination";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
-import { composeEventHandlers } from "@src/utils/composeEventHandlers";
+import { composeEventHandlers } from "../../utils/composeEventHandlers";
 
 type ScopedProps<P> = P & { __scopePagination?: Scope };
 const PAGINATION_NAME = "Pagination";
