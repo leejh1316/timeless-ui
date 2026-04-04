@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
+    "@floating-ui/react-dom": "^2.1.8",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-auto-scroll": "^8.6.0",
