@@ -53,9 +53,10 @@ AlertDialogRoot.displayName = "AlertDialog.Root";
 const ALERT_DIALOG_TRIGGER_NAME = "AlertDialogTrigger";
 interface AlertDialogTriggerProps extends ButtonProps {}
 const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<AlertDialogTriggerProps>>((props, forwardedRef) => {
-  const { __scopeAlertDialog, onClick, ...triggerProps } = props;
+  const { __scopeAlertDialog, onClick, ...otherProps } = props;
   const { setIsOpen, refs, isOpen, getReferenceProps } = useAlertDialogContext(ALERT_DIALOG_TRIGGER_NAME, __scopeAlertDialog);
   const composedRefs = useComposedRefs(forwardedRef, refs.setReference);
+
   const handleClick = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement>) => {
       const result = onClick?.(event);
@@ -67,7 +68,7 @@ const AlertDialogTrigger = forwardRef<React.ComponentRef<typeof Button>, ScopedP
     },
     [onClick, setIsOpen],
   );
-  return <Button {...getReferenceProps(triggerProps)} ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} />;
+  return <Button {...getReferenceProps(otherProps)} ref={composedRefs} data-state={isOpen ? "open" : "closed"} onClick={handleClick} />;
 });
 AlertDialogTrigger.displayName = "AlertDialog.Trigger";
 
@@ -75,7 +76,7 @@ AlertDialogTrigger.displayName = "AlertDialog.Trigger";
 const ALERT_DIALOG_PORTAL_NAME = "AlertDialogPortal";
 interface AlertDialogPortalProps extends FloatingPortalProps {}
 const AlertDialogPortal = (props: ScopedProps<AlertDialogPortalProps>) => {
-  const { __scopeAlertDialog, children, ...portalProps } = props;
+  const { __scopeAlertDialog, children, ...otherProps } = props;
   const { isMounted, onCloseAfter } = useAlertDialogContext(ALERT_DIALOG_PORTAL_NAME, __scopeAlertDialog);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const AlertDialogPortal = (props: ScopedProps<AlertDialogPortalProps>) => {
     }
   }, [isMounted, onCloseAfter]);
 
-  return isMounted && <FloatingPortal {...portalProps}>{children}</FloatingPortal>;
+  return isMounted && <FloatingPortal {...otherProps}>{children}</FloatingPortal>;
 };
 AlertDialogPortal.displayName = "AlertDialog.Portal";
 
@@ -92,7 +93,7 @@ AlertDialogPortal.displayName = "AlertDialog.Portal";
 const ALERT_DIALOG_OVERLAY_NAME = "AlertDialogOverlay";
 interface AlertDialogOverlayProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogOverlay = forwardRef<React.ComponentRef<"div">, ScopedProps<AlertDialogOverlayProps>>((props, forwardedRef) => {
-  const { __scopeAlertDialog, ...overlayProps } = props;
+  const { __scopeAlertDialog, ...otherProps } = props;
   const { lockScroll, isOpen, transitionStatus } = useAlertDialogContext(ALERT_DIALOG_OVERLAY_NAME, __scopeAlertDialog);
   return (
     <FloatingOverlay
@@ -100,7 +101,7 @@ const AlertDialogOverlay = forwardRef<React.ComponentRef<"div">, ScopedProps<Ale
       lockScroll={lockScroll}
       data-state={isOpen ? "open" : "closed"}
       ref={forwardedRef}
-      {...overlayProps}
+      {...otherProps}
     />
   );
 });
@@ -111,7 +112,7 @@ const ALERT_DIALOG_CONTENT_NAME = "AlertDialogContent";
 interface AlertDialogContentProps extends PrimitivePropsWithRef<"div"> {}
 const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, ScopedProps<AlertDialogContentProps>>(
   (props, forwardedRef) => {
-    const { __scopeAlertDialog, ...contentProps } = props;
+    const { __scopeAlertDialog, ...otherProps } = props;
     const { refs, context, isOpen, getFloatingProps, transitionStyle } = useAlertDialogContext(
       ALERT_DIALOG_CONTENT_NAME,
       __scopeAlertDialog,
@@ -125,7 +126,7 @@ const AlertDialogContent = forwardRef<React.ComponentRef<typeof Primitive.div>, 
           aria-modal="true"
           data-state={isOpen ? "open" : "closed"}
           style={transitionStyle}
-          {...getFloatingProps(contentProps)}
+          {...getFloatingProps(otherProps)}
         />
       </FloatingFocusManager>
     );
@@ -136,7 +137,7 @@ AlertDialogContent.displayName = "AlertDialog.Content";
 // ================ AlertDialog.Button ================
 const AlertDialogButton = (name: string) => {
   return forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>((props, forwardedRef) => {
-    const { __scopeAlertDialog, onClick, ...cancelProps } = props;
+    const { __scopeAlertDialog, onClick, ...otherProps } = props;
     const { setIsOpen } = useAlertDialogContext(name, __scopeAlertDialog);
     const handleClick = useCallback(
       async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -153,7 +154,7 @@ const AlertDialogButton = (name: string) => {
       },
       [onClick, setIsOpen],
     );
-    return <Button ref={forwardedRef} onClick={handleClick} {...cancelProps} />;
+    return <Button ref={forwardedRef} onClick={handleClick} {...otherProps} />;
   });
 };
 
