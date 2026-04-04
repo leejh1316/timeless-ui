@@ -3,6 +3,7 @@ import { createContextScope, Scope } from "../../hooks/useCreateContext";
 import { PaginationItem, usePagination, UsePaginationProps } from "./usePagination";
 import { Primitive, PrimitivePropsWithRef } from "../primitive/Primitive";
 import { Button } from "../button/Button";
+import { composeEventHandlers } from "@src/utils/composeEventHandlers";
 
 type ScopedProps<P> = P & { __scopePagination?: Scope };
 const PAGINATION_NAME = "Pagination";
@@ -29,7 +30,7 @@ const [PaginationActionProvider, usePaginationActionContext] = createPaginationC
 // ----------- Pagination.Root ----------
 interface PaginationRootProps extends PrimitivePropsWithRef<"div">, UsePaginationProps {}
 export const PaginationRoot = forwardRef<React.ComponentRef<"div">, ScopedProps<PaginationRootProps>>((props, forwardedRef) => {
-  const { __scopePagination, totalItems, itemsPerPage, siblings, boundaries, defaultPage, currentPage, onPageChange, ...elementProps } =
+  const { __scopePagination, totalItems, itemsPerPage, siblings, boundaries, defaultPage, currentPage, onPageChange, ...otherProps } =
     props;
   const pagination = usePagination({
     totalItems,
@@ -51,7 +52,7 @@ export const PaginationRoot = forwardRef<React.ComponentRef<"div">, ScopedProps<
         handleSkipNext={handleSkipNext}
         handleSkipPrevious={handleSkipPrevious}
       >
-        <Primitive.div role="navigation" aria-label="페이지 네비게이션" ref={forwardedRef} {...elementProps} />
+        <Primitive.div role="navigation" aria-label="페이지네이션" ref={forwardedRef} {...otherProps} />
       </PaginationActionProvider>
     </PaginationValueProvider>
   );
@@ -62,11 +63,20 @@ PaginationRoot.displayName = "Pagination.Root";
 const PAGINATION_PREV_NAME = "PaginationPrev";
 const PaginationPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>(
   (props, forwardedRef) => {
-    const { __scopePagination, disabled } = props;
+    const { __scopePagination, disabled, onClick, ...otherProps } = props;
     const { handlePrevious } = usePaginationActionContext(PAGINATION_PREV_NAME, __scopePagination);
     const { isFirstPage } = usePaginationValueContext(PAGINATION_PREV_NAME, __scopePagination);
     const isDisabled = disabled ?? isFirstPage;
-    return <Button aria-label="이전 페이지" ref={forwardedRef} onClick={handlePrevious} disabled={isDisabled} {...props} />;
+
+    return (
+      <Button
+        aria-label="이전 페이지"
+        ref={forwardedRef}
+        onClick={composeEventHandlers(onClick, handlePrevious)}
+        disabled={isDisabled}
+        {...otherProps}
+      />
+    );
   },
 );
 PaginationPrev.displayName = "Pagination.Prev";
@@ -75,11 +85,19 @@ PaginationPrev.displayName = "Pagination.Prev";
 const PAGINATION_SKIP_PREV_NAME = "PaginationSkipPrev";
 const PaginationSkipPrev = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>(
   (props, forwardedRef) => {
-    const { __scopePagination, disabled } = props;
+    const { __scopePagination, disabled, onClick, ...otherProps } = props;
     const { handleSkipPrevious } = usePaginationActionContext(PAGINATION_SKIP_PREV_NAME, __scopePagination);
     const { isFirstPage } = usePaginationValueContext(PAGINATION_SKIP_PREV_NAME, __scopePagination);
     const isDisabled = disabled ?? isFirstPage;
-    return <Button aria-label="이전 그룹 페이지" ref={forwardedRef} onClick={handleSkipPrevious} disabled={isDisabled} {...props} />;
+    return (
+      <Button
+        aria-label="이전 그룹 페이지"
+        ref={forwardedRef}
+        onClick={composeEventHandlers(onClick, handleSkipPrevious)}
+        disabled={isDisabled}
+        {...otherProps}
+      />
+    );
   },
 );
 PaginationSkipPrev.displayName = "Pagination.SkipPrev";
@@ -88,11 +106,19 @@ PaginationSkipPrev.displayName = "Pagination.SkipPrev";
 const PAGINATION_NEXT_NAME = "PaginationNext";
 const PaginationNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>(
   (props, forwardedRef) => {
-    const { __scopePagination, disabled } = props;
+    const { __scopePagination, disabled, onClick, ...otherProps } = props;
     const { handleNext } = usePaginationActionContext(PAGINATION_NEXT_NAME, __scopePagination);
     const { isLastPage } = usePaginationValueContext(PAGINATION_NEXT_NAME, __scopePagination);
     const isDisabled = disabled ?? isLastPage;
-    return <Button aria-label="다음 페이지" ref={forwardedRef} onClick={handleNext} disabled={isDisabled} {...props} />;
+    return (
+      <Button
+        aria-label="다음 페이지"
+        ref={forwardedRef}
+        onClick={composeEventHandlers(onClick, handleNext)}
+        disabled={isDisabled}
+        {...otherProps}
+      />
+    );
   },
 );
 PaginationNext.displayName = "Pagination.Next";
@@ -101,11 +127,19 @@ PaginationNext.displayName = "Pagination.Next";
 const PAGINATION_SKIP_NEXT_NAME = "PaginationSkipNext";
 const PaginationSkipNext = forwardRef<React.ComponentRef<typeof Button>, ScopedProps<PrimitivePropsWithRef<typeof Button>>>(
   (props, forwardedRef) => {
-    const { __scopePagination, disabled } = props;
+    const { __scopePagination, disabled, onClick, ...otherProps } = props;
     const { handleSkipNext } = usePaginationActionContext(PAGINATION_SKIP_NEXT_NAME, __scopePagination);
     const { isLastPage } = usePaginationValueContext(PAGINATION_SKIP_NEXT_NAME, __scopePagination);
     const isDisabled = disabled ?? isLastPage;
-    return <Button aria-label="다음 그룹 페이지" ref={forwardedRef} onClick={handleSkipNext} disabled={isDisabled} {...props} />;
+    return (
+      <Button
+        aria-label="다음 그룹 페이지"
+        ref={forwardedRef}
+        onClick={composeEventHandlers(onClick, handleSkipNext)}
+        disabled={isDisabled}
+        {...otherProps}
+      />
+    );
   },
 );
 PaginationSkipNext.displayName = "Pagination.SkipNext";
