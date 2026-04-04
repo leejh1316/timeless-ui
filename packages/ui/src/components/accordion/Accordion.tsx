@@ -64,7 +64,7 @@ const AccordionRoot = memo(
       onValueChange,
       onKeyDown,
       __scopeAccordion,
-      ...restProps
+      ...otherProps
     } = props;
 
     const [accordionValue, setAccordionValue] = useControllableState<string | string[] | null>({
@@ -110,7 +110,7 @@ const AccordionRoot = memo(
           data-orientation={orientation}
           data-disabled={disabled}
           data-mode={mode}
-          {...restProps}
+          {...otherProps}
         />
       </AccordionProvider>
     );
@@ -123,7 +123,8 @@ const ACCORDION_ITEM_NAME = "AccordionItem";
 interface AccordionItemProps extends PrimitivePropsWithRef<"div">, Pick<CollapsibleContextValue, "disabled"> {
   value: string;
 }
-const AccordionItem = ({ value: propValue, disabled: propDisabled, __scopeAccordion, ...props }: ScopedProps<AccordionItemProps>) => {
+const AccordionItem = (props: ScopedProps<AccordionItemProps>) => {
+  const { value: propValue, disabled: propDisabled, __scopeAccordion, ...otherProps } = props;
   const { disabled, value, onValueChange, mode, collapsible, orientation } = useAccordionContext(ACCORDION_ITEM_NAME, __scopeAccordion);
   const collapsibleScope = useCollapsibleScope(__scopeAccordion);
   const isDisabled = propDisabled === undefined ? disabled : propDisabled;
@@ -162,7 +163,7 @@ const AccordionItem = ({ value: propValue, disabled: propDisabled, __scopeAccord
       data-slot="accordion-item"
       data-orientation={orientation}
       data-disabled={isDisabled}
-      {...props}
+      {...otherProps}
       {...collapsibleScope}
     />
   );
@@ -173,9 +174,9 @@ AccordionItem.displayName = "Accordion.Item";
 
 const ACCORDION_HEADER_NAME = "AccordionHeader";
 interface AccordionHeaderProps extends PrimitivePropsWithRef<"h3"> {}
-const AccordionHeader = ({ __scopeAccordion, ...props }: ScopedProps<AccordionHeaderProps>) => {
+const AccordionHeader = ({ __scopeAccordion, ...otherProps }: ScopedProps<AccordionHeaderProps>) => {
   const { disabled, orientation } = useAccordionContext(ACCORDION_HEADER_NAME, __scopeAccordion);
-  return <Primitive.h3 data-slot="accordion-header" data-orientation={orientation} data-disabled={disabled} {...props} />;
+  return <Primitive.h3 data-slot="accordion-header" data-orientation={orientation} data-disabled={disabled} {...otherProps} />;
 };
 AccordionHeader.displayName = "Accordion.Header";
 
@@ -183,7 +184,7 @@ AccordionHeader.displayName = "Accordion.Header";
 const ACCORDION_TRIGGER_NAME = "AccordionTrigger";
 interface AccordionTriggerProps extends PrimitivePropsWithRef<"button"> {}
 const AccordionTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>, ScopedProps<AccordionTriggerProps>>(
-  ({ onClick, __scopeAccordion, ...props }, forwardedRef) => {
+  ({ __scopeAccordion, ...otherProps }, forwardedRef) => {
     const { orientation, componentId } = useAccordionContext(ACCORDION_TRIGGER_NAME, __scopeAccordion);
     const collapsibleScope = useCollapsibleScope(__scopeAccordion);
     return (
@@ -193,7 +194,7 @@ const AccordionTrigger = forwardRef<React.ComponentRef<typeof Primitive.button>,
         data-slot="accordion-trigger"
         data-orientation={orientation}
         aria-controls={componentId}
-        {...props}
+        {...otherProps}
       />
     );
   },
@@ -204,26 +205,29 @@ AccordionTrigger.displayName = "Accordion.Trigger";
 const ACCORDION_CONTENT_NAME = "AccordionContent";
 interface AccordionContentProps extends PrimitivePropsWithRef<"div"> {}
 const AccordionContent = memo(
-  forwardRef<React.ElementRef<typeof Primitive.div>, ScopedProps<AccordionContentProps>>(({ __scopeAccordion, ...props }, forwardedRef) => {
-    const { componentId, orientation } = useAccordionContext(ACCORDION_CONTENT_NAME, __scopeAccordion);
-    const collapsibleScope = useCollapsibleScope(__scopeAccordion);
-    const style = {
-      "--accordion-content-width": `var(--collapsible-content-width)`,
-      "--accordion-content-height": `var(--collapsible-content-height)`,
-    } as React.CSSProperties;
-    return (
-      <Collapsible.Content
-        {...collapsibleScope}
-        ref={forwardedRef}
-        style={style}
-        data-slot="accordion-content"
-        data-orientation={orientation}
-        aria-labelledby={componentId}
-        role="region"
-        {...props}
-      />
-    );
-  }),
+  forwardRef<React.ElementRef<typeof Primitive.div>, ScopedProps<AccordionContentProps>>(
+    ({ __scopeAccordion, style: propStyle, ...otherProps }, forwardedRef) => {
+      const { componentId, orientation } = useAccordionContext(ACCORDION_CONTENT_NAME, __scopeAccordion);
+      const collapsibleScope = useCollapsibleScope(__scopeAccordion);
+      const style = {
+        ...propStyle,
+        "--accordion-content-width": `var(--collapsible-content-width)`,
+        "--accordion-content-height": `var(--collapsible-content-height)`,
+      } as React.CSSProperties;
+      return (
+        <Collapsible.Content
+          {...collapsibleScope}
+          ref={forwardedRef}
+          style={style}
+          data-slot="accordion-content"
+          data-orientation={orientation}
+          aria-labelledby={componentId}
+          role="region"
+          {...otherProps}
+        />
+      );
+    },
+  ),
 );
 AccordionContent.displayName = "Accordion.Content";
 
