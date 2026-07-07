@@ -10,13 +10,12 @@ const OnThisPage = forwardRef<React.ComponentRef<"aside">, React.ComponentProps<
   const composedRef = useComposedRefs(forwardedRef, scrollContainerRef);
 
   // 내부 스크롤 위치 재조정
-  const repositionScroll = useCallback((item: Omit<TOCItem, "element">) => {
+  const repositionScroll = useCallback((triggeredElement: HTMLAnchorElement) => {
     if (!scrollContainerRef.current) return;
-    const linkElement = scrollContainerRef.current.querySelector<HTMLAnchorElement>(`a[href="${pathname}#${item.id}"]`);
-    if (linkElement) {
+    if (triggeredElement) {
       const containerHeight = scrollContainerRef.current.clientHeight;
-      const linkTop = linkElement.offsetTop;
-      const linkHeight = linkElement.clientHeight;
+      const linkTop = triggeredElement.offsetTop;
+      const linkHeight = triggeredElement.clientHeight;
       scrollContainerRef.current.scrollTo({ top: linkTop - linkHeight - containerHeight / 3, behavior: "smooth" });
     }
   }, []);
@@ -58,16 +57,19 @@ const OnThisPage = forwardRef<React.ComponentRef<"aside">, React.ComponentProps<
 
 interface ItemProps extends Omit<TOCItem, "element"> {
   isActive: boolean;
-  onActive: (item: Omit<TOCItem, "element">) => void;
+  onActive: (triggeredElement: HTMLAnchorElement) => void;
 }
 const Item = memo(({ onActive, isActive, ...item }: ItemProps) => {
+  const itemRef = useRef<HTMLAnchorElement | null>(null);
   useEffect(() => {
     if (isActive) {
-      onActive(item);
+      console.log(item);
+      onActive(itemRef.current!);
     }
   }, [isActive]);
   return (
     <Link
+      ref={itemRef}
       to={`#${item.id}`}
       data-level={item.level}
       style={{
